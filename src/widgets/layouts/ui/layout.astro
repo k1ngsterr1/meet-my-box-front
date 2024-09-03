@@ -1,0 +1,16 @@
+---
+const { children } = Astro.props;
+
+import "@shared/styles/global.scss";
+
+import { Header } from "@features/ui/Header/header";
+---
+
+<html lang="en">
+  <body>
+    <div class="container">
+      <Header client:load isMobile />
+      <slot />
+    </div>
+  </body>
+</html>

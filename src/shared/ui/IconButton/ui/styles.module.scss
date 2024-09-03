@@ -1,0 +1,20 @@
+.icon_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s all;
+  @apply text-main;
+
+  &:hover {
+    @apply text-hover;
+  }
+
+  &:hover &__icon {
+    @apply text-hover;
+  }
+
+  &__icon {
+    @apply text-base;
+    @apply text-main;
+  }
+}

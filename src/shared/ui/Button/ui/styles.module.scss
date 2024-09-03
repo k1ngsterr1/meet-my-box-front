@@ -1,0 +1,20 @@
+@import "../../../styles/mixins";
+@import "../../../styles/variables";
+
+.button {
+  font-family: "Montserrat";
+  transition: 0.3s all;
+  @apply text-white;
+  @apply bg-main;
+  @apply rounded-full;
+  @apply text-base;
+
+  &:hover {
+    @apply bg-hover;
+  }
+
+  @include respond-to("xxxs") {
+    width: clamp(90px, 180 / 360 * 100vw, 360px);
+    height: clamp(22.5px, 45 / 360 * 100vw, 90px);
+  }
+}

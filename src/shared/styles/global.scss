@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import "./mixins";
+@import "./variables";
+@import "breakpoint-slicer";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat";
+  @apply text-dark;
+}
+
+h1 {
+  @include respond-to("xxxs") {
+    @apply text-3xl;
+  }
+}
+
+p {
+  font-family: "PT Sans", sans-serif;
+  @apply text-dark;
+
+  @include respond-to("xxxs") {
+    @apply text-base;
+  }
+}
+
+.container {
+  @include respond-to("xxxs") {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+}
+
+body {
+  @apply bg-white;
+}

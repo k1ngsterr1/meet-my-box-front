@@ -1,0 +1,8 @@
+@import "../../../styles/mixins";
+@import "../../../styles/variables";
+
+.paragraph {
+  @include respond-to("xxxs") {
+    @apply text-base;
+  }
+}
