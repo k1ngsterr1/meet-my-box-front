@@ -5,11 +5,12 @@ import styles from "./styles.module.scss";
 interface IIconButton {
   text: string;
   icon: IconDefinition;
+  margin?: string;
 }
 
-export const IconButton: React.FC<IIconButton> = ({ text, icon }) => {
+export const IconButton: React.FC<IIconButton> = ({ text, icon, margin }) => {
   return (
-    <button className={styles.icon_button}>
+    <button className={`${styles.icon_button} ${margin || ""}`}>
       {text}
       <FontAwesomeIcon icon={icon} className={styles.icon_button__icon} />
     </button>
