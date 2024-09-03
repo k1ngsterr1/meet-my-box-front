@@ -5,12 +5,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  @apply mt-8;
 
   &__heading {
+    @apply font-bold;
+    @apply text-center;
     @include respond-to("xxxs") {
       font-size: clamp(14px, 28 / 360 * 100vw, 46px);
     }
-    @apply font-bold;
-    @apply text-center;
+  }
+  &__clients {
+    @apply mt-4;
+    display: flex;
+    align-items: center;
+  }
+  &__img {
+    width: 80%;
+    @apply mt-8;
   }
 }

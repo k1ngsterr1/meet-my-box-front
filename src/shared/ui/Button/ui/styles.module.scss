@@ -9,12 +9,10 @@
   @apply rounded-full;
   @apply text-base;
 
+  width: clamp(90px, 180 / 360 * 100vw, 360px);
+  height: clamp(22.5px, 45 / 360 * 100vw, 90px);
+
   &:hover {
     @apply bg-hover;
-  }
-
-  @include respond-to("xxxs") {
-    width: clamp(90px, 180 / 360 * 100vw, 360px);
-    height: clamp(22.5px, 45 / 360 * 100vw, 90px);
   }
 }

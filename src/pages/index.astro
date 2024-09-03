@@ -2,8 +2,10 @@
 // src/pages/index.astro or any relevant page
 import Layout from "@widgets/layouts/ui/layout.astro";
 import { MainScreen } from "@widgets/ui/screens/MainScreen/MainScreen";
+import { ServiceScreen } from "@widgets/ui/screens/ServiceScreen/ServiceScreen";
 ---
 
 <Layout>
   <MainScreen client:load />
+  <ServiceScreen client:load/>
 </Layout>
