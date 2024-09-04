@@ -1,0 +1,38 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+
+.service {
+  &__group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  &__card {
+    width: 90%;
+    height: clamp(150px, 70.092vw, 600px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    @apply mt-8;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    &__title {
+      @apply font-bold;
+      @apply text-center;
+      font-size: clamp(9px, 18 / 360 * 100vw, 36px);
+    }
+
+    &__img {
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

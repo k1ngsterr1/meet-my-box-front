@@ -3,6 +3,7 @@
 .service {
   display: flex;
   flex-direction: column;
+  align-items: center;
   @apply mt-8;
 
   &__heading {
