@@ -1,0 +1,26 @@
+.about {
+  &__card {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__item {
+      padding: clamp(25px, 11.681999999999999vw, 100px) 0px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 16px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      @apply mt-12;
+    }
+    &__img {
+      @apply mb-6;
+    }
+    &__title {
+      @apply font-bold;
+      @apply text-center;
+      font-size: clamp(9px, 18 / 360 * 100vw, 36px);
+    }
+  }
+}

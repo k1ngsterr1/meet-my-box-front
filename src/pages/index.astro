@@ -4,10 +4,12 @@ import Layout from "@widgets/layouts/ui/layout.astro";
 import { MainScreen } from "@widgets/ui/screens/MainScreen/MainScreen";
 import { ServiceScreen } from "@widgets/ui/screens/ServiceScreen/ServiceScreen";
 import { ProcessScreen } from "@widgets/ui/screens/ProcessScreen/ProcessScreen";
+import { AboutScreen } from "@widgets/ui/screens/AboutScreen/AboutScreen";
 ---
 
 <Layout>
   <MainScreen client:load />
-  <ServiceScreen client:load/>
-  <ProcessScreen client:load>
+  <ServiceScreen client:load />
+  <ProcessScreen client:load />
+  <AboutScreen client:load />
 </Layout>
