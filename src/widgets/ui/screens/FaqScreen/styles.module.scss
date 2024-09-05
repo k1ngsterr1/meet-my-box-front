@@ -1,10 +1,6 @@
 @import "@shared/styles/mixins";
 @import "@shared/styles/variables";
-
-.track {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.faq {
   @apply mt-14;
   &__heading {
     @apply font-bold;

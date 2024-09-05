@@ -1,0 +1,13 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+.calculate {
+  @apply mt-14;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__heading {
+    @apply font-bold;
+    @apply text-center;
+    font-size: clamp(14px, 24 / 360 * 100vw, 46px);
+  }
+}
