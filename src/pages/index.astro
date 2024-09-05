@@ -1,11 +1,25 @@
 ---
 // src/pages/index.astro or any relevant page
 import Layout from "@widgets/layouts/ui/layout.astro";
+import { AboutScreen } from "@widgets/ui/screens/AboutScreen/AboutScreen";
+import { CalculateScreen } from "@widgets/ui/screens/CalculateScreen/CalculateScreen";
+import { ContactScreen } from "@widgets/ui/screens/ContactScreen/ContactScreen";
+import { FAQScreen } from "@widgets/ui/screens/FaqScreen/FaqScreen";
+import { FeedbackScreen } from "@widgets/ui/screens/FeedbackScreen/FeedbackScreen";
 import { MainScreen } from "@widgets/ui/screens/MainScreen/MainScreen";
+import { ProcessScreen } from "@widgets/ui/screens/ProcessScreen/ProcessScreen";
 import { ServiceScreen } from "@widgets/ui/screens/ServiceScreen/ServiceScreen";
+import { TrackScreen } from "@widgets/ui/screens/TrackScreen/TrackScreen";
 ---
 
 <Layout>
   <MainScreen client:load />
   <ServiceScreen client:load />
+  <ProcessScreen client:load />
+  <AboutScreen client:load />
+  <TrackScreen client:load />
+  <FeedbackScreen client:load />
+  <CalculateScreen client:load />
+  <FAQScreen client:load />
+  <ContactScreen client:load />
 </Layout>

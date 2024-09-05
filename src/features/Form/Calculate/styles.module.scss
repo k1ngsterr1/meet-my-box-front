@@ -1,0 +1,30 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+
+.calculate {
+  &__form {
+    @apply mt-12;
+    @apply pt-8;
+    @apply pb-8;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 16px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    &__heading {
+      @apply text-center;
+      font-size: clamp(9px, 18 / 360 * 100vw, 36px);
+    }
+    &__inputs {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    &__result {
+      @apply mt-6;
+      @apply font-bold;
+      @apply text-main;
+      font-size: clamp(14px, 28 / 360 * 100vw, 46px);
+    }
+  }
+}
