@@ -1,27 +1,38 @@
-import process1 from "@assets/process_1.png";
-import process2 from "@assets/process_2.png";
-import process3 from "@assets/process_3.png";
-import process4 from "@assets/process_4.png";
-export interface IProcessItem {
+import img1 from "@assets/process_1.png";
+import img2 from "@assets/process_2.png";
+import img3 from "@assets/process_3.png";
+import img4 from "@assets/process_4.png";
+import img5 from "@assets/service2.png";
+export interface IImageCardItem {
   img: ImageMetadata;
   description: string;
 }
-export const processList: IProcessItem[] = [
+export const processList: IImageCardItem[] = [
   {
-    img: process1,
+    img: img1,
     description: "Подготовить посылку, взвесить и измерить.",
   },
   {
-    img: process2,
+    img: img2,
     description: "Оформить заказ на нашем сайте и оплатить",
   },
   {
-    img: process3,
+    img: img3,
     description:
       "Получить этикетки на мейл, распечатать и наклеить их на посылку",
   },
   {
-    img: process4,
+    img: img4,
     description: "Передать посылку курьеру",
+  },
+];
+export const serviceList: IImageCardItem[] = [
+  {
+    img: img2,
+    description: "Cервис доставки посылок из Европы в Россию и страны СНГ",
+  },
+  {
+    img: img5,
+    description: "Покупки в интернет-магазина Европы",
   },
 ];
