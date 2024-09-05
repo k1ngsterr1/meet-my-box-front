@@ -1,0 +1,6 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+.link {
+  @apply text-main;
+  font-size: clamp(14px, 20 / 360 * 100vw, 46px);
+}
