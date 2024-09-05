@@ -1,0 +1,59 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); /* Centers the buttons vertically */
+  border-radius: 30px; /* Adjust as needed for your button shape */
+  width: 48px; /* Assuming the buttons are 48x48 based on your screenshot */
+  height: 48px;
+  display: flex; /* Centers the icon inside */
+  align-items: center;
+  justify-content: center;
+  background-color: #333333; /* Dark background */
+  color: #f9f9f9; /* Light icon color */
+  cursor: pointer;
+  z-index: 10; /* Ensure they are above other elements */
+}
+
+.prev {
+  left: 0;
+  transform: translateX(-30%);
+}
+
+.next {
+  right: 0;
+  transform: translateX(30%);
+}
+.feedback {
+  &__swiper {
+    @apply mt-8;
+    position: relative;
+  }
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 16px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    @apply pt-12;
+    @apply pb-12;
+    &__name {
+      width: 100%;
+      @apply font-bold;
+      @apply text-center;
+      font-size: clamp(9px, 18 / 360 * 100vw, 36px);
+    }
+    &__stars {
+      display: flex;
+      gap: 0.5rem;
+      @apply mt-4;
+    }
+    &__star {
+      color: #220cf3;
+      width: clamp(12px, 5.60736vw, 48px);
+      height: clamp(12px, 5.60736vw, 48px);
+    }
+  }
+}

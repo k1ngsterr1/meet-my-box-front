@@ -1,0 +1,10 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+.feedback {
+  @apply mt-14;
+  &__heading {
+    @apply font-bold;
+    @apply text-center;
+    font-size: clamp(14px, 24 / 360 * 100vw, 46px);
+  }
+}
