@@ -1,0 +1,20 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+.footer {
+  &__nav {
+    @apply mt-8;
+    @apply pb-8;
+    &__list {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    &__item {
+      &__link {
+        color: #f9f9f9;
+        font-size: clamp(14px, 20 / 360 * 100vw, 46px);
+      }
+    }
+  }
+}

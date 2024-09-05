@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 90%;
   &__heading {
     @apply font-bold;
     @apply text-center;
