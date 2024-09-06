@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 
-interface FormProps {
+interface FormProps extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
   margin?: string;
   value: string;
@@ -13,6 +13,7 @@ export const FormInput: React.FC<FormProps> = ({
   margin,
   value,
   onChange,
+  ...rest
 }) => {
   return (
     <input
@@ -21,6 +22,7 @@ export const FormInput: React.FC<FormProps> = ({
       className={`${styles.input} ${margin || ""}`}
       value={value}
       onChange={onChange}
+      {...rest}
     />
   );
 };

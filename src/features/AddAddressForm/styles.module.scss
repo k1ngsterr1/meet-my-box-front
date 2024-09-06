@@ -1,0 +1,19 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+
+.add_address {
+  &__form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    @apply mt-8;
+  }
+  &__type {
+    @apply mt-4;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

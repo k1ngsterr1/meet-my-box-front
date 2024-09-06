@@ -21,12 +21,14 @@ export const LoginForm = () => {
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        type="email"
       />
       <FormInput
         placeholder="Ваш пороль"
         margin="mt-4"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        type="password"
       />
       <Button text="Войти" buttonType="filled" type="submit" margin="mt-12" />
     </form>
