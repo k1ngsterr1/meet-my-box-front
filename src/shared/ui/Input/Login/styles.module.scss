@@ -1,0 +1,11 @@
+.input {
+  display: flex;
+  align-items: center;
+  outline: none;
+  background: none;
+  border-bottom: 1px solid #333333;
+  text-align: center;
+  width: 60%;
+  @apply p-2;
+  @apply text-base;
+}
