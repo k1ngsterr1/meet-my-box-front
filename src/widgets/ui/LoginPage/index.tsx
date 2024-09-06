@@ -1,7 +1,6 @@
 import styles from "./styles.module.scss";
 import bg_face from "@assets/bg_face.svg";
 import { LoginForm } from "@features/LoginForm";
-import Button from "@shared/ui/Button/ui/button";
 import { RedirectLink } from "@shared/ui/Link/RedirectLink/redirect-link";
 export const LoginPage = () => {
   return (

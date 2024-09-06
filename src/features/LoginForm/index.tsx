@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
-import { LoginInput } from "@shared/ui/Input/Login/login-input";
+import { FormInput } from "@shared/ui/Input/Form/form-input";
 import Button from "@shared/ui/Button/ui/button";
 import { useLogin } from "@shared/lib/hooks/useLogin";
 
@@ -17,12 +17,12 @@ export const LoginForm = () => {
 
   return (
     <form className={styles.login__form} onSubmit={handleSubmit}>
-      <LoginInput
+      <FormInput
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <LoginInput
+      <FormInput
         placeholder="Ваш пороль"
         margin="mt-4"
         value={password}

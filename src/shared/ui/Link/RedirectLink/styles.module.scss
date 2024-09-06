@@ -2,5 +2,6 @@
 @import "@shared/styles/variables";
 .link {
   @apply text-main;
+  text-decoration: underline;
   font-size: clamp(14px, 16 / 360 * 100vw, 46px);
 }

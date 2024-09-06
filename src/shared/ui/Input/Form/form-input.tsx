@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./styles.module.scss";
 
-interface LoginProps {
+interface FormProps {
   placeholder: string;
   margin?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const LoginInput: React.FC<LoginProps> = ({
+export const FormInput: React.FC<FormProps> = ({
   placeholder,
   margin,
   value,
