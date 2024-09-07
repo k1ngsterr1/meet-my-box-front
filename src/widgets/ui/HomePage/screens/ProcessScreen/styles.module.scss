@@ -3,6 +3,9 @@
 .process {
   @apply mt-14;
   width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   &__heading {
     @apply font-bold;
     @apply text-center;

@@ -62,18 +62,14 @@ export const MainScreen = () => {
                 службой напрямую в Россию и страны СНГ
               </Paragraph>
             </Fade>
-            <Fade delay={0.3}>
-              <div className="flex items-center gap-4 mt-8">
-                <Button text="Оформить заявку" buttonType="filled" />
-                <IconButton text="Процесс доставки" icon={faChevronRight} />
-              </div>
-            </Fade>
-            <Fade delay={0.4}>
-              <div className={styles.main_screen__clients}>
-                <img src={group.src} alt="clients" />
-                <Paragraph margin="ml-2">200+ Довольных клиентов</Paragraph>
-              </div>
-            </Fade>
+            <div className="flex items-center gap-4 mt-8">
+              <Button text="Оформить заявку" buttonType="filled" />
+              <IconButton text="Процесс доставки" icon={faChevronRight} />
+            </div>
+            <div className={styles.main_screen__clients}>
+              <img src={group.src} alt="clients" />
+              <Paragraph margin="ml-2">200+ Довольных клиентов</Paragraph>
+            </div>
           </div>
           <Fade className="w-full">
             <img src={image.src} className={styles.main_screen_pc__img} />
