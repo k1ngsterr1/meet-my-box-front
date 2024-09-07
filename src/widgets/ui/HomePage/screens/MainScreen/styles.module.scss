@@ -18,7 +18,7 @@
     @apply font-bold;
     @apply text-center;
     @include respond-to("xxxs") {
-      font-size: clamp(14px, 28 / 360 * 100vw, 46px);
+      font-size: clamp(14px, 28 / 580 * 100vw, 46px);
     }
   }
   &__clients {
@@ -44,7 +44,7 @@
 
 @include respond-to("tablet_sm") {
   .main_screen_pc {
-    @apply mt-16;
+    @apply mt-24;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -95,8 +95,8 @@
       }
     }
     &__img {
-      width: clamp(312px, 32.49792vw, 1236px);
-      height: clamp(369px, 38.43364vw, 1476px);
+      width: clamp(312px, 32.49792vw, 1248px);
+      height: clamp(369px, 38.43504vw, 1476px);
     }
   }
 
