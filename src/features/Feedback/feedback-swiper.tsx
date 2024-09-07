@@ -52,6 +52,61 @@ export const FeedbackSwiper = () => {
     </div>
   );
 };
+export const FeedbackSwiperPC = () => {
+  return (
+    <div className={styles.feedback_pc__swiper}>
+      <div className={styles.prev_pc}>
+        <FontAwesomeIcon icon={faArrowLeft} className={styles.prev__icon} />
+      </div>
+      <div className={styles.next_pc}>
+        <FontAwesomeIcon icon={faArrowRight} className={styles.next__icon} />
+      </div>
+      <Swiper
+        modules={[Navigation, Scrollbar, A11y]}
+        spaceBetween={10}
+        slidesPerView={3}
+        loop={true}
+        navigation={{
+          prevEl: `.${styles.prev_pc}`,
+          nextEl: `.${styles.next_pc}`,
+        }}
+        pagination={{ clickable: true }}
+      >
+        {feedbacks.map((item, index) => (
+          <SwiperSlide key={index}>
+            <FeedbackItemPC
+              name={item.name}
+              stars={item.stars}
+              text={item.text}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+};
+export const FeedbackItemPC: React.FC<IFeedbackItem> = ({
+  name,
+  stars,
+  text,
+}) => {
+  return (
+    <div className={styles.feedback_pc__item}>
+      <span className={styles.feedback_pc__item__name}>{name}</span>
+      <div className={styles.feedback_pc__item__stars}>
+        {Array.from({ length: stars }, (_, index) => (
+          <FontAwesomeIcon
+            key={index}
+            icon={faStar}
+            className={styles.feedback_pc__item__star}
+          />
+        ))}
+      </div>
+      <p className={styles.feedback_pc__item__paragraph}>{text}</p>
+      <IconButton text="Скриншот" margin="mt-4" />
+    </div>
+  );
+};
 
 export const FeedbackItem: React.FC<IFeedbackItem> = ({
   name,
