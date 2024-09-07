@@ -1,3 +1,6 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+
 .footer {
   width: 100%;
   @apply bg-dark;
@@ -9,5 +12,55 @@
     width: 50%;
     color: #f9f9f9; /* This will set the color for text inside SVGs */
     fill: #f9f9f9;
+  }
+}
+.footer_pc {
+  display: none;
+}
+@include respond-to("tablet_sm") {
+  .footer_pc {
+    @apply p-12 gap-16;
+    width: 100%;
+    display: flex;
+    @apply bg-dark;
+    align-items: center;
+    justify-content: space-between;
+    &__logo {
+      width: clamp(80px, 160 / 1024 * 100vw, 320px);
+      height: clamp(100px, 200 / 1024 * 100vw, 400px);
+
+      @include respond-to("xl") {
+        width: clamp(80px, 160 / 1360 * 100vw, 320px);
+        height: clamp(100px, 200 / 1360 * 100vw, 400px);
+      }
+
+      @include respond-to("2xl") {
+        width: clamp(80px, 160 / 1520 * 100vw, 320px);
+        height: clamp(100px, 200 / 1520 * 100vw, 400px);
+      }
+
+      @include respond-to("3xl") {
+        width: clamp(80px, 160 / 1680 * 100vw, 320px);
+        height: clamp(100px, 200 / 1680 * 100vw, 400px);
+      }
+
+      @include respond-to("4xl") {
+        width: clamp(80px, 160 / 1920 * 100vw, 320px);
+        height: clamp(100px, 200 / 1920 * 100vw, 400px);
+      }
+
+      @include respond-to("5xl") {
+        width: clamp(80px, 160 / 2560 * 100vw, 320px);
+        height: clamp(100px, 200 / 2560 * 100vw, 400px);
+      }
+
+      @include respond-to("6xl") {
+        width: clamp(80px, 160 / 3840 * 100vw, 320px);
+        height: clamp(100px, 200 / 3840 * 100vw, 400px);
+      }
+    }
+  }
+  .footer {
+    display: none;
   }
 }

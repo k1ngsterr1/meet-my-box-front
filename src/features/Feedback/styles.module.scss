@@ -3,8 +3,8 @@
 .prev,
 .next {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%); /* Centers the buttons vertically */
+  top: 40%;
+  transform: translateY(-40%); /* Centers the buttons vertically */
   border-radius: 30px; /* Adjust as needed for your button shape */
   width: 48px; /* Assuming the buttons are 48x48 based on your screenshot */
   height: 48px;
@@ -26,9 +26,38 @@
   right: 0;
   transform: translateX(30%);
 }
+
+.prev_pc,
+.next_pc {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-40%); /* Centers the buttons vertically */
+  border-radius: 30px; /* Adjust as needed for your button shape */
+  width: 48px; /* Assuming the buttons are 48x48 based on your screenshot */
+  height: 48px;
+  display: flex; /* Centers the icon inside */
+  align-items: center;
+  justify-content: center;
+  background-color: #333333; /* Dark background */
+  color: #f9f9f9; /* Light icon color */
+  cursor: pointer;
+  z-index: 10; /* Ensure they are above other elements */
+}
+
+.prev_pc {
+  left: 0;
+  transform: translateX(-50%);
+}
+
+.next_pc {
+  right: 0;
+  transform: translateX(50%);
+}
+
 .feedback {
   &__swiper {
     @apply mt-8;
+    width: 100%;
     position: relative;
   }
   &__item {
@@ -54,6 +83,122 @@
       color: #220cf3;
       width: clamp(12px, 5.60736vw, 48px);
       height: clamp(12px, 5.60736vw, 48px);
+    }
+  }
+}
+.feedback_pc {
+  &__swiper {
+    @apply mt-8;
+    width: 100%;
+    position: relative;
+  }
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 16px;
+    @apply pt-12;
+    @apply pb-12;
+    @apply bg-slate-50;
+    &__name {
+      @apply font-bold;
+      @apply text-center;
+      font-size: clamp(9px, 18 / 360 * 100vw, 36px);
+
+      @include respond-to("tablet_sm") {
+        font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
+      }
+
+      @include respond-to("tablet") {
+        font-size: clamp(9px, 18 / 1100 * 100vw, 36px);
+      }
+
+      @include respond-to("lg") {
+        font-size: clamp(9px, 18 / 1200 * 100vw, 36px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(9px, 18 / 1280 * 100vw, 36px);
+      }
+
+      @include respond-to("xl") {
+        font-size: clamp(9px, 18 / 1360 * 100vw, 36px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(9px, 18 / 1520 * 100vw, 36px);
+      }
+
+      @include respond-to("3xl") {
+        font-size: clamp(9px, 18 / 1680 * 100vw, 36px);
+      }
+
+      @include respond-to("4xl") {
+        font-size: clamp(9px, 18 / 1920 * 100vw, 36px);
+      }
+
+      @include respond-to("5xl") {
+        font-size: clamp(9px, 18 / 2560 * 100vw, 36px);
+      }
+
+      @include respond-to("6xl") {
+        font-size: clamp(9px, 18 / 3840 * 100vw, 36px);
+      }
+    }
+    &__paragraph {
+      @apply text-center mt-4;
+      width: 60%;
+      font-size: clamp(6px, 12 / 360 * 100vw, 324x);
+
+      @include respond-to("tablet_sm") {
+        font-size: clamp(6px, 12 / 1024 * 100vw, 24px);
+      }
+
+      @include respond-to("tablet") {
+        font-size: clamp(6px, 12 / 1100 * 100vw, 24px);
+      }
+
+      @include respond-to("lg") {
+        font-size: clamp(6px, 12 / 1200 * 100vw, 24px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(6px, 12 / 1280 * 100vw, 24px);
+      }
+
+      @include respond-to("xl") {
+        font-size: clamp(6px, 12 / 1360 * 100vw, 24px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(6px, 12 / 1520 * 100vw, 24px);
+      }
+
+      @include respond-to("3xl") {
+        font-size: clamp(6px, 12 / 1680 * 100vw, 24px);
+      }
+
+      @include respond-to("4xl") {
+        font-size: clamp(6px, 12 / 1920 * 100vw, 24px);
+      }
+
+      @include respond-to("5xl") {
+        font-size: clamp(6px, 12 / 2560 * 100vw, 24px);
+      }
+
+      @include respond-to("6xl") {
+        font-size: clamp(6px, 12 / 3840 * 100vw, 24px);
+      }
+    }
+    &__stars {
+      display: flex;
+      gap: 0.5rem;
+      @apply mt-4;
+    }
+    &__star {
+      color: #220cf3;
+      width: 30px;
+      height: 30px;
     }
   }
 }

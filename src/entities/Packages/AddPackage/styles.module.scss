@@ -1,0 +1,11 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+
+.add_package {
+  &__menu {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+  }
+}

@@ -6,9 +6,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1;
 
   &__img {
-    width: clamp(160px, 74.7648vw, 640px);
-    height: clamp(120px, 56.0736vw, 480px);
+    @apply mt-4;
+
+    @include respond-to("tablet_sm") {
+      margin-top: 0;
+    }
   }
 }

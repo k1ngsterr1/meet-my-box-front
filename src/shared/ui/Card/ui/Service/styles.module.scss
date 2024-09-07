@@ -16,7 +16,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    @apply px-4;
+    @apply p-4;
     z-index: 1;
     @apply mt-8;
     @apply shadow-xl;
@@ -26,6 +26,126 @@
       @apply font-bold;
       @apply text-center;
       font-size: clamp(9px, 18 / 360 * 100vw, 36px);
+    }
+
+    &__img {
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+.service_pc {
+  &__group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  &__card {
+    width: clamp(400px, 41.664vw, 1600px);
+    height: clamp(250px, 26.04vw, 1000px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    @apply shadow-xl;
+    border-radius: 16px;
+
+    @include respond-to("tablet") {
+      width: clamp(200px, 400 / 1100 * 100vw, 800px);
+      height: clamp(100px, 200 / 1100 * 100vw, 400px);
+    }
+
+    @include respond-to("lg") {
+      width: clamp(200px, 400 / 1200 * 100vw, 800px);
+      height: clamp(100px, 200 / 1100 * 100vw, 400px);
+    }
+
+    @include respond-to("2xl") {
+      width: clamp(200px, 400 / 1280 * 100vw, 800px);
+      height: clamp(100px, 200 / 1100 * 100vw, 400px);
+    }
+
+    @include respond-to("xl") {
+      width: clamp(200px, 400 / 1360 * 100vw, 800px);
+      height: clamp(100px, 200 / 1100 * 100vw, 400px);
+    }
+
+    @include respond-to("2xl") {
+      width: clamp(200px, 400 / 1520 * 100vw, 800px);
+      height: clamp(100px, 200 / 1100 * 100vw, 400px);
+    }
+
+    @include respond-to("3xl") {
+      width: clamp(200px, 400 / 1680 * 100vw, 800px);
+      height: clamp(100px, 200 / 1100 * 100vw, 400px);
+    }
+
+    @include respond-to("4xl") {
+      width: clamp(200px, 400 / 1920 * 100vw, 800px);
+      height: clamp(100px, 200 / 1100 * 100vw, 400px);
+    }
+
+    @include respond-to("5xl") {
+      width: clamp(200px, 400 / 2560 * 100vw, 800px);
+      height: clamp(100px, 200 / 1100 * 100vw, 400px);
+    }
+
+    @include respond-to("6xl") {
+      width: clamp(200px, 400 / 3840 * 100vw, 800px);
+      height: clamp(100px, 200 / 1100 * 100vw, 400px);
+    }
+
+    &__title {
+      @apply font-bold;
+      @apply text-center;
+      font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
+
+      @include respond-to("tablet_sm") {
+        font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
+      }
+
+      @include respond-to("tablet") {
+        font-size: clamp(9px, 18 / 1100 * 100vw, 36px);
+      }
+
+      @include respond-to("lg") {
+        font-size: clamp(9px, 18 / 1200 * 100vw, 36px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(9px, 18 / 1280 * 100vw, 36px);
+      }
+
+      @include respond-to("xl") {
+        font-size: clamp(9px, 18 / 1360 * 100vw, 36px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(9px, 18 / 1520 * 100vw, 36px);
+      }
+
+      @include respond-to("3xl") {
+        font-size: clamp(9px, 18 / 1680 * 100vw, 36px);
+      }
+
+      @include respond-to("4xl") {
+        font-size: clamp(9px, 18 / 1920 * 100vw, 36px);
+      }
+
+      @include respond-to("5xl") {
+        font-size: clamp(9px, 18 / 2560 * 100vw, 36px);
+      }
+
+      @include respond-to("6xl") {
+        font-size: clamp(9px, 18 / 3840 * 100vw, 36px);
+      }
     }
 
     &__img {

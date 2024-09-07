@@ -1,0 +1,45 @@
+.packages {
+  &__list {
+    @apply mt-8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    &__info {
+      @apply pt-8;
+      @apply pb-8;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+    &__id {
+      @apply font-bold;
+      @apply text-center;
+      font-size: clamp(9px, 20 / 360 * 100vw, 36px);
+    }
+    &__status {
+      @apply mt-2;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      &__circle {
+        width: clamp(4.5px, 9 / 360 * 100vw, 18px);
+        height: clamp(4.5px, 9 / 360 * 100vw, 18px);
+        border-radius: 50%;
+        @apply bg-main;
+      }
+      &__text {
+        @apply text-center;
+        font-size: clamp(9px, 14 / 360 * 100vw, 36px);
+      }
+    }
+    &__date {
+      @apply mt-2;
+      font-size: clamp(9px, 16 / 360 * 100vw, 36px);
+    }
+  }
+}

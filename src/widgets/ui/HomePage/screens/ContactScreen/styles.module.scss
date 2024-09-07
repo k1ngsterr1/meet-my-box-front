@@ -12,3 +12,128 @@
     font-size: clamp(14px, 24 / 360 * 100vw, 46px);
   }
 }
+.contact_pc {
+  display: none;
+}
+@include respond-to("tablet_sm") {
+  .contact_pc {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    @apply mt-24;
+    &__left {
+      width: 40%;
+      display: flex;
+      align-items: start;
+      flex-direction: column;
+      @apply pt-20 pl-12 pr-12;
+
+      @include respond-to("lg") {
+        width: 45%;
+      }
+    }
+    &__img {
+      width: 60%;
+      height: clamp(600px, 62.496vw, 2400px);
+      @include respond-to("lg") {
+        width: 55%;
+        height: clamp(500px, 52.08vw, 2000px);
+      }
+    }
+    &__paragraph {
+      @apply mt-4;
+      font-size: clamp(6px, 12 / 360 * 100vw, 324x);
+
+      @include respond-to("tablet_sm") {
+        font-size: clamp(6px, 12 / 1024 * 100vw, 24px);
+      }
+
+      @include respond-to("tablet") {
+        font-size: clamp(6px, 12 / 1100 * 100vw, 24px);
+      }
+
+      @include respond-to("lg") {
+        font-size: clamp(6px, 12 / 1200 * 100vw, 24px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(6px, 12 / 1280 * 100vw, 24px);
+      }
+
+      @include respond-to("xl") {
+        font-size: clamp(6px, 12 / 1360 * 100vw, 24px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(6px, 12 / 1520 * 100vw, 24px);
+      }
+
+      @include respond-to("3xl") {
+        font-size: clamp(6px, 12 / 1680 * 100vw, 24px);
+      }
+
+      @include respond-to("4xl") {
+        font-size: clamp(6px, 12 / 1920 * 100vw, 24px);
+      }
+
+      @include respond-to("5xl") {
+        font-size: clamp(6px, 12 / 2560 * 100vw, 24px);
+      }
+
+      @include respond-to("6xl") {
+        font-size: clamp(6px, 12 / 3840 * 100vw, 24px);
+      }
+    }
+    &__heading {
+      width: 100%;
+      text-align: left;
+      line-height: 48px;
+      @apply font-bold;
+
+      font-size: clamp(14px, 28 / 1024 * 100vw, 56px);
+
+      @include respond-to("tablet_sm") {
+        font-size: clamp(14px, 28 / 1024 * 100vw, 56px);
+      }
+
+      @include respond-to("tablet") {
+        font-size: clamp(14px, 28 / 1100 * 100vw, 56px);
+      }
+
+      @include respond-to("lg") {
+        font-size: clamp(14px, 28 / 1200 * 100vw, 56px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(14px, 28 / 1280 * 100vw, 56px);
+      }
+
+      @include respond-to("xl") {
+        font-size: clamp(14px, 28 / 1360 * 100vw, 56px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(14px, 28 / 1520 * 100vw, 56px);
+      }
+
+      @include respond-to("3xl") {
+        font-size: clamp(14px, 28 / 1680 * 100vw, 56px);
+      }
+
+      @include respond-to("4xl") {
+        font-size: clamp(14px, 28 / 1920 * 100vw, 56px);
+      }
+
+      @include respond-to("5xl") {
+        font-size: clamp(14px, 28 / 2560 * 100vw, 56px);
+      }
+
+      @include respond-to("6xl") {
+        font-size: clamp(14px, 28 / 3840 * 100vw, 56px);
+      }
+    }
+  }
+  .contact {
+    display: none;
+  }
+}

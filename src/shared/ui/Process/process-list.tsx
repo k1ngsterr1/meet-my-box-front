@@ -10,3 +10,12 @@ export const ProcessList = () => {
     </div>
   );
 };
+export const ProcessListPC = () => {
+  return (
+    <div className={styles.process_pc__list}>
+      {processList.map((item, index) => (
+        <ImageCard key={index} img={item.img} description={item.description} />
+      ))}
+    </div>
+  );
+};

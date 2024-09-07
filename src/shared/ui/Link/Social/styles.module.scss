@@ -1,11 +1,23 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
 .social_tab {
   display: flex;
   gap: 0.5rem;
   @apply mt-8;
   @apply mb-8;
+
+  @include respond-to("tablet_sm") {
+    @apply mt-8;
+    @apply mb-8;
+  }
   &__icon {
     width: clamp(18px, 8.41104vw, 72px);
     height: clamp(18px, 8.41104vw, 72px);
     color: #f9f9f9;
+
+    @include respond-to("tablet_sm") {
+      width: 2rem;
+      height: 2rem;
+    }
   }
 }

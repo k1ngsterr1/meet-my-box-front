@@ -10,3 +10,12 @@
     @apply mt-8;
   }
 }
+.contact_pc {
+  &__group {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    @apply mt-8;
+  }
+}
