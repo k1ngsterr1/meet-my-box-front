@@ -20,3 +20,18 @@ export const CalculateForm = () => {
     </div>
   );
 };
+export const CalculateFormPC = () => {
+  return (
+    <div className={styles.calculate_pc__form}>
+      <h5 className={styles.calculate_pc__form__heading}>
+        Заполните все поля, чтобы рассчитать стоимость
+      </h5>
+      <form className={styles.calculate_pc__form__inputs}>
+        {calculateInputs.map((input, index) => (
+          <CalculateInput key={index} placeholder={input.placeholder} />
+        ))}
+      </form>
+      <span className={styles.calculate__form__result}>0₽</span>
+    </div>
+  );
+};
