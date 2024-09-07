@@ -16,10 +16,11 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    @apply px-4;
     z-index: 1;
     @apply mt-8;
+    @apply shadow-xl;
     border-radius: 16px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 
     &__title {
       @apply font-bold;

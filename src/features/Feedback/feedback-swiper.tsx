@@ -1,19 +1,22 @@
-import React from "react";
-import { Navigation, Scrollbar, A11y } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faStar,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import { A11y, Navigation, Scrollbar } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 import styles from "./styles.module.scss";
 
 // Import Swiper styles
+import { feedbacks, type IFeedbackItem } from "@shared/lib/content/Feedback";
+import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
+import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/scrollbar";
 import "swiper/css/pagination";
-import { feedbacks, type IFeedbackItem } from "@shared/lib/content/Feedback";
-import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
-import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
+import "swiper/css/scrollbar";
 
 export const FeedbackSwiper = () => {
   return (
