@@ -26,22 +26,23 @@ export const AddPackages = () => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
   const handleAddItem = () => {
+    let updatedItems: Item[];
+
     if (selectedItem) {
-      setItems((prevItems) =>
-        prevItems.map((item) =>
-          item.id === selectedItem.id
-            ? {
-                ...item,
-                item_name: itemName,
-                origin_country: originCountry,
-                quantity: quantity,
-                weight: weight,
-                price: price,
-              }
-            : item
-        )
+      updatedItems = items.map((item) =>
+        item.id === selectedItem.id
+          ? {
+              ...item,
+              item_name: itemName,
+              origin_country: originCountry,
+              quantity: quantity,
+              weight: weight,
+              price: price,
+            }
+          : item
       );
 
+      setItems(updatedItems);
       setSelectedItem(null);
       setCurrent(counter);
     } else {
@@ -54,7 +55,8 @@ export const AddPackages = () => {
         price: price,
       };
 
-      setItems([...items, newItem]);
+      updatedItems = [...items, newItem];
+      setItems(updatedItems);
       setCounter((prevCounter) => {
         const newCounter = prevCounter + 1;
         setCurrent(newCounter);
@@ -67,20 +69,39 @@ export const AddPackages = () => {
     setQuantity("");
     setWeight("");
     setPrice("");
+
+    return updatedItems;
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+    let updatedItems = items;
 
-    const backendItems = items.map((item) => {
-      return {
-        name: item.item_name,
-        country: item.origin_country,
-        quantity: parseInt(item.quantity, 10),
-        weight: parseInt(item.weight, 10),
-        cost: parseInt(item.price, 10),
+    if (
+      itemName !== "" &&
+      originCountry !== "" &&
+      quantity !== "" &&
+      weight !== "" &&
+      price !== ""
+    ) {
+      const newItem: Item = {
+        id: counter,
+        item_name: itemName,
+        origin_country: originCountry,
+        quantity: quantity,
+        weight: weight,
+        price: price,
       };
-    });
+      updatedItems = [...items, newItem];
+      setItems(updatedItems);
+    }
+
+    const backendItems = updatedItems.map((item) => ({
+      name: item.item_name,
+      country: item.origin_country,
+      quantity: parseInt(item.quantity, 10),
+      weight: parseInt(item.weight, 10),
+      cost: parseInt(item.price, 10),
+    }));
 
     console.log(backendItems);
 
@@ -90,6 +111,11 @@ export const AddPackages = () => {
     });
 
     setItems([]);
+    setItemName("");
+    setOriginCountry("");
+    setQuantity("");
+    setWeight("");
+    setPrice("");
   };
 
   const toggleMenu = () => {
