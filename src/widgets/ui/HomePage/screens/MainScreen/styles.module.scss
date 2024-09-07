@@ -44,6 +44,7 @@
 
 @include respond-to("tablet_sm") {
   .main_screen_pc {
+    max-width: 86.6%;
     @apply mt-24;
     width: 100%;
     display: flex;

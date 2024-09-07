@@ -19,7 +19,7 @@
 @include respond-to("tablet_sm") {
   .process_pc {
     @apply mt-24;
-    width: 100%;
+    max-width: 86.6%;
     display: flex;
     flex-direction: column;
     align-items: center;

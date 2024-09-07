@@ -19,6 +19,7 @@
 
 @include respond-to("tablet_sm") {
   .calculate_pc {
+    max-width: 86.6%;
     @apply mt-24;
     display: flex;
     flex-direction: column;

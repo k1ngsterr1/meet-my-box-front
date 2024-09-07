@@ -14,6 +14,7 @@
 }
 @include respond-to("tablet_sm") {
   .feedback_pc {
+    max-width: 86.6%;
     display: flex;
     flex-direction: column;
     align-items: center;
