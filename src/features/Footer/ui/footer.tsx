@@ -1,4 +1,7 @@
-import { FooterLinks } from "@shared/ui/Link/Footer/footer-links";
+import {
+  FooterLinks,
+  FooterLinksPC,
+} from "@shared/ui/Link/Footer/footer-links";
 import styles from "./styles.module.scss";
 import logo from "@assets/logo_white.svg";
 import Button from "@shared/ui/Button/ui/Footer/button";
@@ -18,9 +21,8 @@ export const Footer = () => {
           alt="footer_logo"
           className={styles.footer_pc__logo}
         />
-        <FooterLinks />
+        <FooterLinksPC />
         <Button text="Вверх" buttonType="filled" />
-        <SocialMediaLinks />
       </footer>
     </>
   );

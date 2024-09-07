@@ -18,16 +18,13 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
         <img className={styles.header_pc__logo} src={logo.src} alt="Logotype" />
         <nav className={styles.header_pc__nav}>
           <a className={styles.header_pc__nav__link} href="#main">
-            Главная
-          </a>
-          <a className={styles.header_pc__nav__link} href="#send">
             Отправить посылку
           </a>
-          <a className={styles.header_pc__nav__link}>
-            Принять заказ из интернет магазина
+          <a className={styles.header_pc__nav__link} href="#send">
+            Помощь с покупкой
           </a>
           <a className={styles.header_pc__nav__link} href="#contacts">
-            Контакты
+            Стоимость
           </a>
           <Button text="Войти" buttonType="filled" />
         </nav>
