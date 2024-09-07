@@ -22,7 +22,7 @@
     }
   }
   &__clients {
-    @apply mt-4;
+    @apply mt-8;
     display: flex;
     align-items: center;
   }
@@ -44,59 +44,59 @@
 
 @include respond-to("tablet_sm") {
   .main_screen_pc {
+    @apply mt-16;
     width: 100%;
     display: flex;
-
-    &__size {
-      width: 925px;
-      height: 938px;
-    }
-
+    justify-content: space-between;
     &__heading {
-      width: 50%;
+      width: 100%;
       text-align: left;
-      line-height: 70px;
+      line-height: 48px;
       @apply font-bold;
 
       @include respond-to("tablet_sm") {
-        font-size: clamp(29px, 58 / 1024 * 100vw, 104px);
+        font-size: clamp(18px, 36 / 1024 * 100vw, 72px);
       }
 
       @include respond-to("tablet") {
-        font-size: clamp(29px, 58 / 1100 * 100vw, 104px);
+        font-size: clamp(18px, 36 / 1100 * 100vw, 72px);
       }
 
       @include respond-to("lg") {
-        font-size: clamp(29px, 58 / 1200 * 100vw, 104px);
+        font-size: clamp(18px, 36 / 1200 * 100vw, 72px);
       }
 
       @include respond-to("2xl") {
-        font-size: clamp(29px, 58 / 1280 * 100vw, 104px);
+        font-size: clamp(18px, 36 / 1280 * 100vw, 72px);
       }
 
       @include respond-to("xl") {
-        font-size: clamp(29px, 58 / 1360 * 100vw, 104px);
+        font-size: clamp(18px, 36 / 1360 * 100vw, 72px);
       }
 
       @include respond-to("2xl") {
-        font-size: clamp(29px, 58 / 1520 * 100vw, 104px);
+        font-size: clamp(18px, 36 / 1520 * 100vw, 72px);
       }
 
       @include respond-to("3xl") {
-        font-size: clamp(29px, 58 / 1680 * 100vw, 104px);
+        font-size: clamp(18px, 36 / 1680 * 100vw, 72px);
       }
 
       @include respond-to("4xl") {
-        font-size: clamp(29px, 58 / 1920 * 100vw, 104px);
+        font-size: clamp(18px, 36 / 1920 * 100vw, 72px);
       }
 
       @include respond-to("5xl") {
-        font-size: clamp(29px, 58 / 2560 * 100vw, 104px);
+        font-size: clamp(18px, 36 / 2560 * 100vw, 72px);
       }
 
       @include respond-to("6xl") {
-        font-size: clamp(29px, 58 / 3840 * 100vw, 104px);
+        font-size: clamp(18px, 36 / 3840 * 100vw, 72px);
       }
+    }
+    &__img {
+      width: clamp(312px, 32.49792vw, 1236px);
+      height: clamp(369px, 38.43364vw, 1476px);
     }
   }
 

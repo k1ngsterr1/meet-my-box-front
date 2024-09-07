@@ -24,7 +24,7 @@ export const ContactScreen = () => {
         link="tel:+17207099413"
         margin="mt-4"
       />
-      <img src={contact_img.src} alt="form_img" className="mt-4" />
+      <img src={contact_img.src} alt="form_img" className="mt-4 w-full" />
     </div>
   );
 };

@@ -55,23 +55,29 @@ export const MainScreen = () => {
               </h1>
             </Fade>
             <Fade delay={0.2}>
-              <Paragraph margin="mt-4" width="w-[40%]">
+              <Paragraph margin="mt-4" width="w-[60%]">
                 Также вы можете совершать покупки в интернет-магазинах на наши
                 адреса в Италии, Германии, Франции и Испании. Заботливо
                 переупакуем, уберем счета, чеки и отправим с нашей логистической
                 службой напрямую в Россию и страны СНГ
               </Paragraph>
             </Fade>
-            <div className="flex items-center gap-4 mt-8">
-              <Button text="Оформить заявку" buttonType="filled" />
-              <IconButton text="Процесс доставки" icon={faChevronRight} />
-            </div>
-            <div className={styles.main_screen__clients}>
-              <img src={group.src} alt="clients" />
-              <Paragraph margin="ml-2">200+ Довольных клиентов</Paragraph>
-            </div>{" "}
+            <Fade delay={0.3}>
+              <div className="flex items-center gap-4 mt-8">
+                <Button text="Оформить заявку" buttonType="filled" />
+                <IconButton text="Процесс доставки" icon={faChevronRight} />
+              </div>
+            </Fade>
+            <Fade delay={0.4}>
+              <div className={styles.main_screen__clients}>
+                <img src={group.src} alt="clients" />
+                <Paragraph margin="ml-2">200+ Довольных клиентов</Paragraph>
+              </div>
+            </Fade>
           </div>
-          <img src={image.src} className={styles.main_screen_pc__size} />
+          <Fade className="w-full">
+            <img src={image.src} className={styles.main_screen_pc__img} />
+          </Fade>
         </div>
       </main>
     </>
