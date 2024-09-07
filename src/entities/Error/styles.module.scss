@@ -1,0 +1,6 @@
+.error {
+  @apply mt-2;
+  color: red;
+  font-size: clamp(14px, 12 / 360 * 100vw, 46px);
+  animation: fadeIn 0.5s ease-out;
+}

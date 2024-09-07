@@ -1,0 +1,27 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+
+.button {
+  font-family: "Montserrat";
+  transition: 0.3s all;
+  @apply text-base;
+  @apply rounded-full;
+
+  width: clamp(90px, 180 / 360 * 100vw, 360px);
+  height: clamp(22.5px, 45 / 360 * 100vw, 90px);
+
+  &:hover {
+    @apply bg-hover;
+  }
+}
+
+.button--filled {
+  @apply text-white;
+  @apply bg-main;
+}
+
+.button--outline {
+  @extend .button;
+  border: 2px solid;
+  @apply text-main;
+}

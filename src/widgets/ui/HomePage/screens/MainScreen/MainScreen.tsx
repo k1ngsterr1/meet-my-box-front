@@ -2,6 +2,7 @@ import group from "@assets/clients_group.png";
 import main_img from "@assets/main_img.png";
 import Button from "@shared/ui/Button/ui/button";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
+import bg_logo from "@assets/bg_face.svg";
 
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
@@ -11,6 +12,11 @@ import styles from "./styles.module.scss";
 export const MainScreen = () => {
   return (
     <main className={styles.main_screen}>
+      <img
+        src={bg_logo.src}
+        alt="bg_logo"
+        className={styles.main_screen__logo}
+      />
       <Fade>
         <h1 className={styles.main_screen__heading}>
           Cервис доставки посылок из Европы в Россию и страны СНГ
