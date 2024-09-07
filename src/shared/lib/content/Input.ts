@@ -5,6 +5,7 @@ export interface ICalculateInput {
 export interface IContactInput {
   placeholder: string;
   margin?: string;
+  width?: string;
 }
 export const calculateInputs: ICalculateInput[] = [
   {
