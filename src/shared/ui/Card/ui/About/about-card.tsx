@@ -20,6 +20,37 @@ export const AboutGroup = () => {
     </div>
   );
 };
+export const AboutGroupPC = () => {
+  return (
+    <div className={styles.about_pc__card}>
+      {aboutCard.map((item, index) => (
+        <div className="flex-1">
+          <AboutItemPC
+            key={index}
+            title={item.title}
+            description={item.description}
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export const AboutItemPC: React.FC<IAboutCard> = ({ title, description }) => {
+  return (
+    <div className={styles.about_pc__card__item}>
+      <img
+        src={card_img.src}
+        alt="Card img"
+        className={styles.about_pc__card__img}
+      />
+      <span className={styles.about_pc__card__title}>{title}</span>
+      <p className={styles.about_pc__card__paragraph}>{description}</p>
+      <IconButton text="Связаться с нами" />
+    </div>
+  );
+};
+
 export const AboutItem: React.FC<IAboutCard> = ({ title, description }) => {
   return (
     <div className={styles.about__card__item}>
@@ -29,10 +60,8 @@ export const AboutItem: React.FC<IAboutCard> = ({ title, description }) => {
         className={styles.about__card__img}
       />
       <span className={styles.about__card__title}>{title}</span>
-      <Paragraph isCentered width="w-5/6" margin="mt-4">
-        {description}
-      </Paragraph>
-      <IconButton text="Связаться с нами" margin="mt-6" />
+      <p className={styles.about__card__paragraph}>{description}</p>
+      <IconButton text="Связаться с нами" margin="mt-4" />
     </div>
   );
 };
