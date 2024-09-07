@@ -1,6 +1,6 @@
 import { processList } from "@shared/lib/content/Process";
-import styles from "./styles.module.scss";
 import { ImageCard } from "../Card/ui/Image/image-card";
+import styles from "./styles.module.scss";
 export const ProcessList = () => {
   return (
     <div className={styles.process__list}>

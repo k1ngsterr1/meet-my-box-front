@@ -1,5 +1,6 @@
 @import "@shared/styles/mixins";
 @import "@shared/styles/variables";
+
 .header {
   width: 90%;
   display: flex;
@@ -30,5 +31,50 @@
       width: clamp(20px, 80 / 1100 * 100vh, 110px);
       height: clamp(20px, 80 / 1100 * 100vh, 110px);
     }
+  }
+}
+
+@include respond-to("xxxs") {
+  .header_pc {
+    display: none;
+  }
+
+  .header {
+    display: flex;
+  }
+}
+
+@include respond-to("tablet_sm") {
+  .header_pc {
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+
+    &__logo {
+      width: 128px;
+      height: 128px;
+    }
+
+    &__nav {
+      display: flex;
+      align-items: center;
+      @apply gap-4;
+
+      &__link {
+        font-family: "Montserrat";
+        transition: 0.3s all;
+        @apply font-medium;
+        @apply text-dark;
+        @apply text-base;
+
+        &:hover {
+          @apply text-main;
+        }
+      }
+    }
+  }
+
+  .header {
+    display: none;
   }
 }

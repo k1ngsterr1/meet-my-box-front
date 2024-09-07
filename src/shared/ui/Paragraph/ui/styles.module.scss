@@ -5,4 +5,8 @@
   @include respond-to("xxxs") {
     @apply text-base;
   }
+
+  @include respond-to("tablet_sm") {
+    @apply text-lg;
+  }
 }

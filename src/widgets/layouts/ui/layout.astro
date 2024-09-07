@@ -3,8 +3,8 @@ const { title, description } = Astro.props;
 
 import "@shared/styles/global.scss";
 
-import { Header } from "@features/ui/Header/header";
 import { Footer } from "@features/Footer/ui/footer";
+import { Header } from "@features/ui/Header/header";
 ---
 
 <html lang="en">
@@ -19,7 +19,7 @@ import { Footer } from "@features/Footer/ui/footer";
     <div class="container">
       <Header client:load isMobile />
       <slot />
-      <Footer client:load>
+      <Footer client:load />
     </div>
   </body>
 </html>

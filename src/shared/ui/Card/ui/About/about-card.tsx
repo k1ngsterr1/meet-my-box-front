@@ -1,18 +1,21 @@
-import type React from "react";
-import styles from "./styles.module.scss";
-import { aboutCard, type IAboutCard } from "@shared/lib/content/About";
-import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import card_img from "@assets/about_card.png";
+import { aboutCard, type IAboutCard } from "@shared/lib/content/About";
 import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
+import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
+import type React from "react";
+import { Fade } from "react-awesome-reveal";
+import styles from "./styles.module.scss";
 export const AboutGroup = () => {
   return (
     <div className={styles.about__card}>
       {aboutCard.map((item, index) => (
-        <AboutItem
-          key={index}
-          title={item.title}
-          description={item.description}
-        />
+        <Fade className="w-full items-center justify-center">
+          <AboutItem
+            key={index}
+            title={item.title}
+            description={item.description}
+          />
+        </Fade>
       ))}
     </div>
   );

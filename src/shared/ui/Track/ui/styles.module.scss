@@ -9,6 +9,8 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     background-position: center;
     @apply pt-12;
+    @apply pr-4;
+
     &__img {
       width: 100%;
       @apply mt-12;
