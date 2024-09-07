@@ -19,3 +19,20 @@ export const TrackBlock = () => {
     </div>
   );
 };
+export const TrackBlockPC = () => {
+  return (
+    <div className={styles.track_pc__block}>
+      <img src={tracking.src} alt="" className={styles.track_pc__block__img} />
+      <div className={styles.track_pc__container}>
+        <span className={styles.track_pc__block__title}>
+          Здесь вы можете отследить вашу{" "}
+          <span className="text-main">посылку</span>
+        </span>
+        <p className={styles.track_pc__block__description}>
+          По ссылке ниже вы можете узнать где сейчас Ваша посылка
+        </p>
+        <Button text="Отследить" buttonType="filled" margin="mt-10" />
+      </div>
+    </div>
+  );
+};
