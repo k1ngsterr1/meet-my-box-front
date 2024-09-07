@@ -1,5 +1,5 @@
-@import "../../../../shared/styles/mixins";
-@import "../../../../shared/styles/variables";
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
 
 .main_screen {
   width: 90%;
@@ -9,6 +9,11 @@
   @apply mt-12;
   width: 90%;
 
+  position: relative;
+  &__logo {
+    position: absolute;
+    z-index: -10;
+  }
   &__heading {
     @apply font-bold;
     @apply text-center;

@@ -1,0 +1,26 @@
+.table {
+  @apply mt-8;
+  background-color: rgba(34, 12, 243, 0.05);
+  width: 90%;
+  border-collapse: collapse;
+  border: solid 1px #220cf3;
+  &__head,
+  &__body {
+    &__row {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    &__cell {
+      flex: 1;
+      @apply p-4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 1px solid #220cf3; /* Optional: Add border for styling */
+    }
+  }
+  &__head__cell {
+    background-color: rgba(34, 12, 243, 0.1);
+  }
+}

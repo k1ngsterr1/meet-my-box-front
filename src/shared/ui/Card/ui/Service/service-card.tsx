@@ -29,7 +29,7 @@ export const ServiceCard: React.FC<ICardInfo> = ({ title, description }) => {
         className={styles.service__card__img}
       />
       <h3 className={styles.service__card__title}>{title}</h3>
-      <Paragraph isCentered margin="mt-4" width="w-9/10">
+      <Paragraph isCentered margin="mt-4" width="w-5/6">
         {description}
       </Paragraph>
     </div>
