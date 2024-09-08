@@ -35,7 +35,9 @@
     "typescript": "^5.5.4"
   },
   "devDependencies": {
+    "@nanostores/react": "^0.7.3",
     "breakpoint-slicer": "^3.0.0-beta.1",
+    "nanostores": "^0.11.3",
     "sass-embedded": "^1.77.8"
   }
 }

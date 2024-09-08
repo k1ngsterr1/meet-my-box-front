@@ -1,6 +1,8 @@
 import logo from "@assets/logo_mob.svg";
+import { useStore } from "@nanostores/react";
 import { BurgerButton } from "@shared/ui/Burger/ui/burger-button";
 import Button from "@shared/ui/Button/ui/button";
+import { isMenuOpen } from "@stores/menuState";
 import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
 
@@ -23,11 +25,20 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
       }
     }
   }, []);
+  // Access the menu state
+  const menuOpen = useStore(isMenuOpen);
+
+  // Function to toggle the menu state
+  const toggleMenu = () => {
+    isMenuOpen.set(!menuOpen);
+    console.log("is menu open:", isMenuOpen);
+  };
+
   return (
     <>
       <header className={styles.header}>
         <img className={styles.header__logo} src={logo.src} alt="Logotype" />
-        <BurgerButton />
+        <BurgerButton onClick={toggleMenu} />
       </header>
       <header className={styles.header_pc}>
         <img

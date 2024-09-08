@@ -2,14 +2,13 @@ import bg_logo from "@assets/bg_face.svg";
 import group from "@assets/clients_group.png";
 import main_img from "@assets/pexels-karolina-grabowska-5632382.jpg";
 
+import image from "@assets/main_image.webp";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import Button from "@shared/ui/Button/ui/button";
 import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
+import { Menu } from "@shared/ui/Menu/ui/menu";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import { Fade } from "react-awesome-reveal";
-
-import image from "@assets/main_image.webp";
-
 import styles from "./styles.module.scss";
 
 export const MainScreen = () => {
