@@ -8,6 +8,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 button,
@@ -50,10 +51,11 @@ p {
 
   @include respond-to("tablet_sm") {
     width: 100%;
-    border: 2px solid red;
+    max-width: 100%;
   }
 }
 
 body {
+  scroll-behavior: smooth;
   @apply bg-white;
 }

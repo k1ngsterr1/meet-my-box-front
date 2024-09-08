@@ -2,18 +2,20 @@
 // src/pages/index.astro or any relevant page
 import { ContactsButton } from "@features/ContactsButton/ui/contacts-button";
 import Layout from "@widgets/layouts/ui/layout.astro";
-import { MainScreen } from "@widgets/ui/HomePage/screens/MainScreen/MainScreen";
-import { ServiceScreen } from "@widgets/ui/HomePage/screens/ServiceScreen/ServiceScreen";
-import { ProcessScreen } from "@widgets/ui/HomePage/screens/ProcessScreen/ProcessScreen";
 import { AboutScreen } from "@widgets/ui/HomePage/screens/AboutScreen/AboutScreen";
-import { TrackScreen } from "@widgets/ui/HomePage/screens/TrackScreen/TrackScreen";
-import { FeedbackScreen } from "@widgets/ui/HomePage/screens/FeedbackScreen/FeedbackScreen";
 import { CalculateScreen } from "@widgets/ui/HomePage/screens/CalculateScreen/CalculateScreen";
-import { FAQScreen } from "@widgets/ui/HomePage/screens/FaqScreen/FaqScreen";
 import { ContactScreen } from "@widgets/ui/HomePage/screens/ContactScreen/ContactScreen";
+import { FAQScreen } from "@widgets/ui/HomePage/screens/FaqScreen/FaqScreen";
+import { FeedbackScreen } from "@widgets/ui/HomePage/screens/FeedbackScreen/FeedbackScreen";
+import { MainScreen } from "@widgets/ui/HomePage/screens/MainScreen/MainScreen";
+import { ProcessScreen } from "@widgets/ui/HomePage/screens/ProcessScreen/ProcessScreen";
+import { ServiceScreen } from "@widgets/ui/HomePage/screens/ServiceScreen/ServiceScreen";
+import { TrackScreen } from "@widgets/ui/HomePage/screens/TrackScreen/TrackScreen";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
 ---
 
 <Layout>
+  <Loader client:load/>
   <MainScreen client:load />
   <ServiceScreen client:load />
   <ProcessScreen client:load />
@@ -23,5 +25,5 @@ import { ContactScreen } from "@widgets/ui/HomePage/screens/ContactScreen/Contac
   <FeedbackScreen client:load />
   <FAQScreen client:load />
   <ContactScreen client:load />
-  <ContactsButton />
+  <ContactsButton client:load />
 </Layout>

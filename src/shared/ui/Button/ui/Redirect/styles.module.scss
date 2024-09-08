@@ -11,6 +11,7 @@
   height: clamp(22.5px, 45 / 360 * 100vw, 90px);
 
   &:hover {
+    @apply text-white;
     @apply bg-hover;
   }
 }
@@ -24,4 +25,8 @@
   @extend .button;
   border: 2px solid;
   @apply text-main;
+
+  &:hover {
+    @apply text-white;
+  }
 }

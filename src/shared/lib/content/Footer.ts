@@ -3,8 +3,8 @@ export interface IFooterLink {
   to: string;
 }
 export const footerLinks: IFooterLink[] = [
-  { name: "Главная", to: "/services" },
-  { name: "Услуги", to: "/pricing" },
-  { name: "Как это работает?", to: "/faq" },
-  { name: "Узнать стоимость", to: "/cost" },
+  { name: "Главная", to: "/main" },
+  { name: "Услуги", to: "/services" },
+  { name: "Как это работает?", to: "#faq" },
+  { name: "Узнать стоимость", to: "#calculate-mob" },
 ];

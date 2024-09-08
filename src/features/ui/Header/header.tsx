@@ -15,7 +15,12 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
         <BurgerButton />
       </header>
       <header className={styles.header_pc}>
-        <img className={styles.header_pc__logo} src={logo.src} alt="Logotype" />
+        <img
+          className={styles.header_pc__logo}
+          src={logo.src}
+          onClick={() => (window.location.href = "/")}
+          alt="Logotype"
+        />
         <nav className={styles.header_pc__nav}>
           <a className={styles.header_pc__nav__link} href="#main">
             Отправить посылку
@@ -26,7 +31,13 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
           <a className={styles.header_pc__nav__link} href="#contacts">
             Стоимость
           </a>
-          <Button text="Войти" buttonType="filled" />
+          <Button
+            text="Войти"
+            buttonType="filled"
+            onClick={() => {
+              window.location.href = "/login";
+            }}
+          />
         </nav>
       </header>
     </>

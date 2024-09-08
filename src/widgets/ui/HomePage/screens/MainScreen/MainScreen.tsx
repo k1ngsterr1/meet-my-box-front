@@ -15,7 +15,7 @@ import styles from "./styles.module.scss";
 export const MainScreen = () => {
   return (
     <>
-      <main className={styles.main_screen}>
+      <main className={styles.main_screen} id="main-mob">
         <img
           src={bg_logo.src}
           alt="bg_logo"
@@ -46,7 +46,7 @@ export const MainScreen = () => {
         </div>
         <img src={main_img.src} alt="" className={styles.main_screen__img} />
       </main>
-      <main className={styles.main_screen_pc}>
+      <main className={styles.main_screen_pc} id="main-pc">
         <div className="w-full flex justify-between">
           <div className="flex items-start flex-col">
             <Fade>
@@ -63,7 +63,11 @@ export const MainScreen = () => {
               </Paragraph>
             </Fade>
             <div className="flex items-center gap-4 mt-8">
-              <Button text="Оформить заявку" buttonType="filled" />
+              <Button
+                text="Оформить заявку"
+                buttonType="filled"
+                onClick={() => (window.location.href = "#contacts-pc")}
+              />
               <IconButton text="Процесс доставки" icon={faChevronRight} />
             </div>
             <div className={styles.main_screen__clients}>
