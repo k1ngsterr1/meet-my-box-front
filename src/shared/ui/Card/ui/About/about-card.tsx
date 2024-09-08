@@ -46,7 +46,10 @@ export const AboutItemPC: React.FC<IAboutCard> = ({ title, description }) => {
       />
       <span className={styles.about_pc__card__title}>{title}</span>
       <p className={styles.about_pc__card__paragraph}>{description}</p>
-      <IconButton text="Связаться с нами" />
+      <IconButton
+        text="Связаться с нами"
+        onClick={() => (window.location.href = "#contacts-pc")}
+      />
     </div>
   );
 };
@@ -61,7 +64,11 @@ export const AboutItem: React.FC<IAboutCard> = ({ title, description }) => {
       />
       <span className={styles.about__card__title}>{title}</span>
       <p className={styles.about__card__paragraph}>{description}</p>
-      <IconButton text="Связаться с нами" margin="mt-4" />
+      <IconButton
+        text="Связаться с нами"
+        margin="mt-4"
+        onClick={() => (window.location.href = "#contacts-mob")}
+      />
     </div>
   );
 };

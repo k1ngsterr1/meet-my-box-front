@@ -42,6 +42,12 @@
 }
 
 .track_pc {
+  // &__container {
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: start;
+  //   justify-content: space-evenly;
+  // }
   &__block {
     width: 70%;
     display: flex;
@@ -102,7 +108,7 @@
     }
     &__description {
       @apply text-left;
-      @apply mt-4;
+      @apply mt-2;
       font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
       width: 70%;
       text-align: start;
@@ -125,6 +131,7 @@
 
       @include respond-to("xl") {
         font-size: clamp(9px, 18 / 1360 * 100vw, 36px);
+        @apply mt-4;
       }
 
       @include respond-to("2xl") {

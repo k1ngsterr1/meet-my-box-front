@@ -39,6 +39,7 @@ export const MainScreen = () => {
           text="Процесс доставки"
           icon={faChevronRight}
           margin="mt-4"
+          onClick={() => (window.location.href = "#process-mob")}
         />
         <div className={styles.main_screen__clients}>
           <img src={group.src} alt="clients" />
@@ -68,7 +69,11 @@ export const MainScreen = () => {
                 buttonType="filled"
                 onClick={() => (window.location.href = "#contacts-pc")}
               />
-              <IconButton text="Процесс доставки" icon={faChevronRight} />
+              <IconButton
+                text="Процесс доставки"
+                icon={faChevronRight}
+                onClick={() => (window.location.href = "#process-pc")}
+              />
             </div>
             <div className={styles.main_screen__clients}>
               <img src={group.src} alt="clients" />

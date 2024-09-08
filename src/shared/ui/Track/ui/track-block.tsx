@@ -40,7 +40,7 @@ export const TrackBlockPC = () => {
         <Button
           text="Отследить"
           buttonType="filled"
-          margin="mt-10"
+          margin="mt-6"
           onClick={() => window.open("https://parcelsapp.com/en/tracking/")}
         />
       </div>
