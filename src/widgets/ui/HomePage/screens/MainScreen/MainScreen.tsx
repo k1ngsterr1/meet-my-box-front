@@ -1,6 +1,6 @@
 import bg_logo from "@assets/bg_face.svg";
 import group from "@assets/clients_group.png";
-import main_img from "@assets/main_img.png";
+import main_img from "@assets/pexels-karolina-grabowska-5632382.jpg";
 
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import Button from "@shared/ui/Button/ui/button";
@@ -76,7 +76,7 @@ export const MainScreen = () => {
             </div>
           </div>
           <Fade className="w-full">
-            <img src={image.src} className={styles.main_screen_pc__img} />
+            <img src={main_img.src} className={styles.main_screen_pc__img} />
           </Fade>
         </div>
       </main>
