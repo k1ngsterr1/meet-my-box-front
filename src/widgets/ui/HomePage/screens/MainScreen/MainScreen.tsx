@@ -33,7 +33,12 @@ export const MainScreen = () => {
             в Россию и страны СНГ
           </Paragraph>
         </Fade>
-        <Button text="Оформить заявку" buttonType="filled" margin="mt-8" />
+        <Button
+          text="Оформить заявку"
+          buttonType="filled"
+          margin="mt-8"
+          onClick={() => (window.location.href = "#contacts-mob")}
+        />
         <IconButton
           text="Процесс доставки"
           icon={faChevronRight}
