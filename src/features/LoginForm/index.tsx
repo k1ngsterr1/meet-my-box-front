@@ -18,12 +18,14 @@ export const LoginForm = () => {
   return (
     <form className={styles.login__form} onSubmit={handleSubmit}>
       <FormInput
+        width="w-[60%]"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         type="email"
       />
       <FormInput
+        width="w-[60%]"
         placeholder="Ваш пороль"
         margin="mt-4"
         value={password}

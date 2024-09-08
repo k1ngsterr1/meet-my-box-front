@@ -24,12 +24,12 @@
 }
 @include respond-to("tablet_sm") {
   .register_pc {
-    @apply mt-24;
+    @apply mt-24 mb-24;
     max-width: 86.6%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    @apply gap-8;
+    position: relative;
     &__heading {
       width: 100%;
       text-align: center;
@@ -79,8 +79,8 @@
       }
     }
     &__img {
-      width: clamp(312px, 32.49792vw, 1236px);
-      height: clamp(369px, 38.43364vw, 1476px);
+      position: absolute;
+      z-index: -1;
     }
   }
 
