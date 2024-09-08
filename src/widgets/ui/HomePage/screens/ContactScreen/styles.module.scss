@@ -29,15 +29,13 @@
       @apply pt-20 pl-12 pr-12;
 
       @include respond-to("lg") {
-        width: 45%;
       }
     }
     &__img {
       width: 60%;
-      height: clamp(600px, 62.496vw, 2400px);
+      // height: clamp(600px, 62.496vw, 2400px);
       @include respond-to("lg") {
-        width: 55%;
-        height: clamp(500px, 52.08vw, 2000px);
+        // height: clamp(500px, 52.08vw, 2000px);s
       }
     }
     &__paragraph {

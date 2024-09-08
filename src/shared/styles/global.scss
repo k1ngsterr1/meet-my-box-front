@@ -52,6 +52,10 @@ p {
   @include respond-to("tablet_sm") {
     width: 100%;
     max-width: 100%;
+    position: relative;
+    background-image: url("@assets/bg_img.png");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 }
 

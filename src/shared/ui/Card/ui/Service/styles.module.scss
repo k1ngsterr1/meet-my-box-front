@@ -54,6 +54,7 @@
     justify-content: center;
     position: relative;
     z-index: 1;
+    @apply bg-white;
     @apply shadow-xl;
     border-radius: 16px;
 

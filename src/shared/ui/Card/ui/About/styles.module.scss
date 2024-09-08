@@ -145,6 +145,7 @@
       align-items: center;
       justify-content: space-evenly;
       min-height: 320px;
+      @apply bg-white;
       border-radius: 16px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }

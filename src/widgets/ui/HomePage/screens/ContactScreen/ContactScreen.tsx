@@ -1,4 +1,4 @@
-import contact_img from "@assets/Form Screen.png";
+import contact_img from "@assets/pexels-tima-miroshnichenko-6169025.jpg";
 import {
   ContactForm,
   ContactFormPC,

@@ -8,6 +8,7 @@
   width: 80%;
   @apply p-2;
   @apply text-base;
+  z-index: 1;
 
   @include respond-to("tablet_sm") {
     font-size: clamp(6px, 12 / 1024 * 100vw, 24px);
