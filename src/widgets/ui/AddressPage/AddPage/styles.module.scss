@@ -19,3 +19,73 @@
     z-index: -10;
   }
 }
+.add_address_pc {
+  display: none;
+}
+@include respond-to("tablet_sm") {
+  .add_address_pc {
+    @apply mt-24 mb-24;
+    max-width: 86.6%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // @apply gap-8;
+    position: relative;
+    &__heading {
+      width: 100%;
+      text-align: center;
+      line-height: 48px;
+      @apply font-bold;
+
+      font-size: clamp(14px, 28 / 1024 * 100vw, 56px);
+
+      @include respond-to("tablet_sm") {
+        font-size: clamp(14px, 28 / 1024 * 100vw, 56px);
+      }
+
+      @include respond-to("tablet") {
+        font-size: clamp(14px, 28 / 1100 * 100vw, 56px);
+      }
+
+      @include respond-to("lg") {
+        font-size: clamp(14px, 28 / 1200 * 100vw, 56px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(14px, 28 / 1280 * 100vw, 56px);
+      }
+
+      @include respond-to("xl") {
+        font-size: clamp(14px, 28 / 1360 * 100vw, 56px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(14px, 28 / 1520 * 100vw, 56px);
+      }
+
+      @include respond-to("3xl") {
+        font-size: clamp(14px, 28 / 1680 * 100vw, 56px);
+      }
+
+      @include respond-to("4xl") {
+        font-size: clamp(14px, 28 / 1920 * 100vw, 56px);
+      }
+
+      @include respond-to("5xl") {
+        font-size: clamp(14px, 28 / 2560 * 100vw, 56px);
+      }
+
+      @include respond-to("6xl") {
+        font-size: clamp(14px, 28 / 3840 * 100vw, 56px);
+      }
+    }
+    &__img {
+      position: absolute;
+      top: 0;
+    }
+  }
+
+  .add_address {
+    display: none;
+  }
+}
