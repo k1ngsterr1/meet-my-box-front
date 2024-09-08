@@ -58,6 +58,19 @@ p {
     background-size: cover;
   }
 }
+.container_single {
+  @include respond-to("xxxs") {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+  }
+
+  @include respond-to("tablet_sm") {
+    width: 100%;
+    max-width: 100%;
+  }
+}
 
 body {
   scroll-behavior: smooth;

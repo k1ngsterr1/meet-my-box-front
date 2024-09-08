@@ -64,6 +64,9 @@
         }
       }
     }
+    &__email {
+      @apply text-lg text-main;
+    }
   }
 
   .header {
