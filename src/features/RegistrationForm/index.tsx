@@ -47,7 +47,7 @@ export const RegistrationForm = () => {
       />
       <FormInput
         width="w-full"
-        placeholder="Ваш пороль"
+        placeholder="Подтвердите пароль"
         margin="mt-4"
         value={password2}
         onChange={(e) => setPassword2(e.target.value)}
