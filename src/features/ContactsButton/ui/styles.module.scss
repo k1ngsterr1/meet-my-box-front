@@ -12,10 +12,10 @@
   color: white;
   cursor: pointer;
   transition: transform 0.3s;
-  z-index: 10; // Ensure this is lower than icons
+  z-index: 10;
   @apply rounded-full;
   @apply text-2xl;
-  @apply bg-main; // Ensure this class is defined correctly
+  @apply bg-main;
   &:hover {
     transform: scale(1.1);
   }
@@ -23,41 +23,31 @@
 
 .icons_wrapper {
   position: fixed; // Changed from absolute to fixed
-  bottom: 96px; // Adjust this to position the icons above the button
-  right: 16px; // Same as button's right position
+  bottom: 115px; // Adjust this to position the icons above the button
+  right: 24px; // Same as button's right position
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 15px;
-  opacity: 0;
-  animation: reveal 0.5s forwards;
+  opacity: 1;
   z-index: 20; // Higher than the button to appear above it
 }
 
-@keyframes reveal {
-  from {
-    opacity: 0;
-    transform: translateY(10px) scale(0.5);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
 .icon {
+  width: 48px;
+  height: 48px;
   color: #fff;
-  background-color: #25d366; /* WhatsApp */
-  padding: 10px;
   border-radius: 50%;
-  font-size: 20px;
-  transition: transform 0.3s;
+  font-size: 24px;
+  transition: 0.3s all;
   display: flex;
   align-items: center;
   justify-content: center;
+  @apply bg-main;
 
   &:hover {
+    @apply bg-hover;
     transform: scale(1.2);
   }
 }

@@ -1,21 +1,21 @@
-import Button from "@shared/ui/Button/ui/button";
-import styles from "./styles.module.scss";
 import {
   CalculateForm,
   CalculateFormPC,
 } from "@features/Form/Calculate/calculate-form";
+import Button from "@shared/ui/Button/ui/button";
+import styles from "./styles.module.scss";
 export const CalculateScreen = () => {
   return (
     <>
-      <div className={styles.calculate}>
+      <section className={styles.calculate} id="calculate-mob">
         <h2 className={styles.calculate__heading}>
           Рассчитать стоимость доставки
         </h2>
         <Button text="Посылка" buttonType="filled" margin="mt-6" />
         <Button text="Документы" buttonType="outline" margin="mt-4" />
         <CalculateForm />
-      </div>
-      <div className={styles.calculate_pc}>
+      </section>
+      <section className={styles.calculate_pc} id="calculate-pc">
         <h2 className={styles.calculate_pc__heading}>
           Рассчитать стоимость доставки
         </h2>
@@ -24,7 +24,7 @@ export const CalculateScreen = () => {
           <Button text="Документы" buttonType="outline" />
         </div>
         <CalculateFormPC />
-      </div>
+      </section>
     </>
   );
 };

@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 export const AboutScreen = () => {
   return (
     <>
-      <div className={styles.about}>
+      <section className={styles.about} id="about-mob">
         <Fade>
           <h3 className={styles.about__heading}>Meet My Box это:</h3>
         </Fade>
@@ -16,8 +16,8 @@ export const AboutScreen = () => {
           </Paragraph>
         </Fade>
         <AboutGroup />
-      </div>
-      <div className={styles.about_pc}>
+      </section>
+      <section className={styles.about_pc} id="about-pc">
         <Fade>
           <h3 className={styles.about_pc__heading}>Meet My Box это:</h3>
         </Fade>
@@ -28,7 +28,7 @@ export const AboutScreen = () => {
           </Paragraph>
         </Fade>
         <AboutGroupPC />
-      </div>
+      </section>
     </>
   );
 };

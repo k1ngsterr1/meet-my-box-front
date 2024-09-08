@@ -10,6 +10,7 @@
   @apply rounded-full;
 
   &:hover {
+    @apply text-white;
     @apply bg-hover;
   }
 
@@ -59,32 +60,32 @@
   }
 
   @include respond-to("xl") {
-    width: clamp(90px, 180 / 1360 * 100vw, 360px);
+    width: clamp(105px, 210 / 1360 * 100vw, 420px);
     height: clamp(22.5px, 45 / 1360 * 100vw, 90px);
   }
 
   @include respond-to("2xl") {
-    width: clamp(90px, 180 / 1520 * 100vw, 360px);
+    width: clamp(105px, 210 / 1520 * 100vw, 420px);
     height: clamp(22.5px, 45 / 1520 * 100vw, 90px);
   }
 
   @include respond-to("3xl") {
-    width: clamp(90px, 180 / 1680 * 100vw, 360px);
+    width: clamp(105px, 210 / 1680 * 100vw, 420px);
     height: clamp(22.5px, 45 / 1680 * 100vw, 90px);
   }
 
   @include respond-to("4xl") {
-    width: clamp(90px, 180 / 1920 * 100vw, 360px);
+    width: clamp(105px, 210 / 1920 * 100vw, 420px);
     height: clamp(22.5px, 45 / 1920 * 100vw, 90px);
   }
 
   @include respond-to("5xl") {
-    width: clamp(100px, 200 / 2560 * 100vw, 400px);
+    width: clamp(100px, 210 / 2560 * 100vw, 400px);
     height: clamp(22.5px, 45 / 2560 * 100vw, 90px);
   }
 
   @include respond-to("6xl") {
-    width: clamp(100px, 200 / 3840 * 100vw, 400px);
+    width: clamp(100px, 210 / 3840 * 100vw, 400px);
     height: clamp(22.5px, 45 / 3840 * 100vw, 90px);
   }
 }

@@ -7,29 +7,20 @@
   align-items: center;
   justify-content: space-between;
   @apply pt-8;
-  &__logo {
-    width: clamp(40px, 18.6912vw, 160px);
-    height: clamp(40px, 18.6912vw, 160px);
 
+  &__logo {
     @include respond-to("xxs") {
-      width: clamp(20px, 80 / 390 * 100vh, 110px);
-      height: clamp(20px, 80 / 390 * 100vh, 110px);
+      width: clamp(50px, 100 / 390 * 100vh, 200px);
+      height: clamp(50px, 100 / 390 * 100vh, 200px);
     }
+
     @include respond-to("xs") {
-      width: clamp(20px, 80 / 480 * 100vh, 110px);
-      height: clamp(20px, 80 / 480 * 100vh, 110px);
+      width: clamp(50px, 100 / 480 * 100vh, 200px);
+      height: clamp(50px, 100 / 480 * 100vh, 200px);
     }
     @include respond-to("md") {
       width: clamp(20px, 80 / 992 * 100vh, 110px);
       height: clamp(20px, 80 / 992 * 100vh, 110px);
-    }
-    @include respond-to("tablet_sm") {
-      width: clamp(20px, 80 / 1024 * 100vh, 110px);
-      height: clamp(20px, 80 / 1024 * 100vh, 110px);
-    }
-    @include respond-to("tablet") {
-      width: clamp(20px, 80 / 1100 * 100vh, 110px);
-      height: clamp(20px, 80 / 1100 * 100vh, 110px);
     }
   }
 }
@@ -53,6 +44,7 @@
     &__logo {
       width: 128px;
       height: 128px;
+      cursor: pointer;
     }
 
     &__nav {

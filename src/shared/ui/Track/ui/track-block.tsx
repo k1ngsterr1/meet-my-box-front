@@ -1,8 +1,7 @@
-import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
-import styles from "./styles.module.scss";
 import tracking from "@assets/track.png";
 import Button from "@shared/ui/Button/ui/button";
 import { Fade } from "react-awesome-reveal";
+import styles from "./styles.module.scss";
 export const TrackBlock = () => {
   return (
     <div className={styles.track__block}>
@@ -38,7 +37,12 @@ export const TrackBlockPC = () => {
             По ссылке ниже вы можете узнать где сейчас Ваша посылка
           </p>
         </Fade>
-        <Button text="Отследить" buttonType="filled" margin="mt-10" />
+        <Button
+          text="Отследить"
+          buttonType="filled"
+          margin="mt-10"
+          onClick={() => window.open("https://parcelsapp.com/en/tracking/")}
+        />
       </div>
     </div>
   );

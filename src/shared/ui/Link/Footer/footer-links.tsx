@@ -1,6 +1,7 @@
 import { footerLinks } from "@shared/lib/content/Footer";
-import styles from "./styles.module.scss";
 import { SocialMediaLinks } from "../Social/social-links";
+import styles from "./styles.module.scss";
+
 export const FooterLinks = () => {
   return (
     <nav className={styles.footer__nav}>

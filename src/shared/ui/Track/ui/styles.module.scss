@@ -9,7 +9,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 16px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     background-position: center;
     @apply pt-12;
     @apply pr-4;
@@ -22,8 +22,8 @@
     &__title {
       @apply font-bold;
       @apply text-center;
-      font-size: clamp(9px, 18 / 360 * 100vw, 36px);
-      width: 80%;
+      font-size: clamp(12px, 24 / 360 * 100vw, 48px);
+      width: 100%;
       text-align: start;
     }
     &__description {
@@ -48,10 +48,10 @@
     background-image: url("@assets/blue_lines.png");
     background-repeat: no-repeat;
     background-size: cover;
-    border-radius: 16px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     background-position: center;
     @apply pt-12;
+    @apply rounded-2xl;
     @apply mt-12;
     &__title {
       @apply font-bold;
