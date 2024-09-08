@@ -2,8 +2,8 @@
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 
-const useIconRevealAnimation = (showIcons) => {
-  const iconsRef = useRef(null);
+const useIconRevealAnimation = (showIcons: boolean) => {
+  const iconsRef = useRef<any>(null);
 
   useEffect(() => {
     if (!iconsRef.current) return;
