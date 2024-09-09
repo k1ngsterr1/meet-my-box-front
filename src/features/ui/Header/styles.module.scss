@@ -57,7 +57,7 @@
         transition: 0.3s all;
         @apply font-medium;
         @apply text-dark;
-        @apply text-base;
+        @apply text-sm;
 
         &:hover {
           @apply text-main;

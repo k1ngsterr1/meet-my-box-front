@@ -9,4 +9,8 @@
   @include respond-to("tablet_sm") {
     @apply text-lg;
   }
+
+  @include respond-to("lg") {
+    @apply text-base;
+  }
 }

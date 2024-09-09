@@ -1,9 +1,9 @@
+import { ErrorDisplay } from "@entities/Error";
+import { useRegister } from "@shared/lib/hooks/useRegister";
+import Button from "@shared/ui/Button/ui/button";
+import { FormInput } from "@shared/ui/Input/Form/form-input";
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
-import { FormInput } from "@shared/ui/Input/Form/form-input";
-import Button from "@shared/ui/Button/ui/button";
-import { useRegister } from "@shared/lib/hooks/useRegister";
-import { ErrorDisplay } from "@entities/Error";
 
 export const RegistrationForm = () => {
   const [email, setEmail] = useState("");
@@ -40,7 +40,7 @@ export const RegistrationForm = () => {
       />
       <FormInput
         width="w-full"
-        placeholder="Ваш пороль"
+        placeholder="Ваш пароль"
         margin="mt-4"
         value={password}
         onChange={(e) => setPassword(e.target.value)}

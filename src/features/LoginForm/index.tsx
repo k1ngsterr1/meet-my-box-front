@@ -1,8 +1,8 @@
+import { useLogin } from "@shared/lib/hooks/useLogin";
+import Button from "@shared/ui/Button/ui/button";
+import { FormInput } from "@shared/ui/Input/Form/form-input";
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
-import { FormInput } from "@shared/ui/Input/Form/form-input";
-import Button from "@shared/ui/Button/ui/button";
-import { useLogin } from "@shared/lib/hooks/useLogin";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -26,7 +26,7 @@ export const LoginForm = () => {
       />
       <FormInput
         width="w-[60%]"
-        placeholder="Ваш пороль"
+        placeholder="Ваш пароль"
         margin="mt-4"
         value={password}
         onChange={(e) => setPassword(e.target.value)}

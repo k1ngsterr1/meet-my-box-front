@@ -19,11 +19,7 @@ export const ContactScreen = () => {
         </Paragraph>
         <ContactForm />
         <Button text="Отправить" buttonType="filled" margin="mt-10" />
-        <ContactLink
-          text="info@meetmybox.com"
-          link="mailto:info@meetmybox.com"
-          margin="mt-10"
-        />
+
         <ContactLink
           text="(720) 709-9413"
           link="tel:+17207099413"
@@ -34,7 +30,11 @@ export const ContactScreen = () => {
           link="mailto:support@meetmybox.com"
           margin="mt-4"
         />
-        <img src={contact_img.src} alt="form_img" className="mt-4 w-full" />
+        <img
+          src={contact_img.src}
+          alt="form_img"
+          className="mt-4 w-full mb-8"
+        />
       </section>
       <section className={styles.contact_pc} id="contacts-pc">
         <div className={styles.contact_pc__left}>
@@ -46,11 +46,6 @@ export const ContactScreen = () => {
           <ContactFormPC />
           <Button text="Отправить" buttonType="filled" margin="mt-10" />
           <ContactLink
-            text="info@meetmybox.com"
-            link="mailto:info@meetmybox.com"
-            margin="mt-10"
-          />
-          <ContactLink
             text="(720) 709-9413"
             link="tel:+17207099413"
             margin="mt-4"
@@ -58,7 +53,7 @@ export const ContactScreen = () => {
           <ContactLink
             text="support@meetmybox.com"
             link="mailto:support@meetmybox.com"
-            margin="mt-4"
+            margin="mt-4 mb-8"
           />
         </div>
         <img

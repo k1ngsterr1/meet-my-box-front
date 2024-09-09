@@ -1,11 +1,13 @@
 @import "@shared/styles/mixins";
 @import "@shared/styles/variables";
+
 .input {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #333333;
   text-align: center;
   width: 80%;
+  background-color: transparent;
   @apply p-2;
   @apply text-base;
   z-index: 1;

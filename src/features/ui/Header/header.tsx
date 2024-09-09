@@ -3,8 +3,8 @@ import { useStore } from "@nanostores/react";
 import { BurgerButton } from "@shared/ui/Burger/ui/burger-button";
 import Button from "@shared/ui/Button/ui/button";
 import { isMenuOpen } from "@stores/menuState";
-import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 
 interface IHeader {
   isMobile?: boolean;

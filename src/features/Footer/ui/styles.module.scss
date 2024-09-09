@@ -28,7 +28,7 @@
       width: 100%;
       display: flex;
       align-items: center;
-      @apply pr-16 pl-16 pt-12;
+      @apply pr-16 pl-16 pt-0;
       justify-content: space-between;
       &__item {
         @apply text-sm font-medium;

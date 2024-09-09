@@ -25,14 +25,14 @@ export const Footer = () => {
         <div className={styles.footer_pc__nav}>
           <img
             src={logo.src}
-            onClick={() => (window.location.href = "#main-pc")}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             alt="footer_logo"
             className={`${styles.footer_pc__logo} cursor-pointer`}
           />
           <FooterLinksPC />
           <Button
             text="Вверх"
-            onClick={() => (window.location.href = "#main-pc")}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             buttonType="filled"
             margin="hover:text-white"
           />

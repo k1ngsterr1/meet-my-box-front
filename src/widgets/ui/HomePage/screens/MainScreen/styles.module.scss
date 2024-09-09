@@ -6,13 +6,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   @apply mt-12;
 
-  position: relative;
   &__logo {
     position: absolute;
     z-index: -10;
   }
+
   &__heading {
     @apply font-bold;
     @apply text-center;
@@ -44,10 +45,11 @@
 @include respond-to("tablet_sm") {
   .main_screen_pc {
     max-width: 86.6%;
-    @apply mt-24;
     width: 100%;
     display: flex;
     justify-content: space-between;
+    @apply mt-24;
+
     &__heading {
       width: 100%;
       text-align: left;
@@ -63,6 +65,7 @@
       }
 
       @include respond-to("lg") {
+        width: 90%;
         font-size: clamp(18px, 36 / 1200 * 100vw, 72px);
       }
 
