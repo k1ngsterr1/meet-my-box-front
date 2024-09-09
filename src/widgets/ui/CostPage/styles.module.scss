@@ -19,6 +19,11 @@
     justify-content: start;
   }
 
+  @include respond-to("4xl") {
+    height: 70vh;
+    justify-content: center;
+  }
+
   &__heading {
     @apply font-bold;
     @apply text-center;

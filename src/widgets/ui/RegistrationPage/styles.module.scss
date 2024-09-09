@@ -30,6 +30,21 @@
     flex-direction: column;
     align-items: center;
     position: relative;
+
+    @include respond-to("tablet_sm") {
+      height: 70vh;
+      justify-content: center;
+    }
+
+    @include respond-to("lg") {
+      height: inherit;
+      justify-content: start;
+    }
+    @include respond-to("4xl") {
+      height: 70vh;
+      justify-content: center;
+    }
+
     &__heading {
       width: 100%;
       text-align: center;
@@ -81,6 +96,15 @@
     &__img {
       position: absolute;
       z-index: -1;
+      @include respond-to("tablet_sm") {
+        height: 70vh;
+        justify-content: center;
+      }
+
+      @include respond-to("lg") {
+        height: inherit;
+        justify-content: start;
+      }
     }
   }
 
