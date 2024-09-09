@@ -48,13 +48,13 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
           alt="Logotype"
         />
         <nav className={styles.header_pc__nav}>
-          <a className={styles.header_pc__nav__link} href="#main">
+          <a className={styles.header_pc__nav__link} href="/packages">
             Отправить посылку
           </a>
-          <a className={styles.header_pc__nav__link} href="#send">
+          <a className={styles.header_pc__nav__link} href="#contacts-pc">
             Помощь с покупкой
           </a>
-          <a className={styles.header_pc__nav__link} href="#contacts">
+          <a className={styles.header_pc__nav__link} href="/cost">
             Стоимость
           </a>
           {userEmail ? (

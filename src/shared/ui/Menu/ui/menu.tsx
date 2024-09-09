@@ -33,13 +33,13 @@ export const Menu = () => {
               <a className="text-dark text-xl" href="#">
                 Главная
               </a>
-              <a className="text-dark text-xl" href="#">
+              <a className="text-dark text-xl" href="/packages">
                 Отправить посылку
               </a>
-              <a className="text-dark text-xl" href="#">
+              <a className="text-dark text-xl" href="/">
                 Принять заказ из интернет магазина
               </a>
-              <a className="text-dark text-xl" href="#">
+              <a className="text-dark text-xl" href="#contacts-mob">
                 Контакты
               </a>
             </nav>

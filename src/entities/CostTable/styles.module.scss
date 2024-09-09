@@ -1,9 +1,15 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+
 .table {
   @apply mt-8;
   background-color: rgba(34, 12, 243, 0.05);
   width: 90%;
   border-collapse: collapse;
   border: solid 1px #220cf3;
+  @include respond-to("tablet_sm") {
+    width: 60%;
+  }
   &__head,
   &__body {
     &__row {
@@ -17,7 +23,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      border: 1px solid #220cf3; /* Optional: Add border for styling */
+      border: 1px solid #220cf3;
     }
   }
   &__head__cell {
