@@ -1,7 +1,13 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
 .input {
   @apply p-2;
   border: 1px solid #333333;
   border-radius: 4px;
   @apply text-base;
-  width: 80%;
+  // width: 80%;
+
+  @include respond-to("tablet_sm") {
+    flex: 1 1 50%;
+  }
 }

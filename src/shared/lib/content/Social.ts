@@ -3,6 +3,7 @@ import {
   faInstagram,
   faWhatsapp,
   faFacebookMessenger,
+  faTelegram,
 } from "@fortawesome/free-brands-svg-icons";
 
 export interface ISocialLink {
@@ -12,11 +13,15 @@ export interface ISocialLink {
 }
 
 export const socialLinks: ISocialLink[] = [
-  { name: "Instagram", to: "https://www.instagram.com", icon: faInstagram },
+  {
+    name: "Instagram",
+    to: "https://www.instagram.com/meet_my_box?igsh=MWoyaWNyODY5Mm9yYw%3D%3D&utm_source=qr",
+    icon: faInstagram,
+  },
   { name: "WhatsApp", to: "https://wa.me/1234567890", icon: faWhatsapp },
   {
-    name: "Messenger",
-    to: "https://www.messenger.com",
-    icon: faFacebookMessenger,
+    name: "Telegram",
+    to: "https://t.me/meetmbox",
+    icon: faTelegram,
   },
 ];

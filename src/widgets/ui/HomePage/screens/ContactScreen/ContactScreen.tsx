@@ -1,4 +1,4 @@
-import contact_img from "@assets/Form Screen.png";
+import contact_img from "@assets/pexels-tima-miroshnichenko-6169025.jpg";
 import {
   ContactForm,
   ContactFormPC,
@@ -29,6 +29,11 @@ export const ContactScreen = () => {
           link="tel:+17207099413"
           margin="mt-4"
         />
+        <ContactLink
+          text="support@meetmybox.com"
+          link="mailto:support@meetmybox.com"
+          margin="mt-4"
+        />
         <img src={contact_img.src} alt="form_img" className="mt-4 w-full" />
       </section>
       <section className={styles.contact_pc} id="contacts-pc">
@@ -48,6 +53,11 @@ export const ContactScreen = () => {
           <ContactLink
             text="(720) 709-9413"
             link="tel:+17207099413"
+            margin="mt-4"
+          />
+          <ContactLink
+            text="support@meetmybox.com"
+            link="mailto:support@meetmybox.com"
             margin="mt-4"
           />
         </div>

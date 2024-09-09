@@ -8,7 +8,14 @@ export const CostPage = () => {
       <img src={bg_face.src} alt="" className={styles.cost__img} />
       <h2 className={styles.cost__heading}>Цены</h2>
       <PricingTable />
-      <Button text="Допуслуги" buttonType="filled" margin="mt-12" />
+      <Button
+        text="Доп. услуги"
+        buttonType="filled"
+        margin="mt-12"
+        onClick={() => {
+          window.location.href = "/additional-service";
+        }}
+      />
     </div>
   );
 };

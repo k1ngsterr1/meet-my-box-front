@@ -22,19 +22,22 @@ export const Footer = () => {
         <SocialMediaLinks />
       </footer>
       <footer className={styles.footer_pc}>
-        <img
-          src={logo.src}
-          onClick={() => (window.location.href = "#main-pc")}
-          alt="footer_logo"
-          className={`${styles.footer_pc__logo} cursor-pointer`}
-        />
-        <FooterLinksPC />
-        <Button
-          text="Вверх"
-          onClick={() => (window.location.href = "#main-pc")}
-          buttonType="filled"
-          margin="hover:text-white"
-        />
+        <div className={styles.footer_pc__nav}>
+          <img
+            src={logo.src}
+            onClick={() => (window.location.href = "#main-pc")}
+            alt="footer_logo"
+            className={`${styles.footer_pc__logo} cursor-pointer`}
+          />
+          <FooterLinksPC />
+          <Button
+            text="Вверх"
+            onClick={() => (window.location.href = "#main-pc")}
+            buttonType="filled"
+            margin="hover:text-white"
+          />
+        </div>
+        <SocialMediaLinks />
       </footer>
     </>
   );

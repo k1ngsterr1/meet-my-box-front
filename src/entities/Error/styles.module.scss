@@ -1,6 +1,51 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+
 .error {
   @apply mt-2;
   color: red;
+  @apply text-center;
   font-size: clamp(14px, 12 / 360 * 100vw, 46px);
   animation: fadeIn 0.5s ease-out;
+
+  @include respond-to("tablet_sm") {
+    font-size: clamp(6px, 12 / 1024 * 100vw, 24px);
+    @apply mt-4;
+  }
+
+  @include respond-to("tablet") {
+    font-size: clamp(6px, 12 / 1100 * 100vw, 24px);
+  }
+
+  @include respond-to("lg") {
+    font-size: clamp(6px, 12 / 1200 * 100vw, 24px);
+  }
+
+  @include respond-to("2xl") {
+    font-size: clamp(6px, 12 / 1280 * 100vw, 24px);
+  }
+
+  @include respond-to("xl") {
+    font-size: clamp(6px, 12 / 1360 * 100vw, 24px);
+  }
+
+  @include respond-to("2xl") {
+    font-size: clamp(6px, 12 / 1520 * 100vw, 24px);
+  }
+
+  @include respond-to("3xl") {
+    font-size: clamp(6px, 12 / 1680 * 100vw, 24px);
+  }
+
+  @include respond-to("4xl") {
+    font-size: clamp(6px, 12 / 1920 * 100vw, 24px);
+  }
+
+  @include respond-to("5xl") {
+    font-size: clamp(6px, 12 / 2560 * 100vw, 24px);
+  }
+
+  @include respond-to("6xl") {
+    font-size: clamp(6px, 12 / 3840 * 100vw, 24px);
+  }
 }

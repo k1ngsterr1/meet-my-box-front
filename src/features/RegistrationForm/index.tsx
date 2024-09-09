@@ -33,18 +33,21 @@ export const RegistrationForm = () => {
   return (
     <form className={styles.login__form} onSubmit={handleSubmit}>
       <FormInput
+        width="w-full"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <FormInput
+        width="w-full"
         placeholder="Ваш пороль"
         margin="mt-4"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       <FormInput
-        placeholder="Ваш пороль"
+        width="w-full"
+        placeholder="Подтвердите пароль"
         margin="mt-4"
         value={password2}
         onChange={(e) => setPassword2(e.target.value)}

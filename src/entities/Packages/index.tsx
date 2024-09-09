@@ -41,3 +41,37 @@ export const Packages: React.FC<PackagesProps> = ({ items }) => {
     </div>
   );
 };
+export const PackagesPC: React.FC<PackagesProps> = ({ items }) => {
+  return (
+    <div className={styles.packages_pc__list}>
+      {items.map((item, index) => (
+        <div key={item.id} className={styles.packages_pc__list__info}>
+          <div key={item.id} className={styles.packages_pc__list__left}>
+            <span className={styles.packages_pc__list__id}>
+              Посылка #{index + 1}
+            </span>
+            <div className={styles.packages_pc__list__status}>
+              <div className={styles.packages_pc__list__status__circle} />
+              <span className={styles.packages_pc__list__status__text}>
+                {item.status}
+              </span>
+            </div>
+            <div className="mt-2">
+              <div className={styles.packages_pc__list__date}>
+                Дата отправки:
+                <span className="text-main"> {item.departure}</span>
+              </div>
+              <div className={styles.packages_pc__list__date}>
+                Дата получения:
+                <span className="text-main"> {item.arrival}</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-end justify-end w-[50%]">
+            <button children="Отследить" className={styles.button} />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};

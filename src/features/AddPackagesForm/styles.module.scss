@@ -15,3 +15,11 @@
   gap: 0.5rem;
   justify-content: space-between;
 }
+.add_package_pc {
+  display: flex;
+  flex-direction: column;
+  @apply gap-4;
+  &__form {
+    @apply mt-4;
+  }
+}

@@ -1,9 +1,14 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
 .table {
   @apply mt-8;
   background-color: rgba(34, 12, 243, 0.05);
   width: 90%;
   border-collapse: collapse;
   border: solid 1px #220cf3;
+  @include respond-to("tablet_sm") {
+    width: 60%;
+  }
   &__head,
   &__body {
     &__row {

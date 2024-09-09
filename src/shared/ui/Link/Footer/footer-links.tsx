@@ -29,7 +29,6 @@ export const FooterLinksPC = () => {
           </li>
         ))}
       </ul>
-      <SocialMediaLinks />
     </nav>
   );
 };

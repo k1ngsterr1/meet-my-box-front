@@ -14,7 +14,6 @@ export const AdditonalServicePage = () => {
         Дополнительные услуги
       </h2>
       <PricingTable />
-      <Button text="Допуслуги" buttonType="filled" margin="mt-12" />
     </div>
   );
 };

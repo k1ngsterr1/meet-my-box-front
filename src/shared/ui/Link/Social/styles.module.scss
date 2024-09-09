@@ -7,8 +7,7 @@
   @apply mb-8;
 
   @include respond-to("tablet_sm") {
-    @apply mt-8;
-    @apply mb-8;
+    @apply mt-0;
   }
   &__icon {
     width: clamp(18px, 8.41104vw, 72px);
