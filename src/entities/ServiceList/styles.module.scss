@@ -7,5 +7,10 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    @include respond-to("lg") {
+      display: flex;
+      flex-direction: row;
+    }
   }
 }

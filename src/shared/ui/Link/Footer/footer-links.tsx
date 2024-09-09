@@ -1,5 +1,4 @@
 import { footerLinks } from "@shared/lib/content/Footer";
-import { SocialMediaLinks } from "../Social/social-links";
 import styles from "./styles.module.scss";
 
 export const FooterLinks = () => {

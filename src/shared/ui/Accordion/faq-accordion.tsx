@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
-import styles from "./styles.module.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faqAccordions,
-  type AccordionItem,
+  type AccordionItem as AccordionItemType,
 } from "@shared/lib/content/Accordion";
+import React, { useState } from "react";
+import styles from "./styles.module.scss";
 
 export const FAQList = () => {
   return (
@@ -21,7 +21,10 @@ export const FAQList = () => {
   );
 };
 
-const AccordionItem: React.FC<AccordionItem> = ({ question, answer }) => {
+export const AccordionItem: React.FC<AccordionItemType> = ({
+  question,
+  answer,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleAccordion = () => {

@@ -1,6 +1,7 @@
 import { serviceList } from "@shared/lib/content/Process";
-import styles from "./styles.module.scss";
 import { ImageCard } from "@shared/ui/Card/ui/Image/image-card";
+import styles from "./styles.module.scss";
+
 export const ServiceList = () => {
   return (
     <div className={styles.service__list}>

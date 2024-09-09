@@ -1,0 +1,28 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+
+.rules {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @apply mt-14;
+  @apply mb-14;
+
+  &__heading {
+    @apply font-bold;
+    @apply text-center;
+    font-size: clamp(14px, 28 / 360 * 100vw, 56px);
+
+    @include respond-to("tablet_sm") {
+      @apply text-2xl;
+      @apply text-dark;
+    }
+  }
+
+  &__paragraph {
+    width: 70%;
+    @apply mt-2;
+    @apply text-center;
+  }
+}

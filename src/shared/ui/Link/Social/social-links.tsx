@@ -1,12 +1,6 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faInstagram,
-  faWhatsapp,
-  faFacebookMessenger,
-} from "@fortawesome/free-brands-svg-icons";
-import styles from "./styles.module.scss";
 import { socialLinks } from "@shared/lib/content/Social";
+import styles from "./styles.module.scss";
 
 export const SocialMediaLinks = () => {
   return (

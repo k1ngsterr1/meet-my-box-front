@@ -1,7 +1,8 @@
+import bg_face from "@assets/bg_face.svg";
+import { ServiceList } from "@entities/ServiceList";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import styles from "./styles.module.scss";
-import { ServiceList } from "@entities/ServiceList";
-import bg_face from "@assets/bg_face.svg";
+
 export const ServicePage = () => {
   return (
     <div className={styles.service}>
