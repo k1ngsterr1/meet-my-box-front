@@ -10,13 +10,13 @@
 
   &__logo {
     @include respond-to("xxs") {
-      width: clamp(50px, 100 / 390 * 100vh, 200px);
-      height: clamp(50px, 100 / 390 * 100vh, 200px);
+      width: clamp(30px, 60 / 390 * 100vh, 120px);
+      height: clamp(30px, 60 / 390 * 100vh, 120px);
     }
 
     @include respond-to("xs") {
-      width: clamp(50px, 100 / 480 * 100vh, 200px);
-      height: clamp(50px, 100 / 480 * 100vh, 200px);
+      width: clamp(30px, 60 / 480 * 100vh, 120px);
+      height: clamp(30px, 60 / 480 * 100vh, 120px);
     }
     @include respond-to("md") {
       width: clamp(20px, 80 / 992 * 100vh, 110px);
