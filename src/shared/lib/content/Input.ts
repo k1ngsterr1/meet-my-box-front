@@ -1,4 +1,5 @@
-export interface ICalculateInput {
+export interface ICalculateInput
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
   margin?: string;
 }

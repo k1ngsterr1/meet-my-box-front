@@ -21,7 +21,6 @@
 @include respond-to("tablet_sm") {
   .address_pc {
     @apply mt-24 mb-24;
-    max-width: 86.6%;
     display: flex;
     flex-direction: column;
     align-items: center;
