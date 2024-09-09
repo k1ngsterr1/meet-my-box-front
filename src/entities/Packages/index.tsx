@@ -35,7 +35,12 @@ export const Packages: React.FC<PackagesProps> = ({ items }) => {
             Дата получения:
             <span className="text-main"> {item.arrival}</span>
           </div>
-          <Button text="Отследить" buttonType="filled" margin="mt-4" />
+          <Button
+            text="Отследить"
+            buttonType="filled"
+            margin="mt-4"
+            onClick={() => window.open("https://parcelsapp.com/en/tracking/")}
+          />
         </div>
       ))}
     </div>
@@ -68,7 +73,11 @@ export const PackagesPC: React.FC<PackagesProps> = ({ items }) => {
             </div>
           </div>
           <div className="flex items-end justify-end w-[50%]">
-            <button children="Отследить" className={styles.button} />
+            <button
+              children="Отследить"
+              className={styles.button}
+              onClick={() => window.open("https://parcelsapp.com/en/tracking/")}
+            />
           </div>
         </div>
       ))}
