@@ -21,6 +21,7 @@
   }
   &__nav {
     &__link {
+      line-height: 48px;
       font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
 
       @include respond-to("tablet_sm") {

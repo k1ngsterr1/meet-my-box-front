@@ -3,8 +3,9 @@ export interface ISidePanelLink {
   to: string;
 }
 export const sidePanelLinks: ISidePanelLink[] = [
-  { name: "Главная", to: "/main" },
-  { name: "Мой аккаунт", to: "/" },
-  { name: "Новая посылка", to: "" },
-  { name: "Мои адреса", to: "" },
+  { name: "Главная", to: "/" },
+  { name: "Мой аккаунт", to: "/packages" },
+  { name: "Новая посылка", to: "/packages/add" },
+  { name: "Мои адреса", to: "/address" },
+  { name: "Мои посылки", to: "/packages" },
 ];

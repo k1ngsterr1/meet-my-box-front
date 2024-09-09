@@ -5,7 +5,12 @@ import Button from "../Button/ui/button";
 export const SidePanel = () => {
   return (
     <div className={styles.side_panel}>
-      <img src={logo.src} alt="logo" className={styles.side_panel__img} />
+      <img
+        src={logo.src}
+        alt="logo"
+        className={styles.side_panel__img}
+        onClick={() => (window.location.href = "/")}
+      />
       <ul className={styles.side_panel__nav}>
         {sidePanelLinks.map((item, index) => (
           <li className={styles.side_panel__nav__item}>

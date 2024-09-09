@@ -58,7 +58,12 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
             Стоимость
           </a>
           {userEmail ? (
-            <span className={styles.header_pc__email}>{userEmail}</span>
+            <span
+              className={styles.header_pc__email}
+              onClick={() => (window.location.href = "/address")}
+            >
+              {userEmail}
+            </span>
           ) : (
             <Button
               text="Войти"
