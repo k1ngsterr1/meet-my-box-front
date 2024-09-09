@@ -9,6 +9,16 @@
   @apply mb-14;
   position: relative;
 
+  @include respond-to("tablet_sm") {
+    height: 70vh;
+    justify-content: center;
+  }
+
+  @include respond-to("lg") {
+    height: inherit;
+    justify-content: start;
+  }
+
   &__heading {
     @apply font-bold;
     @apply text-center;

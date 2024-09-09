@@ -61,26 +61,27 @@ export const AddPackagesForm: React.FC<AddPackagesFormProps> = ({
           value={itemName}
           onChange={(e) => setItemName(e.target.value)}
           margin="mt-2"
+          width="w-full"
         />
         <BorderInput
           placeholder="Страна происхождения"
           value={originCountry}
           onChange={(e) => setOriginCountry(e.target.value)}
-          width="w-1/2"
+          width="w-full"
           margin="mt-2"
         />
         <BorderInput
           placeholder="Кол-во, шт"
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
-          width="w-1/2"
+          width="w-full"
           margin="mt-2"
         />
         <BorderInput
           placeholder="Вес (кг)"
           value={weight}
           onChange={(e) => setWeight(e.target.value)}
-          width="w-1/2"
+          width="w-full"
           margin="mt-2"
         />
         <BorderInput
@@ -103,6 +104,87 @@ export const AddPackagesForm: React.FC<AddPackagesFormProps> = ({
           onClick={handleAddItem}
           margin="mt-2"
         />
+      </form>
+    </>
+  );
+};
+
+export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
+  item,
+  itemName,
+  originCountry,
+  quantity,
+  weight,
+  price,
+  setItemName,
+  setOriginCountry,
+  setQuantity,
+  setWeight,
+  setPrice,
+  handleAddItem,
+  handleSubmit,
+}) => {
+  // Populate form fields with item values if the item is provided
+  useEffect(() => {
+    if (item) {
+      setItemName(item.item_name);
+      setOriginCountry(item.origin_country);
+      setQuantity(item.quantity);
+      setWeight(item.weight);
+      setPrice(item.price);
+    }
+  }, [item, setItemName, setOriginCountry, setQuantity, setWeight, setPrice]);
+
+  return (
+    <>
+      <form className={styles.add_package_pc__form} onSubmit={handleSubmit}>
+        <div className="w-full flex gap-4">
+          <BorderInput
+            placeholder="Наименование"
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+            margin="mt-2"
+          />
+          <BorderInput
+            placeholder="Страна происхождения"
+            value={originCountry}
+            onChange={(e) => setOriginCountry(e.target.value)}
+            width="w-[50%]"
+            margin="mt-2"
+          />
+        </div>
+        <div className="w-full flex gap-4">
+          <BorderInput
+            placeholder="Кол-во, шт"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            width="w-[50%]"
+            margin="mt-2"
+          />
+          <BorderInput
+            placeholder="Вес (кг)"
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+            width="w-[50%]"
+            margin="mt-2"
+          />
+        </div>
+        <BorderInput
+          placeholder="Стоимость (евро)"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          width="w-full"
+          margin="mt-2"
+        />
+        <div className="flex items-center w-full justify-evenly mt-8">
+          <Button text="Сохранить" buttonType="filled" type="submit" />
+          <Button
+            text="Добавить"
+            type="button"
+            buttonType="outline"
+            onClick={handleAddItem}
+          />
+        </div>
       </form>
     </>
   );
