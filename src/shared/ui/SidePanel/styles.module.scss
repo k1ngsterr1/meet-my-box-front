@@ -15,11 +15,9 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   @include respond-to("tablet_sm") {
     height: 85vh;
-    width: 120%;
   }
   @include respond-to("lg") {
     height: 100vh;
-    width: 100%;
   }
   &__img {
     @apply mt-16;
@@ -28,10 +26,10 @@
   }
   &__nav {
     &__link {
-      line-height: 48px;
       font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
 
       @include respond-to("tablet_sm") {
+        line-height: 48px;
         font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
       }
 
@@ -70,6 +68,29 @@
       @include respond-to("6xl") {
         font-size: clamp(9px, 18 / 3840 * 100vw, 36px);
       }
+    }
+  }
+}
+.side_panel_mob {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @apply pt-8;
+
+  &__img {
+    @include respond-to("xxs") {
+      width: clamp(50px, 100 / 390 * 100vh, 200px);
+      height: clamp(50px, 100 / 390 * 100vh, 200px);
+    }
+
+    @include respond-to("xs") {
+      width: clamp(50px, 100 / 480 * 100vh, 200px);
+      height: clamp(50px, 100 / 480 * 100vh, 200px);
+    }
+    @include respond-to("md") {
+      width: clamp(20px, 80 / 992 * 100vh, 110px);
+      height: clamp(20px, 80 / 992 * 100vh, 110px);
     }
   }
 }

@@ -4,7 +4,8 @@ const { title, description } = Astro.props;
 import "@shared/styles/global.scss";
 
 import { Footer } from "@features/Footer/ui/footer";
-import { SidePanel } from "@shared/ui/SidePanel";
+import { SidePanel, SidePanelMob } from "@shared/ui/SidePanel";
+import { Menu } from "@shared/ui/Menu/SideMenu";
 ---
 
 <html lang="en">
@@ -17,11 +18,15 @@ import { SidePanel } from "@shared/ui/SidePanel";
   </head>
   <body>
     <div class="container_single">
-      <div class="w-full flex">
-        <div class="w-[20%]">
+      <Menu client:load/>
+      <div class="w-full flex flex-col lg:flex-row">
+        <div class="w-full flex flex-col items-center lg:hidden">
+          <SidePanelMob client:load />
+        </div>
+        <div class="hidden lg:block xl:w-[20%] lg:w-[30%]">
           <SidePanel client:load />
         </div>
-        <div class="w-[80%]">
+        <div class="w-full lg:w-[70%] xl:w-[80%] flex flex-col items-center lg:block">
           <slot />
         </div>
       </div>
