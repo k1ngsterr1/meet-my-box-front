@@ -1,6 +1,6 @@
 import bg_logo from "@assets/bg_face.svg";
+import main_img from "@assets/canvas.webp";
 import group from "@assets/clients_group.png";
-import main_img from "@assets/pexels-karolina-grabowska-5632382.jpg";
 
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import Button from "@shared/ui/Button/ui/button";
@@ -20,15 +20,16 @@ export const MainScreen = () => {
         />
         <Fade>
           <h1 className={styles.main_screen__heading}>
-            Cервис доставки посылок из Европы в Россию и страны СНГ
+            Meet my Box - лучший сервис доставки посылок из Европы в Россию и
+            страны СНГ.{" "}
           </h1>
         </Fade>
         <Fade delay={0.2}>
           <Paragraph isCentered margin="mt-4">
-            Также вы можете совершать покупки в интернет-магазинах на наши
-            адреса в Италии, Германии, Франции и Испании. Заботливо переупакуем,
-            уберем счета, чеки и отправим с нашей логистической службой напрямую
-            в Россию и страны СНГ
+            Вы можете делать покупки в интернет-магазинах на наши адреса в
+            Италии, Германии, Франции и Испании. Заботливо переупакуем, уберем
+            счета, чеки и отправим с нашей логистической службой напрямую в
+            Россию и страны СНГ.
           </Paragraph>
         </Fade>
         <Button

@@ -1,9 +1,8 @@
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import {
   faInstagram,
-  faWhatsapp,
-  faFacebookMessenger,
   faTelegram,
+  faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
 
 export interface ISocialLink {
@@ -18,7 +17,7 @@ export const socialLinks: ISocialLink[] = [
     to: "https://www.instagram.com/meet_my_box?igsh=MWoyaWNyODY5Mm9yYw%3D%3D&utm_source=qr",
     icon: faInstagram,
   },
-  { name: "WhatsApp", to: "https://wa.me/1234567890", icon: faWhatsapp },
+  { name: "WhatsApp", to: "https://wa.me/393931577805", icon: faWhatsapp },
   {
     name: "Telegram",
     to: "https://t.me/meetmbox",

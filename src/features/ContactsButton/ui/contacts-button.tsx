@@ -3,7 +3,6 @@ import { faTelegram, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-
 import useIconRevealAnimation from "../animations/useIconReveal";
 import styles from "./styles.module.scss";
 
@@ -25,7 +24,7 @@ export const ContactsButton = () => {
         {showIcons && (
           <>
             <a
-              href="https://t.me/your-telegram-handle"
+              href="http://t.me/meetmbox"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.icon}
@@ -33,7 +32,7 @@ export const ContactsButton = () => {
               <FontAwesomeIcon icon={faTelegram} />
             </a>
             <a
-              href="https://wa.me/your-whatsapp-number"
+              href="https://wa.me/393931577805"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.icon}

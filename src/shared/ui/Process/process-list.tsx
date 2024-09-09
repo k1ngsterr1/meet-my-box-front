@@ -1,19 +1,32 @@
+import { processHelpList } from "@shared/lib/content/HelpProcess";
 import { processList } from "@shared/lib/content/Process";
 import { ImageCard } from "../Card/ui/Image/image-card";
 import styles from "./styles.module.scss";
-export const ProcessList = () => {
+
+interface IProcessList {
+  choosenState: string;
+}
+
+export const ProcessList: React.FC<IProcessList> = ({ choosenState }) => {
+  const content =
+    choosenState === "Отправить посылку" ? processList : processHelpList;
+
   return (
     <div className={styles.process__list}>
-      {processList.map((item, index) => (
+      {content.map((item, index) => (
         <ImageCard key={index} img={item.img} description={item.description} />
       ))}
     </div>
   );
 };
-export const ProcessListPC = () => {
+
+export const ProcessListPC: React.FC<IProcessList> = ({ choosenState }) => {
+  const content =
+    choosenState === "Отправить посылку" ? processList : processHelpList;
+
   return (
     <div className={styles.process_pc__list}>
-      {processList.map((item, index) => (
+      {content.map((item, index) => (
         <ImageCard key={index} img={item.img} description={item.description} />
       ))}
     </div>
