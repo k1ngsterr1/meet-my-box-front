@@ -18,8 +18,6 @@ export const ContactScreen = () => {
           форму и мы сами свяжемся с вами
         </Paragraph>
         <ContactForm />
-        <Button text="Отправить" buttonType="filled" margin="mt-10" />
-
         <ContactLink
           text="(720) 709-9413"
           link="tel:+17207099413"
@@ -44,7 +42,6 @@ export const ContactScreen = () => {
             заполнить форму и мы сами свяжемся с вами
           </p>
           <ContactFormPC />
-          <Button text="Отправить" buttonType="filled" margin="mt-10" />
           <ContactLink
             text="(720) 709-9413"
             link="tel:+17207099413"
