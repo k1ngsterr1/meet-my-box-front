@@ -91,12 +91,17 @@
     @apply mt-8;
     width: 100%;
     position: relative;
+    @include respond-to("5xl") {
+      width: 65%;
+      @apply gap-8;
+    }
   }
   &__item {
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 16px;
+    // max-height: 300px;
     @apply pt-12;
     @apply pb-12;
     @apply bg-slate-50;
