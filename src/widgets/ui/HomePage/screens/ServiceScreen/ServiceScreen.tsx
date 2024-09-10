@@ -6,6 +6,8 @@ import {
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
+import { FAQList } from "@shared/ui/Accordion/faq-accordion";
+import { serviceFaqAccordions } from "@shared/lib/content/Accordion";
 export const ServiceScreen = () => {
   return (
     <>
@@ -35,9 +37,10 @@ export const ServiceScreen = () => {
         </Fade>
         <Fade className="w-full flex items-center justify-center">
           <Paragraph margin="mt-4" width="w-[50%]" isCentered={true}>
-            Мы предлагаем комплексные логистические услуги, оптимизируя ваши
-            процессы и обеспечивая своевременную доставку. Доверяйте нам
-            организацию всех этапов транспортировки.
+            Доставка посылок из Европы в Россию и страны СНГ. С полным перечнем
+            стран, откуда осуществляется доставка, вы можете ознакомиться здесь.
+            Мы предоставляем услуги доставки посылок весом до 10кг и в Россию и
+            страны СНГ. Подробнее о габаритах посылок можно найти здесь.
           </Paragraph>
         </Fade>
         <ServiceGroupPC />
@@ -48,6 +51,9 @@ export const ServiceScreen = () => {
           onClick={() => (window.location.href = "#contacts-pc")}
         />
       </section>
+      <div className="w-[90%] lg:w-[86.6%]">
+        <FAQList items={serviceFaqAccordions} />
+      </div>
     </>
   );
 };

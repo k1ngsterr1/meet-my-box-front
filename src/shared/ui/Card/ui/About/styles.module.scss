@@ -205,7 +205,7 @@
       width: 80%;
 
       @include respond-to("tablet_sm") {
-        width: 90%;
+        width: 60%;
         font-size: clamp(6px, 12 / 1024 * 100vw, 24px);
       }
 

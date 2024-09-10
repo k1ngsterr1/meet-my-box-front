@@ -1,16 +1,17 @@
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faqAccordions,
-  type AccordionItem as AccordionItemType,
-} from "@shared/lib/content/Accordion";
+import { type AccordionItem as AccordionItemType } from "@shared/lib/content/Accordion";
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
 
-export const FAQList = () => {
+interface Props {
+  items: AccordionItemType[];
+}
+
+export const FAQList: React.FC<Props> = ({ items }) => {
   return (
     <div className={styles.faq__group}>
-      {faqAccordions.map((item, index) => (
+      {items.map((item, index) => (
         <AccordionItem
           key={index}
           question={item.question}
