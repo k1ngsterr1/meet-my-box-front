@@ -102,6 +102,11 @@
       width: clamp(312px, 32.49792vw, 1248px);
       height: clamp(369px, 38.43504vw, 1476px);
       border-radius: 16px;
+
+      @include respond-to("5xl") {
+        width: clamp(400px, 800 / 2560 * 100vh, 1600px);
+        height: clamp(500px, 1000 / 2560 * 100vh, 2000px);
+      }
     }
   }
 

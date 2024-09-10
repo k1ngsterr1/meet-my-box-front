@@ -83,9 +83,11 @@ export const MainScreen = () => {
               <Paragraph margin="ml-2">200+ Довольных клиентов</Paragraph>
             </div>
           </div>
-          <Fade className="w-full">
-            <img src={main_img.src} className={styles.main_screen_pc__img} />
-          </Fade>
+          <div className="w-full flex flex-end">
+            <Fade className="w-full flex justify-end">
+              <img src={main_img.src} className={styles.main_screen_pc__img} />
+            </Fade>
+          </div>
         </div>
       </main>
     </>
