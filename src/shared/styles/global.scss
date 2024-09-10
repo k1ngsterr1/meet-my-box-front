@@ -69,7 +69,7 @@ p {
 
   @include respond-to("tablet_sm") {
     width: 100%;
-    max-width: 100%;
+    max-width: 2000px;
   }
 }
 

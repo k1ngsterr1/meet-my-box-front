@@ -71,6 +71,12 @@ export const FeedbackSwiperPC = () => {
           nextEl: `.${styles.next_pc}`,
         }}
         pagination={{ clickable: true }}
+        breakpoints={{
+          2560: {
+            slidesPerView: 4,
+            spaceBetween: 40,
+          },
+        }}
       >
         {feedbacks.map((item, index) => (
           <SwiperSlide key={index}>

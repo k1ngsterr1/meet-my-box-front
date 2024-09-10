@@ -3,7 +3,8 @@ export interface ICalculateInput
   placeholder: string;
   margin?: string;
 }
-export interface IContactInput {
+export interface IContactInput
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
   margin?: string;
   width?: string;
