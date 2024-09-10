@@ -11,6 +11,7 @@
     flex-direction: column;
     border-radius: 16px;
     @apply shadow-xl;
+
     &__heading {
       @apply text-center;
       font-size: clamp(9px, 18 / 360 * 100vw, 36px);
@@ -41,7 +42,8 @@
     flex-direction: column;
     border-radius: 16px;
     @apply bg-white;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    @apply shadow-xl;
+
     &__heading {
       width: 40%;
       @apply text-center;

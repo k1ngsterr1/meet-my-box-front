@@ -12,8 +12,7 @@
     align-items: center;
 
     &__item {
-      padding: clamp(25px, 11.681999999999999vw, 100px) 0px;
-
+      padding: clamp(25px, 11.681999999999999vw, 100px);
       display: flex;
       flex-direction: column;
       align-items: center;
