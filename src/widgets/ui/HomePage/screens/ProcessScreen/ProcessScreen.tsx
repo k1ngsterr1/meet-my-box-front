@@ -3,6 +3,8 @@ import { ProcessList, ProcessListPC } from "@shared/ui/Process/process-list";
 import { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
+import { FAQList } from "@shared/ui/Accordion/faq-accordion";
+import { processFaqAccordions } from "@shared/lib/content/Accordion";
 
 export const ProcessScreen = () => {
   const [choosenState, setChoosenState] = useState<string>("Отправить посылку");
@@ -53,6 +55,9 @@ export const ProcessScreen = () => {
         </div>
         <ProcessListPC choosenState={choosenState} />
       </section>
+      <div className="w-[90%] lg:w-[86.6%]">
+        <FAQList items={processFaqAccordions} />
+      </div>
     </>
   );
 };

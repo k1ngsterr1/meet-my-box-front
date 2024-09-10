@@ -6,6 +6,8 @@ import Button from "@shared/ui/Button/ui/button";
 import styles from "./styles.module.scss";
 import { useState } from "react";
 import { Documents } from "@shared/ui/Documents";
+import { calcFaqAccordions } from "@shared/lib/content/Accordion";
+import { FAQList } from "@shared/ui/Accordion/faq-accordion";
 export const CalculateScreen = () => {
   const [isForm, setIsForm] = useState(true);
   const handleToggleForm = () => {
@@ -53,6 +55,9 @@ export const CalculateScreen = () => {
         {isForm && <CalculateFormPC />}
         {!isForm && <Documents onClick={handleToggleForm} />}
       </section>
+      <div className="w-[90%] lg:w-[86.6%]">
+        <FAQList items={calcFaqAccordions} />
+      </div>
     </>
   );
 };

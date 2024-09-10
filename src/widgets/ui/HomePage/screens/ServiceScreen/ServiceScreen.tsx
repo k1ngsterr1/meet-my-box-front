@@ -6,6 +6,8 @@ import {
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
+import { FAQList } from "@shared/ui/Accordion/faq-accordion";
+import { serviceFaqAccordions } from "@shared/lib/content/Accordion";
 export const ServiceScreen = () => {
   return (
     <>
@@ -49,6 +51,9 @@ export const ServiceScreen = () => {
           onClick={() => (window.location.href = "#contacts-pc")}
         />
       </section>
+      <div className="w-[90%] lg:w-[86.6%]">
+        <FAQList items={serviceFaqAccordions} />
+      </div>
     </>
   );
 };
