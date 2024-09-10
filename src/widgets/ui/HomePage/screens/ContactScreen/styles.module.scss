@@ -23,6 +23,7 @@
     display: flex;
     width: 100%;
     align-items: center;
+    justify-content: space-between;
     @apply mt-24;
 
     &__left {
@@ -32,14 +33,15 @@
       flex-direction: column;
       @apply pt-20 pl-12 pr-12;
 
-      @include respond-to("lg") {
+      @include respond-to("5xl") {
+        padding-left: 200px;
+        width: 30%;
       }
     }
     &__img {
       width: 60%;
-      // height: clamp(600px, 62.496vw, 2400px);
-      @include respond-to("lg") {
-        // height: clamp(500px, 52.08vw, 2000px);s
+      @include respond-to("5xl") {
+        width: 60%;
       }
     }
     &__paragraph {
