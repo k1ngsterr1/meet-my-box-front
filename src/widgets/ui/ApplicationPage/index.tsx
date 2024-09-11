@@ -1,3 +1,4 @@
+import { AgreeCard } from "@features/Cards/AgreeCard";
 import { CostCard } from "@features/Cards/CostCard";
 import { CourierCard } from "@features/Cards/CourierCard";
 import { InsuranceCard } from "@features/Cards/InsuranceCard";
@@ -11,10 +12,13 @@ export const ApplicationPage = () => {
   const [showNoteCard, setShowNoteCard] = useState(false);
   const [showDocumentCard, setShowDocumentCard] = useState(false);
   const [showCostCard, setShowCostCard] = useState(false);
+  const [showAgreeCard, setShowAgreeCard] = useState(false);
   const [insurance, setInsurance] = useState(false);
   const [caurier, setCourier] = useState(false);
   const [note, setNote] = useState("");
   const [documents, setDocuments] = useState([]);
+  const [agree1, setAgree1] = useState(false);
+  const [agree2, setAgree2] = useState(false);
   const handleInsuranceClick = (value: boolean) => {
     setInsurance(value);
     setShowInsuranceCard(false);
@@ -36,8 +40,22 @@ export const ApplicationPage = () => {
   };
   const handleCostClick = () => {
     setShowCostCard(false);
+    setShowAgreeCard(true);
   };
-
+  const handleAgreeClick = () => {
+    if (!agree1 || !agree2) {
+      alert("Вы должны согласиться с обеими условиями!");
+      return;
+    } else {
+      setShowAgreeCard(false);
+    }
+  };
+  const toggle1 = () => {
+    setAgree1(!agree1);
+  };
+  const toggle2 = () => {
+    setAgree2(!agree2);
+  };
   return (
     <div className="w-full flex items-center justify-center">
       {showInsuranceCard && (
@@ -51,6 +69,13 @@ export const ApplicationPage = () => {
         <DocumentUpload onDocumentClick={handleDocumentClick} />
       )} */}
       {showCostCard && <CostCard onCostClick={handleCostClick} />}
+      {showAgreeCard && (
+        <AgreeCard
+          onAgreeClick={handleAgreeClick}
+          toggle1={toggle1}
+          toggle2={toggle2}
+        />
+      )}
     </div>
   );
 };
