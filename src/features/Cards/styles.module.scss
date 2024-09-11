@@ -214,6 +214,101 @@
     position: relative;
   }
 }
+.cost {
+  &__paragraph {
+    font-size: clamp(9px, 14 / 360 * 100vw, 43px);
+
+    @include respond-to("xs") {
+      @apply mt-4;
+    }
+
+    @include respond-to("tablet_sm") {
+      @apply mt-2;
+      font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
+    }
+
+    @include respond-to("tablet") {
+      font-size: clamp(9px, 18 / 1100 * 100vw, 36px);
+    }
+
+    @include respond-to("lg") {
+      font-size: clamp(9px, 18 / 1200 * 100vw, 36px);
+    }
+
+    @include respond-to("2lg") {
+      font-size: clamp(9px, 18 / 1280 * 100vw, 36px);
+    }
+
+    @include respond-to("xl") {
+      font-size: clamp(9px, 18 / 1360 * 100vw, 36px);
+    }
+
+    @include respond-to("2xl") {
+      font-size: clamp(9px, 18 / 1520 * 100vw, 36px);
+    }
+
+    @include respond-to("3xl") {
+      font-size: clamp(9px, 18 / 1680 * 100vw, 36px);
+    }
+
+    @include respond-to("4xl") {
+      font-size: clamp(9px, 18 / 1920 * 100vw, 36px);
+    }
+
+    @include respond-to("5xl") {
+      font-size: clamp(9px, 18 / 2560 * 100vw, 36px);
+    }
+
+    @include respond-to("6xl") {
+      font-size: clamp(9px, 18 / 3840 * 100vw, 36px);
+    }
+  }
+  &__heading {
+    @apply font-bold;
+    @apply text-center;
+    font-size: clamp(14px, 24 / 360 * 100vw, 46px);
+
+    @include respond-to("tablet_sm") {
+      font-size: clamp(14px, 28 / 1024 * 100vw, 56px);
+    }
+
+    @include respond-to("tablet") {
+      font-size: clamp(14px, 28 / 1100 * 100vw, 56px);
+    }
+
+    @include respond-to("lg") {
+      font-size: clamp(14px, 28 / 1200 * 100vw, 56px);
+    }
+
+    @include respond-to("2xl") {
+      font-size: clamp(14px, 28 / 1280 * 100vw, 56px);
+    }
+
+    @include respond-to("xl") {
+      font-size: clamp(14px, 28 / 1360 * 100vw, 56px);
+    }
+
+    @include respond-to("2xl") {
+      font-size: clamp(14px, 28 / 1520 * 100vw, 56px);
+    }
+
+    @include respond-to("3xl") {
+      font-size: clamp(14px, 28 / 1680 * 100vw, 56px);
+    }
+
+    @include respond-to("4xl") {
+      font-size: clamp(14px, 28 / 1920 * 100vw, 56px);
+    }
+
+    @include respond-to("5xl") {
+      font-size: clamp(14px, 28 / 2560 * 100vw, 56px);
+    }
+
+    @include respond-to("6xl") {
+      font-size: clamp(14px, 28 / 3840 * 100vw, 56px);
+    }
+  }
+}
 .answer {
   display: flex;
   align-items: center;
