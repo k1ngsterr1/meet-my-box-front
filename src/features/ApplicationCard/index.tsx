@@ -1,98 +1,100 @@
-import type React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import Button from "@shared/ui/Button/ui/button";
-import { useState } from "react";
-interface Items {
+
+interface Packages {
+  id: number;
   name: string;
   country: string;
   quantity: number;
   weight: number;
   cost: number;
 }
-export interface Props {
+
+export interface ApplicationProps {
+  id: number;
   name: string;
-  email: string;
   departure: string;
-  items: Items[];
+  contacts: string;
+  packages: Packages[];
 }
 
-export interface Cards {
-  items: Props[];
+interface ApplicationsProps {
+  items: ApplicationProps[];
 }
-export const ApplicationCards: React.FC<Cards> = ({ items }) => {
+
+export const ApplicationCards: React.FC<ApplicationsProps> = ({ items }) => {
+  const [show, setShow] = useState(false);
   return (
-    <div className={styles.application__cards}>
-      {items.map((item, index) => (
-        <ApplicationCard
-          key={index}
-          name={item.name}
-          departure={item.departure}
-          email={item.email}
-          items={item.items}
-        />
+    <div className={styles.applications__list}>
+      {items.map((item) => (
+        <div key={item.id} className={styles.applications__list__info}>
+          <span className={styles.applications__list__id}>
+            Посылка #{item.id}
+          </span>
+          <div className={styles.applications__list__name}>
+            <div className={styles.applications__list__name__circle} />
+            <span className={styles.applications__list__name__text}>
+              {item.name}
+            </span>
+          </div>
+          <div className={styles.applications__list__date}>
+            Дата отправки:
+            <span className="text-main"> {item.departure}</span>
+          </div>
+          <div className={styles.applications__list__date}>
+            Контакты:
+            <span className="text-main"> {item.contacts}</span>
+          </div>
+          <Button
+            text="Подробнее"
+            buttonType="filled"
+            margin="mt-4"
+            onClick={() => setShow(true)}
+          />
+        </div>
       ))}
+      {show && <a></a>}
     </div>
   );
 };
-
-export const ApplicationCard: React.FC<Props> = ({ name, email, items }) => {
+export const ApplicationsCardsPC: React.FC<ApplicationsProps> = ({ items }) => {
   const [show, setShow] = useState(false);
-  const toggleShow = () => setShow(!show);
   return (
-    <div className={styles.card}>
-      <span className={styles.card__name}>{name}</span>
-      <span className={styles.card__email}>
-        Email:{" "}
-        <a href={`mailto:${email}`} className="text-main">
-          {email}
-        </a>
-      </span>
-      {!show && (
-        <ul className={styles.card__items}>
-          <li className={styles.card__items__item}>
-            <span className={styles.card__items__item__heading}>
-              Предмет №1
+    <div className={styles.applications_pc__list}>
+      {items.map((item) => (
+        <div key={item.id} className={styles.applications_pc__list__info}>
+          <div key={item.id} className={styles.applications_pc__list__left}>
+            <span className={styles.applications_pc__list__id}>
+              Посылка #{item.id}
             </span>
-            <span className={styles.card__items__text}>
-              Название: {items[0].name}
-            </span>
-          </li>
-        </ul>
-      )}
-
-      {show && (
-        <ul className={styles.card__items}>
-          {items.map((item, index) => (
-            <li className={styles.card__items__item}>
-              <span className={styles.card__items__item__heading}>
-                Предмет №{index + 1}
+            <div className={styles.applications_pc__list__name}>
+              <div className={styles.applications_pc__list__name__circle} />
+              <span className={styles.applications_pc__list__name__text}>
+                {item.name}
               </span>
-              <span className={styles.card__items__text}>
-                Название: {item.name}
-              </span>
-              <span className={styles.card__items__text}>
-                Страна: {item.country}
-              </span>
-              <span className={styles.card__items__text}>
-                Количество: {item.quantity}, шт
-              </span>
-              <span className={styles.card__items__text}>
-                Вес: {item.weight} кг
-              </span>
-              <span className={styles.card__items__text}>
-                Цена: {item.cost}
-                {"€"}
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
-      <Button
-        text={!show ? "Подробнее" : "Закрыть"}
-        buttonType="filled"
-        onClick={toggleShow}
-        margin="mt-4"
-      />
+            </div>
+            <div className="mt-2">
+              <div className={styles.applications_pc__list__date}>
+                Дата отправки:
+                <span className="text-main"> {item.departure}</span>
+              </div>
+              <div className={styles.applications_pc__list__date}>
+                Дата получения:
+                <span className="text-main"> {item.contacts}</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-end justify-end w-[50%]">
+            <button
+              children="Подробнее"
+              className={styles.button}
+              onClick={() => setShow(true)}
+            />
+          </div>
+        </div>
+      ))}
+      {show && <a></a>}
     </div>
   );
 };
