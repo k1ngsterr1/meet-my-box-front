@@ -1,5 +1,5 @@
-import img1 from "@assets/process_1.png";
-import img2 from "@assets/process_2.png";
+import img2 from "@assets/contact.webp";
+import img1 from "@assets/help_02.webp";
 import img3 from "@assets/process_3.png";
 import img5 from "@assets/service2.png";
 

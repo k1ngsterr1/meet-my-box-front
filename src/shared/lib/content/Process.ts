@@ -14,7 +14,7 @@ export const processList: IImageCardItem[] = [
   },
   {
     img: img2,
-    description: "Оформить заказ на нашем сайте (здесь ссылка)",
+    description: "Оформить заказ на нашем сайте https://meetmybox.com",
   },
   {
     img: img3,
