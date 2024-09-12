@@ -3,7 +3,6 @@ import {
   ContactForm,
   ContactFormPC,
 } from "@features/Form/Contact/contact-form";
-import Button from "@shared/ui/Button/ui/button";
 import { ContactLink } from "@shared/ui/Link/Contact/contact-link";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import styles from "./styles.module.scss";
@@ -19,8 +18,8 @@ export const ContactScreen = () => {
         </Paragraph>
         <ContactForm />
         <ContactLink
-          text="(720) 709-9413"
-          link="tel:+17207099413"
+          text="+39 393 157 7805"
+          link="tel:+393931577805"
           margin="mt-4"
         />
         <ContactLink
@@ -43,8 +42,8 @@ export const ContactScreen = () => {
           </p>
           <ContactFormPC />
           <ContactLink
-            text="(720) 709-9413"
-            link="tel:+17207099413"
+            text="+39 393 157 7805"
+            link="tel:+393931577805"
             margin="mt-4"
           />
           <ContactLink

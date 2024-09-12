@@ -11,11 +11,11 @@ export interface IImageCardItem {
 export const processHelpList: IImageCardItem[] = [
   {
     img: img1,
-    description: "Собрать вещи в корзину",
+    description: "Собрать корзину в интернет-магазине.",
   },
   {
     img: img2,
-    description: "Написать нам (ссылка на телеграм и вотс ап) ",
+    description: "Написать нам http://t.me/meetmbox",
   },
   {
     img: img3,

@@ -1,7 +1,7 @@
-import styles from "./styles.module.scss";
 import bg_face from "@assets/bg_face.svg";
 import { LoginForm } from "@features/LoginForm";
 import { RedirectLink } from "@shared/ui/Link/RedirectLink/redirect-link";
+import styles from "./styles.module.scss";
 export const LoginPage = () => {
   return (
     <>
@@ -11,7 +11,7 @@ export const LoginPage = () => {
         <LoginForm />
         <RedirectLink text="Регистрация" link="/registration" margin="mt-12" />
         <RedirectLink
-          text="Забыли пороль?"
+          text="Забыли пароль?"
           link="/reset-password"
           margin="mt-2"
         />
@@ -22,7 +22,7 @@ export const LoginPage = () => {
         <LoginForm />
         <RedirectLink text="Регистрация" link="/registration" margin="mt-12" />
         <RedirectLink
-          text="Забыли пороль?"
+          text="Забыли пароль?"
           link="/reset-password"
           margin="mt-2"
         />

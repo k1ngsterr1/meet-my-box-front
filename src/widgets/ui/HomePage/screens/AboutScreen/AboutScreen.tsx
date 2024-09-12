@@ -7,7 +7,7 @@ export const AboutScreen = () => {
     <>
       <section className={styles.about} id="about-mob">
         <Fade>
-          <h3 className={styles.about__heading}>Meet My Box это:</h3>
+          <h3 className={styles.about__heading}>Meet My Box:</h3>
         </Fade>
         <Fade className="w-full flex items-center justify-center">
           <Paragraph isCentered width="w-[80%]" margin="mt-4">
@@ -21,12 +21,14 @@ export const AboutScreen = () => {
       </section>
       <section className={styles.about_pc} id="about-pc">
         <Fade>
-          <h3 className={styles.about_pc__heading}>Meet My Box это:</h3>
+          <h3 className={styles.about_pc__heading}>Meet My Box:</h3>
         </Fade>
         <Fade className="w-full flex items-center justify-center">
           <Paragraph isCentered width="w-[60%]" margin="mt-4">
-            Meet my Box - лучший сервис доставки посылок из Европы в Россию и
-            страны СНГ.
+            Доставка в Россию из любой страны ЕС Мы доставляем посылки в Россию
+            и страны СНГ практически из всех стран Европы: Италия, Франция,
+            Германия, Испания, Нидерланды, Австрия, Польша, Швейцария,
+            Великобритания, Кипр.
           </Paragraph>
         </Fade>
         <AboutGroupPC />

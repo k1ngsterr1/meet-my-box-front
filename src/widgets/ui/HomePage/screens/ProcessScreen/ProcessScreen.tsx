@@ -1,10 +1,10 @@
+import { processFaqAccordions } from "@shared/lib/content/Accordion";
+import { FAQList } from "@shared/ui/Accordion/faq-accordion";
 import Button from "@shared/ui/Button/ui/button";
 import { ProcessList, ProcessListPC } from "@shared/ui/Process/process-list";
 import { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
-import { FAQList } from "@shared/ui/Accordion/faq-accordion";
-import { processFaqAccordions } from "@shared/lib/content/Accordion";
 
 export const ProcessScreen = () => {
   const [choosenState, setChoosenState] = useState<string>("Отправить посылку");
@@ -13,7 +13,7 @@ export const ProcessScreen = () => {
     <>
       <section className={styles.process} id="process-mob">
         <Fade>
-          <h2 className={styles.process__heading}>Процессы работы</h2>
+          <h2 className={styles.process__heading}>Как это работает</h2>
         </Fade>
         <Button
           text="Отправить посылку"
@@ -24,10 +24,10 @@ export const ProcessScreen = () => {
           margin="mt-4"
         />
         <Button
-          text="Помощь с посылкой"
-          onClick={() => setChoosenState("Помощь с посылкой")}
+          text="Помощь с покупкой"
+          onClick={() => setChoosenState("Помощь с покупкой")}
           buttonType={
-            choosenState === "Помощь с посылкой" ? "filled" : "outline"
+            choosenState === "Помощь с покупкой" ? "filled" : "outline"
           }
           margin="mt-4"
         />
@@ -35,7 +35,7 @@ export const ProcessScreen = () => {
       </section>
       <section className={styles.process_pc} id="process-pc">
         <Fade>
-          <h2 className={styles.process_pc__heading}>Процессы работы</h2>
+          <h2 className={styles.process_pc__heading}>Как это работает</h2>
         </Fade>
         <div className="w-[100%] flex items-center justify-center gap-4 mt-4">
           <Button

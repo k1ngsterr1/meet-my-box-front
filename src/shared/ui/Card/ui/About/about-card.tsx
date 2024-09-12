@@ -1,7 +1,6 @@
 import card_img from "@assets/about_card.png";
 import { aboutCard, type IAboutCard } from "@shared/lib/content/About";
 import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
-import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import type React from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
