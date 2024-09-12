@@ -1,4 +1,4 @@
-import { axiosInstance } from "./useInterceptor";
+import axios from "axios";
 
 interface IData {
   email: string;
@@ -7,7 +7,10 @@ interface IData {
 
 export async function useLogin(data: IData): Promise<string | void> {
   try {
-    const response = await axiosInstance.post("/api/user/login", data);
+    const response = await axios.post(
+      "https://meet-my-box-production.up.railway.app/api/user/login",
+      data
+    );
 
     const userData = {
       id: response.data.id,
