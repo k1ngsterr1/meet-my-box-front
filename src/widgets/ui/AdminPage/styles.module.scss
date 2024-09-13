@@ -60,7 +60,7 @@
 }
 @include respond-to("tablet_sm") {
   .admin_pc {
-    min-height: 50vh;
+    min-height: 80vh;
     width: 40%;
     max-width: 86.6%;
     @apply mt-24;

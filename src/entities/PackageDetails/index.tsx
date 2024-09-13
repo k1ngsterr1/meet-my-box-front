@@ -4,14 +4,6 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 export const PackageDetails = ({ items, onClick }) => {
   return (
     <div className={styles.bg}>
-      <FontAwesomeIcon
-        icon={faTimes}
-        size="2x"
-        className={styles.close}
-        onClick={() => {
-          onClick();
-        }}
-      />
       <div className={styles.container}>
         <div className={styles.package_card}>
           {items.map((item, index) => (
