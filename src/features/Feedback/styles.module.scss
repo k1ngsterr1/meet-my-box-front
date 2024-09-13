@@ -1,20 +1,21 @@
 @import "@shared/styles/mixins";
 @import "@shared/styles/variables";
+
 .prev,
 .next {
   position: absolute;
   top: 40%;
-  transform: translateY(-40%); /* Centers the buttons vertically */
-  border-radius: 30px; /* Adjust as needed for your button shape */
-  width: 48px; /* Assuming the buttons are 48x48 based on your screenshot */
+  transform: translateY(-40%);
+  border-radius: 30px;
+  width: 48px;
   height: 48px;
-  display: flex; /* Centers the icon inside */
+  display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #333333; /* Dark background */
-  color: #f9f9f9; /* Light icon color */
+  background-color: #333333;
+  color: #f9f9f9;
   cursor: pointer;
-  z-index: 10; /* Ensure they are above other elements */
+  z-index: 10;
 }
 
 .prev {
@@ -98,6 +99,7 @@
   }
   &__item {
     display: flex;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
     border-radius: 16px;

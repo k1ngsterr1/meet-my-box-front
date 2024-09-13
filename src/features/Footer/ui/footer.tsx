@@ -6,6 +6,7 @@ import {
 } from "@shared/ui/Link/Footer/footer-links";
 import { SocialMediaLinks } from "@shared/ui/Link/Social/social-links";
 import styles from "./styles.module.scss";
+
 export const Footer = () => {
   return (
     <>

@@ -1,3 +1,5 @@
+import { serviceFaqAccordions } from "@shared/lib/content/Accordion";
+import { FAQList } from "@shared/ui/Accordion/faq-accordion";
 import Button from "@shared/ui/Button/ui/button";
 import {
   ServiceGroup,
@@ -6,8 +8,6 @@ import {
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
-import { FAQList } from "@shared/ui/Accordion/faq-accordion";
-import { serviceFaqAccordions } from "@shared/lib/content/Accordion";
 export const ServiceScreen = () => {
   return (
     <>
@@ -48,7 +48,7 @@ export const ServiceScreen = () => {
           text="Заказать"
           buttonType="filled"
           margin="mt-8"
-          onClick={() => (window.location.href = "#contacts-pc")}
+          onClick={() => window.open("http://t.me/meetmbox")}
         />
       </section>
       <div className="w-[90%] lg:w-[86.6%]">

@@ -20,6 +20,7 @@ export const ServiceGroup = () => {
     </div>
   );
 };
+
 export const ServiceGroupPC = () => {
   return (
     <div className={styles.service_pc__group}>

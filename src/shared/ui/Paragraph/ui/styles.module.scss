@@ -13,4 +13,8 @@
   @include respond-to("lg") {
     @apply text-base;
   }
+
+  @include respond-to("5xl") {
+    @apply text-lg;
+  }
 }

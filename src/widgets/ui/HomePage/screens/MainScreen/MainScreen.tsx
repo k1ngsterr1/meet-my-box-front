@@ -36,7 +36,7 @@ export const MainScreen = () => {
           text="Оформить заявку"
           buttonType="filled"
           margin="mt-8"
-          onClick={() => (window.location.href = "#contacts-mob")}
+          onClick={() => (window.location.href = "#calculate-mob")}
         />
         <IconButton
           text="Процесс доставки"
@@ -70,7 +70,7 @@ export const MainScreen = () => {
               <Button
                 text="Оформить заявку"
                 buttonType="filled"
-                onClick={() => (window.location.href = "#contacts-pc")}
+                onClick={() => (window.location.href = "#calculate-pc")}
               />
               <IconButton
                 text="Процесс доставки"

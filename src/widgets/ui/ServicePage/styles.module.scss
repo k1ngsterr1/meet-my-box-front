@@ -2,6 +2,8 @@
 @import "@shared/styles/variables";
 .service {
   width: 90%;
+  height: 53.5vh;
+  overflow-y: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -33,7 +33,11 @@ export const Menu = () => {
               <a className="text-dark text-xl" href="#">
                 Главная
               </a>
-              <a className="text-dark text-xl" href="/packages">
+              <a
+                className="text-dark text-xl"
+                href="#calculate-mob"
+                onClick={() => toggleMenu()}
+              >
                 Отправить посылку
               </a>
               <a className="text-dark text-xl" href="/">

@@ -1,7 +1,6 @@
 import { CalculateInput } from "@shared/ui/Input/Calculate/calculate-input";
-import styles from "./styles.module.scss";
-import { calculateInputs } from "@shared/lib/content/Input";
 import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 export const CalculateForm = () => {
   const [weight, setWeight] = useState(0);
   const [width, setWidth] = useState(0);
@@ -80,30 +79,42 @@ export const CalculateFormPC = () => {
         Заполните все поля, чтобы рассчитать стоимость
       </h5>
       <form className={styles.calculate_pc__form__inputs}>
-        <CalculateInput
-          value={weight}
-          placeholder="Вес"
-          margin="mt-4"
-          onChange={handleNumberInput(setWeight)}
-        />
-        <CalculateInput
-          value={width}
-          placeholder="Ширина"
-          margin="mt-4"
-          onChange={handleNumberInput(setWidth)}
-        />
-        <CalculateInput
-          value={height}
-          placeholder="Длина"
-          margin="mt-4"
-          onChange={handleNumberInput(setHeight)}
-        />
-        <CalculateInput
-          value={length}
-          placeholder="Высота"
-          margin="mt-4"
-          onChange={handleNumberInput(setLength)}
-        />
+        <div className="w-full flex flex-col items-center">
+          <span className="text-dark">Вес</span>
+          <CalculateInput
+            value={weight}
+            placeholder="Вес"
+            margin="mt-4"
+            onChange={handleNumberInput(setWeight)}
+          />
+        </div>
+        <div className="w-full flex flex-col items-center">
+          <span className="text-dark">Ширина</span>
+          <CalculateInput
+            value={width}
+            placeholder="Ширина"
+            margin="mt-4"
+            onChange={handleNumberInput(setWidth)}
+          />
+        </div>
+        <div className="w-full flex flex-col items-center">
+          <span className="text-dark">Длина</span>
+          <CalculateInput
+            value={height}
+            placeholder="Длина"
+            margin="mt-4"
+            onChange={handleNumberInput(setHeight)}
+          />
+        </div>
+        <div className="w-full flex flex-col items-center">
+          <span className="text-dark">Высота</span>
+          <CalculateInput
+            value={length}
+            placeholder="Высота"
+            margin="mt-4"
+            onChange={handleNumberInput(setLength)}
+          />
+        </div>
       </form>
       <span className={styles.calculate__form__result}>{cost.toFixed(0)}₽</span>
     </div>

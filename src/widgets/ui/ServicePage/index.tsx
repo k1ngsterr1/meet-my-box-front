@@ -5,15 +5,15 @@ import styles from "./styles.module.scss";
 
 export const ServicePage = () => {
   return (
-    <div className={styles.service}>
+    <section className={styles.service}>
       <img src={bg_face.src} alt="" className={styles.service__img} />
-      <h2 className={styles.service__heading}>Услуги</h2>
+      <h1 className={styles.service__heading}>Услуги</h1>
       <Paragraph margin="mt-4" width="w-3/4" isCentered={true}>
         Мы предлагаем комплексные логистические услуги, оптимизируя ваши
         процессы и обеспечивая своевременную доставку. Доверяйте нам организацию
         всех этапов транспортировки.
       </Paragraph>
       <ServiceList />
-    </div>
+    </section>
   );
 };

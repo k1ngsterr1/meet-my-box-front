@@ -45,6 +45,7 @@
       }
     }
     &__paragraph {
+      font-family: "PT Sans", sans-serif;
       @apply mt-4;
       font-size: clamp(6px, 12 / 360 * 100vw, 324x);
 

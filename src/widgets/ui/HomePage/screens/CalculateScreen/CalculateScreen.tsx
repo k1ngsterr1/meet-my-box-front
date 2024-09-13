@@ -2,12 +2,13 @@ import {
   CalculateForm,
   CalculateFormPC,
 } from "@features/Form/Calculate/calculate-form";
-import Button from "@shared/ui/Button/ui/button";
-import styles from "./styles.module.scss";
-import { useState } from "react";
-import { Documents } from "@shared/ui/Documents";
 import { calcFaqAccordions } from "@shared/lib/content/Accordion";
 import { FAQList } from "@shared/ui/Accordion/faq-accordion";
+import Button from "@shared/ui/Button/ui/button";
+import { Documents } from "@shared/ui/Documents";
+import { useState } from "react";
+import styles from "./styles.module.scss";
+
 export const CalculateScreen = () => {
   const [isForm, setIsForm] = useState(true);
   const handleToggleForm = () => {

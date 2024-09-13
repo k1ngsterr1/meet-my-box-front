@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 @import "./mixins";
 @import "./variables";
 @import "breakpoint-slicer";
@@ -9,6 +10,36 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+}
+
+/* Change text selection color */
+::selection {
+  background-color: #220cf3;
+  color: white;
+}
+
+/* WebKit scrollbar customization */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #220cf3;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #1a0cbf;
+}
+
+/* Firefox scrollbar customization */
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #220cf3 #f1f1f1;
 }
 
 button,
@@ -53,7 +84,7 @@ p {
     width: 100%;
     max-width: 100%;
     position: relative;
-    background-image: url("@assets/bg_img.png");
+    background-image: url("@assets/map_vector.webp");
     background-repeat: no-repeat;
     background-size: cover;
   }

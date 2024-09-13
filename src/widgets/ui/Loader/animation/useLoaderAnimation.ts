@@ -10,9 +10,9 @@ const useLoaderAnimation = () => {
     const timer = setTimeout(() => {
       // Animate the loader after 2 seconds
       gsap.to(loaderRef.current, {
-        duration: 4, // Duration of the animation in seconds
+        duration: 2, // Duration of the animation in seconds
         opacity: 0, // Fade out effect
-        y: -5000, // Move up effect
+        display: "none",
         ease: "power2.out", // Easing function
       });
     }, 2000); // 2-second delay before the animation starts
