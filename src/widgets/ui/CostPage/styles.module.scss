@@ -23,6 +23,51 @@
     height: 70vh;
     justify-content: center;
   }
+  &__subheading {
+    @apply font-bold mt-4;
+    @apply text-center;
+    font-size: clamp(9px, 18 / 360 * 100vw, 436x);
+
+    @include respond-to("tablet_sm") {
+      font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
+    }
+
+    @include respond-to("tablet") {
+      font-size: clamp(9px, 18 / 1100 * 100vw, 36px);
+    }
+
+    @include respond-to("lg") {
+      font-size: clamp(9px, 18 / 1200 * 100vw, 36px);
+    }
+
+    @include respond-to("2xl") {
+      font-size: clamp(9px, 18 / 1280 * 100vw, 36px);
+    }
+
+    @include respond-to("xl") {
+      font-size: clamp(9px, 18 / 1360 * 100vw, 36px);
+    }
+
+    @include respond-to("2xl") {
+      font-size: clamp(9px, 18 / 1520 * 100vw, 36px);
+    }
+
+    @include respond-to("3xl") {
+      font-size: clamp(9px, 18 / 1680 * 100vw, 36px);
+    }
+
+    @include respond-to("4xl") {
+      font-size: clamp(9px, 18 / 1920 * 100vw, 36px);
+    }
+
+    @include respond-to("5xl") {
+      font-size: clamp(9px, 18 / 2560 * 100vw, 36px);
+    }
+
+    @include respond-to("6xl") {
+      font-size: clamp(9px, 18 / 3840 * 100vw, 36px);
+    }
+  }
 
   &__heading {
     @apply font-bold;
