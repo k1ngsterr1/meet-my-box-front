@@ -10,15 +10,15 @@ console.log(parsedData.id);
 
 // Создание экземпляра Axios с предустановленными конфигурациями
 export const axiosInstance = axios.create({
-  // baseURL: "https://spark-admin-production.up.railway.app",
-  baseURL: "https://meet-my-box-production.up.railway.app/",
+  baseURL: "http://localhost:4000/",
+  // baseURL: "https://meet-my-box-production.up.railway.app/",
 });
 
 // Добавление интерсептора для вставки JWT в заголовки каждого запроса
 axiosInstance.interceptors.request.use(
   (config) => {
     // Получение токена из локального хранилища
-    const token = parsedData.accessToken;
+    const token = parsedData.access;
 
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
@@ -40,7 +40,7 @@ axiosInstance.interceptors.response.use(
 
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      const refreshToken = parsedData.refreshToken;
+      const refreshToken = parsedData.refresh;
 
       if (refreshToken) {
         try {

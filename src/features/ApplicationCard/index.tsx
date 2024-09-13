@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import Button from "@shared/ui/Button/ui/button";
+import { PackageDetails } from "@entities/PackageDetails";
 
 interface Packages {
   id: number;
@@ -13,10 +14,14 @@ interface Packages {
 
 export interface ApplicationProps {
   id: number;
-  name: string;
+  user: {
+    lastName: string | "Неизвестно";
+    firstName: string | "Неизвестно";
+    phoneNumber: string;
+  };
   departure: string;
   contacts: string;
-  packages: Packages[];
+  items: Packages[];
 }
 
 interface ApplicationsProps {
@@ -35,7 +40,9 @@ export const ApplicationCards: React.FC<ApplicationsProps> = ({ items }) => {
           <div className={styles.applications__list__name}>
             <div className={styles.applications__list__name__circle} />
             <span className={styles.applications__list__name__text}>
-              {item.name}
+              {(item.user.firstName ? item.user.firstName : "Неизвестно") +
+                " " +
+                (item.user.lastName ? item.user.lastName : "Неизвестно")}
             </span>
           </div>
           <div className={styles.applications__list__date}>
@@ -44,8 +51,18 @@ export const ApplicationCards: React.FC<ApplicationsProps> = ({ items }) => {
           </div>
           <div className={styles.applications__list__date}>
             Контакты:
-            <span className="text-main"> {item.contacts}</span>
+            <span className="text-main">
+              {item.user.phoneNumber ? item.user.phoneNumber : "Неизвестно"}
+            </span>
           </div>
+          {show && (
+            <PackageDetails
+              items={item.items}
+              onClick={() => {
+                setShow(false);
+              }}
+            />
+          )}
           <Button
             text="Подробнее"
             buttonType="filled"
@@ -54,7 +71,6 @@ export const ApplicationCards: React.FC<ApplicationsProps> = ({ items }) => {
           />
         </div>
       ))}
-      {show && <a></a>}
     </div>
   );
 };
@@ -71,7 +87,9 @@ export const ApplicationsCardsPC: React.FC<ApplicationsProps> = ({ items }) => {
             <div className={styles.applications_pc__list__name}>
               <div className={styles.applications_pc__list__name__circle} />
               <span className={styles.applications_pc__list__name__text}>
-                {item.name}
+                {(item.user.firstName ? item.user.firstName : "Неизвестно") +
+                  " " +
+                  (item.user.lastName ? item.user.lastName : "Неизвестно")}
               </span>
             </div>
             <div className="mt-2">
@@ -80,11 +98,17 @@ export const ApplicationsCardsPC: React.FC<ApplicationsProps> = ({ items }) => {
                 <span className="text-main"> {item.departure}</span>
               </div>
               <div className={styles.applications_pc__list__date}>
-                Дата получения:
-                <span className="text-main"> {item.contacts}</span>
+                Контакты:
+                <span className="text-main">
+                  {" "}
+                  {item.user.phoneNumber ? item.user.phoneNumber : "Неизвестно"}
+                </span>
               </div>
             </div>
           </div>
+          {show && (
+            <PackageDetails items={item.items} onClick={() => setShow(false)} />
+          )}
           <div className="flex items-end justify-end w-[50%]">
             <button
               children="Подробнее"

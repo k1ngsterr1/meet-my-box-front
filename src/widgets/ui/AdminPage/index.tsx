@@ -5,6 +5,7 @@ import {
 } from "@features/ApplicationCard";
 import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
+import { useGetApplications } from "@shared/lib/hooks/useGetApplications";
 export const AdminPage = () => {
   const [applications, setApplications] = useState<ApplicationProps[]>([]);
   useEffect(() => {
