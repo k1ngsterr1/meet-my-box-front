@@ -36,10 +36,10 @@ export const ContactScreen = () => {
       <section className={styles.contact_pc} id="contacts-pc">
         <div className={styles.contact_pc__left}>
           <h2 className={styles.contact_pc__heading}>Свяжитесь с нами</h2>
-          <p className={styles.contact_pc__paragraph}>
+          <Paragraph width="w-3/4">
             Вы можете связаться с нами через Telegram или WhatsApp, либо
             заполнить форму и мы сами свяжемся с вами
-          </p>
+          </Paragraph>
           <ContactFormPC />
           <ContactLink
             text="+39 393 157 7805"
