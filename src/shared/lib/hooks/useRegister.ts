@@ -7,11 +7,11 @@ interface IData {
 
 export async function useRegister(data: IData): Promise<string> {
   try {
-    const response = await axiosInstance.post("/api/user/register", data);
+    const response = await axiosInstance.post("api/user/register", data);
 
     const userData = {
-      id: response.data.id,
-      email: response.data.email,
+      id: response.data.details.id,
+      email: response.data.details.email,
       access: response.data.accessToken,
       refresh: response.data.refreshToken,
     };

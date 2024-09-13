@@ -7,7 +7,7 @@ interface IData {
 
 export async function useLogin(data: IData): Promise<string | void> {
   try {
-    const response = await axiosInstance.post("/api/user/login", data);
+    const response = await axiosInstance.post("api/user/login", data);
 
     const userData = {
       id: response.data.id,

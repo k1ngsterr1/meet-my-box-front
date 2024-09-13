@@ -5,12 +5,16 @@ export const ContactInput: React.FC<IContactInput> = ({
   placeholder,
   margin,
   width,
+  value,
+  onChange,
 }) => {
   return (
     <input
       type="text"
       placeholder={placeholder}
       className={`${styles.input} ${margin || ""} ${width || ""}`}
+      value={value}
+      onChange={onChange}
     />
   );
 };

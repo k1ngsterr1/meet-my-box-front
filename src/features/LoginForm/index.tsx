@@ -13,6 +13,7 @@ export const LoginForm = () => {
     await useLogin({ email: email, password: password });
     setEmail("");
     setPassword("");
+    window.location.href = "/";
   };
 
   return (

@@ -10,15 +10,27 @@ export const ContactForm = () => {
   const [phone, setPhone] = useState("");
   const [question, setQuestion] = useState("");
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const data = { name, phone, question };
+    const data = {
+      service_id: "service_lllcyye",
+      template_id: "template_3y3r4gi",
+      user_id: "rtVgbCy_MD9iXuEcP",
+      template_params: {
+        from_name: name,
+        phone: phone,
+        question: question,
+        to_name: "support@meetmybox.com",
+      },
+    };
 
-    useMail(data);
+    const result = await useMail(data);
 
-    setName("");
-    setPhone("");
-    setQuestion("");
+    if (result === "Success") {
+      setName("");
+      setPhone("");
+      setQuestion("");
+    }
   };
 
   return (
@@ -31,7 +43,7 @@ export const ContactForm = () => {
         placeholder="Ваше имя"
         margin="mt-4"
         width="w-[80%]"
-        name="name"
+        name="from_name"
         value={name}
         onChange={(e) => {
           setName(e.target.value);
@@ -73,8 +85,37 @@ export const ContactFormPC = () => {
   const [phone, setPhone] = useState("");
   const [question, setQuestion] = useState("");
 
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const data = {
+      service_id: "service_lllcyye",
+      template_id: "template_3y3r4gi",
+      user_id: "rtVgbCy_MD9iXuEcP",
+      template_params: {
+        from_name: name,
+        phone: phone,
+        question: question,
+        to_name: "support@meetmybox.com",
+      },
+    };
+    console.log(data.service_id);
+    console.log(data);
+
+    const result = await useMail(data);
+
+    if (result === "Success") {
+      setName("");
+      setPhone("");
+      setQuestion("");
+    }
+  };
+
   return (
-    <form method="POST" className={styles.contact_pc__group}>
+    <form
+      method="POST"
+      onSubmit={handleSubmit}
+      className={styles.contact_pc__group}
+    >
       <div className="w-full gap-4 flex">
         <ContactInput
           placeholder={contactInputs[0].placeholder}
@@ -82,8 +123,9 @@ export const ContactFormPC = () => {
           width="w-[50%]"
           value={name}
           onChange={(e) => {
-            setName(e.target.value);
+            setName(e.target.value), console.log(e.target.value); // Comma here causes issues
           }}
+          name="from_name"
         />
         <ContactInput
           type="tel"
@@ -92,8 +134,9 @@ export const ContactFormPC = () => {
           width="w-[50%]"
           value={phone}
           onChange={(e) => {
-            setPhone(e.target.value);
+            setPhone(e.target.value), console.log(e.target.value); // Comma here causes issues
           }}
+          name="phone"
         />
       </div>
       <div className="w-full flex">
@@ -105,6 +148,7 @@ export const ContactFormPC = () => {
           onChange={(e) => {
             setQuestion(e.target.value);
           }}
+          name="question"
         />
       </div>
       <div className="flex w-full items-start">
