@@ -130,26 +130,31 @@ export const AddPackages = () => {
 
   return (
     <>
-      <Button
-        text={`Предмет ${current}`}
-        buttonType="filled"
-        margin="mt-8"
-        onClick={toggleMenu}
-      />
-
-      {isMenuOpen && (
-        <div className={styles.add_package__menu}>
-          {items.map((item, index) => (
-            <Button
-              key={index}
-              text={`Предмет ${item.id}`}
-              onClick={() => handleSelectItem(index)}
-              margin="mt-2"
-              buttonType="outline"
-            />
-          ))}
+      <div className="flex items-center flex-col w-full">
+        {isMenuOpen && (
+          <div className={styles.add_package__menu}>
+            {items
+              .filter((item) => current !== item.id) // Filter items where current is not equal to item.id
+              .map((item, index) => (
+                <div className="flex-1">
+                  <Button
+                    key={index}
+                    text={`Предмет ${item.id}`}
+                    onClick={() => handleSelectItem(index)}
+                    buttonType="outline"
+                  />
+                </div>
+              ))}
+          </div>
+        )}
+        <div className="flex max-w-fit items-center justify-center">
+          <Button
+            text={`Предмет ${current}`}
+            buttonType="filled"
+            onClick={toggleMenu}
+          />
         </div>
-      )}
+      </div>
 
       <AddPackagesForm
         item={selectedItem}
@@ -287,27 +292,32 @@ export const AddPackagesPC = () => {
 
   return (
     <>
-      <Button
-        text={`Предмет ${current}`}
-        buttonType="filled"
-        margin="mt-8"
-        onClick={toggleMenu}
-      />
-
-      {isMenuOpen && (
-        <div className={styles.add_package__menu}>
-          {items.map((item, index) => (
-            <Button
-              key={index}
-              text={`Предмет ${item.id}`}
-              onClick={() => handleSelectItem(index)}
-              margin="mt-2"
-              buttonType="outline"
-            />
-          ))}
+      <div className="flex items-center flex-col w-full">
+        {isMenuOpen && (
+          <div className={styles.add_package__menu}>
+            {items
+              .filter((item) => current !== item.id) // Filter items where current is not equal to item.id
+              .map((item, index) => (
+                <div className="flex-1">
+                  <Button
+                    key={index}
+                    text={`Предмет ${item.id}`}
+                    onClick={() => handleSelectItem(index)}
+                    buttonType="outline"
+                  />
+                </div>
+              ))}
+          </div>
+        )}
+        <div className="flex max-w-fit items-center justify-center">
+          <Button
+            text={`Предмет ${current}`}
+            buttonType="filled"
+            margin={isMenuOpen ? "mt-0" : "mt-4"}
+            onClick={toggleMenu}
+          />
         </div>
-      )}
-
+      </div>
       <AddPackagesFormPC
         item={selectedItem}
         itemName={itemName}
