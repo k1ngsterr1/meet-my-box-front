@@ -5,21 +5,13 @@ export async function useGetPackages(): Promise<PackageProps[]> {
   try {
     const userData = JSON.parse(localStorage.getItem("userData") || "{}");
 
-    const response = await axiosInstance.get("/api/packages/get-packages", {
-      headers: {
-        Authorization: `Bearer ${userData.access}`,
-      },
-    });
+    const response = await axiosInstance.get("/api/packages/get-packages");
 
     console.log("Packages got successfully:", response.data);
 
-    return response.data.items;
+    return response.data.packages;
   } catch (error: unknown | any) {
     console.error("Failed to get packages:", error);
-    if (error.response) {
-      return [];
-    } else {
-      return [];
-    }
+    return [];
   }
 }

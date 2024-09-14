@@ -24,7 +24,7 @@ export const Packages: React.FC<PackagesProps> = ({ items }) => {
           <div className={styles.packages__list__status}>
             <div className={styles.packages__list__status__circle} />
             <span className={styles.packages__list__status__text}>
-              {item.status}
+              {item.status === "Pending" ? "Отправлена" : "Получено"}
             </span>
           </div>
           <div className={styles.packages__list__date}>
@@ -58,7 +58,7 @@ export const PackagesPC: React.FC<PackagesProps> = ({ items }) => {
             <div className={styles.packages_pc__list__status}>
               <div className={styles.packages_pc__list__status__circle} />
               <span className={styles.packages_pc__list__status__text}>
-                {item.status}
+                {item.status === "Pending" ? "Отправлена" : "Получено"}
               </span>
             </div>
             <div className="mt-2">
