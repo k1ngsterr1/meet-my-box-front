@@ -1,7 +1,10 @@
 import { CalculateInput } from "@shared/ui/Input/Calculate/calculate-input";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-export const CalculateForm = () => {
+interface Props {
+  text: string;
+}
+export const CalculateForm: React.FC<Props> = ({ text }) => {
   const [weight, setWeight] = useState(0);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
@@ -22,9 +25,7 @@ export const CalculateForm = () => {
 
   return (
     <div className={styles.calculate__form}>
-      <h5 className={styles.calculate__form__heading}>
-        Заполните все поля, чтобы рассчитать стоимость
-      </h5>
+      <h5 className={styles.calculate__form__heading}>{text}</h5>
       <form className={styles.calculate__form__inputs}>
         <CalculateInput
           value={weight}
@@ -55,7 +56,7 @@ export const CalculateForm = () => {
     </div>
   );
 };
-export const CalculateFormPC = () => {
+export const CalculateFormPC: React.FC<Props> = ({ text }) => {
   const [weight, setWeight] = useState(0);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
@@ -75,9 +76,7 @@ export const CalculateFormPC = () => {
   }, [weight, width, height, length]); // Dependency array includes all variables that affect the cost
   return (
     <div className={styles.calculate_pc__form}>
-      <h5 className={styles.calculate_pc__form__heading}>
-        Заполните все поля, чтобы рассчитать стоимость
-      </h5>
+      <h5 className={styles.calculate_pc__form__heading}>{text}</h5>
       <form className={styles.calculate_pc__form__inputs}>
         <div className="w-full flex flex-col items-center">
           <span className="text-dark">Вес</span>
