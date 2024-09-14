@@ -1,10 +1,15 @@
 import axios from "axios";
 export const baseUrl = "http://localhost:1337";
-export async function useGetBlock(url: string): Promise<any> {
+export async function useGetBlock(
+  url: string,
+  isProcess?: boolean
+): Promise<any> {
   try {
     const api_url = baseUrl + url;
     const params = {
-      populate: "*",
+      populate: isProcess
+        ? { image_card: { populate: "image" }, questions: { populate: "*" } }
+        : "*",
     };
     const response = await axios.get(api_url, {
       params: params,
