@@ -8,7 +8,7 @@ export const AboutGroup = ({ items }: any) => {
   return (
     <div className={styles.about__card}>
       {items.map((item: any, index: number) => (
-        <Fade className="w-full items-center justify-center">
+        <Fade key={index} className="w-full items-center justify-center">
           <AboutItem
             key={index}
             title={item.card_text}
@@ -23,7 +23,7 @@ export const AboutGroupPC = ({ items }: any) => {
   return (
     <div className={styles.about_pc__card}>
       {items.map((item: any, index: number) => (
-        <div className="flex-1">
+        <div className="flex-1" key={index}>
           <AboutItemPC
             key={index}
             title={item.card_text}
