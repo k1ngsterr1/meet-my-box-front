@@ -1,4 +1,3 @@
-import contact_img from "@assets/pexels-tima-miroshnichenko-6169025.jpg";
 import {
   ContactForm,
   ContactFormPC,
