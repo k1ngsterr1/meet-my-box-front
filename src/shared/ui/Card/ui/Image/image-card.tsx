@@ -4,7 +4,6 @@ import type React from "react";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import { baseUrl } from "@shared/lib/hooks/useGetBlock";
 export const ImageCard: React.FC<IImageCardItem> = ({ img, description }) => {
-  console.log("HELLO", img);
   return (
     <div className={styles.item}>
       <img src={baseUrl + img} alt="image card" className={styles.item__img} />
