@@ -45,7 +45,7 @@ axiosInstance.interceptors.response.use(
       if (refreshToken) {
         try {
           const res = await axios.post(
-            `${axiosInstance.defaults.baseURL}/access`,
+            `${axiosInstance.defaults.baseURL}/api/access`,
             {},
             {
               headers: {
@@ -55,12 +55,12 @@ axiosInstance.interceptors.response.use(
           );
 
           if (res.status === 200) {
-            localStorage.setItem("accessToken", res.data.accessToken);
-            localStorage.setItem("refreshToken", res.data.refreshToken);
+            localStorage.setItem("accessToken", res.data.access);
+            localStorage.setItem("refreshToken", res.data.refresh);
             axiosInstance.defaults.headers.common["Authorization"] =
-              `Bearer ${res.data.accessToken}`;
+              `Bearer ${res.data.access}`;
             originalRequest.headers["Authorization"] =
-              `Bearer ${res.data.accessToken}`;
+              `Bearer ${res.data.access}`;
             return axiosInstance(originalRequest);
           }
         } catch (refreshError) {
