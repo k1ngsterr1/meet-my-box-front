@@ -59,7 +59,7 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
           </a>
           {userEmail ? (
             <span
-              className={styles.header_pc__email}
+              className={`${styles.header_pc__email} cursor-pointer`}
               onClick={() => (window.location.href = "/address")}
             >
               {userEmail}
