@@ -9,7 +9,11 @@ const fedExCredentials = {
 
 const BASE_URL = "https://gateway.fedex.com/web-services";
 
-export async function calculateFedExRate(from, to, packageDetails) {
+export async function calculateFedExRate(
+  from: any,
+  to: any,
+  packageDetails: any
+) {
   const requestData = {
     WebAuthenticationDetail: {
       UserCredential: {
@@ -76,7 +80,7 @@ export async function calculateFedExRate(from, to, packageDetails) {
     // Extract and return the rate information
     return response.data.RateReplyDetails[0].RatedShipmentDetails[0]
       .ShipmentRateDetail.TotalNetCharge.Amount;
-  } catch (error) {
+  } catch (error: any) {
     console.error(
       "Error fetching FedEx rates:",
       error.response ? error.response.data : error.message

@@ -1,4 +1,5 @@
 import { CalculateInput } from "@shared/ui/Input/Calculate/calculate-input";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 
@@ -12,26 +13,111 @@ const countries = [
   // Add more countries as needed
 ];
 
+const useShippingRates = ({
+  weight,
+  width,
+  height,
+  length,
+  fromCountry,
+  toCountry,
+  fromPostcode,
+  toPostcode,
+}) => {
+  const [shippingRates, setShippingRates] = useState([]);
+
+  useEffect(() => {
+    const fetchRates = async () => {
+      if (
+        weight > 0 &&
+        width > 0 &&
+        height > 0 &&
+        length > 0 &&
+        fromPostcode &&
+        toPostcode
+      ) {
+        try {
+          const response = await axios.post(
+            "https://api.goshippo.com/shipments/",
+            {
+              address_from: {
+                country: fromCountry,
+                zip: fromPostcode,
+              },
+              address_to: {
+                country: toCountry,
+                zip: toPostcode,
+              },
+              parcels: [
+                {
+                  length: length.toString(),
+                  width: width.toString(),
+                  height: height.toString(),
+                  distance_unit: "cm",
+                  weight: weight.toString(),
+                  mass_unit: "kg",
+                },
+              ],
+              async: false,
+            },
+            {
+              headers: {
+                Authorization:
+                  "ShippoToken shippo_live_ee85e3da2e43029c6ce3e09509b90309c0887c08",
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          console.log(response.data);
+          setShippingRates(response.data.rates || []);
+        } catch (error) {
+          console.error("Error fetching rates from Shippo:", error);
+          setShippingRates([]);
+        }
+      } else {
+        setShippingRates([]);
+      }
+    };
+
+    fetchRates();
+  }, [
+    weight,
+    width,
+    height,
+    length,
+    fromCountry,
+    toCountry,
+    fromPostcode,
+    toPostcode,
+  ]);
+
+  return shippingRates;
+};
+
 export const CalculateForm = () => {
   const [weight, setWeight] = useState(0);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [length, setLength] = useState(0);
-  const [cost, setCost] = useState(0);
   const [fromCountry, setFromCountry] = useState("GB");
   const [toCountry, setToCountry] = useState("AT");
   const [fromPostcode, setFromPostcode] = useState("");
   const [toPostcode, setToPostcode] = useState("");
 
+  const shippingRates = useShippingRates({
+    weight,
+    width,
+    height,
+    length,
+    fromCountry,
+    toCountry,
+    fromPostcode,
+    toPostcode,
+  });
+
   const handleNumberInput = (setter) => (e) => {
     const value = parseFloat(e.target.value);
     setter(!isNaN(value) ? value : 0);
   };
-
-  useEffect(() => {
-    const calculatedCost = width * height * length * weight * 0.5; // Placeholder calculation
-    setCost(calculatedCost);
-  }, [weight, width, height, length]);
 
   return (
     <div className={styles.calculate__form}>
@@ -100,7 +186,20 @@ export const CalculateForm = () => {
           />
         </div>
       </form>
-      <span className={styles.calculate__form__result}>{cost.toFixed(0)}₽</span>
+      <div className={styles.calculate__form__result}>
+        {shippingRates.length > 0 ? (
+          <ul>
+            {shippingRates.map((rate, index) => (
+              <li key={index}>
+                {rate.provider} ({rate.servicelevel.name}): {rate.amount_local}{" "}
+                {rate.currency_local}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <span>Введите данные для расчета стоимости доставки</span>
+        )}
+      </div>
     </div>
   );
 };
@@ -110,21 +209,26 @@ export const CalculateFormPC = () => {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [length, setLength] = useState(0);
-  const [cost, setCost] = useState(0);
   const [fromCountry, setFromCountry] = useState("GB");
   const [toCountry, setToCountry] = useState("AT");
   const [fromPostcode, setFromPostcode] = useState("");
   const [toPostcode, setToPostcode] = useState("");
 
+  const shippingRates = useShippingRates({
+    weight,
+    width,
+    height,
+    length,
+    fromCountry,
+    toCountry,
+    fromPostcode,
+    toPostcode,
+  });
+
   const handleNumberInput = (setter) => (e) => {
     const value = parseFloat(e.target.value);
     setter(!isNaN(value) ? value : 0);
   };
-
-  useEffect(() => {
-    const calculatedCost = width * height * length * weight * 0.5;
-    setCost(calculatedCost);
-  }, [weight, width, height, length]);
 
   return (
     <div className={styles.calculate_pc__form}>
@@ -133,7 +237,7 @@ export const CalculateFormPC = () => {
       </h5>
       <form className={styles.calculate_pc__form__inputs}>
         <div className="flex flex-col">
-          <div className="flex items-center jusify-center">
+          <div className="flex items-center justify-center">
             <div className="w-full flex flex-col items-center">
               <span className="text-dark">Вес (kg)</span>
               <CalculateInput
@@ -172,7 +276,7 @@ export const CalculateFormPC = () => {
             </div>
           </div>
           <div className="w-full flex items-center justify-center mt-4">
-            <div className="w-full flex items-center gap-4 ">
+            <div className="w-full flex items-center gap-4">
               <select
                 value={fromCountry}
                 onChange={(e) => setFromCountry(e.target.value)}
@@ -188,10 +292,10 @@ export const CalculateFormPC = () => {
                 value={fromPostcode}
                 placeholder="From Postcode"
                 onChange={(e) => setFromPostcode(e.target.value)}
-                className="border p-2 rounded w-50" // Adjust the width here
+                className="border p-2 rounded w-50"
               />
             </div>
-            <div className="flex items-center gap-4 ">
+            <div className="flex items-center gap-4">
               <select
                 value={toCountry}
                 onChange={(e) => setToCountry(e.target.value)}
@@ -207,13 +311,26 @@ export const CalculateFormPC = () => {
                 value={toPostcode}
                 placeholder="To Postcode"
                 onChange={(e) => setToPostcode(e.target.value)}
-                className="border p-2 rounded w-50" // Adjust the width here
+                className="border p-2 rounded w-50"
               />
             </div>
           </div>
         </div>
       </form>
-      <span className={styles.calculate__form__result}>{cost.toFixed(0)}₽</span>
+      <div className={styles.calculate_pc__form__result}>
+        {shippingRates.length > 0 ? (
+          <ul>
+            {shippingRates.map((rate, index) => (
+              <li key={index}>
+                {rate.provider} ({rate.servicelevel.name}): {rate.amount_local}{" "}
+                {rate.currency_local}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <span>Введите данные для расчета стоимости доставки</span>
+        )}
+      </div>
     </div>
   );
 };
