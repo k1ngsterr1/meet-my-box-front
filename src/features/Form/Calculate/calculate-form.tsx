@@ -13,6 +13,8 @@ const countries = [
   // Add more countries as needed
 ];
 
+const shippoToken = process.env.SHIPPO_API_TOKEN; // Use environment variable
+
 export interface ShippingRatesParams {
   weight: number;
   width: number;
@@ -80,8 +82,7 @@ const useShippingRates = ({
             },
             {
               headers: {
-                Authorization:
-                  "ShippoToken shippo_live_ee85e3da2e43029c6ce3e09509b90309c0887c08",
+                Authorization: shippoToken,
                 "Content-Type": "application/json",
               },
             }
