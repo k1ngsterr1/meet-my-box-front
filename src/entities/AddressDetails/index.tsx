@@ -1,7 +1,14 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./styles.module.scss";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-export const AddressDetails = ({ items, onClick }) => {
+
+interface IAddressDetails {
+  items: any[];
+  onClick: () => void;
+}
+
+export const AddressDetails: React.FC<IAddressDetails> = ({
+  items,
+  onClick,
+}) => {
   return (
     <div className={styles.bg}>
       <div className={styles.container}>

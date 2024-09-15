@@ -25,7 +25,7 @@
       @apply mt-10;
       @apply font-bold;
       @apply text-main;
-      font-size: clamp(14px, 28 / 360 * 100vw, 46px);
+      @apply text-xl;
     }
   }
 }
@@ -100,46 +100,46 @@
       @apply mt-6;
       @apply font-bold;
       @apply text-main;
-      font-size: clamp(14px, 28 / 1024 * 100vw, 56px);
+      @apply text-2xl;
 
       @include respond-to("tablet_sm") {
-        font-size: clamp(14px, 28 / 1024 * 100vw, 56px);
+        @apply text-2xl;
       }
 
       @include respond-to("tablet") {
-        font-size: clamp(14px, 28 / 1100 * 100vw, 56px);
+        @apply text-2xl;
       }
 
       @include respond-to("lg") {
-        font-size: clamp(14px, 28 / 1200 * 100vw, 56px);
+        @apply text-2xl;
       }
 
       @include respond-to("2xl") {
-        font-size: clamp(14px, 28 / 1280 * 100vw, 56px);
+        @apply text-2xl;
       }
 
       @include respond-to("xl") {
-        font-size: clamp(14px, 28 / 1360 * 100vw, 56px);
+        @apply text-2xl;
       }
 
       @include respond-to("2xl") {
-        font-size: clamp(14px, 28 / 1520 * 100vw, 56px);
+        @apply text-2xl;
       }
 
       @include respond-to("3xl") {
-        font-size: clamp(14px, 28 / 1680 * 100vw, 56px);
+        @apply text-2xl;
       }
 
       @include respond-to("4xl") {
-        font-size: clamp(14px, 28 / 1920 * 100vw, 56px);
+        @apply text-2xl;
       }
 
       @include respond-to("5xl") {
-        font-size: clamp(14px, 28 / 2560 * 100vw, 56px);
+        @apply text-2xl;
       }
 
       @include respond-to("6xl") {
-        font-size: clamp(14px, 28 / 3840 * 100vw, 56px);
+        @apply text-2xl;
       }
     }
   }
