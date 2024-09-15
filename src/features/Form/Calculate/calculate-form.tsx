@@ -13,6 +13,25 @@ const countries = [
   // Add more countries as needed
 ];
 
+export interface ShippingRatesParams {
+  weight: number;
+  width: number;
+  height: number;
+  length: number;
+  fromCountry: string;
+  toCountry: string;
+  fromPostcode: string;
+  toPostcode: string;
+}
+
+// Define the type for the shipping rates
+export interface ShippingRate {
+  provider: string;
+  amount: string;
+  currency: string;
+  [key: string]: any; // Add other fields as needed
+}
+
 const useShippingRates = ({
   weight,
   width,
@@ -22,8 +41,8 @@ const useShippingRates = ({
   toCountry,
   fromPostcode,
   toPostcode,
-}) => {
-  const [shippingRates, setShippingRates] = useState([]);
+}: ShippingRatesParams): ShippingRate[] => {
+  const [shippingRates, setShippingRates] = useState<ShippingRate[]>([]);
 
   useEffect(() => {
     const fetchRates = async () => {
@@ -114,7 +133,7 @@ export const CalculateForm = () => {
     toPostcode,
   });
 
-  const handleNumberInput = (setter) => (e) => {
+  const handleNumberInput = (setter: any) => (e: any) => {
     const value = parseFloat(e.target.value);
     setter(!isNaN(value) ? value : 0);
   };
@@ -225,7 +244,7 @@ export const CalculateFormPC = () => {
     toPostcode,
   });
 
-  const handleNumberInput = (setter) => (e) => {
+  const handleNumberInput = (setter: any) => (e: any) => {
     const value = parseFloat(e.target.value);
     setter(!isNaN(value) ? value : 0);
   };
