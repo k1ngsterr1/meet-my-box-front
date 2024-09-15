@@ -29,6 +29,7 @@
       gap: 4px;
       @include respond-to("lg") {
         gap: 1rem;
+        //COMMENT
       }
     }
     &__item {
