@@ -1,5 +1,7 @@
 ---
+import { Menu } from "@shared/ui/Menu/ui/menu";
 import Layout from "@widgets/layouts/ui/single.astro";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { FullNewsPage } from "@widgets/ui/NewsPage/FullNewsPage";
 
 // Access query parameters from the URL
@@ -16,5 +18,7 @@ const newsItem = { id, title, image, text };
 
 <!-- Render the NewsPage component with the simplified data -->
 <Layout>
+  <Loader client:load/>
+  <Menu client:load />
   <FullNewsPage {...newsItem} />
 </Layout>

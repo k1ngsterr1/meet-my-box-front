@@ -1,8 +1,10 @@
 ---
 import Layout from "@widgets/layouts/ui/cabinet.astro";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { PackagesPage } from "@widgets/ui/PackagePage";
 ---
 
 <Layout>
+  <Loader client:load/>
   <PackagesPage client:load />
 </Layout>
