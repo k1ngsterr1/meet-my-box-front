@@ -2,15 +2,30 @@ import axios from "axios";
 export const baseUrl = "http://localhost:1337";
 export async function useGetBlock(
   url: string,
-  isProcess?: boolean
+  isProcess?: boolean,
+  isNews?: boolean
 ): Promise<any> {
   try {
     const api_url = baseUrl + url;
-    const params = {
-      populate: isProcess
-        ? { image_card: { populate: "image" }, questions: { populate: "*" } }
-        : "*",
+    let params: any = {
+      populate: "*",
     };
+    if (isProcess) {
+      params = {
+        populate: {
+          image_card: { populate: "image" },
+          questions: { populate: "*" },
+        },
+      };
+    }
+    if (isNews) {
+      params = {
+        populate: { news_card: { populate: "image" } },
+        "pagination[page]": 1,
+        "pagination[pageSize]": 1,
+        publicationState: "preview",
+      };
+    }
     const response = await axios.get(api_url, {
       params: params,
       headers: {

@@ -26,7 +26,10 @@
     &__list {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 4px;
+      @include respond-to("lg") {
+        gap: 1rem;
+      }
     }
     &__item {
       &__link {
