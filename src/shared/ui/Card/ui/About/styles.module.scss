@@ -231,7 +231,7 @@
       min-height: 100px;
       align-items: start;
       text-align: center;
-      width: 80%;
+      width: 100%;
 
       @include respond-to("tablet_sm") {
         width: 60%;
@@ -243,11 +243,8 @@
       }
 
       @include respond-to("lg") {
+        width: 100%;
         font-size: clamp(6px, 12 / 1200 * 100vw, 24px);
-      }
-
-      @include respond-to("2xl") {
-        font-size: clamp(6px, 12 / 1280 * 100vw, 24px);
       }
 
       @include respond-to("xl") {

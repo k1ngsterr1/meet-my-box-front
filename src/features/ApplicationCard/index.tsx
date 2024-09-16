@@ -1,7 +1,7 @@
+import { PackageDetails } from "@entities/PackageDetails";
+import Button from "@shared/ui/Button/ui/button";
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
-import Button from "@shared/ui/Button/ui/button";
-import { PackageDetails } from "@entities/PackageDetails";
 
 interface Packages {
   id: number;

@@ -4,6 +4,7 @@ import Button from "@shared/ui/Button/ui/button";
 import { ProcessList, ProcessListPC } from "@shared/ui/Process/process-list";
 import { useState } from "react";
 import { Fade } from "react-awesome-reveal";
+
 import styles from "./styles.module.scss";
 
 export const ProcessScreen = () => {

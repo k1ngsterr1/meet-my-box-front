@@ -46,7 +46,9 @@ export const MainScreen = () => {
         />
         <div className={styles.main_screen__clients}>
           <img src={group.src} alt="clients" />
-          <Paragraph margin="ml-2">200+ Довольных клиентов</Paragraph>
+          <Paragraph margin="ml-2">
+            <a href="#feedback-mob">200+ Довольных клиентов</a>
+          </Paragraph>
         </div>
         <img src={main_img.src} alt="" className={styles.main_screen__img} />
       </main>
@@ -80,7 +82,9 @@ export const MainScreen = () => {
             </div>
             <div className={styles.main_screen__clients}>
               <img src={group.src} alt="clients" />
-              <Paragraph margin="ml-2">200+ Довольных клиентов</Paragraph>
+              <Paragraph margin="ml-2">
+                <a href="#feedback-pc">200+ Довольных клиентов</a>
+              </Paragraph>
             </div>
           </div>
           <div className="w-full flex">

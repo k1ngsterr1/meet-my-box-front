@@ -1,15 +1,29 @@
 import { CalculateInput } from "@shared/ui/Input/Calculate/calculate-input";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import styles from "./styles.module.scss";
+import React, { useEffect, useState } from "react";
 
-const countries = [
-  { value: "GB", label: "United Kingdom" },
-  { value: "IT", label: "Italy" },
-  { value: "FR", label: "France" },
-  { value: "AT", label: "Austria" },
-  { value: "DE", label: "Germany" },
-  { value: "ES", label: "Spain" },
+const countriesFrom = [
+  { value: "IT", label: "Италия" },
+  { value: "FR", label: "Франция" },
+  { value: "DE", label: "Германия" },
+  { value: "ES", label: "Испания" },
+  { value: "NL", label: "Нидерланды" },
+  { value: "AT", label: "Австрия" },
+  { value: "PL", label: "Польша" },
+  { value: "CH", label: "Швейцария" },
+  { value: "GB", label: "Великобритания" },
+  { value: "CY", label: "Кипр" },
+  // Add more countries as needed
+];
+
+const countriesTo = [
+  { value: "RU", label: "Россия" },
+  { value: "KZ", label: "Казахстан" },
+  { value: "BY", label: "Беларусь" },
+  { value: "KG", label: "Кыргыстан" },
+  { value: "GE", label: "Грузия" },
+  { value: "TM", label: "Туркменистан" },
+  { value: "AZ", label: "Азербайджан" },
   // Add more countries as needed
 ];
 
@@ -82,7 +96,8 @@ const useShippingRates = ({
             },
             {
               headers: {
-                Authorization: shippoToken,
+                Authorization:
+                  "ShippoToken shippo_live_ee85e3da2e43029c6ce3e09509b90309c0887c08",
                 "Content-Type": "application/json",
               },
             }
@@ -134,48 +149,38 @@ export const CalculateForm = () => {
     toPostcode,
   });
 
-  const handleNumberInput = (setter: any) => (e: any) => {
-    const value = parseFloat(e.target.value);
-    setter(!isNaN(value) ? value : 0);
+  const handleNumberInput = (setter) => (e) => {
+    let value = parseFloat(e.target.value);
+    if (isNaN(value)) value = 0;
+    if (value > 170) value = 170; // Limit the value to a maximum of 170
+    setter(value);
+  };
+
+  const handleNumberInputWeight = (setter) => (e) => {
+    let value = parseFloat(e.target.value);
+    if (isNaN(value)) value = 0;
+    if (value > 25) value = 25; // Limit the value to a maximum of 170
+    setter(value);
   };
 
   return (
-    <div className={styles.calculate__form}>
-      <h5 className={styles.calculate__form__heading}>
-        Заполните все поля, чтобы рассчитать стоимость
+    <div className="max-w-xs mx-auto p-4 bg-white rounded-lg shadow-md mt-4">
+      <h5 className="text-lg font-semibold text-center mb-4">
+        Рассчитайте стоимость
       </h5>
-      <form className={styles.calculate__form__inputs}>
-        <CalculateInput
-          value={weight}
-          placeholder="Weight (kg)"
-          margin=""
-          onChange={handleNumberInput(setWeight)}
-        />
-        <CalculateInput
-          value={width}
-          placeholder="Width (cm)"
-          margin="mt-4"
-          onChange={handleNumberInput(setWidth)}
-        />
-        <CalculateInput
-          value={height}
-          placeholder="Height (cm)"
-          margin="mt-4"
-          onChange={handleNumberInput(setHeight)}
-        />
-        <CalculateInput
-          value={length}
-          placeholder="Length (cm)"
-          margin="mt-4"
-          onChange={handleNumberInput(setLength)}
-        />
-        <div className="flex items-center gap-4 mt-4">
+      <form className="space-y-4">
+        {/* From Country and Postcode */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Откуда:
+          </label>
           <select
             value={fromCountry}
             onChange={(e) => setFromCountry(e.target.value)}
-            className="border p-2 rounded"
+            className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
+            required
           >
-            {countries.map((country) => (
+            {countriesFrom.map((country) => (
               <option key={country.value} value={country.value}>
                 {country.label}
               </option>
@@ -183,17 +188,25 @@ export const CalculateForm = () => {
           </select>
           <CalculateInput
             value={fromPostcode}
-            placeholder="From Postcode"
+            placeholder="Почтовый индекс"
             onChange={(e) => setFromPostcode(e.target.value)}
+            className="mt-2 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
+            required
           />
         </div>
-        <div className="flex items-center gap-4 mt-4">
+
+        {/* To Country and Postcode */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Куда:
+          </label>
           <select
             value={toCountry}
             onChange={(e) => setToCountry(e.target.value)}
-            className="border p-2 rounded"
+            className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
+            required
           >
-            {countries.map((country) => (
+            {countriesTo.map((country) => (
               <option key={country.value} value={country.value}>
                 {country.label}
               </option>
@@ -201,23 +214,99 @@ export const CalculateForm = () => {
           </select>
           <CalculateInput
             value={toPostcode}
-            placeholder="To Postcode"
+            placeholder="Почтовый индекс"
             onChange={(e) => setToPostcode(e.target.value)}
+            className="mt-2 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
+            required
           />
         </div>
+
+        {/* Dimensions Inputs */}
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Вес (kg):
+            </label>
+            <CalculateInput
+              value={weight}
+              placeholder="0"
+              min={1}
+              type="number"
+              max={25}
+              onChange={handleNumberInputWeight(setWeight)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Длина (cm):
+            </label>
+            <CalculateInput
+              value={length}
+              placeholder="0"
+              min={1}
+              type="number"
+              max={170}
+              onChange={handleNumberInput(setLength)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Ширина (cm):
+            </label>
+            <CalculateInput
+              value={width}
+              placeholder="0"
+              min={1}
+              type="number"
+              max={170}
+              onChange={handleNumberInput(setWidth)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Высота (cm):
+            </label>
+            <CalculateInput
+              value={height}
+              placeholder="0"
+              min={1}
+              type="number"
+              max={170}
+              onChange={handleNumberInput(setHeight)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
+              required
+            />
+          </div>
+        </div>
+        <div className="flex justify-end mt-4">
+          <button
+            type="submit"
+            className="bg-main hover:bg-hover text-white font-semibold py-2 px-4 rounded-md shadow-md"
+          >
+            Рассчитать
+          </button>
+        </div>
       </form>
-      <div className={styles.calculate__form__result}>
+      <div className="mt-6">
         {shippingRates.length > 0 ? (
-          <ul>
+          <ul className="list-disc list-inside">
             {shippingRates.map((rate, index) => (
-              <li key={index}>
+              <li key={index} className="text-gray-700">
                 {rate.provider} ({rate.servicelevel.name}): {rate.amount_local}{" "}
                 {rate.currency_local}
               </li>
             ))}
           </ul>
         ) : (
-          <span>Введите данные для расчета стоимости доставки</span>
+          <span className="text-gray-500">
+            Enter the details to calculate the shipping cost
+          </span>
         )}
       </div>
     </div>
@@ -233,122 +322,230 @@ export const CalculateFormPC = () => {
   const [toCountry, setToCountry] = useState("AT");
   const [fromPostcode, setFromPostcode] = useState("");
   const [toPostcode, setToPostcode] = useState("");
+  const [shippingRates, setShippingRates] = useState([]);
+  const [error, setError] = useState(null);
 
-  const shippingRates = useShippingRates({
-    weight,
-    width,
-    height,
-    length,
-    fromCountry,
-    toCountry,
-    fromPostcode,
-    toPostcode,
-  });
+  // Handle form submission
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setError(null); // Reset error state
 
-  const handleNumberInput = (setter: any) => (e: any) => {
-    const value = parseFloat(e.target.value);
-    setter(!isNaN(value) ? value : 0);
+    const shippoApiUrl = "https://api.goshippo.com/rates/";
+    const accessToken =
+      "ShippoToken shippo_live_ee85e3da2e43029c6ce3e09509b90309c0887c08";
+
+    // Prepare data for Shippo API
+    const shipmentData = {
+      address_from: {
+        country: fromCountry,
+        postal_code: fromPostcode,
+      },
+      address_to: {
+        country: toCountry,
+        postal_code: toPostcode,
+      },
+      parcels: [
+        {
+          weight,
+          mass_unit: "kg",
+          length,
+          width,
+          height,
+          distance_unit: "cm",
+        },
+      ],
+    };
+
+    try {
+      // Call the Shippo API
+      const response = await fetch(shippoApiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `ShippoToken ${accessToken}`,
+        },
+        body: JSON.stringify(shipmentData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch shipping rates");
+      }
+
+      const data = await response.json();
+      setShippingRates(data.rates);
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+
+  const handleNumberInput = (setter) => (e) => {
+    let value = parseFloat(e.target.value);
+    if (isNaN(value)) value = 0;
+    if (value > 170) value = 170; // Limit the value to a maximum of 170
+    setter(value);
+  };
+
+  const handleNumberInputWeight = (setter) => (e) => {
+    let value = parseFloat(e.target.value);
+    if (isNaN(value)) value = 0;
+    if (value > 25) value = 25; // Limit the value to a maximum of 170
+    setter(value);
   };
 
   return (
-    <div className={styles.calculate_pc__form}>
-      <h5 className={styles.calculate_pc__form__heading}>
-        Заполните все поля, чтобы рассчитать стоимость
+    <div className="max-w-4xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md mt-8">
+      <h5 className="text-xl font-semibold text-center mb-6">
+        Рассчитайте стоимость
       </h5>
-      <form className={styles.calculate_pc__form__inputs}>
-        <div className="flex flex-col">
-          <div className="flex items-center justify-center">
-            <div className="w-full flex flex-col items-center">
-              <span className="text-dark">Вес (kg)</span>
-              <CalculateInput
-                value={weight}
-                placeholder="Weight"
-                margin="mt-4"
-                onChange={handleNumberInput(setWeight)}
-              />
-            </div>
-            <div className="w-full flex flex-col items-center">
-              <span className="text-dark">Ширина (cm)</span>
-              <CalculateInput
-                value={width}
-                placeholder="Width"
-                margin="mt-4"
-                onChange={handleNumberInput(setWidth)}
-              />
-            </div>
-            <div className="w-full flex flex-col items-center">
-              <span className="text-dark">Высота (cm)</span>
-              <CalculateInput
-                value={height}
-                placeholder="Height"
-                margin="mt-4"
-                onChange={handleNumberInput(setHeight)}
-              />
-            </div>
-            <div className="w-full flex flex-col items-center">
-              <span className="text-dark">Длина (cm)</span>
-              <CalculateInput
-                value={length}
-                placeholder="Length"
-                margin="mt-4"
-                onChange={handleNumberInput(setLength)}
-              />
-            </div>
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <div className="flex items-center justify-between space-x-4">
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700">
+              Откуда:
+            </label>
+            <select
+              value={fromCountry}
+              onChange={(e) => setFromCountry(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+              required
+            >
+              {countriesFrom.map((country) => (
+                <option key={country.value} value={country.value}>
+                  {country.label}
+                </option>
+              ))}
+            </select>
           </div>
-          <div className="w-full flex items-center justify-center mt-4">
-            <div className="w-full flex items-center gap-4">
-              <select
-                value={fromCountry}
-                onChange={(e) => setFromCountry(e.target.value)}
-                className="border p-2 rounded"
-              >
-                {countries.map((country) => (
-                  <option key={country.value} value={country.value}>
-                    {country.label}
-                  </option>
-                ))}
-              </select>
-              <CalculateInput
-                value={fromPostcode}
-                placeholder="From Postcode"
-                onChange={(e) => setFromPostcode(e.target.value)}
-                className="border p-2 rounded w-50"
-              />
-            </div>
-            <div className="flex items-center gap-4">
-              <select
-                value={toCountry}
-                onChange={(e) => setToCountry(e.target.value)}
-                className="border p-2 rounded"
-              >
-                {countries.map((country) => (
-                  <option key={country.value} value={country.value}>
-                    {country.label}
-                  </option>
-                ))}
-              </select>
-              <CalculateInput
-                value={toPostcode}
-                placeholder="To Postcode"
-                onChange={(e) => setToPostcode(e.target.value)}
-                className="border p-2 rounded w-50"
-              />
-            </div>
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700">
+              Ваш индекс:
+            </label>
+            <CalculateInput
+              value={fromPostcode}
+              placeholder="Почтовый индекс"
+              onChange={(e) => setFromPostcode(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+              required
+            />
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700">
+              Куда:
+            </label>
+            <select
+              value={toCountry}
+              onChange={(e) => setToCountry(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+              required
+            >
+              {countriesTo.map((country) => (
+                <option key={country.value} value={country.value}>
+                  {country.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700">
+              Ваш индекс:
+            </label>
+            <CalculateInput
+              value={toPostcode}
+              placeholder="Почтовый индекс"
+              onChange={(e) => setToPostcode(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+              required
+            />
           </div>
         </div>
+
+        <div className="flex items-center justify-between space-x-4">
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700">
+              Вес (kg):
+            </label>
+            <CalculateInput
+              value={weight}
+              placeholder="1"
+              min={1}
+              type="number"
+              max={25}
+              onChange={handleNumberInputWeight(setWeight)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+              required
+            />
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700">
+              Длина (cm):
+            </label>
+            <CalculateInput
+              value={length}
+              placeholder="1"
+              min={1}
+              type="number"
+              max={170}
+              onChange={handleNumberInput(setLength)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+              required
+            />
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700">
+              Ширина (cm):
+            </label>
+            <CalculateInput
+              value={width}
+              placeholder="1"
+              min={1}
+              type="number"
+              max={170}
+              onChange={handleNumberInput(setWidth)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+              required
+            />
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700">
+              Высота (cm):
+            </label>
+            <CalculateInput
+              value={height}
+              placeholder="1"
+              min={1}
+              type="number"
+              max={170}
+              onChange={handleNumberInput(setHeight)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="flex justify-end mt-4">
+          <button
+            type="submit"
+            className="bg-main hover:bg-hover text-white font-semibold py-2 px-6 rounded-md shadow-md"
+          >
+            Рассчитать
+          </button>
+        </div>
       </form>
-      <div className={styles.calculate_pc__form__result}>
+      <div className="mt-6">
+        {error && <p className="text-red-500">{error}</p>}
         {shippingRates.length > 0 ? (
-          <ul>
+          <ul className="list-disc list-inside">
             {shippingRates.map((rate, index) => (
-              <li key={index}>
+              <li key={index} className="text-gray-700">
                 {rate.provider} ({rate.servicelevel.name}): {rate.amount_local}{" "}
                 {rate.currency_local}
               </li>
             ))}
           </ul>
         ) : (
-          <span>Введите данные для расчета стоимости доставки</span>
+          <span className="text-gray-500">
+            Заполните все необходимые поля, чтобы рассчитать стоимость
+          </span>
         )}
       </div>
     </div>

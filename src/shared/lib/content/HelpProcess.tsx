@@ -5,7 +5,7 @@ import img5 from "@assets/service2.png";
 
 export interface IImageCardItem {
   img: ImageMetadata;
-  description: string;
+  description: any;
 }
 
 export const processHelpList: IImageCardItem[] = [
@@ -15,7 +15,14 @@ export const processHelpList: IImageCardItem[] = [
   },
   {
     img: img2,
-    description: "Написать нам http://t.me/meetmbox",
+    description: (
+      <>
+        Написать нам{" "}
+        <a className="text-main" href="http://t.me/meetmbox">
+          http://t.me/meetmbox
+        </a>
+      </>
+    ),
   },
   {
     img: img3,

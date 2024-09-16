@@ -7,6 +7,7 @@ import { FAQList } from "@shared/ui/Accordion/faq-accordion";
 import Button from "@shared/ui/Button/ui/button";
 import { Documents } from "@shared/ui/Documents";
 import { useState } from "react";
+import { InfoScreen } from "../../InfoScreen/InfoScreen";
 import styles from "./styles.module.scss";
 
 export const CalculateScreen = () => {
@@ -39,7 +40,7 @@ export const CalculateScreen = () => {
         <h2 className={styles.calculate_pc__heading}>
           Рассчитать стоимость доставки
         </h2>
-        <div className="w-full flex items-center justify-center gap-4 mt-4">
+        <div className="w-full flex items-center justify-center gap-4 mt-25">
           <Button
             text="Посылка"
             buttonType={isForm ? "filled" : "outline"}
@@ -49,12 +50,13 @@ export const CalculateScreen = () => {
           <Button
             text="Документы"
             buttonType={!isForm ? "filled" : "outline"}
-            margin="mt-4"
+            margin="mt-6"
             onClick={handleToggleForm}
           />
         </div>
         {isForm && <CalculateFormPC />}
         {!isForm && <Documents onClick={handleToggleForm} />}
+        <InfoScreen />
       </section>
       <div className="w-[90%] lg:w-[86.6%]">
         <FAQList items={calcFaqAccordions} />

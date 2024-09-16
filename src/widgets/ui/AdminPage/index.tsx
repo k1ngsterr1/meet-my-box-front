@@ -3,9 +3,9 @@ import {
   ApplicationsCardsPC,
   type ApplicationProps,
 } from "@features/ApplicationCard";
-import styles from "./styles.module.scss";
-import { useEffect, useState } from "react";
 import { useGetApplications } from "@shared/lib/hooks/useGetApplications";
+import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 export const AdminPage = () => {
   const [applications, setApplications] = useState<ApplicationProps[]>([]);
   useEffect(() => {

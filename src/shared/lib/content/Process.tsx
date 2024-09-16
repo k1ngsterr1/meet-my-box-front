@@ -5,7 +5,7 @@ import img4 from "@assets/process_4.png";
 import img5 from "@assets/service2.png";
 export interface IImageCardItem {
   img: ImageMetadata;
-  description: string;
+  description: string | any;
 }
 export const processList: IImageCardItem[] = [
   {
@@ -14,7 +14,14 @@ export const processList: IImageCardItem[] = [
   },
   {
     img: img2,
-    description: "Оформить заказ на нашем сайте https://meetmybox.com",
+    description: (
+      <>
+        Оформить заказ на нашем{""}
+        <a className="text-main" href="https://meetmybox.com">
+          {""} сайте{" "}
+        </a>
+      </>
+    ),
   },
   {
     img: img3,

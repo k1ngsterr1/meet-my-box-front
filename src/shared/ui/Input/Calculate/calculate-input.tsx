@@ -1,6 +1,6 @@
+import type { ICalculateInput } from "@shared/lib/content/Input";
 import React from "react";
 import styles from "./styles.module.scss";
-import type { ICalculateInput } from "@shared/lib/content/Input";
 export const CalculateInput: React.FC<ICalculateInput> = ({
   placeholder,
   margin,

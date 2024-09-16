@@ -1,6 +1,7 @@
 ---
 // src/pages/index.astro or any relevant page
 import { ContactsButton } from "@features/ContactsButton/ui/contacts-button";
+import { HelpPopup } from "@features/HelpPopup/help-popup";
 import { Menu } from "@shared/ui/Menu/ui/menu";
 import Layout from "@widgets/layouts/ui/layout.astro";
 import { AboutScreen } from "@widgets/ui/HomePage/screens/AboutScreen/AboutScreen";
@@ -13,12 +14,14 @@ import { ProcessScreen } from "@widgets/ui/HomePage/screens/ProcessScreen/Proces
 import { ServiceScreen } from "@widgets/ui/HomePage/screens/ServiceScreen/ServiceScreen";
 import { TrackScreen } from "@widgets/ui/HomePage/screens/TrackScreen/TrackScreen";
 import { Loader } from "@widgets/ui/Loader/ui/loader";
+
 ---
 
 <Layout>
   <Loader client:load />
   <Menu client:load />
   <MainScreen client:load />
+  <HelpPopup client:only/>
   <ServiceScreen client:load />
   <ProcessScreen client:load />
   <CalculateScreen client:load />

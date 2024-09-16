@@ -3,6 +3,7 @@ import { useStore } from "@nanostores/react";
 import { BurgerButton } from "@shared/ui/Burger/ui/burger-button";
 import Button from "@shared/ui/Button/ui/button";
 import { isMenuOpen } from "@stores/menuState";
+import { togglePopup } from "@stores/popupState";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 
@@ -51,7 +52,11 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
           <a className={styles.header_pc__nav__link} href="#calculate-pc">
             Отправить посылку
           </a>
-          <a className={styles.header_pc__nav__link} href="#contacts-pc">
+          <a
+            className={styles.header_pc__nav__link}
+            onClick={() => togglePopup()}
+            // href="#contacts-pc"
+          >
             Помощь с покупкой
           </a>
           <a className={styles.header_pc__nav__link} href="/cost">
@@ -60,9 +65,9 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
           {userEmail ? (
             <span
               className={`${styles.header_pc__email} cursor-pointer`}
-              onClick={() => (window.location.href = "/address")}
+              onClick={() => (window.location.href = "/profile")}
             >
-              {userEmail}
+              Личный кабинет
             </span>
           ) : (
             <Button

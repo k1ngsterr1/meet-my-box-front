@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import Button from "@shared/ui/Button/ui/button";
 import { AddPackagesForm, AddPackagesFormPC } from "@features/AddPackagesForm";
-import styles from "./styles.module.scss";
 import { useAddPackage } from "@shared/lib/hooks/Packages/useAddPackage";
+import Button from "@shared/ui/Button/ui/button";
+import React, { useState } from "react";
+import styles from "./styles.module.scss";
 
 type Item = {
   id: number;
@@ -74,6 +74,7 @@ export const AddPackages = () => {
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     let updatedItems = items;
 
     if (
