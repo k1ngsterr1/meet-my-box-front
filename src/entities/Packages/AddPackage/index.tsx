@@ -116,6 +116,7 @@ export const AddPackages = () => {
     setQuantity("");
     setWeight("");
     setPrice("");
+    window.location.href = "/application";
   };
 
   const toggleMenu = () => {
@@ -278,6 +279,7 @@ export const AddPackagesPC = () => {
     setQuantity("");
     setWeight("");
     setPrice("");
+    window.location.href = "/application";
   };
 
   const toggleMenu = () => {
