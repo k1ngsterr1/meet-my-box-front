@@ -4,6 +4,7 @@ import { BurgerButton } from "@shared/ui/Burger/ui/burger-button";
 import Button from "@shared/ui/Button/ui/button";
 import { isMenuOpen } from "@stores/menuState";
 import { togglePopup } from "@stores/popupState";
+import { toggleRequestPopup } from "@stores/requestState";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 
@@ -49,7 +50,10 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
           alt="Logotype"
         />
         <nav className={styles.header_pc__nav}>
-          <a className={styles.header_pc__nav__link} href="#calculate-pc">
+          <a
+            className={styles.header_pc__nav__link}
+            onClick={() => toggleRequestPopup()}
+          >
             Отправить посылку
           </a>
           <a

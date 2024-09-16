@@ -2,6 +2,7 @@ import { AboutGroup, AboutGroupPC } from "@shared/ui/Card/ui/About/about-card";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
+
 export const AboutScreen = () => {
   return (
     <>

@@ -12,9 +12,12 @@ import styles from "./styles.module.scss";
 
 export const CalculateScreen = () => {
   const [isForm, setIsForm] = useState(true);
+
   const handleToggleForm = () => {
     setIsForm(!isForm);
+    console.log("lol");
   };
+
   return (
     <>
       <section className={styles.calculate} id="calculate-mob">

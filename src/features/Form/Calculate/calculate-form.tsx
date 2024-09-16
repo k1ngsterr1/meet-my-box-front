@@ -1,6 +1,7 @@
+import { validatePostcode } from "@shared/lib/hooks/usePostCodeValidate";
 import { CalculateInput } from "@shared/ui/Input/Calculate/calculate-input";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const countriesFrom = [
   { value: "IT", label: "Италия" },
@@ -149,14 +150,14 @@ export const CalculateForm = () => {
     toPostcode,
   });
 
-  const handleNumberInput = (setter) => (e) => {
+  const handleNumberInput = (setter: any) => (e: any) => {
     let value = parseFloat(e.target.value);
     if (isNaN(value)) value = 0;
     if (value > 170) value = 170; // Limit the value to a maximum of 170
     setter(value);
   };
 
-  const handleNumberInputWeight = (setter) => (e) => {
+  const handleNumberInputWeight = (setter: any) => (e: any) => {
     let value = parseFloat(e.target.value);
     if (isNaN(value)) value = 0;
     if (value > 25) value = 25; // Limit the value to a maximum of 170
@@ -323,12 +324,29 @@ export const CalculateFormPC = () => {
   const [fromPostcode, setFromPostcode] = useState("");
   const [toPostcode, setToPostcode] = useState("");
   const [shippingRates, setShippingRates] = useState([]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   // Handle form submission
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError(null); // Reset error state
+
+    // Validate postcodes before fetching shipping rates
+    const isFromPostcodeValid = await validatePostcode(
+      fromCountry,
+      fromPostcode
+    );
+    const isToPostcodeValid = await validatePostcode(toCountry, toPostcode);
+
+    if (!isFromPostcodeValid) {
+      setError("Неверный почтовый индекс отправителя.");
+      return;
+    }
+
+    if (!isToPostcodeValid) {
+      setError("Неверный почтовый индекс получателя.");
+      return;
+    }
 
     const shippoApiUrl = "https://api.goshippo.com/rates/";
     const accessToken =
@@ -397,7 +415,7 @@ export const CalculateFormPC = () => {
       <h5 className="text-xl font-semibold text-center mb-6">
         Рассчитайте стоимость
       </h5>
-      <form className="space-y-4" onSubmit={handleSubmit}>
+      <form className="space-y-4" onSubmit={handleSubmit} method="POST">
         <div className="flex items-center justify-between space-x-4">
           <div className="flex-1">
             <label className="block text-sm font-medium text-gray-700">
@@ -458,7 +476,6 @@ export const CalculateFormPC = () => {
             />
           </div>
         </div>
-
         <div className="flex items-center justify-between space-x-4">
           <div className="flex-1">
             <label className="block text-sm font-medium text-gray-700">
@@ -521,10 +538,10 @@ export const CalculateFormPC = () => {
             />
           </div>
         </div>
-
         <div className="flex justify-end mt-4">
           <button
-            type="submit"
+            // type="submit"
+            onClick={() => console.log("lol")}
             className="bg-main hover:bg-hover text-white font-semibold py-2 px-6 rounded-md shadow-md"
           >
             Рассчитать

@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./styles.module.scss";
 import Button from "../Button/ui/button";
+import styles from "./styles.module.scss";
 interface Props {
   onClick: () => void;
 }

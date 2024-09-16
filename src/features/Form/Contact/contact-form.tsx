@@ -1,9 +1,9 @@
 import { contactInputs } from "@shared/lib/content/Input";
-import { ContactInput } from "@shared/ui/Input/Contact/contact-input";
-import styles from "./styles.module.scss";
-import Button from "@shared/ui/Button/ui/button";
-import { useState } from "react";
 import { useMail } from "@shared/lib/hooks/useMail";
+import Button from "@shared/ui/Button/ui/button";
+import { ContactInput } from "@shared/ui/Input/Contact/contact-input";
+import { useState } from "react";
+import styles from "./styles.module.scss";
 
 export const ContactForm = () => {
   const [name, setName] = useState("");
@@ -34,11 +34,7 @@ export const ContactForm = () => {
   };
 
   return (
-    <form
-      method="POST"
-      onSubmit={handleSubmit}
-      className={styles.contact__group}
-    >
+    <form onSubmit={handleSubmit} className={styles.contact__group}>
       <ContactInput
         placeholder="Ваше имя"
         margin="mt-4"
