@@ -9,13 +9,13 @@ export const ProfilePage = () => {
     firstName: "",
     lastNameLatin: "",
     firstNameLatin: "",
-    phone: "",
+    phoneNumber: "",
     email: "",
     postalCode: "",
     country: "",
     city: "",
     street: "",
-    house: "",
+    building: "",
     apartment: "",
     intercomName: "",
     whatsapp: "",
@@ -101,10 +101,10 @@ export const ProfilePage = () => {
           </label>
           <input
             type="text"
-            name="phone"
+            name="phoneNumber"
             className="p-2 border border-gray-300 rounded"
             placeholder="87759932587"
-            value={profileData.phone}
+            value={profileData.phoneNumber}
             onChange={handleChange}
           />
         </div>
@@ -167,10 +167,10 @@ export const ProfilePage = () => {
           <label className="mb-1 text-gray-700">Дом</label>
           <input
             type="text"
-            name="house"
+            name="building"
             className="p-2 border border-gray-300 rounded"
             placeholder="Номер вашего дома"
-            value={profileData.house}
+            value={profileData.building}
             onChange={handleChange}
           />
         </div>

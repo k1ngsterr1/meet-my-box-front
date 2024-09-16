@@ -12,6 +12,7 @@ export async function useLogin(data: IData): Promise<string> {
       "Длина пароля должна быть от 8 до 16 символов.",
     "User not found.": "Пользователь не найден.",
     "Error login the user.": "Ошибка при входе пользователя.",
+    "Неверный пароль!": "Неверный пароль!",
   };
 
   try {

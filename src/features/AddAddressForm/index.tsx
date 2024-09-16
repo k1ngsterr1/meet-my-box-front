@@ -4,7 +4,7 @@ import Button from "@shared/ui/Button/ui/button";
 import { BorderInput } from "@shared/ui/Input/BorderInput/border-input";
 import { useAddAddress } from "@shared/lib/hooks/useAddAddress";
 
-export const AddAddressForm = () => {
+export const AddAddressForm = ({ user }: any) => {
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [street, setStreet] = useState("");
@@ -61,28 +61,32 @@ export const AddAddressForm = () => {
       <form className={styles.add_address__form} onSubmit={handleSubmit}>
         <BorderInput
           placeholder="ФИО"
-          value={fullName}
+          value={
+            fullName ||
+            (user?.lastName !== undefined ? user.lastName + " " : "") +
+              (user?.firstName || "")
+          }
           onChange={(e) => setFullName(e.target.value)}
           width="w-3/4"
           margin="mt-2"
         />
         <BorderInput
           placeholder="Номер мобильного телефона"
-          value={phone}
+          value={phone || user?.phoneNumber}
           onChange={(e) => setPhone(e.target.value)}
           width="w-3/4"
           margin="mt-2"
         />
         <BorderInput
           placeholder="Улица"
-          value={street}
+          value={street || user?.street}
           onChange={(e) => setStreet(e.target.value)}
           width="w-3/4"
           margin="mt-2"
         />
         <BorderInput
           placeholder="Дом"
-          value={house}
+          value={house || user?.building}
           onChange={(e) => setHouse(e.target.value)}
           width="w-3/4"
           margin="mt-2"
@@ -96,21 +100,21 @@ export const AddAddressForm = () => {
         />
         <BorderInput
           placeholder="Квартира"
-          value={apartment}
+          value={apartment || user?.apartment}
           onChange={(e) => setApartment(e.target.value)}
           width="w-3/4"
           margin="mt-2"
         />
         <BorderInput
           placeholder="Город получателя"
-          value={city}
+          value={city || user?.city}
           onChange={(e) => setCity(e.target.value)}
           width="w-3/4"
           margin="mt-2"
         />
         <BorderInput
           placeholder="Индекс получателя"
-          value={postalCode}
+          value={postalCode || user?.postalCode}
           onChange={(e) => setPostalCode(e.target.value)}
           width="w-3/4"
           margin="mt-2"
@@ -125,7 +129,7 @@ export const AddAddressForm = () => {
     </>
   );
 };
-export const AddAddressFormPC = () => {
+export const AddAddressFormPC = ({ user }: any) => {
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [street, setStreet] = useState("");
@@ -183,13 +187,17 @@ export const AddAddressFormPC = () => {
         <div className="w-[100%] flex gap-4">
           <BorderInput
             placeholder="ФИО"
-            value={fullName}
+            value={
+              fullName ||
+              (user?.lastName !== undefined ? user.lastName + " " : "") +
+                (user?.firstName || "")
+            }
             onChange={(e) => setFullName(e.target.value)}
             margin="mt-2"
           />
           <BorderInput
             placeholder="Номер мобильного телефона"
-            value={phone}
+            value={phone || user?.phoneNumber}
             onChange={(e) => setPhone(e.target.value)}
             margin="mt-2"
           />
@@ -197,13 +205,13 @@ export const AddAddressFormPC = () => {
         <div className="w-[100%] flex gap-4">
           <BorderInput
             placeholder="Улица"
-            value={street}
+            value={street || user?.street}
             onChange={(e) => setStreet(e.target.value)}
             margin="mt-2"
           />
           <BorderInput
             placeholder="Дом"
-            value={house}
+            value={house || user?.building}
             onChange={(e) => setHouse(e.target.value)}
             margin="mt-2"
           />
@@ -217,7 +225,7 @@ export const AddAddressFormPC = () => {
           />
           <BorderInput
             placeholder="Квартира"
-            value={apartment}
+            value={apartment || user?.apartment}
             onChange={(e) => setApartment(e.target.value)}
             margin="mt-2"
           />
@@ -225,13 +233,13 @@ export const AddAddressFormPC = () => {
         <div className="w-[100%] flex gap-4">
           <BorderInput
             placeholder="Город получателя"
-            value={city}
+            value={city || user?.city}
             onChange={(e) => setCity(e.target.value)}
             margin="mt-2"
           />
           <BorderInput
             placeholder="Индекс получателя"
-            value={postalCode}
+            value={postalCode || user?.postalCode}
             onChange={(e) => setPostalCode(e.target.value)}
             margin="mt-2"
           />
