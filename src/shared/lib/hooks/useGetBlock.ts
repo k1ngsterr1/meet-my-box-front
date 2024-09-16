@@ -1,5 +1,5 @@
 import axios from "axios";
-export const baseUrl = "http://localhost:1337";
+export const baseUrl = "https://strapi-meet-my-box-production.up.railway.app/";
 export async function useGetBlock(
   url: string,
   isProcess?: boolean,
