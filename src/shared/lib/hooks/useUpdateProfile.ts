@@ -5,13 +5,13 @@ interface IProfileData {
   firstName: string;
   lastNameLatin: string;
   firstNameLatin: string;
-  phone: string;
+  phoneNumber: string;
   email: string;
   postalCode: string;
   country: string;
   city: string;
   street: string;
-  house: string;
+  building: string;
   apartment: string;
   intercomName: string;
   whatsapp: string;

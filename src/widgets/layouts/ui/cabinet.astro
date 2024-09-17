@@ -6,6 +6,7 @@ import "@shared/styles/global.scss";
 import { Footer } from "@features/Footer/ui/footer";
 import { Menu } from "@shared/ui/Menu/SideMenu";
 import { SidePanel, SidePanelMob } from "@shared/ui/SidePanel";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
 ---
 
 <html lang="ru">
@@ -19,6 +20,7 @@ import { SidePanel, SidePanelMob } from "@shared/ui/SidePanel";
   <body>
     <div class="container_single">
       <Menu client:load/>
+      <Loader client:load/>
       <div class="w-full flex flex-col lg:flex-row">
         <div class="w-full flex flex-col items-center lg:hidden">
           <SidePanelMob client:load />

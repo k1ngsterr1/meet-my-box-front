@@ -3,14 +3,23 @@ import Button from "@shared/ui/Button/ui/button";
 import { FormInput } from "@shared/ui/Input/Form/form-input";
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
+import { ErrorDisplay } from "@entities/Error";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    await useLogin({ email: email, password: password });
+    const result = await useLogin({ email: email, password: password });
+
+    if (result !== "Success") {
+      setError(result);
+      return;
+    } else {
+      window.location.href = "/login";
+    }
     setEmail("");
     setPassword("");
     window.location.href = "/";
@@ -33,6 +42,7 @@ export const LoginForm = () => {
         onChange={(e) => setPassword(e.target.value)}
         type="password"
       />
+      <ErrorDisplay message={error} />
       <Button text="Войти" buttonType="filled" type="submit" margin="mt-12" />
     </form>
   );
