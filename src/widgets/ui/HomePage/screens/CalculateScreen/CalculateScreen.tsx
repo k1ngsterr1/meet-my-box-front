@@ -26,7 +26,7 @@ export const CalculateScreen = () => {
       } catch (error) {
         console.error("Error fetching packages:", error);
       } finally {
-        setIsLoading(false); // Set loading to false after fetching
+        setIsLoading(false);
       }
     };
 

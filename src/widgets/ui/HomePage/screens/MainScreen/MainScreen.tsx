@@ -10,21 +10,29 @@ import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
 import { baseUrl, useGetBlock } from "@shared/lib/hooks/useGetBlock";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
 
 export const MainScreen = () => {
   const [main, setMain] = useState<any>();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchBlock = async () => {
       try {
         const block = await useGetBlock("/api/main-blocks/1");
+        setIsLoading(true);
         setMain(block);
       } catch (error) {
         console.error("Error fetching packages:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchBlock();
   }, []);
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <>
       {main ? (

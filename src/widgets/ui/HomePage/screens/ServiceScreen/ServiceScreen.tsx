@@ -10,20 +10,28 @@ import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
 import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
 export const ServiceScreen = () => {
   const [service, setService] = useState<any>();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchBlock = async () => {
       try {
         const block = await useGetBlock("/api/service-blocks/1");
         setService(block);
+        setIsLoading(true);
       } catch (error) {
         console.error("Error fetching packages:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchBlock();
   }, []);
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <>
       {service ? (
