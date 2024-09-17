@@ -1,6 +1,22 @@
 @import "@shared/styles/mixins";
 @import "@shared/styles/variables";
+.p {
+  @include respond-to("xxxs") {
+    @apply text-base;
+  }
 
+  @include respond-to("tablet_sm") {
+    @apply text-lg;
+  }
+
+  @include respond-to("lg") {
+    @apply text-base;
+  }
+
+  @include respond-to("5xl") {
+    @apply text-lg;
+  }
+}
 .item {
   display: flex;
   flex-direction: column;
