@@ -65,7 +65,8 @@ export const ApplicationPage = () => {
         courier: !courier ? "Не нужен" : "Нужен",
         note: note,
       });
-      // window.location.href = "/packages";
+      localStorage.removeItem("packageId");
+      window.location.href = "/packages";
     }
   };
   const toggle1 = () => {
