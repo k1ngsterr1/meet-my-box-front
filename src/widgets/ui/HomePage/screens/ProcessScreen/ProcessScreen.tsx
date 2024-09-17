@@ -6,22 +6,31 @@ import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
 import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
 
 export const ProcessScreen = () => {
   const [process, setProcess] = useState<any>();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchBlock = async () => {
       try {
+        setIsLoading(true);
         const block = await useGetBlock("/api/working-process-blocks/1", true);
         setProcess(block);
       } catch (error) {
         console.error("Error fetching packages:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchBlock();
   }, []);
   const [choosenState, setChoosenState] = useState<string>("Отправить посылку");
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>

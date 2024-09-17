@@ -10,9 +10,9 @@ export const TrackScreen = () => {
   useEffect(() => {
     const fetchBlock = async () => {
       try {
+        setIsLoading(isLoading);
         const block = await useGetBlock("/api/tracking-blocks/1");
         setTrack(block);
-        setIsLoading(isLoading);
       } catch (error) {
         console.error("Error fetching track:", error);
       } finally {

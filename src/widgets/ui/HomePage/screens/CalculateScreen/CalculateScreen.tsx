@@ -21,6 +21,7 @@ export const CalculateScreen = () => {
   useEffect(() => {
     const fetchBlock = async () => {
       try {
+        setIsLoading(true);
         const block = await useGetBlock("/api/calculate-blocks/1");
         setCalculate(block);
       } catch (error) {

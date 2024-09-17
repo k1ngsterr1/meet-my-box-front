@@ -18,8 +18,8 @@ export const MainScreen = () => {
   useEffect(() => {
     const fetchBlock = async () => {
       try {
-        const block = await useGetBlock("/api/main-blocks/1");
         setIsLoading(true);
+        const block = await useGetBlock("/api/main-blocks/1");
         setMain(block);
       } catch (error) {
         console.error("Error fetching packages:", error);

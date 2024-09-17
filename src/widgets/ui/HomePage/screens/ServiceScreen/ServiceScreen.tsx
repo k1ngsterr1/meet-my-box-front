@@ -17,9 +17,9 @@ export const ServiceScreen = () => {
   useEffect(() => {
     const fetchBlock = async () => {
       try {
+        setIsLoading(true);
         const block = await useGetBlock("/api/service-blocks/1");
         setService(block);
-        setIsLoading(true);
       } catch (error) {
         console.error("Error fetching packages:", error);
       } finally {
