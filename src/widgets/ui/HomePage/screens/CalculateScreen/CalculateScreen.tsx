@@ -1,3 +1,5 @@
+// src/components/CalculateScreen.jsx
+import { useEffect, useState } from "react";
 import {
   CalculateForm,
   CalculateFormPC,
@@ -6,24 +8,43 @@ import { calcFaqAccordions } from "@shared/lib/content/Accordion";
 import { FAQList } from "@shared/ui/Accordion/faq-accordion";
 import Button from "@shared/ui/Button/ui/button";
 import { Documents } from "@shared/ui/Documents";
-import { useState } from "react";
 import { InfoScreen } from "../../InfoScreen/InfoScreen";
 import styles from "./styles.module.scss";
+import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
 
 export const CalculateScreen = () => {
+  const [calculate, setCalculate] = useState<any>();
+  const [isLoading, setIsLoading] = useState(true);
   const [isForm, setIsForm] = useState(true);
+
+  useEffect(() => {
+    const fetchBlock = async () => {
+      try {
+        const block = await useGetBlock("/api/calculate-blocks/1");
+        setCalculate(block);
+      } catch (error) {
+        console.error("Error fetching packages:", error);
+      } finally {
+        setIsLoading(false); // Set loading to false after fetching
+      }
+    };
+
+    fetchBlock();
+  }, []);
 
   const handleToggleForm = () => {
     setIsForm(!isForm);
-    console.log("lol");
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
       <section className={styles.calculate} id="calculate-mob">
-        <h2 className={styles.calculate__heading}>
-          Рассчитать стоимость доставки
-        </h2>
+        <h2 className={styles.calculate__heading}>{calculate.heading}</h2>
         <Button
           text="Посылка"
           buttonType={isForm ? "filled" : "outline"}
@@ -36,13 +57,10 @@ export const CalculateScreen = () => {
           margin="mt-4"
           onClick={handleToggleForm}
         />
-        {isForm && <CalculateForm />}
-        {!isForm && <Documents onClick={handleToggleForm} />}
+        {isForm ? <CalculateForm /> : <Documents onClick={handleToggleForm} />}
       </section>
       <section className={styles.calculate_pc} id="calculate-pc">
-        <h2 className={styles.calculate_pc__heading}>
-          Рассчитать стоимость доставки
-        </h2>
+        <h2 className={styles.calculate_pc__heading}>{calculate.heading}</h2>
         <div className="w-full flex items-center justify-center gap-4 mt-25">
           <Button
             text="Посылка"
@@ -57,12 +75,15 @@ export const CalculateScreen = () => {
             onClick={handleToggleForm}
           />
         </div>
-        {isForm && <CalculateFormPC />}
-        {!isForm && <Documents onClick={handleToggleForm} />}
+        {isForm ? (
+          <CalculateFormPC />
+        ) : (
+          <Documents onClick={handleToggleForm} />
+        )}
         <InfoScreen />
       </section>
       <div className="w-[90%] lg:w-[86.6%]">
-        <FAQList items={calcFaqAccordions} />
+        <FAQList items={calculate.questions} />
       </div>
     </>
   );
