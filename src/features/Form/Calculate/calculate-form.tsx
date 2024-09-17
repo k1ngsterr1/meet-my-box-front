@@ -28,7 +28,7 @@ const countriesTo = [
   // Add more countries as needed
 ];
 
-const shippoToken = process.env.SHIPPO_API_TOKEN; // Use environment variable
+// const shippoToken = process.env.SHIPPO_API_TOKEN; // Use environment variable
 
 export interface ShippingRatesParams {
   weight: number;

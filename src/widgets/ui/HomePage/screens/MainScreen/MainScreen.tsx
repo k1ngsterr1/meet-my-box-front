@@ -3,28 +3,13 @@ import main_img from "@assets/canvas.webp";
 import group from "@assets/clients_group.png";
 
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import Button from "@shared/ui/Button/ui/button";
 import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
-import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
 
 export const MainScreen = () => {
-  const [main, setMain] = useState<any>();
-  useEffect(() => {
-    const fetchBlock = async () => {
-      try {
-        const block = await useGetBlock("/api/main-blocks/1");
-        setMain(block);
-      } catch (error) {
-        console.error("Error fetching packages:", error);
-      }
-    };
-
-    fetchBlock();
-  }, []);
   return (
     <>
       <main className={styles.main_screen} id="main-mob">

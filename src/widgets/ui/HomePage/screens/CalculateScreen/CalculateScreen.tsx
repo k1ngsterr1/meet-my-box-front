@@ -3,7 +3,6 @@ import {
   CalculateFormPC,
 } from "@features/Form/Calculate/calculate-form";
 import { calcFaqAccordions } from "@shared/lib/content/Accordion";
-import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import { FAQList } from "@shared/ui/Accordion/faq-accordion";
 import Button from "@shared/ui/Button/ui/button";
 import { Documents } from "@shared/ui/Documents";
@@ -12,19 +11,6 @@ import { InfoScreen } from "../../InfoScreen/InfoScreen";
 import styles from "./styles.module.scss";
 
 export const CalculateScreen = () => {
-  const [calculate, setCalculate] = useState<any>();
-  useEffect(() => {
-    const fetchBlock = async () => {
-      try {
-        const block = await useGetBlock("/api/calculate-blocks/1");
-        setCalculate(block);
-      } catch (error) {
-        console.error("Error fetching packages:", error);
-      }
-    };
-
-    fetchBlock();
-  }, []);
   const [isForm, setIsForm] = useState(true);
 
   const handleToggleForm = () => {
