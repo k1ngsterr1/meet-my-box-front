@@ -325,12 +325,13 @@ export const CalculateFormPC = () => {
   const [toPostcode, setToPostcode] = useState("");
   const [shippingRates, setShippingRates] = useState([]);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Handle form submission
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError(null); // Reset error state
-
+    setIsLoading(true);
     // Validate postcodes before fetching shipping rates
     const isFromPostcodeValid = await validatePostcode(
       fromCountry,
@@ -348,11 +349,10 @@ export const CalculateFormPC = () => {
       return;
     }
 
-    const shippoApiUrl = "https://api.goshippo.com/rates/";
+    const shippoApiUrl = "https://api.goshippo.com/shipments/";
     const accessToken =
       "ShippoToken shippo_live_ee85e3da2e43029c6ce3e09509b90309c0887c08";
 
-    // Prepare data for Shippo API
     const shipmentData = {
       address_from: {
         country: fromCountry,
@@ -380,7 +380,7 @@ export const CalculateFormPC = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `ShippoToken ${accessToken}`,
+          Authorization: accessToken,
         },
         body: JSON.stringify(shipmentData),
       });
@@ -391,19 +391,21 @@ export const CalculateFormPC = () => {
 
       const data = await response.json();
       setShippingRates(data.rates);
+      setIsLoading(false);
     } catch (err: any) {
+      setIsLoading(false);
       setError(err.message);
     }
   };
 
-  const handleNumberInput = (setter) => (e) => {
+  const handleNumberInput = (setter: any) => (e: any) => {
     let value = parseFloat(e.target.value);
     if (isNaN(value)) value = 0;
-    if (value > 170) value = 170; // Limit the value to a maximum of 170
+    if (value > 170) value = 170;
     setter(value);
   };
 
-  const handleNumberInputWeight = (setter) => (e) => {
+  const handleNumberInputWeight = (setter: any) => (e: any) => {
     let value = parseFloat(e.target.value);
     if (isNaN(value)) value = 0;
     if (value > 25) value = 25; // Limit the value to a maximum of 170
@@ -544,7 +546,7 @@ export const CalculateFormPC = () => {
             onClick={() => console.log("lol")}
             className="bg-main hover:bg-hover text-white font-semibold py-2 px-6 rounded-md shadow-md"
           >
-            Рассчитать
+            {isLoading ? "Загружаем..." : "Рассчитать"}
           </button>
         </div>
       </form>
@@ -552,7 +554,7 @@ export const CalculateFormPC = () => {
         {error && <p className="text-red-500">{error}</p>}
         {shippingRates.length > 0 ? (
           <ul className="list-disc list-inside">
-            {shippingRates.map((rate, index) => (
+            {shippingRates.map((rate: any, index: number) => (
               <li key={index} className="text-gray-700">
                 {rate.provider} ({rate.servicelevel.name}): {rate.amount_local}{" "}
                 {rate.currency_local}

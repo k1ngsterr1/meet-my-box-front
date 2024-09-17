@@ -15,18 +15,17 @@ import { ProcessScreen } from "@widgets/ui/HomePage/screens/ProcessScreen/Proces
 import { ServiceScreen } from "@widgets/ui/HomePage/screens/ServiceScreen/ServiceScreen";
 import { TrackScreen } from "@widgets/ui/HomePage/screens/TrackScreen/TrackScreen";
 import { Loader } from "@widgets/ui/Loader/ui/loader";
-
 ---
 
 <Layout>
   <Loader client:load />
   <Menu client:load />
   <MainScreen client:load />
-  <HelpPopup client:only/>
-  <RequestPopup client:only/>
+  <HelpPopup client:only />
+  <RequestPopup client:only />
   <ServiceScreen client:load />
   <ProcessScreen client:load />
-  <CalculateScreen  client:visible />
+  <CalculateScreen client:visible />
   <TrackScreen client:load />
   <AboutScreen client:load />
   <FeedbackScreen client:load />

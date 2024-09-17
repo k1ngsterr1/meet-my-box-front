@@ -60,6 +60,9 @@
     @apply pt-12;
     @apply rounded-2xl;
     @apply mt-12;
+    @apply p-4;
+    @apply gap-8;
+
     &__title {
       @apply font-bold;
       @apply text-left;
@@ -107,6 +110,7 @@
         font-size: clamp(12px, 24 / 3840 * 100vw, 48px);
       }
     }
+
     &__description {
       @apply text-left;
       @apply mt-2;
@@ -155,8 +159,10 @@
         font-size: clamp(9px, 18 / 3840 * 100vw, 36px);
       }
     }
+
     &__img {
-      width: 80%;
+      width: 40%;
+      @apply rounded-lg;
     }
   }
 }

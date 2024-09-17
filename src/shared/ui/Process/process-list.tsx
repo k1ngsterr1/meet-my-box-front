@@ -1,54 +1,33 @@
+import { processHelpList } from "@shared/lib/content/HelpProcess";
+import { processList } from "@shared/lib/content/Process";
 import { ImageCard } from "../Card/ui/Image/image-card";
 import styles from "./styles.module.scss";
 
 interface IProcessList {
   choosenState: string;
-  items: any[];
 }
 
-export const ProcessList: React.FC<IProcessList> = ({
-  choosenState,
-  items,
-}) => {
-  const start = choosenState === "Отправить посылку" ? 0 : 4;
-  const end = choosenState === "Отправить посылку" ? 4 : 7;
-  const content = items.slice(start, end);
+export const ProcessList: React.FC<IProcessList> = ({ choosenState }) => {
+  const content =
+    choosenState === "Отправить посылку" ? processList : processHelpList;
 
   return (
     <div className={styles.process__list}>
       {content.map((item, index) => (
-        <ImageCard
-          key={index}
-          img={
-            item.image.data.attributes.formats.thumbnail.url ||
-            item.image.data.attributes.formats.small.url
-          }
-          description={item.text}
-        />
+        <ImageCard key={index} img={item.img} description={item.description} />
       ))}
     </div>
   );
 };
 
-export const ProcessListPC: React.FC<IProcessList> = ({
-  choosenState,
-  items,
-}) => {
-  const start = choosenState === "Отправить посылку" ? 0 : 4;
-  const end = choosenState === "Отправить посылку" ? 4 : 7;
-  const content = items.slice(start, end);
+export const ProcessListPC: React.FC<IProcessList> = ({ choosenState }) => {
+  const content =
+    choosenState === "Отправить посылку" ? processList : processHelpList;
 
   return (
     <div className={styles.process_pc__list}>
       {content.map((item, index) => (
-        <ImageCard
-          key={index}
-          img={
-            item.image.data.attributes.formats.thumbnail.url ||
-            item.image.data.attributes.formats.small.url
-          }
-          description={item.text}
-        />
+        <ImageCard key={index} img={item.img} description={item.description} />
       ))}
     </div>
   );

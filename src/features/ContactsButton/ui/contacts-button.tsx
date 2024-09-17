@@ -1,9 +1,5 @@
-// src/components/ContactsButton.js
 import { faTelegram, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-import { faMessage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import useIconRevealAnimation from "../animations/useIconReveal";
 import styles from "./styles.module.scss";
 
 export const ContactsButton = () => {

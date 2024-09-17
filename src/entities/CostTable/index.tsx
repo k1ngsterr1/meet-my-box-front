@@ -1,6 +1,6 @@
 const PricingTable = () => {
   return (
-    <div className="overflow-x-auto flex justify-center">
+    <div className="w-full flex justify-center">
       <table className="w-full max-w-4xl bg-white border-collapse rounded-lg shadow-md overflow-hidden">
         <thead>
           <tr className="bg-blue-600 text-white">
@@ -65,7 +65,7 @@ const PricingTable = () => {
 
 export const PricingTableExpress = () => {
   return (
-    <div className="overflow-x-auto flex justify-center">
+    <div className="w-full flex justify-center">
       <table className="w-full max-w-4xl bg-white border-collapse rounded-lg shadow-md overflow-hidden">
         <thead>
           <tr className="bg-blue-600 text-white">

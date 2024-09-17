@@ -4,30 +4,30 @@ import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
 import type React from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
-export const AboutGroup = ({ items }: any) => {
+export const AboutGroup = () => {
   return (
     <div className={styles.about__card}>
-      {items.map((item: any, index: number) => (
-        <Fade key={index} className="w-full items-center justify-center">
+      {aboutCard.map((item, index) => (
+        <Fade className="w-full items-center justify-center">
           <AboutItem
             key={index}
-            title={item.card_text}
-            description={item.card_paragraph}
+            title={item.title}
+            description={item.description}
           />
         </Fade>
       ))}
     </div>
   );
 };
-export const AboutGroupPC = ({ items }: any) => {
+export const AboutGroupPC = () => {
   return (
     <div className={styles.about_pc__card}>
-      {items.map((item: any, index: number) => (
-        <div className="flex-1" key={index}>
+      {aboutCard.map((item, index) => (
+        <div className="flex-1">
           <AboutItemPC
             key={index}
-            title={item.card_text}
-            description={item.card_paragraph}
+            title={item.title}
+            description={item.description}
           />
         </div>
       ))}

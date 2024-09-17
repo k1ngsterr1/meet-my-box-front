@@ -4,37 +4,35 @@ import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import type React from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
-interface Items {
-  items: any;
-}
-export const ServiceGroup: React.FC<Items> = ({ items }: any) => {
+
+export const ServiceGroup = () => {
   return (
     <div className={styles.service__group}>
-      <Fade className="w-full flex justify-center items-center">
-        <ServiceCard title={""} description={items.card_1} />
-      </Fade>
-      <Fade className="w-full flex justify-center items-center">
-        <ServiceCard title={""} description={items.card_2} />
-      </Fade>
-      <Fade className="w-full flex justify-center items-center">
-        <ServiceCard title={""} description={items.card_3} />
-      </Fade>
+      {cardInfo.map((info, index) => (
+        <Fade className="w-full flex justify-center items-center">
+          <ServiceCard
+            key={index}
+            title={info.title}
+            description={info.description}
+          />
+        </Fade>
+      ))}
     </div>
   );
 };
 
-export const ServiceGroupPC: React.FC<Items> = ({ items }: any) => {
+export const ServiceGroupPC = () => {
   return (
     <div className={styles.service_pc__group}>
-      <Fade className="flex justify-center items-center">
-        <ServiceCardPC title={""} description={items.card_1} />
-      </Fade>
-      <Fade className="flex justify-center items-center">
-        <ServiceCardPC title={""} description={items.card_2} />
-      </Fade>
-      <Fade className="flex justify-center items-center">
-        <ServiceCardPC title={""} description={items.card_3} />
-      </Fade>
+      {cardInfo.map((info, index) => (
+        <Fade className="flex justify-center items-center">
+          <ServiceCardPC
+            key={index}
+            title={info.title}
+            description={info.description}
+          />
+        </Fade>
+      ))}
     </div>
   );
 };

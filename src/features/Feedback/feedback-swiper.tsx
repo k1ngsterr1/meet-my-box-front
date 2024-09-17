@@ -10,15 +10,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import styles from "./styles.module.scss";
 
 // Import Swiper styles
+import { feedbacks, type IFeedbackItem } from "@shared/lib/content/Feedback";
 import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import type { IFeedbackItem } from "@shared/lib/content/Feedback";
 
-export const FeedbackSwiper = ({ items }: any) => {
+export const FeedbackSwiper = () => {
   return (
     <div className={styles.feedback__swiper}>
       <div className={styles.prev}>
@@ -39,16 +39,20 @@ export const FeedbackSwiper = ({ items }: any) => {
         pagination={{ clickable: true }}
         centeredSlides={true}
       >
-        {items.map((item: any, index: number) => (
+        {feedbacks.map((item, index) => (
           <SwiperSlide key={index}>
-            <FeedbackItem name={item.name} stars={5} text={item.text} />
+            <FeedbackItem
+              name={item.name}
+              stars={item.stars}
+              text={item.text}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
     </div>
   );
 };
-export const FeedbackSwiperPC = ({ items }: any) => {
+export const FeedbackSwiperPC = () => {
   return (
     <div className={styles.feedback_pc__swiper}>
       <div className={styles.prev_pc}>
@@ -74,9 +78,13 @@ export const FeedbackSwiperPC = ({ items }: any) => {
           },
         }}
       >
-        {items.map((item: any, index: number) => (
+        {feedbacks.map((item, index) => (
           <SwiperSlide key={index}>
-            <FeedbackItemPC name={item.name} stars={5} text={item.text} />
+            <FeedbackItemPC
+              name={item.name}
+              stars={item.stars}
+              text={item.text}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
