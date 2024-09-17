@@ -26,7 +26,69 @@ export const AddPackages = () => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
   const handleAddItem = () => {
-    let updatedItems: Item[];
+    let updatedItems: Item[] = [];
+
+    if (selectedItem) {
+      updatedItems = items.map((item) =>
+        item.id === selectedItem.id
+          ? {
+              ...item,
+              item_name: itemName,
+              origin_country: originCountry,
+              quantity: quantity,
+              weight: weight,
+              price: price,
+            }
+          : item
+      );
+
+      setItemName("");
+      setOriginCountry("");
+      setQuantity("");
+      setWeight("");
+      setPrice("");
+      setItems(updatedItems);
+      setSelectedItem(null);
+      setCurrent(counter);
+    } else {
+      if (
+        itemName !== "" &&
+        originCountry !== "" &&
+        quantity !== "" &&
+        weight !== "" &&
+        price !== ""
+      ) {
+        const newItem: Item = {
+          id: counter,
+          item_name: itemName,
+          origin_country: originCountry,
+          quantity: quantity,
+          weight: weight,
+          price: price,
+        };
+        updatedItems = [...items, newItem];
+        setItems(updatedItems);
+        setCounter((prevCounter) => {
+          const newCounter = prevCounter + 1;
+          setCurrent(newCounter);
+          return newCounter;
+        });
+        setItemName("");
+        setOriginCountry("");
+        setQuantity("");
+        setWeight("");
+        setPrice("");
+      } else {
+        alert("Пожалуйста запольните все поля!");
+      }
+    }
+
+    return updatedItems;
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    let updatedItems = items;
 
     if (selectedItem) {
       updatedItems = items.map((item) =>
@@ -46,54 +108,24 @@ export const AddPackages = () => {
       setSelectedItem(null);
       setCurrent(counter);
     } else {
-      const newItem: Item = {
-        id: counter,
-        item_name: itemName,
-        origin_country: originCountry,
-        quantity: quantity,
-        weight: weight,
-        price: price,
-      };
-
-      updatedItems = [...items, newItem];
-      setItems(updatedItems);
-      setCounter((prevCounter) => {
-        const newCounter = prevCounter + 1;
-        setCurrent(newCounter);
-        return newCounter;
-      });
-    }
-
-    setItemName("");
-    setOriginCountry("");
-    setQuantity("");
-    setWeight("");
-    setPrice("");
-
-    return updatedItems;
-  };
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    let updatedItems = items;
-
-    if (
-      itemName !== "" &&
-      originCountry !== "" &&
-      quantity !== "" &&
-      weight !== "" &&
-      price !== ""
-    ) {
-      const newItem: Item = {
-        id: counter,
-        item_name: itemName,
-        origin_country: originCountry,
-        quantity: quantity,
-        weight: weight,
-        price: price,
-      };
-      updatedItems = [...items, newItem];
-      setItems(updatedItems);
+      if (
+        itemName !== "" &&
+        originCountry !== "" &&
+        quantity !== "" &&
+        weight !== "" &&
+        price !== ""
+      ) {
+        const newItem: Item = {
+          id: counter,
+          item_name: itemName,
+          origin_country: originCountry,
+          quantity: quantity,
+          weight: weight,
+          price: price,
+        };
+        updatedItems = [...items, newItem];
+        setItems(updatedItems);
+      }
     }
 
     const backendItems = updatedItems.map((item) => ({
@@ -190,7 +222,69 @@ export const AddPackagesPC = () => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
   const handleAddItem = () => {
-    let updatedItems: Item[];
+    let updatedItems: Item[] = [];
+
+    if (selectedItem) {
+      updatedItems = items.map((item) =>
+        item.id === selectedItem.id
+          ? {
+              ...item,
+              item_name: itemName,
+              origin_country: originCountry,
+              quantity: quantity,
+              weight: weight,
+              price: price,
+            }
+          : item
+      );
+
+      setItemName("");
+      setOriginCountry("");
+      setQuantity("");
+      setWeight("");
+      setPrice("");
+      setItems(updatedItems);
+      setSelectedItem(null);
+      setCurrent(counter);
+    } else {
+      if (
+        itemName !== "" &&
+        originCountry !== "" &&
+        quantity !== "" &&
+        weight !== "" &&
+        price !== ""
+      ) {
+        const newItem: Item = {
+          id: counter,
+          item_name: itemName,
+          origin_country: originCountry,
+          quantity: quantity,
+          weight: weight,
+          price: price,
+        };
+        updatedItems = [...items, newItem];
+        setItems(updatedItems);
+        setCounter((prevCounter) => {
+          const newCounter = prevCounter + 1;
+          setCurrent(newCounter);
+          return newCounter;
+        });
+        setItemName("");
+        setOriginCountry("");
+        setQuantity("");
+        setWeight("");
+        setPrice("");
+      } else {
+        alert("Пожалуйста запольните все поля!");
+      }
+    }
+
+    return updatedItems;
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    let updatedItems = items;
 
     if (selectedItem) {
       updatedItems = items.map((item) =>
@@ -210,53 +304,24 @@ export const AddPackagesPC = () => {
       setSelectedItem(null);
       setCurrent(counter);
     } else {
-      const newItem: Item = {
-        id: counter,
-        item_name: itemName,
-        origin_country: originCountry,
-        quantity: quantity,
-        weight: weight,
-        price: price,
-      };
-
-      updatedItems = [...items, newItem];
-      setItems(updatedItems);
-      setCounter((prevCounter) => {
-        const newCounter = prevCounter + 1;
-        setCurrent(newCounter);
-        return newCounter;
-      });
-    }
-
-    setItemName("");
-    setOriginCountry("");
-    setQuantity("");
-    setWeight("");
-    setPrice("");
-
-    return updatedItems;
-  };
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    let updatedItems = items;
-
-    if (
-      itemName !== "" &&
-      originCountry !== "" &&
-      quantity !== "" &&
-      weight !== "" &&
-      price !== ""
-    ) {
-      const newItem: Item = {
-        id: counter,
-        item_name: itemName,
-        origin_country: originCountry,
-        quantity: quantity,
-        weight: weight,
-        price: price,
-      };
-      updatedItems = [...items, newItem];
-      setItems(updatedItems);
+      if (
+        itemName !== "" &&
+        originCountry !== "" &&
+        quantity !== "" &&
+        weight !== "" &&
+        price !== ""
+      ) {
+        const newItem: Item = {
+          id: counter,
+          item_name: itemName,
+          origin_country: originCountry,
+          quantity: quantity,
+          weight: weight,
+          price: price,
+        };
+        updatedItems = [...items, newItem];
+        setItems(updatedItems);
+      }
     }
 
     const backendItems = updatedItems.map((item) => ({
