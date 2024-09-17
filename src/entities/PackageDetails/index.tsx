@@ -18,7 +18,8 @@ export const PackageDetails: React.FC<IPackageDetails> = ({
               <h6 className="font-bold">Предмет {index + 1}</h6>
               <span>Наименование: {item.name}</span>
               <span>Страна: {item.country}</span>
-              <span>Количество: {item.weight}</span>
+              <span>Вес: {item.weight}</span>
+              <span>Количество: {item.quantity}</span>
               <span>Стоимость: {item.cost}€</span>
             </div>
           ))}

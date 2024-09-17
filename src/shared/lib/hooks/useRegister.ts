@@ -6,6 +6,16 @@ interface IData {
 }
 
 export async function useRegister(data: IData): Promise<string> {
+  const errorMessages: Record<string, string> = {
+    "All fields are required.": "Все поля обязательны для заполнения.",
+    "Invalid email address.": "У вас неправильный эмэйл.",
+    "Длина пароля должна быть от 8 до 16 символов":
+      "Длина пароля должна быть от 8 до 16 символов.",
+    "User with this email already exists.":
+      "Пользователь с таким эмэйлом уже существует.",
+    "Error registering the user.": "Ошибка при регистрации пользователя.",
+  };
+
   try {
     const response = await axiosInstance.post("api/user/register", data);
 
@@ -21,9 +31,13 @@ export async function useRegister(data: IData): Promise<string> {
   } catch (error: unknown | any) {
     console.error("Failed to create data:", error);
     if (error.response) {
-      return error.response.data.message;
+      const serverMessage = error.response.data.message;
+      return (
+        errorMessages[serverMessage] ||
+        "Произошла ошибка. Пожалуйста, попробуйте позже."
+      );
     } else {
-      return "An unexpected error occurred";
+      return "Произошла неожиданная ошибка";
     }
   }
 }
