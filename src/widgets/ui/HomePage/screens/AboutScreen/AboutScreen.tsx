@@ -4,19 +4,6 @@ import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
 
 export const AboutScreen = () => {
-  const [about, setAbout] = useState<any>();
-  useEffect(() => {
-    const fetchBlock = async () => {
-      try {
-        const block = await useGetBlock("/api/about-blocks/1");
-        setAbout(block);
-      } catch (error) {
-        console.error("Error fetching packages:", error);
-      }
-    };
-
-    fetchBlock();
-  }, []);
   return (
     <>
       <section className={styles.about} id="about-mob">
