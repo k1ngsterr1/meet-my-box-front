@@ -125,7 +125,7 @@ export const ProfilePage: React.FC = () => {
             placeholder: "Имя на латинице",
           },
           {
-            name: "phone",
+            name: "phoneNumber",
             label: "Номер мобильного телефона с кодом страны",
             placeholder: "87759932587",
           },
@@ -142,7 +142,7 @@ export const ProfilePage: React.FC = () => {
             placeholder: "Ваш Город",
           },
           { name: "street", label: "Улица", placeholder: "Ваша Улица" },
-          { name: "house", label: "Дом", placeholder: "Номер вашего дома" },
+          { name: "building", label: "Дом", placeholder: "Номер вашего дома" },
           {
             name: "apartment",
             label: "Квартира",

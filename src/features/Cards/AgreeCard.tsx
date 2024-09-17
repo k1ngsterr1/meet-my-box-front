@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
+import Button from "@shared/ui/Button/ui/button";
 
 export const AgreeCard = ({ onAgreeClick, toggle1, toggle2 }: any) => {
   const handleClick = () => {
@@ -31,6 +32,7 @@ export const AgreeCard = ({ onAgreeClick, toggle1, toggle2 }: any) => {
           </label>
         </div>
       </div>
+      <Button text="Закончить" buttonType="filled" onClick={onAgreeClick} />
     </div>
   );
 };

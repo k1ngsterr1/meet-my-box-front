@@ -138,10 +138,13 @@ export const AddPackages = () => {
 
     console.log(backendItems);
 
-    await useAddPackage({
+    const current_package = await useAddPackage({
       items: backendItems,
       status: "Pending",
     });
+    if (current_package) {
+      localStorage.setItem("packageId", current_package.toString());
+    }
 
     setItems([]);
     setItemName("");
@@ -149,6 +152,7 @@ export const AddPackages = () => {
     setQuantity("");
     setWeight("");
     setPrice("");
+
     window.location.href = "/application";
   };
 
@@ -334,10 +338,13 @@ export const AddPackagesPC = () => {
 
     console.log(backendItems);
 
-    await useAddPackage({
+    const current_package = await useAddPackage({
       items: backendItems,
       status: "Pending",
     });
+    if (current_package) {
+      localStorage.setItem("packageId", current_package.toString());
+    }
 
     setItems([]);
     setItemName("");

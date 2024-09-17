@@ -4,9 +4,11 @@ import { CourierCard } from "@features/Cards/CourierCard";
 import { InsuranceCard } from "@features/Cards/InsuranceCard";
 // import DocumentUpload from "@features/Documents";
 import { NoteCard } from "@features/NoteCard";
-import { useState } from "react";
+import { useUpdatePackage } from "@shared/lib/hooks/Packages/useUpdatePackage";
+import { useEffect, useState } from "react";
 
 export const ApplicationPage = () => {
+  const [id, setId] = useState<string>();
   const [showInsuranceCard, setShowInsuranceCard] = useState(true);
   const [showCourierCard, setShowCourierCard] = useState(false);
   const [showNoteCard, setShowNoteCard] = useState(false);
@@ -14,11 +16,19 @@ export const ApplicationPage = () => {
   const [showCostCard, setShowCostCard] = useState(false);
   const [showAgreeCard, setShowAgreeCard] = useState(false);
   const [insurance, setInsurance] = useState(false);
-  const [caurier, setCourier] = useState(false);
+  const [courier, setCourier] = useState(false);
   const [note, setNote] = useState("");
   const [documents, setDocuments] = useState([]);
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
+
+  useEffect(() => {
+    const storedPackageId = localStorage.getItem("packageId");
+    if (storedPackageId) {
+      setId(storedPackageId);
+    }
+  }, []);
+
   const handleInsuranceClick = (value: boolean) => {
     setInsurance(value);
     setShowInsuranceCard(false);
@@ -33,6 +43,7 @@ export const ApplicationPage = () => {
     setShowNoteCard(false);
     // setShowDocumentCard(true);
     setShowCostCard(true);
+    console.log(note);
   };
   const handleDocumentClick = () => {
     setShowDocumentCard(false);
@@ -42,12 +53,19 @@ export const ApplicationPage = () => {
     setShowCostCard(false);
     setShowAgreeCard(true);
   };
-  const handleAgreeClick = () => {
+  const handleAgreeClick = async () => {
     if (!agree1 || !agree2) {
       alert("Вы должны согласиться с обеими условиями!");
       return;
     } else {
       setShowAgreeCard(false);
+      await useUpdatePackage({
+        id: parseInt(id, 10),
+        insurance: !insurance ? "Не нужна" : "Нужна",
+        courier: !courier ? "Не нужен" : "Нужен",
+        note: note,
+      });
+      // window.location.href = "/packages";
     }
   };
   const toggle1 = () => {

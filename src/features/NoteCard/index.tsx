@@ -10,7 +10,9 @@ export const NoteCard = ({ onNoteClick, setter }: any) => {
       <h3 className={styles.heading}>Примечание</h3>
       <input
         placeholder="Длина"
-        onChange={(e) => setter(e.target.value)}
+        onChange={(e) => {
+          setter(e.target.value), console.log(e.target.value);
+        }}
         className={styles.input}
       />
       <Button
