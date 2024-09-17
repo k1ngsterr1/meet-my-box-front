@@ -49,9 +49,7 @@ export const AccordionItem: React.FC<AccordionItemType> = ({
           <p
             className={styles.accordion__answer__item}
             dangerouslySetInnerHTML={{ __html: answer }}
-          >
-            {answer}
-          </p>
+          ></p>
         </div>
       )}
     </div>
