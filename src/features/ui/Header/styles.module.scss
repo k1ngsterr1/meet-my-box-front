@@ -55,6 +55,25 @@
       }
     }
   }
+  .dropdown2 {
+    display: none;
+    position: absolute;
+    border-radius: 16px;
+    top: 60%;
+    left: 27.5%;
+    background-color: white;
+    min-width: 160px;
+    z-index: 1;
+    &__list {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: start;
+      &__item {
+        @apply p-2;
+      }
+    }
+  }
 
   .header_pc {
     width: 86.6%;
@@ -94,6 +113,12 @@
     display: block;
   }
   .dropdown:hover {
+    display: block;
+  }
+  .hover_link2:hover + .dropdown2 {
+    display: block;
+  }
+  .dropdown2:hover {
     display: block;
   }
   .header {
