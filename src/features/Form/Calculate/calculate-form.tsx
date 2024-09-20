@@ -1,30 +1,31 @@
+import { useGetRates } from "@shared/lib/hooks/useGetRates";
 import { validatePostcode } from "@shared/lib/hooks/usePostCodeValidate";
 import { CalculateInput } from "@shared/ui/Input/Calculate/calculate-input";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 const countriesFrom = [
-  { value: "IT", label: "Италия" },
-  { value: "FR", label: "Франция" },
-  { value: "DE", label: "Германия" },
-  { value: "ES", label: "Испания" },
-  { value: "NL", label: "Нидерланды" },
-  { value: "AT", label: "Австрия" },
-  { value: "PL", label: "Польша" },
-  { value: "CH", label: "Швейцария" },
-  { value: "GB", label: "Великобритания" },
-  { value: "CY", label: "Кипр" },
+  { value: "Italy", label: "Италия" },
+  { value: "France", label: "Франция" },
+  { value: "Germany", label: "Германия" },
+  { value: "Spain", label: "Испания" },
+  { value: "Netherlands", label: "Нидерланды" },
+  { value: "Austria", label: "Австрия" },
+  { value: "Poland", label: "Польша" },
+  { value: "Switzerland", label: "Швейцария" },
+  { value: "United Kingdom", label: "Великобритания" },
+  { value: "Cyprus", label: "Кипр" },
   // Add more countries as needed
 ];
 
 const countriesTo = [
-  { value: "RU", label: "Россия" },
-  { value: "KZ", label: "Казахстан" },
-  { value: "BY", label: "Беларусь" },
-  { value: "KG", label: "Кыргыстан" },
-  { value: "GE", label: "Грузия" },
-  { value: "TM", label: "Туркменистан" },
-  { value: "AZ", label: "Азербайджан" },
+  { value: "Russia", label: "Россия" },
+  { value: "Kazakhstan", label: "Казахстан" },
+  { value: "Belarus", label: "Беларусь" },
+  { value: "Kyrgyzstan", label: "Кыргыстан" },
+  { value: "Georgia", label: "Грузия" },
+  { value: "Turkmenistan", label: "Туркменистан" },
+  { value: "Azerbaijan", label: "Азербайджан" },
   // Add more countries as needed
 ];
 
@@ -333,65 +334,42 @@ export const CalculateFormPC = () => {
     setError(null); // Reset error state
     setIsLoading(true);
     // Validate postcodes before fetching shipping rates
-    const isFromPostcodeValid = await validatePostcode(
-      fromCountry,
-      fromPostcode
-    );
-    const isToPostcodeValid = await validatePostcode(toCountry, toPostcode);
+    // const isFromPostcodeValid = await validatePostcode(
+    //   fromCountry,
+    //   fromPostcode
+    // );
+    // const isToPostcodeValid = await validatePostcode(toCountry, toPostcode);
 
-    if (!isFromPostcodeValid) {
-      setError("Неверный почтовый индекс отправителя.");
-      return;
-    }
+    // if (!isFromPostcodeValid) {
+    //   setError("Неверный почтовый индекс отправителя.");
+    //   return;
+    // }
 
-    if (!isToPostcodeValid) {
-      setError("Неверный почтовый индекс получателя.");
-      return;
-    }
-
-    const shippoApiUrl = "https://api.goshippo.com/shipments/";
-    const accessToken =
-      "ShippoToken shippo_live_ee85e3da2e43029c6ce3e09509b90309c0887c08";
+    // if (!isToPostcodeValid) {
+    //   setError("Неверный почтовый индекс получателя.");
+    //   return;
+    // }
 
     const shipmentData = {
-      address_from: {
-        country: fromCountry,
-        postal_code: fromPostcode,
-      },
-      address_to: {
-        country: toCountry,
-        postal_code: toPostcode,
-      },
-      parcels: [
-        {
-          weight,
-          mass_unit: "kg",
-          length,
-          width,
-          height,
-          distance_unit: "cm",
-        },
-      ],
+      weight: weight,
+      length: length,
+      width: width,
+      height: height,
+      fromZipCode: fromPostcode,
+      toZipCode: toPostcode,
+      fromCountry: fromCountry,
+      toCountry: toCountry,
     };
 
     try {
       // Call the Shippo API
-      const response = await fetch(shippoApiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: accessToken,
-        },
-        body: JSON.stringify(shipmentData),
-      });
-
-      if (!response.ok) {
+      const response = await useGetRates(shipmentData);
+      if (response === "Error") {
         throw new Error("Failed to fetch shipping rates");
       }
-
-      const data = await response.json();
-      setShippingRates(data.rates);
       setIsLoading(false);
+      localStorage.setItem("rates", JSON.stringify(response));
+      window.location.href = `/rates`;
     } catch (err: any) {
       setIsLoading(false);
       setError(err.message);

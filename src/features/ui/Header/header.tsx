@@ -50,19 +50,64 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
           alt="Logotype"
         />
         <nav className={styles.header_pc__nav}>
-          <a
-            className={styles.header_pc__nav__link}
-            onClick={() => toggleRequestPopup()}
-          >
+          <a className={`${styles.header_pc__nav__link} ${styles.hover_link}`}>
             Отправить посылку
           </a>
+          <div className={styles.dropdown}>
+            <ul className={styles.dropdown__list}>
+              <li className={styles.dropdown__list__item}>
+                <a className="text-main" href="#faq">
+                  FAQ
+                </a>
+              </li>
+              <li className={styles.dropdown__list__item}>
+                <a className="text-main" href="#process-pc">
+                  Процессы работы
+                </a>
+              </li>
+              <li className={styles.dropdown__list__item}>
+                <a className="text-main" href="/profile">
+                  Личный кабинет
+                </a>
+              </li>
+              <li className={styles.dropdown__list__item}>
+                <a className="text-main" href="#contacts-pc">
+                  Контакты
+                </a>
+              </li>
+            </ul>
+          </div>
           <a
-            className={styles.header_pc__nav__link}
-            onClick={() => togglePopup()}
+            className={`${styles.header_pc__nav__link} ${styles.hover_link2}`}
+            // onClick={() => togglePopup()}
             // href="#contacts-pc"
           >
             Помощь с покупкой
           </a>
+          <div className={styles.dropdown2}>
+            <ul className={styles.dropdown2__list}>
+              <li className={styles.dropdown2__list__item}>
+                <a className="text-main" href="#faq">
+                  FAQ
+                </a>
+              </li>
+              <li className={styles.dropdown2__list__item}>
+                <a className="text-main" href="#process-pc">
+                  Процессы работы
+                </a>
+              </li>
+              <li className={styles.dropdown2__list__item}>
+                <a className="text-main" href="/profile">
+                  Личный кабинет
+                </a>
+              </li>
+              <li className={styles.dropdown2__list__item}>
+                <a className="text-main" href="#contacts-pc">
+                  Контакты
+                </a>
+              </li>
+            </ul>
+          </div>
           <a className={styles.header_pc__nav__link} href="/cost">
             Стоимость
           </a>

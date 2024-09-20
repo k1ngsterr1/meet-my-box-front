@@ -36,6 +36,45 @@
 }
 
 @include respond-to("tablet_sm") {
+  .dropdown {
+    display: none;
+    position: absolute;
+    border-radius: 16px;
+    top: 60%;
+    left: -0.5rem;
+    background-color: white;
+    min-width: 160px;
+    z-index: 1;
+    &__list {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: start;
+      &__item {
+        @apply p-2;
+      }
+    }
+  }
+  .dropdown2 {
+    display: none;
+    position: absolute;
+    border-radius: 16px;
+    top: 60%;
+    left: 27.5%;
+    background-color: white;
+    min-width: 160px;
+    z-index: 1;
+    &__list {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: start;
+      &__item {
+        @apply p-2;
+      }
+    }
+  }
+
   .header_pc {
     width: 86.6%;
     justify-content: space-between;
@@ -51,6 +90,7 @@
       display: flex;
       align-items: center;
       @apply gap-4;
+      position: relative;
 
       &__link {
         font-family: "Montserrat";
@@ -69,6 +109,18 @@
     }
   }
 
+  .hover_link:hover + .dropdown {
+    display: block;
+  }
+  .dropdown:hover {
+    display: block;
+  }
+  .hover_link2:hover + .dropdown2 {
+    display: block;
+  }
+  .dropdown2:hover {
+    display: block;
+  }
   .header {
     display: none;
   }
