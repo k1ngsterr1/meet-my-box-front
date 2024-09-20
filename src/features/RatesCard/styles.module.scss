@@ -1,0 +1,114 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+.btn {
+  width: 100%;
+  border-radius: 16px;
+  background-color: #220cf3;
+  font-size: clamp(6px, 12 / 360 * 100vw, 24px);
+  font-weight: 600;
+  @apply pt-2 pb-2;
+  color: white;
+}
+.rates {
+  &__list {
+    &__card {
+      min-height: 250px;
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      @apply p-8;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+      &__left {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: space-between;
+      }
+      &__right {
+        width: 40%;
+        display: flex;
+        align-items: end;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      &__time {
+        font-size: clamp(9px, 18 / 360 * 100vw, 36px);
+        font-weight: 600;
+        @apply bg-main text-white;
+        padding: 5px 15px;
+        border-radius: 0 16px 16px 0;
+        @include respond-to("tablet_sm") {
+          font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
+          display: flex;
+          flex-direction: column;
+        }
+      }
+      &__date {
+        font-size: clamp(6px, 12 / 360 * 100vw, 24px);
+        font-weight: 500;
+        @include respond-to("tablet_sm") {
+          font-size: clamp(6px, 12 / 1024 * 100vw, 24px);
+        }
+      }
+      &__price {
+        font-size: clamp(9px, 18 / 360 * 100vw, 36px);
+        font-weight: 600;
+        width: 100%;
+        @apply text-center;
+        @include respond-to("tablet_sm") {
+          font-size: clamp(9px, 18 / 360 * 100vw, 36px);
+        }
+      }
+    }
+  }
+}
+.rates_pc {
+  &__list {
+    &__card {
+      min-height: 250px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+      gap: 30px;
+      &__time {
+        width: 150px;
+        @apply bg-main text-white;
+        border-radius: 16px;
+      }
+      &__time1 {
+        width: 100%;
+        text-align: center;
+        height: fit-content;
+        font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
+        display: flex;
+        flex-direction: column;
+        font-weight: 700;
+        @apply mt-4;
+        border-radius: 0 16px 16px 0;
+      }
+      &__time2 {
+        @apply mt-2;
+        // font-size: clamp(7px, 14 / 1024 * 100vw, 28px);
+        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+        border-radius: 0 16px 16px 0;
+        @apply text-center;
+      }
+      &__date {
+        font-size: clamp(6px, 12 / 1024 * 100vw, 24px);
+        font-weight: 500;
+      }
+      &__price {
+        font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
+        font-weight: 600;
+        width: 100%;
+        @apply text-center;
+      }
+    }
+  }
+}
