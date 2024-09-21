@@ -125,7 +125,7 @@ export const ProfilePage: React.FC = () => {
             placeholder: "Имя на латинице",
           },
           {
-            name: "phone",
+            name: "phoneNumber",
             label: "Номер мобильного телефона с кодом страны",
             placeholder: "87759932587",
           },

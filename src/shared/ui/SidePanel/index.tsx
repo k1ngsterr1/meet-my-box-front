@@ -1,12 +1,16 @@
-import { sidePanelLinks } from "@shared/lib/content/SidePanel";
-import styles from "./styles.module.scss";
 import logo from "@assets/logo_mob.svg";
-import Button from "../Button/ui/button";
-import { isSideMenuOpen } from "@stores/menuState";
 import { useStore } from "@nanostores/react";
+import { sidePanelLinks } from "@shared/lib/content/SidePanel";
+import { isSideMenuOpen } from "@stores/menuState";
 import { BurgerButton } from "../Burger/ui/burger-button";
-import { Menu } from "../Menu/SideMenu";
+import Button from "../Button/ui/button";
+import styles from "./styles.module.scss";
 export const SidePanel = () => {
+  const deleteLocalStorage = () => {
+    localStorage.removeItem("userData");
+    window.location.href = "/";
+  };
+
   return (
     <div className={styles.side_panel}>
       <img
@@ -25,9 +29,13 @@ export const SidePanel = () => {
         ))}
       </ul>
       <Button text="Заказать" buttonType="filled" margin="mb-8" />
+      <button className="text-red-500" onClick={() => deleteLocalStorage()}>
+        Выйти
+      </button>
     </div>
   );
 };
+
 export const SidePanelMob = () => {
   const menuOpen = useStore(isSideMenuOpen);
 
