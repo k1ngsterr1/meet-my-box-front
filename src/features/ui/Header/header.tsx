@@ -14,6 +14,20 @@ interface IHeader {
 
 export const Header: React.FC<IHeader> = ({ isMobile }) => {
   const [userEmail, setUserEmail] = useState(null);
+  const [isDropdown, setIsDropdown] = useState(false);
+  const [isDropdown2, setIsDropdown2] = useState(false);
+  let dropdownTimeout1: any;
+  let dropdownTimeout2: any;
+  const handleMouseEnter = (setter: any, timer: any) => {
+    clearTimeout(timer); // Clear any existing timeout
+    setter(true); // Show the dropdown
+  };
+
+  const handleMouseLeave = (setter: any, timer: any) => {
+    timer = setTimeout(() => {
+      setter(false); // Hide the dropdown after 3 seconds
+    }, 3000); // Adjust the delay to 3000ms (3 seconds)
+  };
 
   useEffect(() => {
     // Check for userData in localStorage
@@ -50,64 +64,81 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
           alt="Logotype"
         />
         <nav className={styles.header_pc__nav}>
-          <a className={`${styles.header_pc__nav__link} ${styles.hover_link}`}>
+          <a
+            className={`${styles.header_pc__nav__link} ${styles.hover_link}`}
+            onMouseEnter={() =>
+              handleMouseEnter(setIsDropdown, dropdownTimeout1)
+            }
+            onMouseLeave={() =>
+              handleMouseLeave(setIsDropdown, dropdownTimeout1)
+            }
+            href="#calculate-pc"
+          >
             Отправить посылку
           </a>
-          <div className={styles.dropdown}>
-            <ul className={styles.dropdown__list}>
-              <li className={styles.dropdown__list__item}>
-                <a className="text-main" href="#faq">
-                  FAQ
-                </a>
-              </li>
-              <li className={styles.dropdown__list__item}>
-                <a className="text-main" href="#process-pc">
-                  Процессы работы
-                </a>
-              </li>
-              <li className={styles.dropdown__list__item}>
-                <a className="text-main" href="/profile">
-                  Личный кабинет
-                </a>
-              </li>
-              <li className={styles.dropdown__list__item}>
-                <a className="text-main" href="#contacts-pc">
-                  Контакты
-                </a>
-              </li>
-            </ul>
-          </div>
+          {isDropdown && (
+            <div className={styles.dropdown}>
+              <ul className={styles.dropdown__list}>
+                <li className={styles.dropdown__list__item}>
+                  <a className="text-main" href="#faq">
+                    FAQ
+                  </a>
+                </li>
+                <li className={styles.dropdown__list__item}>
+                  <a className="text-main" href="#process-pc">
+                    Процессы работы
+                  </a>
+                </li>
+                <li className={styles.dropdown__list__item}>
+                  <a className="text-main" href="/profile">
+                    Личный кабинет
+                  </a>
+                </li>
+                <li className={styles.dropdown__list__item}>
+                  <a className="text-main" href="#contacts-pc">
+                    Контакты
+                  </a>
+                </li>
+              </ul>
+            </div>
+          )}
           <a
             className={`${styles.header_pc__nav__link} ${styles.hover_link2}`}
-            // onClick={() => togglePopup()}
-            // href="#contacts-pc"
+            onMouseEnter={() =>
+              handleMouseEnter(setIsDropdown2, dropdownTimeout2)
+            }
+            onMouseLeave={() =>
+              handleMouseLeave(setIsDropdown2, dropdownTimeout2)
+            }
           >
             Помощь с покупкой
           </a>
-          <div className={styles.dropdown2}>
-            <ul className={styles.dropdown2__list}>
-              <li className={styles.dropdown2__list__item}>
-                <a className="text-main" href="#faq">
-                  FAQ
-                </a>
-              </li>
-              <li className={styles.dropdown2__list__item}>
-                <a className="text-main" href="#process-pc">
-                  Процессы работы
-                </a>
-              </li>
-              <li className={styles.dropdown2__list__item}>
-                <a className="text-main" href="/profile">
-                  Личный кабинет
-                </a>
-              </li>
-              <li className={styles.dropdown2__list__item}>
-                <a className="text-main" href="#contacts-pc">
-                  Контакты
-                </a>
-              </li>
-            </ul>
-          </div>
+          {isDropdown2 && (
+            <div className={styles.dropdown2}>
+              <ul className={styles.dropdown2__list}>
+                <li className={styles.dropdown2__list__item}>
+                  <a className="text-main" href="#faq">
+                    FAQ
+                  </a>
+                </li>
+                <li className={styles.dropdown2__list__item}>
+                  <a className="text-main" href="#process-pc">
+                    Процессы работы
+                  </a>
+                </li>
+                <li className={styles.dropdown2__list__item}>
+                  <a className="text-main" href="/profile">
+                    Личный кабинет
+                  </a>
+                </li>
+                <li className={styles.dropdown2__list__item}>
+                  <a className="text-main" href="#contacts-pc">
+                    Контакты
+                  </a>
+                </li>
+              </ul>
+            </div>
+          )}
           <a className={styles.header_pc__nav__link} href="/cost">
             Стоимость
           </a>

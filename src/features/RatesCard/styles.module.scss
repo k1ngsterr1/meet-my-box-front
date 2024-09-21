@@ -75,7 +75,8 @@
       border-radius: 16px;
       gap: 30px;
       &__time {
-        width: 150px;
+        min-height: 150px;
+        min-width: 150px;
         @apply bg-main text-white;
         border-radius: 16px;
       }
@@ -93,10 +94,20 @@
       &__time2 {
         @apply mt-2;
         // font-size: clamp(7px, 14 / 1024 * 100vw, 28px);
+        line-height: 30px;
         font-weight: 500;
         display: flex;
         flex-direction: column;
         border-radius: 0 16px 16px 0;
+        @apply text-center;
+      }
+      &__time3 {
+        @apply mt-24;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        font-size: clamp(6px, 12 / 1024 * 100vw, 24px);
+        font-weight: 500;
         @apply text-center;
       }
       &__date {
@@ -107,7 +118,7 @@
         font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
         font-weight: 600;
         width: 100%;
-        @apply text-center;
+        text-align: center;
       }
     }
   }

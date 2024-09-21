@@ -1,4 +1,10 @@
 export const InfoScreen: React.FC = () => {
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
+  };
   return (
     <div className="max-w-5xl mx-auto p-6 bg-gray-50 rounded-lg shadow-md mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-800">
       <div className="p-4 bg-white rounded-lg shadow-sm">
@@ -6,16 +12,16 @@ export const InfoScreen: React.FC = () => {
         <div className="flex items-start">
           <ul className="text-sm">
             <li>
-              Максимальный вес: <strong>25 кг</strong>
+              Максимальный вес: <strong>10 кг</strong>
             </li>
             <li>
               Максимальный объемный вес: <strong>67 кг</strong>
             </li>
             <li>
-              Длина + Высота + Ширина: <strong>&lt; 170 см</strong>
+              Длина + Высота + Ширина: <strong>&lt; 150 см</strong>
             </li>
             <li>
-              Самая длинная сторона не должна превышать: <strong>120 см</strong>
+              Самая длинная сторона не должна превышать: <strong>100 см</strong>
             </li>
             <li className="text-main mt-2">
               Пожалуйста, тщательно упакуйте посылку во избежание повреждения.
@@ -50,12 +56,12 @@ export const InfoScreen: React.FC = () => {
         <h3 className="font-semibold text-lg mb-4">Полезная информация</h3>
         <ul className="text-sm text-blue-600">
           <li>
-            <a href="#" className="hover:underline">
+            <a onClick={scrollToBottom} className="hover:underline">
               Товары запрещенные к пересылке
             </a>
           </li>
           <li>
-            <a href="#" className="hover:underline">
+            <a onClick={scrollToBottom} className="hover:underline">
               Правила упаковки посылок
             </a>
           </li>

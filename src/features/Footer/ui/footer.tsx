@@ -10,7 +10,7 @@ import styles from "./styles.module.scss";
 export const Footer = () => {
   return (
     <>
-      <footer className={styles.footer}>
+      <footer className={styles.footer} id="footer">
         <a href="#main-mob" className="w-full flex items-center justify-center">
           <img
             src={logo.src}
@@ -22,7 +22,7 @@ export const Footer = () => {
         <Button text="Вверх" buttonType="filled" />
         <SocialMediaLinks />
       </footer>
-      <footer className={styles.footer_pc}>
+      <footer className={styles.footer_pc} id="footer">
         <div className={styles.footer_pc__nav}>
           <img
             src={logo.src}

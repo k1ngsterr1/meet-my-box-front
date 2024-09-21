@@ -6,8 +6,5 @@ export const footerLinks: IFooterLink[] = [
   { name: "О компании", to: "/service" },
   { name: "Юридические документы", to: "/" },
   { name: "FAQ", to: "#faq" },
-  { name: "Отзывы", to: "#feedback-pc" },
-  { name: "Условия и правила", to: "/rules" },
-  { name: "Полезные ссылки", to: "/links" },
-  { name: "Новости", to: "/news" },
+  { name: "Полезная информация", to: "/links" },
 ];

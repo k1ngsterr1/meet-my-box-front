@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import styles from "./styles.module.scss";
+import ConsentCheckbox from "@features/AgreeCheck";
 
 // Sample list of countries in Russian
 const countries = [
@@ -51,6 +52,11 @@ export const ProfilePage: React.FC = () => {
     intercomName: "",
     whatsapp: "",
   });
+  const [checked, setChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setChecked(!checked);
+  };
 
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -70,6 +76,10 @@ export const ProfilePage: React.FC = () => {
     e.preventDefault();
     setError(null);
     setSuccessMessage(null);
+    if (!checked) {
+      setError("Согласие об обработке персональных данных не подтверждено.");
+      return;
+    }
 
     // Validate postal code based on selected country
     if (!validatePostalCode(profileData.country, profileData.postalCode)) {
@@ -187,6 +197,12 @@ export const ProfilePage: React.FC = () => {
             ))}
           </select>
         </div>
+        <div className="w-full flex items-start mt-2">
+          <ConsentCheckbox
+            checked={checked}
+            handleCheck={handleCheckboxChange}
+          />
+        </div>
         {error && (
           <p className="text-red-500 col-span-1 md:col-span-2">{error}</p>
         )}
@@ -195,6 +211,7 @@ export const ProfilePage: React.FC = () => {
             {successMessage}
           </p>
         )}
+
         <Button
           type="submit"
           buttonType="filled"

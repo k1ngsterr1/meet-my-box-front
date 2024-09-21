@@ -60,7 +60,7 @@ export const ApplicationPage = () => {
     } else {
       setShowAgreeCard(false);
       await useUpdatePackage({
-        id: parseInt(id, 10),
+        id: parseInt(id !== undefined ? id : "", 10),
         insurance: !insurance ? "Не нужна" : "Нужна",
         courier: !courier ? "Не нужен" : "Нужен",
         note: note,

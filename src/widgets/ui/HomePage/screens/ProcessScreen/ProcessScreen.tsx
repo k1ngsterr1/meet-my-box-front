@@ -74,7 +74,7 @@ export const ProcessScreen = () => {
                 }
               />
               <Button
-                text="Помощь с посылкой"
+                text="Помощь с покупкой"
                 onClick={() => setChoosenState("Помощь с посылкой")}
                 buttonType={
                   choosenState === "Помощь с посылкой" ? "filled" : "outline"
