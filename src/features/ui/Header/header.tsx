@@ -50,7 +50,10 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
           alt="Logotype"
         />
         <nav className={styles.header_pc__nav}>
-          <a className={`${styles.header_pc__nav__link} ${styles.hover_link}`}>
+          <a
+            className={`${styles.header_pc__nav__link} ${styles.hover_link}`}
+            href="#calculate-pc"
+          >
             Отправить посылку
           </a>
           <div className={styles.dropdown}>
@@ -80,7 +83,7 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
           <a
             className={`${styles.header_pc__nav__link} ${styles.hover_link2}`}
             // onClick={() => togglePopup()}
-            // href="#contacts-pc"
+            href="#contacts-pc"
           >
             Помощь с покупкой
           </a>

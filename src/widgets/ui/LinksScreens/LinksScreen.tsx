@@ -1,11 +1,11 @@
-import { AccordionItem } from "@shared/ui/Accordion/faq-accordion";
+import { AccordionItemText } from "@shared/ui/Accordion/faq-accordion";
 
 export const LinksScreen = () => {
   return (
     <>
       <main className="flex flex-col items-center justify-center w-full h-[65.2799999vh]">
-        <h1 className="text-4xl font-bold mb-8">Полезные ссылки</h1>
-        <AccordionItem
+        <h1 className="text-4xl font-bold mb-8">Полезная информация</h1>
+        <AccordionItemText
           question="Международные почтовые отправления. Гид от таможенной службы."
           answer={
             <a
@@ -16,7 +16,7 @@ export const LinksScreen = () => {
             </a>
           }
         />
-        <AccordionItem
+        <AccordionItemText
           question="Санкционные ограничения."
           answer={
             <>

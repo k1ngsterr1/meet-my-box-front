@@ -1,4 +1,10 @@
 export const InfoScreen: React.FC = () => {
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
+  };
   return (
     <div className="max-w-5xl mx-auto p-6 bg-gray-50 rounded-lg shadow-md mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-800">
       <div className="p-4 bg-white rounded-lg shadow-sm">
@@ -50,12 +56,12 @@ export const InfoScreen: React.FC = () => {
         <h3 className="font-semibold text-lg mb-4">Полезная информация</h3>
         <ul className="text-sm text-blue-600">
           <li>
-            <a href="#" className="hover:underline">
+            <a onClick={scrollToBottom} className="hover:underline">
               Товары запрещенные к пересылке
             </a>
           </li>
           <li>
-            <a href="#" className="hover:underline">
+            <a onClick={scrollToBottom} className="hover:underline">
               Правила упаковки посылок
             </a>
           </li>

@@ -4,14 +4,27 @@ import Button from "@shared/ui/Button/ui/button";
 import { ContactInput } from "@shared/ui/Input/Contact/contact-input";
 import { useState } from "react";
 import styles from "./styles.module.scss";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useCheckCaptcha } from "@shared/lib/hooks/useCheckCaptcha";
+import ConsentCheckbox from "@features/AgreeCheck";
 
 export const ContactForm = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [question, setQuestion] = useState("");
+  const [checked, setChecked] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleCheckboxChange = () => {
+    setChecked(!checked);
+  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setError(null);
+    if (!checked) {
+      setError("Согласие об обработке персональных данных не подтверждено.");
+    }
     const data = {
       service_id: "service_lllcyye",
       template_id: "template_3y3r4gi",
@@ -66,6 +79,12 @@ export const ContactForm = () => {
           setQuestion(e.target.value);
         }}
       />
+      <div className="w-full flex items-center justify-center mt-4">
+        <ConsentCheckbox checked={checked} handleCheck={handleCheckboxChange} />
+      </div>
+      {error && (
+        <p className="text-red-500 col-span-1 md:col-span-2">{error}</p>
+      )}
       <Button
         text="Отправить"
         buttonType="filled"
@@ -80,9 +99,25 @@ export const ContactFormPC = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [question, setQuestion] = useState("");
+  const [captchaValue, setCaptchaValue] = useState(null);
+  const [checked, setChecked] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const handleCaptchaChange = (value: any) => {
+    setCaptchaValue(value); // Set captcha response token
+  };
+
+  const handleCheckboxChange = () => {
+    setChecked(!checked);
+  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    setError(null);
+    if (!checked) {
+      setError("Подтвердите согласие.");
+    }
+
     const data = {
       service_id: "service_lllcyye",
       template_id: "template_3y3r4gi",
@@ -96,6 +131,8 @@ export const ContactFormPC = () => {
     };
     console.log(data.service_id);
     console.log(data);
+
+    await useCheckCaptcha(captchaValue);
 
     const result = await useMail(data);
 
@@ -147,14 +184,25 @@ export const ContactFormPC = () => {
           name="question"
         />
       </div>
+      <div className="w-full flex items-start mt-4 flex-col">
+        <ConsentCheckbox checked={checked} handleCheck={handleCheckboxChange} />
+        {error && (
+          <p className="text-red-500 mt-2 col-span-1 md:col-span-2">{error}</p>
+        )}
+      </div>
+
       <div className="flex w-full items-start">
         <Button
           text="Отправить"
           buttonType="filled"
-          margin="mt-10"
+          margin="mt-6"
           type="submit"
         />
       </div>
+      <ReCAPTCHA
+        sitekey="6Lec6UoqAAAAAIrqVByxLDAGA81ekiC62-yHnevZ"
+        onChange={handleCaptchaChange}
+      />
     </form>
   );
 };
