@@ -38,7 +38,22 @@ export const Footer = () => {
             margin="hover:text-white"
           />
         </div>
+        <a href="tel:+393931577805" className="mt-2 text-white text-sm">
+          +39 393 157 7805
+        </a>
+        <a
+          href="mailto:support@meetmybox.com"
+          className="mt-2 mb-4 text-white text-sm"
+        >
+          support@meetmybox.com
+        </a>
         <SocialMediaLinks />
+        <span className="text-white flex flex-col items-center mb-4 text-sm">
+          © Meetmybox.com 2024.{" "}
+          <span className="text-sm mt-2">
+            Все права защищены. All rights reserved.
+          </span>
+        </span>
       </footer>
     </>
   );
