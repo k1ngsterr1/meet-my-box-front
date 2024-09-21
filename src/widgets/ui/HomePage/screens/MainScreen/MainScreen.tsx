@@ -63,7 +63,10 @@ export const MainScreen = () => {
               margin="mt-4"
               onClick={() => (window.location.href = "#process-mob")}
             />
-            <div className={styles.main_screen__clients}>
+            <div
+              className={styles.main_screen__clients}
+              onClick={() => (window.location.href = "/#feedback")}
+            >
               <img src={group.src} alt="clients" />
               <Paragraph margin="ml-2">200+ Довольных клиентов</Paragraph>
             </div>
@@ -98,7 +101,10 @@ export const MainScreen = () => {
                     onClick={() => (window.location.href = "#process-pc")}
                   />
                 </div>
-                <div className={styles.main_screen__clients}>
+                <div
+                  className={styles.main_screen__clients}
+                  onClick={() => (window.location.href = "/#feedback-pc")}
+                >
                   <img src={group.src} alt="clients" />
                   <Paragraph margin="ml-2">200+ Довольных клиентов</Paragraph>
                 </div>

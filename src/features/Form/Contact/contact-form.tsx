@@ -199,10 +199,10 @@ export const ContactFormPC = () => {
           type="submit"
         />
       </div>
-      <ReCAPTCHA
+      {/* <ReCAPTCHA
         sitekey="6Lec6UoqAAAAAIrqVByxLDAGA81ekiC62-yHnevZ"
         onChange={handleCaptchaChange}
-      />
+      /> */}
     </form>
   );
 };
