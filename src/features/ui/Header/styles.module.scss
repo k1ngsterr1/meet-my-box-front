@@ -37,7 +37,7 @@
 
 @include respond-to("tablet_sm") {
   .dropdown {
-    display: none;
+    display: block;
     position: absolute;
     border-radius: 16px;
     top: 60%;
@@ -56,7 +56,7 @@
     }
   }
   .dropdown2 {
-    display: none;
+    display: block;
     position: absolute;
     border-radius: 16px;
     top: 60%;

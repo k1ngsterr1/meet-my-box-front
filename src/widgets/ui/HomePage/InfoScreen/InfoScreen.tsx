@@ -12,16 +12,16 @@ export const InfoScreen: React.FC = () => {
         <div className="flex items-start">
           <ul className="text-sm">
             <li>
-              Максимальный вес: <strong>25 кг</strong>
+              Максимальный вес: <strong>10 кг</strong>
             </li>
             <li>
               Максимальный объемный вес: <strong>67 кг</strong>
             </li>
             <li>
-              Длина + Высота + Ширина: <strong>&lt; 170 см</strong>
+              Длина + Высота + Ширина: <strong>&lt; 150 см</strong>
             </li>
             <li>
-              Самая длинная сторона не должна превышать: <strong>120 см</strong>
+              Самая длинная сторона не должна превышать: <strong>100 см</strong>
             </li>
             <li className="text-main mt-2">
               Пожалуйста, тщательно упакуйте посылку во избежание повреждения.
