@@ -141,26 +141,79 @@ export const CalculateForm = () => {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [length, setLength] = useState(0);
-  const [fromCountry, setFromCountry] = useState("GB");
-  const [toCountry, setToCountry] = useState("AT");
+  const [fromCountry, setFromCountry] = useState("Italy");
+  const [toCountry, setToCountry] = useState("Russia");
   const [fromPostcode, setFromPostcode] = useState("");
   const [toPostcode, setToPostcode] = useState("");
+  const [shippingRates, setShippingRates] = useState([]);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const shippingRates = useShippingRates({
-    weight,
-    width,
-    height,
-    length,
-    fromCountry,
-    toCountry,
-    fromPostcode,
-    toPostcode,
-  });
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setError(null); // Reset error state
+    setIsLoading(true);
+    console.log();
+
+    const shipmentData = {
+      weight: weight,
+      length: length,
+      width: width,
+      height: height,
+      fromZipCode: fromPostcode,
+      toZipCode: toPostcode,
+      fromCountry: fromCountry,
+      toCountry: toCountry,
+    };
+
+    if (fromCountry === "Italy" || fromCountry === "Germany") {
+      const roundWeight = (weight: number) => {
+        const decimalPart = weight % 1; // Get the decimal part
+        if (decimalPart > 0.4) {
+          return Math.ceil(weight); // Round up
+        } else {
+          return Math.floor(weight); // Round down
+        }
+      };
+      let response = {
+        days: [
+          {
+            estimateNumber: "5",
+            estimateTime: "DAYS",
+          },
+          {
+            estimateNumber: "7",
+            estimateTime: "DAYS",
+          },
+        ],
+        price: getFinalPrice(roundWeight(weight), toCountry),
+        dates: [getDateInfo(5), getDateInfo(7)],
+        urls: [logo.src, logo.src],
+      };
+      setIsLoading(false);
+      localStorage.setItem("rates", JSON.stringify(response));
+      window.location.href = `/rates`;
+    } else {
+      try {
+        // Call the Shippo API
+        const response = await useGetRates(shipmentData);
+        if (response === "Error") {
+          throw new Error("Failed to fetch shipping rates");
+        }
+        setIsLoading(false);
+        localStorage.setItem("rates", JSON.stringify(response));
+        window.location.href = `/rates`;
+      } catch (err: any) {
+        setIsLoading(false);
+        setError(err.message);
+      }
+    }
+  };
 
   const handleNumberInput = (setter: any) => (e: any) => {
     let value = parseFloat(e.target.value);
     if (isNaN(value)) value = 0;
-    if (value > 100) value = 100; // Limit the value to a maximum of 170
+    if (value > 100) value = 100;
     setter(value);
   };
 
@@ -176,7 +229,7 @@ export const CalculateForm = () => {
       <h5 className="text-lg font-semibold text-center mb-4">
         Рассчитайте стоимость
       </h5>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={handleSubmit}>
         {/* From Country and Postcode */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -302,9 +355,10 @@ export const CalculateForm = () => {
         </div>
       </form>
       <div className="mt-6">
+        {error && <p className="text-red-500">{error}</p>}
         {shippingRates.length > 0 ? (
           <ul className="list-disc list-inside">
-            {shippingRates.map((rate, index) => (
+            {shippingRates.map((rate: any, index: number) => (
               <li key={index} className="text-gray-700">
                 {rate.provider} ({rate.servicelevel.name}): {rate.amount_local}{" "}
                 {rate.currency_local}
@@ -313,7 +367,7 @@ export const CalculateForm = () => {
           </ul>
         ) : (
           <span className="text-gray-500">
-            Enter the details to calculate the shipping cost
+            Заполните все необходимые поля, чтобы рассчитать стоимость
           </span>
         )}
       </div>
