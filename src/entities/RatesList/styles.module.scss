@@ -1,0 +1,15 @@
+@import "@shared/styles/mixins";
+@import "@shared/styles/variables";
+.rates {
+  &__list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1rem;
+    @include respond-to("tablet_sm") {
+      gap: 1.5rem;
+    }
+  }
+}

@@ -14,7 +14,7 @@ interface IData {
   status: "Pending";
 }
 
-export async function useAddPackage(data: IData): Promise<PackageProps[]> {
+export async function useAddPackage(data: IData): Promise<PackageProps | null> {
   try {
     const userData = JSON.parse(localStorage.getItem("userData") || "{}");
 
@@ -26,13 +26,13 @@ export async function useAddPackage(data: IData): Promise<PackageProps[]> {
 
     console.log("Packages got successfully:", response.data);
 
-    return response.data.items;
+    return response.data.id;
   } catch (error: unknown | any) {
     console.error("Failed to get packages:", error);
     if (error.response) {
-      return [];
+      return null;
     } else {
-      return [];
+      return null;
     }
   }
 }

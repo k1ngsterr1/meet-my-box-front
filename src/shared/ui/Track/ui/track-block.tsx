@@ -2,42 +2,34 @@ import tracking from "@assets/racoon.webp";
 import Button from "@shared/ui/Button/ui/button";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
+import { baseUrl } from "@shared/lib/hooks/useGetBlock";
+import parse from "html-react-parser";
 
-export const TrackBlock = () => {
+export const TrackBlock = ({ title, text, img }: any) => {
   return (
     <div className={styles.track__block}>
       <div className={styles.track__container}>
         <Fade>
-          <span className={styles.track__block__title}>
-            Здесь вы можете отследить вашу{" "}
-            <span className="text-main">посылку</span>
-          </span>
+          <span className={styles.track__block__title}>{parse(title)}</span>
         </Fade>
-        <p className={styles.track__block__description}>
-          По ссылке ниже вы можете узнать где сейчас Ваша посылка
-        </p>
+        <p className={styles.track__block__description}>{text}</p>
         <Button text="Отследить" buttonType="filled" margin="mt-10" />
       </div>
-      <img src={tracking.src} alt="" className={styles.track__block__img} />
+      <img src={baseUrl + img} alt="" className={styles.track__block__img} />
     </div>
   );
 };
 
-export const TrackBlockPC = () => {
+export const TrackBlockPC = ({ title, text, img }: any) => {
   return (
     <div className={styles.track_pc__block}>
-      <img src={tracking.src} alt="" className={styles.track_pc__block__img} />
+      <img src={baseUrl + img} alt="" className={styles.track_pc__block__img} />
       <div className={styles.track_pc__container}>
         <Fade>
-          <span className={styles.track_pc__block__title}>
-            Здесь вы можете отследить вашу{" "}
-            <span className="text-main">посылку</span>
-          </span>
+          <span className={styles.track_pc__block__title}>{parse(title)}</span>
         </Fade>
         <Fade>
-          <p className={styles.track_pc__block__description}>
-            По ссылке ниже вы можете узнать где сейчас Ваша посылка
-          </p>
+          <p className={styles.track_pc__block__description}>{text}</p>
         </Fade>
         <Button
           text="Отследить"
