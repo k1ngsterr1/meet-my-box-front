@@ -293,7 +293,8 @@ export const CalculateForm = () => {
               placeholder="0"
               min={1}
               type="number"
-              max={25}
+              max={10}
+              step={0.1}
               onChange={handleNumberInputWeight(setWeight)}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
               required
