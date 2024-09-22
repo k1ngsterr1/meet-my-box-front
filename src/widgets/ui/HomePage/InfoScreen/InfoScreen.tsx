@@ -15,7 +15,7 @@ export const InfoScreen: React.FC = () => {
               Максимальный вес: <strong>10 кг</strong>
             </li>
             <li>
-              Максимальный объемный вес: <strong>67 кг</strong>
+              Максимальный объемный вес: <strong>10 кг</strong>
             </li>
             <li>
               Длина + Высота + Ширина: <strong>&lt; 150 см</strong>
@@ -56,12 +56,18 @@ export const InfoScreen: React.FC = () => {
         <h3 className="font-semibold text-lg mb-4">Полезная информация</h3>
         <ul className="text-sm text-blue-600">
           <li>
-            <a onClick={scrollToBottom} className="hover:underline">
+            <a
+              onClick={() => (window.location.href = "/links")}
+              className="hover:underline"
+            >
               Товары запрещенные к пересылке
             </a>
           </li>
           <li>
-            <a onClick={scrollToBottom} className="hover:underline">
+            <a
+              onClick={() => (window.location.href = "/links")}
+              className="hover:underline"
+            >
               Правила упаковки посылок
             </a>
           </li>
