@@ -1,16 +1,15 @@
 import bg_logo from "@assets/bg_face.svg";
-import main_img from "@assets/canvas.webp";
 import group from "@assets/clients_group.png";
 
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { baseUrl, useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import Button from "@shared/ui/Button/ui/button";
 import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
+import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
-import { useEffect, useState } from "react";
-import { baseUrl, useGetBlock } from "@shared/lib/hooks/useGetBlock";
-import { Loader } from "@widgets/ui/Loader/ui/loader";
 
 export const MainScreen = () => {
   const [main, setMain] = useState<any>();
@@ -58,7 +57,7 @@ export const MainScreen = () => {
               onClick={() => (window.location.href = "#calculate-mob")}
             />
             <IconButton
-              text="Процесс доставки"
+              text="Как это работает"
               icon={faChevronRight}
               margin="mt-4"
               onClick={() => (window.location.href = "#process-mob")}
@@ -96,7 +95,7 @@ export const MainScreen = () => {
                     onClick={() => (window.location.href = "#calculate-pc")}
                   />
                   <IconButton
-                    text="Процесс доставки"
+                    text="Как это работает"
                     icon={faChevronRight}
                     onClick={() => (window.location.href = "#process-pc")}
                   />
