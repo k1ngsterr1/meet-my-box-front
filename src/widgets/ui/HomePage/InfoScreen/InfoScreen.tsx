@@ -59,7 +59,7 @@ export const InfoScreen: React.FC = () => {
         <ul className="text-sm text-blue-600">
           <li>
             <a
-              onClick={() => (window.location.href = "/links")}
+              href="https://docs.google.com/document/d/1zzvMz5p9VsiLbcq3D131vkXN-8BEDCWTBfleqcecfUo/edit"
               className="hover:underline"
             >
               Товары запрещенные к пересылке

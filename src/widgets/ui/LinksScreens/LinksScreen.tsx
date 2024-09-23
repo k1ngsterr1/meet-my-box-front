@@ -25,7 +25,7 @@ export const LinksScreen = () => {
                 target="_blank"
                 href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0833&from=EN"
               >
-                Ссылка #1
+                COUNCIL REGULATION (EU) No 833/2014
               </a>
               <br />
               <a
@@ -33,7 +33,7 @@ export const LinksScreen = () => {
                 target="_blank"
                 href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32022R0428&from=EN"
               >
-                Ссылка #2
+                COUNCIL REGULATION (EU) 2022/428
               </a>
               <br />
               <a
@@ -41,7 +41,7 @@ export const LinksScreen = () => {
                 target="_blank"
                 href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32022R1904&from=EN"
               >
-                Ссылка #3
+                COUNCIL REGULATION (EU) 2022/1904
               </a>
               <br />
               <a
@@ -49,7 +49,7 @@ export const LinksScreen = () => {
                 target="_blank"
                 href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32022R2474&from=EN"
               >
-                Ссылка #4
+                COUNCIL REGULATION (EU) 2022/2474
               </a>
               <br />
               <a
@@ -57,7 +57,7 @@ export const LinksScreen = () => {
                 target="_blank"
                 href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32023R0427&qid=1681818109431&from=EN"
               >
-                Ссылка #5
+                COUNCIL REGULATION (EU) 2023/427
               </a>
               <br />
               <a
@@ -65,7 +65,7 @@ export const LinksScreen = () => {
                 target="_blank"
                 href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32023R1214&qid=1687857212540"
               >
-                Ссылка #6
+                COUNCIL REGULATION (EU) 2023/1214
               </a>
             </>
           }
