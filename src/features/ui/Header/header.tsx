@@ -19,6 +19,11 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
   let dropdownTimeout1: any;
   let dropdownTimeout2: any;
   const handleMouseEnter = (setter: any, timer: any) => {
+    if (setter === setIsDropdown) {
+      setIsDropdown2(false);
+    } else {
+      setIsDropdown(false);
+    }
     clearTimeout(timer); // Clear any existing timeout
     setter(true); // Show the dropdown
   };
@@ -86,7 +91,7 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
                 </li>
                 <li className={styles.dropdown__list__item}>
                   <a className="text-main" href="#process-pc">
-                    Процессы работы
+                    Как это работает
                   </a>
                 </li>
                 <li className={styles.dropdown__list__item}>
@@ -123,7 +128,7 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
                 </li>
                 <li className={styles.dropdown2__list__item}>
                   <a className="text-main" href="#process-pc">
-                    Процессы работы
+                    Как это работает
                   </a>
                 </li>
                 <li className={styles.dropdown2__list__item}>

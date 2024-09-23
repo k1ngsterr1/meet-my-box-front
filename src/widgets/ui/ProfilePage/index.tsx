@@ -5,6 +5,8 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import styles from "./styles.module.scss";
 import ConsentCheckbox from "@features/AgreeCheck";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
 // Sample list of countries in Russian
 const countries = [
@@ -112,7 +114,7 @@ export const ProfilePage: React.FC = () => {
           data-tooltip-place="bottom"
           data-tooltip-content="Заполните профиль сейчас, чтобы не делать это при доставке"
         >
-          Подсказка{" "}
+          <FontAwesomeIcon icon={faCircleInfo} size="lg" />
         </span>
         <Tooltip id="my-tooltip" />
       </div>
@@ -122,51 +124,99 @@ export const ProfilePage: React.FC = () => {
         onSubmit={handleSubmit}
       >
         {[
-          { name: "lastName", label: "Фамилия", placeholder: "Ваша фамилия" },
-          { name: "firstName", label: "Имя", placeholder: "Ваше имя" },
+          {
+            name: "lastName",
+            label: "Фамилия",
+            placeholder: "Ваша фамилия",
+            info: "Введите вашу фамилию, как в документе. Пример: Иванов.",
+          },
+          {
+            name: "firstName",
+            label: "Имя",
+            placeholder: "Ваше имя",
+            info: "Введите ваше имя, как в паспорте. Пример: Алексей.",
+          },
           {
             name: "lastNameLatin",
             label: "Фамилия на латинице",
             placeholder: "Фамилия на латинице",
+            info: "Укажите фамилию латинскими буквами. Пример: Ivanov.",
           },
           {
             name: "firstNameLatin",
             label: "Имя на латинице",
             placeholder: "Имя на латинице",
+            info: "Укажите имя латинскими буквами. Пример: Alexey.",
           },
           {
             name: "phoneNumber",
             label: "Номер мобильного телефона с кодом страны",
             placeholder: "87759932587",
+            info: "Введите номер с кодом страны. Пример: +7 775 993 2587.",
           },
           {
             name: "email",
             label: "Ваш e-mail",
             placeholder: "example@gmail.com",
             type: "email",
+            info: "Введите ваш действующий e-mail. Пример: example@gmail.com.",
           },
-          { name: "postalCode", label: "Индекс", placeholder: "000000" },
+          {
+            name: "postalCode",
+            label: "Индекс",
+            placeholder: "000000",
+            info: "Введите ваш почтовый индекс. Пример: 050000.",
+          },
           {
             name: "city",
             label: "Город/населенный пункт",
             placeholder: "Ваш Город",
+            info: "Введите название города. Пример: Алматы.",
           },
-          { name: "street", label: "Улица", placeholder: "Ваша Улица" },
-          { name: "building", label: "Дом", placeholder: "Номер вашего дома" },
+          {
+            name: "street",
+            label: "Улица",
+            placeholder: "Ваша Улица",
+            info: "Введите название улицы. Пример: Абая.",
+          },
+          {
+            name: "building",
+            label: "Дом",
+            placeholder: "Номер вашего дома",
+            info: "Укажите номер вашего дома. Пример: 45.",
+          },
           {
             name: "apartment",
             label: "Квартира",
             placeholder: "Номер квартиры",
+            info: "Укажите номер квартиры (если применимо). Пример: 12.",
           },
           {
             name: "intercomName",
             label: "Имя на домофоне",
             placeholder: "Код домофона",
+            info: "Введите код или имя на домофоне. Пример: Иванов.",
           },
-          { name: "whatsapp", label: "WhatsApp", placeholder: "Ваш WhatsApp" },
-        ].map(({ name, label, placeholder, type = "text" }) => (
+          {
+            name: "whatsapp",
+            label: "WhatsApp",
+            placeholder: "Ваш WhatsApp",
+            info: "Укажите номер для WhatsApp. Пример: +7 775 993 2587.",
+          },
+        ].map(({ name, label, placeholder, info, type = "text" }) => (
           <div className="flex flex-col" key={name}>
-            <label className="mb-1 text-gray-700">{label}</label>
+            <div className="flex items-center justify-between">
+              <label className="mb-1 text-gray-700 text-sm">{label}</label>
+              <span
+                className="text-main"
+                data-tooltip-id={`${name}`}
+                data-tooltip-place="bottom"
+                data-tooltip-content={info}
+              >
+                <FontAwesomeIcon icon={faCircleInfo} size="sm" />
+              </span>
+              <Tooltip id={`${name}`} />
+            </div>
             <input
               type={type}
               name={name}
@@ -179,7 +229,7 @@ export const ProfilePage: React.FC = () => {
         ))}
         {/* Dropdown for Country Selection */}
         <div className="flex flex-col">
-          <label className="mb-1 text-gray-700">Страна</label>
+          <label className="mb-1 text-gray-700 text-sm">Страна</label>
           <select
             name="country"
             className="p-2 border border-gray-300 rounded bg-white"

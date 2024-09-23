@@ -5,11 +5,26 @@ import { isSideMenuOpen } from "@stores/menuState";
 import { BurgerButton } from "../Burger/ui/burger-button";
 import Button from "../Button/ui/button";
 import styles from "./styles.module.scss";
+import { useEffect, useState } from "react";
 export const SidePanel = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
+
   const deleteLocalStorage = () => {
     localStorage.removeItem("userData");
     window.location.href = "/";
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userData = localStorage.getItem("userData")
+        ? JSON.parse(localStorage.getItem("userData") as string)
+        : null;
+
+      if (userData?.role === "admin") {
+        setIsAdmin(true);
+      }
+    }
+  }, []);
 
   return (
     <div className={styles.side_panel}>
@@ -21,15 +36,29 @@ export const SidePanel = () => {
       />
       <ul className={styles.side_panel__nav}>
         {sidePanelLinks.map((item, index) => (
-          <li className={styles.side_panel__nav__item}>
+          <li className={styles.side_panel__nav__item} key={index}>
             <a className={styles.side_panel__nav__link} href={item.to}>
               {item.name}
             </a>
           </li>
         ))}
       </ul>
-      <Button text="Заказать" buttonType="filled" margin="mb-8" />
-      <button className="text-red-500" onClick={() => deleteLocalStorage()}>
+      {/* Conditionally render the backlog button if the user is an admin */}
+      {isAdmin ? (
+        <div className="flex flex-col justify-between">
+          <Button text="Заказать" buttonType="filled" margin="mb-4" />
+          <Button
+            text="Бэклог"
+            buttonType="outline"
+            onClick={() => {
+              window.location.href = "/admin";
+            }}
+          />
+        </div>
+      ) : (
+        <Button text="Заказать" buttonType="filled" margin="mb-8" />
+      )}
+      <button className="text-red-500" onClick={deleteLocalStorage}>
         Выйти
       </button>
     </div>
