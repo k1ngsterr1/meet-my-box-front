@@ -38,6 +38,9 @@ export const ApplicationPage = () => {
           if (fetchedAddresses) {
             console.log(fetchedAddresses);
             setAddresses(fetchedAddresses);
+            if (addresses !== undefined) {
+              setChosenAddress(addresses[0].id);
+            }
           }
         } catch (error) {
           console.error("Error fetching addresses:", error);
@@ -103,7 +106,7 @@ export const ApplicationPage = () => {
   return (
     <div className="w-full flex items-center justify-center">
       {showAddresses && (
-        <div className="flex flex-col gap-4 items-center justify center w-[90%] max-w-[800px] min-h-[300px]">
+        <div className="flex flex-col gap-4 items-center justify-center w-[90%] max-w-[800px] min-h-[300px]">
           <span className="w-full text-xl text-center">
             Выберите итоговый адрес
           </span>
