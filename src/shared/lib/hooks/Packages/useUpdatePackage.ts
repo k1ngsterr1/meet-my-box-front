@@ -6,6 +6,7 @@ interface IData {
   insurance: string;
   courier: string;
   note: string;
+  addressId?: number;
 }
 
 export async function useUpdatePackage(

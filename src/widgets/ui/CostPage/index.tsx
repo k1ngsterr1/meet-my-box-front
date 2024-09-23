@@ -3,6 +3,7 @@ import PricingTable, { PricingTableExpress } from "@entities/CostTable";
 import Button from "@shared/ui/Button/ui/button";
 import { useState } from "react";
 import styles from "./styles.module.scss";
+import ServicePricingTable from "@entities/AdditionalServiceTable";
 
 export const CostPage = () => {
   const [tableState, setTableState] = useState<string>("Стандарт");
@@ -34,14 +35,18 @@ export const CostPage = () => {
           </>
         )}
       </div>
+      <h3 className={`${styles.cost__heading} mt-4 mb-4`}>
+        Дополнительные услуги
+      </h3>
+      <ServicePricingTable />
       <Button
-        text="Доп. услуги"
+        text="FAQ"
         buttonType="filled"
-        margin="mt-12"
+        margin="mt-8"
         onClick={() => {
-          window.location.href = "/additional-service";
+          window.location.href = "/links";
         }}
-      />
+      ></Button>
     </div>
   );
 };

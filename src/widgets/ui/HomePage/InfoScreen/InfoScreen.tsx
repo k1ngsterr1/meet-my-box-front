@@ -1,3 +1,4 @@
+import box_img from "@assets/icons8-коробка.svg";
 export const InfoScreen: React.FC = () => {
   const scrollToBottom = () => {
     window.scrollTo({
@@ -53,7 +54,8 @@ export const InfoScreen: React.FC = () => {
 
       {/* ПОЛЕЗНАЯ ИНФОРМАЦИЯ */}
       <div className="p-4 bg-white rounded-lg shadow-sm">
-        <h3 className="font-semibold text-lg mb-4">Полезная информация</h3>
+        <h3 className="font-semibold text-lg">Полезная информация</h3>
+        <img src={box_img.src} alt="box" className="mb-4" />
         <ul className="text-sm text-blue-600">
           <li>
             <a

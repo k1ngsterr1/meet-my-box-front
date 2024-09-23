@@ -4,6 +4,7 @@ import Button from "@shared/ui/Button/ui/button";
 import { useState } from "react";
 import { AddressDetails } from "@entities/AddressDetails";
 export interface AddressProps {
+  id: number;
   type: "receiver" | "sender";
   full_name: string;
   mobile_number: string;
