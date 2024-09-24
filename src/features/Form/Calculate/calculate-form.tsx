@@ -138,7 +138,7 @@ const useShippingRates = ({
 };
 
 export const CalculateForm = () => {
-  const [weight, setWeight] = useState(0);
+  let [weight, setWeight] = useState(0);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [length, setLength] = useState(0);
@@ -171,8 +171,8 @@ export const CalculateForm = () => {
       setError("Неверный почтовый индекс получателя.");
       return;
     }
-
     if (weight < (length * width * height) / 5000) {
+      weight = (length * width * height) / 5000;
       setWeight((length * width * height) / 5000);
     }
 
@@ -188,12 +188,13 @@ export const CalculateForm = () => {
     };
     const roundWeight = (weight: number) => {
       const decimalPart = weight % 1; // Get the decimal part
-      if (decimalPart > 0.4) {
+      if (decimalPart > 0) {
         return Math.ceil(weight); // Round up
       } else {
         return Math.floor(weight); // Round down
       }
     };
+    console.log(roundWeight(weight));
 
     if (fromCountry === "Italy" || fromCountry === "Germany") {
       let response = {
@@ -212,6 +213,10 @@ export const CalculateForm = () => {
         urls: [logo.src, logo.src],
       };
       setIsLoading(false);
+      if (weight > 10) {
+        setError("Мы не перевозим груз выше 10кг");
+        return;
+      }
       localStorage.setItem("rates", JSON.stringify(response));
       window.location.href = `/rates`;
     } else {
@@ -222,7 +227,7 @@ export const CalculateForm = () => {
           throw new Error("Failed to fetch shipping rates");
         }
         setIsLoading(false);
-        response.price = addMargin(response.price, weight);
+        response.price = addMargin(response.price, roundWeight(weight));
         localStorage.setItem("rates", JSON.stringify(response));
         window.location.href = `/rates`;
       } catch (err: any) {
@@ -418,7 +423,7 @@ export const CalculateForm = () => {
 };
 
 export const CalculateFormPC = () => {
-  const [weight, setWeight] = useState(0);
+  let [weight, setWeight] = useState(0);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [length, setLength] = useState(0);
@@ -453,6 +458,7 @@ export const CalculateFormPC = () => {
       return;
     }
     if (weight < (length * width * height) / 5000) {
+      weight = (length * width * height) / 5000;
       setWeight((length * width * height) / 5000);
     }
 
@@ -468,12 +474,13 @@ export const CalculateFormPC = () => {
     };
     const roundWeight = (weight: number) => {
       const decimalPart = weight % 1; // Get the decimal part
-      if (decimalPart > 0.4) {
+      if (decimalPart > 0) {
         return Math.ceil(weight); // Round up
       } else {
         return Math.floor(weight); // Round down
       }
     };
+    console.log(roundWeight(weight));
 
     if (fromCountry === "Italy" || fromCountry === "Germany") {
       let response = {
@@ -492,6 +499,10 @@ export const CalculateFormPC = () => {
         urls: [logo.src, logo.src],
       };
       setIsLoading(false);
+      if (weight > 10) {
+        setError("Мы не перевозим груз выше 10кг");
+        return;
+      }
       localStorage.setItem("rates", JSON.stringify(response));
       window.location.href = `/rates`;
     } else {
