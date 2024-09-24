@@ -19,6 +19,7 @@
       @apply p-8;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       border-radius: 16px;
+      position: relative;
       &__left {
         width: 60%;
         display: flex;
@@ -71,9 +72,11 @@
       width: 100%;
       display: flex;
       justify-content: space-between;
+      // align-items: center;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       border-radius: 16px;
       gap: 30px;
+      position: relative;
       &__time {
         min-height: 150px;
         min-width: 150px;

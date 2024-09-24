@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { RatesList, RatesListPC } from "@entities/RatesList";
 export const RatesPage = () => {
+  const [showInfo, setShowInfo] = useState();
   const [rates, setRates] = useState<any>(null);
   useEffect(() => {
     const fetchedRates = () => {
@@ -27,6 +28,7 @@ export const RatesPage = () => {
         ) : (
           <></>
         )}
+        {}
       </div>
       <div className={styles.rates_pc}>
         <h2 className={styles.rates_pc__heading}>Информация о доставках</h2>
