@@ -76,3 +76,46 @@ export function getDateInfo(daysFromNow: number) {
 
   return { text, datetime };
 }
+export function addMargin(price: string, weight: number): string[] {
+  // Extract the numeric part from the price string
+  const priceFloat = parseFloat(price.replace(/[^\d.]/g, ""));
+
+  // Define weight-price mappings for СТАНДАРТ
+  const standartMargins: Record<number, number> = {
+    1: 27.23,
+    2: 30.04,
+    3: 32.86,
+    4: 35.68,
+    5: 38.5,
+    6: 41.32,
+    7: 44.14,
+    8: 46.95,
+    9: 49.77,
+    10: 52.59,
+    11: 55.41,
+  };
+
+  // Define weight-price mappings for ЭКСПРЕСС
+  const expressMargins: Record<number, number> = {
+    1: 24.84,
+    2: 31.89,
+    3: 38.93,
+    4: 45.98,
+    5: 53.02,
+    6: 60.07,
+    7: 67.12,
+    8: 74.16,
+    9: 81.21,
+    10: 87.62,
+  };
+
+  let margin1 = 0,
+    margin2 = 0;
+
+  // Add margin based on the weight
+  margin1 = standartMargins[weight] || 0; // СТАНДАРТ
+  margin2 = expressMargins[weight] || 0; // ЭКСПРЕСС
+
+  // Return the total price with margin
+  return ["€" + (priceFloat + margin1), "€" + (priceFloat + margin2)];
+}

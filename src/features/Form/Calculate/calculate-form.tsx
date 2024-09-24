@@ -1,4 +1,5 @@
 import {
+  addMargin,
   getDateInfo,
   getFinalPrice,
   getPriceForWeight,
@@ -171,6 +172,10 @@ export const CalculateForm = () => {
       return;
     }
 
+    if (weight < (length * width * height) / 5000) {
+      setWeight((length * width * height) / 5000);
+    }
+
     const shipmentData = {
       weight: weight,
       length: length,
@@ -181,16 +186,16 @@ export const CalculateForm = () => {
       fromCountry: fromCountry,
       toCountry: toCountry,
     };
+    const roundWeight = (weight: number) => {
+      const decimalPart = weight % 1; // Get the decimal part
+      if (decimalPart > 0.4) {
+        return Math.ceil(weight); // Round up
+      } else {
+        return Math.floor(weight); // Round down
+      }
+    };
 
     if (fromCountry === "Italy" || fromCountry === "Germany") {
-      const roundWeight = (weight: number) => {
-        const decimalPart = weight % 1; // Get the decimal part
-        if (decimalPart > 0.4) {
-          return Math.ceil(weight); // Round up
-        } else {
-          return Math.floor(weight); // Round down
-        }
-      };
       let response = {
         days: [
           {
@@ -217,6 +222,7 @@ export const CalculateForm = () => {
           throw new Error("Failed to fetch shipping rates");
         }
         setIsLoading(false);
+        response.price = addMargin(response.price, weight);
         localStorage.setItem("rates", JSON.stringify(response));
         window.location.href = `/rates`;
       } catch (err: any) {
@@ -446,6 +452,9 @@ export const CalculateFormPC = () => {
       setError("Неверный почтовый индекс получателя.");
       return;
     }
+    if (weight < (length * width * height) / 5000) {
+      setWeight((length * width * height) / 5000);
+    }
 
     const shipmentData = {
       weight: weight,
@@ -457,16 +466,16 @@ export const CalculateFormPC = () => {
       fromCountry: fromCountry,
       toCountry: toCountry,
     };
+    const roundWeight = (weight: number) => {
+      const decimalPart = weight % 1; // Get the decimal part
+      if (decimalPart > 0.4) {
+        return Math.ceil(weight); // Round up
+      } else {
+        return Math.floor(weight); // Round down
+      }
+    };
 
     if (fromCountry === "Italy" || fromCountry === "Germany") {
-      const roundWeight = (weight: number) => {
-        const decimalPart = weight % 1; // Get the decimal part
-        if (decimalPart > 0.4) {
-          return Math.ceil(weight); // Round up
-        } else {
-          return Math.floor(weight); // Round down
-        }
-      };
       let response = {
         days: [
           {
@@ -493,6 +502,7 @@ export const CalculateFormPC = () => {
           throw new Error("Failed to fetch shipping rates");
         }
         setIsLoading(false);
+        response.price = addMargin(response.price, roundWeight(weight));
         localStorage.setItem("rates", JSON.stringify(response));
         window.location.href = `/rates`;
       } catch (err: any) {

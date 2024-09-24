@@ -21,7 +21,8 @@ export const RatesList: React.FC<Props> = ({ days, prices, dates, urls }) => {
       {days.map((item, index) =>
         prices[index] !== undefined &&
         dates[index] !== undefined &&
-        urls[index] !== undefined ? (
+        urls[index] !== undefined &&
+        index < 1 ? (
           <RatesCard
             day={item}
             price={prices[index]}
@@ -40,7 +41,8 @@ export const RatesListPC: React.FC<Props> = ({ days, prices, dates, urls }) => {
       {days.map((item, index) =>
         prices[index] !== undefined &&
         dates[index] !== undefined &&
-        urls[index] !== undefined ? (
+        urls[index] !== undefined &&
+        index < 1 ? (
           <RatesCardPC
             day={item}
             price={prices[index]}
