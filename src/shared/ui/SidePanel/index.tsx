@@ -6,14 +6,11 @@ import { BurgerButton } from "../Burger/ui/burger-button";
 import Button from "../Button/ui/button";
 import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
+
 export const SidePanel = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const deleteLocalStorage = () => {
-    localStorage.removeItem("userData");
-    window.location.href = "/";
-  };
-
+  // Check if user is admin
   useEffect(() => {
     if (typeof window !== "undefined") {
       const userData = localStorage.getItem("userData")
@@ -25,6 +22,28 @@ export const SidePanel = () => {
       }
     }
   }, []);
+
+  // Scroll to the anchor #calculate-pc if on the homepage "/"
+  const scrollToAnchor = () => {
+    if (
+      window.location.pathname === "/" &&
+      document.getElementById("calculate-pc")
+    ) {
+      const element = document.getElementById("calculate-pc");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
+  // Use this function when the button is clicked
+  const handleOrderClick = () => {
+    if (window.location.pathname !== "/") {
+      window.location.href = "/#calculate-pc";
+    } else {
+      scrollToAnchor(); // If already on "/", just scroll
+    }
+  };
 
   return (
     <div className={styles.side_panel}>
@@ -43,10 +62,16 @@ export const SidePanel = () => {
           </li>
         ))}
       </ul>
+
       {/* Conditionally render the backlog button if the user is an admin */}
       {isAdmin ? (
         <div className="flex flex-col justify-between">
-          <Button text="Заказать" buttonType="filled" margin="mb-4" />
+          <Button
+            text="Заказать"
+            buttonType="filled"
+            margin="mb-4"
+            onClick={handleOrderClick}
+          />
           <Button
             text="Бэклог"
             buttonType="outline"
@@ -56,9 +81,18 @@ export const SidePanel = () => {
           />
         </div>
       ) : (
-        <Button text="Заказать" buttonType="filled" margin="mb-8" />
+        <Button
+          text="Заказать"
+          buttonType="filled"
+          margin="mb-8"
+          onClick={handleOrderClick}
+        />
       )}
-      <button className="text-red-500" onClick={deleteLocalStorage}>
+
+      <button
+        className="text-red-500"
+        onClick={() => localStorage.removeItem("userData")}
+      >
         Выйти
       </button>
     </div>
@@ -68,11 +102,11 @@ export const SidePanel = () => {
 export const SidePanelMob = () => {
   const menuOpen = useStore(isSideMenuOpen);
 
-  // Function to toggle the menu state
   const toggleMenu = () => {
     isSideMenuOpen.set(!menuOpen);
     console.log("is menu open:", isSideMenuOpen.get());
   };
+
   return (
     <div className={styles.side_panel_mob}>
       <img

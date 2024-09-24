@@ -85,23 +85,23 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
             <div className={styles.dropdown}>
               <ul className={styles.dropdown__list}>
                 <li className={styles.dropdown__list__item}>
-                  <a className="text-main" href="#faq">
-                    FAQ
-                  </a>
-                </li>
-                <li className={styles.dropdown__list__item}>
                   <a className="text-main" href="#process-pc">
                     Как это работает
                   </a>
                 </li>
                 <li className={styles.dropdown__list__item}>
-                  <a className="text-main" href="/profile">
-                    Личный кабинет
+                  <a className="text-main" href="/cost">
+                    Стоимость
                   </a>
                 </li>
                 <li className={styles.dropdown__list__item}>
                   <a className="text-main" href="#contacts-pc">
-                    Контакты
+                    Заказать
+                  </a>
+                </li>
+                <li className={styles.dropdown__list__item}>
+                  <a className="text-main" href="#faq">
+                    FAQ
                   </a>
                 </li>
               </ul>
@@ -122,23 +122,23 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
             <div className={styles.dropdown2}>
               <ul className={styles.dropdown2__list}>
                 <li className={styles.dropdown2__list__item}>
-                  <a className="text-main" href="#faq">
-                    FAQ
-                  </a>
-                </li>
-                <li className={styles.dropdown2__list__item}>
                   <a className="text-main" href="#process-pc">
                     Как это работает
                   </a>
                 </li>
                 <li className={styles.dropdown2__list__item}>
-                  <a className="text-main" href="/profile">
-                    Личный кабинет
+                  <a className="text-main" href="/cost">
+                    Стоимость
                   </a>
                 </li>
                 <li className={styles.dropdown2__list__item}>
                   <a className="text-main" href="#contacts-pc">
-                    Контакты
+                    Заказать
+                  </a>
+                </li>
+                <li className={styles.dropdown2__list__item}>
+                  <a className="text-main" href="#faq">
+                    FAQ
                   </a>
                 </li>
               </ul>

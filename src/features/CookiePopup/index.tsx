@@ -1,4 +1,6 @@
 import { useState } from "react";
+import cookie_file from "@assets/Cookies Policy ENG, RUS, ITA.pdf";
+import privacy_file from "@assets/Privacy Policy ENG, RUS, ITA.pdf";
 
 export const CookiePopup = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -16,9 +18,23 @@ export const CookiePopup = () => {
     <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 shadow-lg flex justify-between items-center z-50">
       <p className="text-sm text-white">
         Наш сайт использует файлы cookie для обеспечения удобства просмотра и
-        соответствующую информацию.
-        <a href="/privacy-policy" className="underline ml-1 text-main">
-          Политика использования файлов cookie и конфиденциальность.
+        соответствующую информацию. Политика использования файлов
+        <a
+          href={cookie_file}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline ml-1 text-main"
+        >
+          cookie
+        </a>{" "}
+        и
+        <a
+          href={privacy_file}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline ml-1 text-main"
+        >
+          конфиденциальность
         </a>
         .
       </p>
