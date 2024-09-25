@@ -3,6 +3,8 @@ import PricingTable, { PricingTableExpress } from "@entities/CostTable";
 import Button from "@shared/ui/Button/ui/button";
 import { useState } from "react";
 import styles from "./styles.module.scss";
+import ServicePricingTable from "@entities/AdditionalServiceTable";
+import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 
 export const CostPage = () => {
   const [tableState, setTableState] = useState<string>("Стандарт");
@@ -11,6 +13,11 @@ export const CostPage = () => {
     <div className={styles.cost}>
       <img src={bg_face.src} alt="" className={styles.cost__img} />
       <h2 className={styles.cost__heading}>Цены</h2>
+      <Paragraph isCentered margin="mt-4" width="w-[30%]">
+        Фиксированная цена действует только для отправлений из Италии и Германии
+        в страны СНГ
+      </Paragraph>
+
       <div className="flex items-center justify-between gap-4 mt-4 mb-8">
         <Button
           text="Стандарт"
@@ -34,14 +41,18 @@ export const CostPage = () => {
           </>
         )}
       </div>
+      <h3 className={`${styles.cost__heading} mt-4 mb-4`}>
+        Дополнительные услуги
+      </h3>
+      <ServicePricingTable />
       <Button
-        text="Доп. услуги"
+        text="FAQ"
         buttonType="filled"
-        margin="mt-12"
+        margin="mt-8"
         onClick={() => {
-          window.location.href = "/additional-service";
+          window.location.href = "/links";
         }}
-      />
+      ></Button>
     </div>
   );
 };

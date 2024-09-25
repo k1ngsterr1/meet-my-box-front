@@ -1,3 +1,5 @@
+import box_img from "@assets/icons8-коробка.svg";
+import file from "@assets/Запрещено отправлять RUS, ENG, ITA.pdf";
 export const InfoScreen: React.FC = () => {
   const scrollToBottom = () => {
     window.scrollTo({
@@ -9,13 +11,14 @@ export const InfoScreen: React.FC = () => {
     <div className="max-w-5xl mx-auto p-6 bg-gray-50 rounded-lg shadow-md mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-800">
       <div className="p-4 bg-white rounded-lg shadow-sm">
         <h3 className="font-semibold text-lg mb-4">Детали о посылке</h3>
+        <img src={box_img.src} alt="box" className="mb-4" />
         <div className="flex items-start">
           <ul className="text-sm">
             <li>
               Максимальный вес: <strong>10 кг</strong>
             </li>
             <li>
-              Максимальный объемный вес: <strong>67 кг</strong>
+              Максимальный объемный вес: <strong>10 кг</strong>
             </li>
             <li>
               Длина + Высота + Ширина: <strong>&lt; 150 см</strong>
@@ -38,7 +41,7 @@ export const InfoScreen: React.FC = () => {
             <strong>Забор:</strong> курьер заберет посылку в назначенный день
           </li>
           <li>
-            <strong>Полное страхование:</strong> за 2% от ценности
+            <strong>Полное страхование:</strong> за 5% от ценности
           </li>
           <li>
             <strong>Лейбл:</strong> вам необходимо самостоятельно распечатать
@@ -53,15 +56,23 @@ export const InfoScreen: React.FC = () => {
 
       {/* ПОЛЕЗНАЯ ИНФОРМАЦИЯ */}
       <div className="p-4 bg-white rounded-lg shadow-sm">
-        <h3 className="font-semibold text-lg mb-4">Полезная информация</h3>
+        <h3 className="font-semibold text-lg">Полезная информация</h3>
         <ul className="text-sm text-blue-600">
           <li>
-            <a onClick={scrollToBottom} className="hover:underline">
+            <a
+              href={file}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
               Товары запрещенные к пересылке
             </a>
           </li>
           <li>
-            <a onClick={scrollToBottom} className="hover:underline">
+            <a
+              onClick={() => (window.location.href = "/links")}
+              className="hover:underline"
+            >
               Правила упаковки посылок
             </a>
           </li>

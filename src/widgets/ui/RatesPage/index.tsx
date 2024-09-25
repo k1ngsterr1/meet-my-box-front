@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { RatesList, RatesListPC } from "@entities/RatesList";
 export const RatesPage = () => {
+  const [showInfo, setShowInfo] = useState();
   const [rates, setRates] = useState<any>(null);
   useEffect(() => {
     const fetchedRates = () => {
@@ -16,7 +17,7 @@ export const RatesPage = () => {
   return (
     <>
       <div className={styles.rates}>
-        <h2 className={styles.rates__heading}>Инфомация о доставок</h2>
+        <h2 className={styles.rates__heading}>Информация о доставках</h2>
         {rates ? (
           <RatesList
             days={rates.days}
@@ -27,9 +28,10 @@ export const RatesPage = () => {
         ) : (
           <></>
         )}
+        {}
       </div>
       <div className={styles.rates_pc}>
-        <h2 className={styles.rates_pc__heading}>Инфомация о доставок</h2>
+        <h2 className={styles.rates_pc__heading}>Информация о доставках</h2>
         {rates ? (
           <RatesListPC
             days={rates.days}

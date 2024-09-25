@@ -1,4 +1,5 @@
 import {
+  addMargin,
   getDateInfo,
   getFinalPrice,
   getPriceForWeight,
@@ -95,7 +96,7 @@ const useShippingRates = ({
                   length: length.toString(),
                   width: width.toString(),
                   height: height.toString(),
-                  distance_unit: "cm",
+                  distance_unit: "см",
                   weight: weight.toString(),
                   mass_unit: "kg",
                 },
@@ -137,7 +138,7 @@ const useShippingRates = ({
 };
 
 export const CalculateForm = () => {
-  const [weight, setWeight] = useState(0);
+  let [weight, setWeight] = useState(0);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [length, setLength] = useState(0);
@@ -155,6 +156,26 @@ export const CalculateForm = () => {
     setIsLoading(true);
     console.log();
 
+    const isFromPostcodeValid = await validatePostcode(
+      fromCountry,
+      fromPostcode
+    );
+    const isToPostcodeValid = await validatePostcode(toCountry, toPostcode);
+
+    if (!isFromPostcodeValid) {
+      setError("Неверный почтовый индекс отправителя.");
+      return;
+    }
+
+    if (!isToPostcodeValid) {
+      setError("Неверный почтовый индекс получателя.");
+      return;
+    }
+    if (weight < (length * width * height) / 5000) {
+      weight = (length * width * height) / 5000;
+      setWeight((length * width * height) / 5000);
+    }
+
     const shipmentData = {
       weight: weight,
       length: length,
@@ -165,32 +186,39 @@ export const CalculateForm = () => {
       fromCountry: fromCountry,
       toCountry: toCountry,
     };
+    const roundWeight = (weight: number) => {
+      const decimalPart = weight % 1; // Get the decimal part
+      if (decimalPart > 0) {
+        return Math.ceil(weight); // Round up
+      } else {
+        return Math.floor(weight); // Round down
+      }
+    };
+    console.log(roundWeight(weight));
 
     if (fromCountry === "Italy" || fromCountry === "Germany") {
-      const roundWeight = (weight: number) => {
-        const decimalPart = weight % 1; // Get the decimal part
-        if (decimalPart > 0.4) {
-          return Math.ceil(weight); // Round up
-        } else {
-          return Math.floor(weight); // Round down
-        }
-      };
       let response = {
         days: [
           {
-            estimateNumber: "5",
+            estimateNumber: "10",
             estimateTime: "DAYS",
           },
           {
-            estimateNumber: "7",
+            estimateNumber: "14",
             estimateTime: "DAYS",
           },
         ],
         price: getFinalPrice(roundWeight(weight), toCountry),
-        dates: [getDateInfo(5), getDateInfo(7)],
+        dates: [getDateInfo(10), getDateInfo(14)],
         urls: [logo.src, logo.src],
       };
       setIsLoading(false);
+      if (weight > 10) {
+        setError(
+          "Дисклеймер: Вес, который вы указали (объемный или фактический) превышает 10 кг. Наш совет: разбейте посылку на две коробки поменьше или напишите нам для решения вопроса."
+        );
+        return;
+      }
       localStorage.setItem("rates", JSON.stringify(response));
       window.location.href = `/rates`;
     } else {
@@ -201,6 +229,7 @@ export const CalculateForm = () => {
           throw new Error("Failed to fetch shipping rates");
         }
         setIsLoading(false);
+        response.price = addMargin(response.price, roundWeight(weight));
         localStorage.setItem("rates", JSON.stringify(response));
         window.location.href = `/rates`;
       } catch (err: any) {
@@ -211,16 +240,35 @@ export const CalculateForm = () => {
   };
 
   const handleNumberInput = (setter: any) => (e: any) => {
-    let value = parseFloat(e.target.value);
-    if (isNaN(value)) value = 0;
-    if (value > 100) value = 100;
-    setter(value);
+    let value = e.target.value;
+
+    // If the input is empty, set it as an empty string
+    if (value === "") {
+      setter("");
+      return;
+    }
+
+    // Convert the value to a float
+    let floatValue = parseFloat(value);
+
+    // Handle NaN or values out of bounds
+    if (isNaN(floatValue)) floatValue = 0;
+    if (floatValue > 100) floatValue = 100;
+
+    setter(floatValue);
   };
 
   const handleNumberInputWeight = (setter: any) => (e: any) => {
-    let value = parseFloat(e.target.value);
+    let value = e.target.value;
+
+    // If the input is empty, set it as an empty string
+    if (value === "") {
+      setter("");
+      return;
+    }
+    value = parseFloat(e.target.value);
     if (isNaN(value)) value = 0;
-    if (value > 10) value = 10; // Limit the value to a maximum of 170
+    if (value > 10) value = 10; // Limit the value to a maximum of 100
     setter(value);
   };
 
@@ -286,14 +334,15 @@ export const CalculateForm = () => {
         <div className="grid grid-cols-2 gap-2">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Вес (kg):
+              Вес (кг):
             </label>
             <CalculateInput
               value={weight}
               placeholder="0"
               min={1}
               type="number"
-              max={25}
+              max={10}
+              step={0.1}
               onChange={handleNumberInputWeight(setWeight)}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
               required
@@ -301,14 +350,14 @@ export const CalculateForm = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Длина (cm):
+              Длина (см):
             </label>
             <CalculateInput
               value={length}
               placeholder="0"
               min={1}
               type="number"
-              max={170}
+              max={100}
               onChange={handleNumberInput(setLength)}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
               required
@@ -316,14 +365,14 @@ export const CalculateForm = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Ширина (cm):
+              Ширина (см):
             </label>
             <CalculateInput
               value={width}
               placeholder="0"
               min={1}
               type="number"
-              max={170}
+              max={100}
               onChange={handleNumberInput(setWidth)}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
               required
@@ -331,14 +380,14 @@ export const CalculateForm = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Высота (cm):
+              Высота (см):
             </label>
             <CalculateInput
               value={height}
               placeholder="0"
               min={1}
               type="number"
-              max={170}
+              max={100}
               onChange={handleNumberInput(setHeight)}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
               required
@@ -376,7 +425,7 @@ export const CalculateForm = () => {
 };
 
 export const CalculateFormPC = () => {
-  const [weight, setWeight] = useState(0);
+  let [weight, setWeight] = useState(0);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [length, setLength] = useState(0);
@@ -395,6 +444,26 @@ export const CalculateFormPC = () => {
     setIsLoading(true);
     console.log();
 
+    const isFromPostcodeValid = await validatePostcode(
+      fromCountry,
+      fromPostcode
+    );
+    const isToPostcodeValid = await validatePostcode(toCountry, toPostcode);
+
+    if (!isFromPostcodeValid) {
+      setError("Неверный почтовый индекс отправителя.");
+      return;
+    }
+
+    if (!isToPostcodeValid) {
+      setError("Неверный почтовый индекс получателя.");
+      return;
+    }
+    if (weight < (length * width * height) / 5000) {
+      weight = (length * width * height) / 5000;
+      setWeight((length * width * height) / 5000);
+    }
+
     const shipmentData = {
       weight: weight,
       length: length,
@@ -405,32 +474,39 @@ export const CalculateFormPC = () => {
       fromCountry: fromCountry,
       toCountry: toCountry,
     };
+    const roundWeight = (weight: number) => {
+      const decimalPart = weight % 1; // Get the decimal part
+      if (decimalPart > 0) {
+        return Math.ceil(weight); // Round up
+      } else {
+        return Math.floor(weight); // Round down
+      }
+    };
+    console.log(roundWeight(weight));
 
     if (fromCountry === "Italy" || fromCountry === "Germany") {
-      const roundWeight = (weight: number) => {
-        const decimalPart = weight % 1; // Get the decimal part
-        if (decimalPart > 0.4) {
-          return Math.ceil(weight); // Round up
-        } else {
-          return Math.floor(weight); // Round down
-        }
-      };
       let response = {
         days: [
           {
-            estimateNumber: "5",
+            estimateNumber: "10",
             estimateTime: "DAYS",
           },
           {
-            estimateNumber: "7",
+            estimateNumber: "14",
             estimateTime: "DAYS",
           },
         ],
         price: getFinalPrice(roundWeight(weight), toCountry),
-        dates: [getDateInfo(5), getDateInfo(7)],
+        dates: [getDateInfo(10), getDateInfo(14)],
         urls: [logo.src, logo.src],
       };
       setIsLoading(false);
+      if (weight > 10) {
+        setError(
+          "Дисклеймер: Вес, который вы указали (объемный или фактический) превышает 10 кг. Наш совет: разбейте посылку на две коробки поменьше или напишите нам для решения вопроса."
+        );
+        return;
+      }
       localStorage.setItem("rates", JSON.stringify(response));
       window.location.href = `/rates`;
     } else {
@@ -441,6 +517,7 @@ export const CalculateFormPC = () => {
           throw new Error("Failed to fetch shipping rates");
         }
         setIsLoading(false);
+        response.price = addMargin(response.price, roundWeight(weight));
         localStorage.setItem("rates", JSON.stringify(response));
         window.location.href = `/rates`;
       } catch (err: any) {
@@ -451,16 +528,35 @@ export const CalculateFormPC = () => {
   };
 
   const handleNumberInput = (setter: any) => (e: any) => {
-    let value = parseFloat(e.target.value);
-    if (isNaN(value)) value = 0;
-    if (value > 100) value = 100;
-    setter(value);
+    let value = e.target.value;
+
+    // If the input is empty, set it as an empty string
+    if (value === "") {
+      setter("");
+      return;
+    }
+
+    // Convert the value to a float
+    let floatValue = parseFloat(value);
+
+    // Handle NaN or values out of bounds
+    if (isNaN(floatValue)) floatValue = 0;
+    if (floatValue > 100) floatValue = 100;
+
+    setter(floatValue);
   };
 
   const handleNumberInputWeight = (setter: any) => (e: any) => {
-    let value = parseFloat(e.target.value);
+    let value = e.target.value;
+
+    // If the input is empty, set it as an empty string
+    if (value === "") {
+      setter("");
+      return;
+    }
+    value = parseFloat(e.target.value);
     if (isNaN(value)) value = 0;
-    if (value > 10) value = 10; // Limit the value to a maximum of 170
+    if (value > 10) value = 10; // Limit the value to a maximum of 100
     setter(value);
   };
 
@@ -533,7 +629,7 @@ export const CalculateFormPC = () => {
         <div className="flex items-center justify-between space-x-4">
           <div className="flex-1">
             <label className="block text-sm font-medium text-gray-700">
-              Вес (kg):
+              Вес (кг):
             </label>
             <CalculateInput
               value={weight}
@@ -549,14 +645,14 @@ export const CalculateFormPC = () => {
           </div>
           <div className="flex-1">
             <label className="block text-sm font-medium text-gray-700">
-              Длина (cm):
+              Длина (см):
             </label>
             <CalculateInput
               value={length}
               placeholder="1"
               min={1}
               type="number"
-              max={170}
+              max={100}
               onChange={handleNumberInput(setLength)}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
               required
@@ -564,14 +660,14 @@ export const CalculateFormPC = () => {
           </div>
           <div className="flex-1">
             <label className="block text-sm font-medium text-gray-700">
-              Ширина (cm):
+              Ширина (см):
             </label>
             <CalculateInput
               value={width}
               placeholder="1"
               min={1}
               type="number"
-              max={170}
+              max={100}
               onChange={handleNumberInput(setWidth)}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
               required
@@ -579,14 +675,14 @@ export const CalculateFormPC = () => {
           </div>
           <div className="flex-1">
             <label className="block text-sm font-medium text-gray-700">
-              Высота (cm):
+              Высота (см):
             </label>
             <CalculateInput
               value={height}
               placeholder="1"
               min={1}
               type="number"
-              max={170}
+              max={100}
               onChange={handleNumberInput(setHeight)}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
               required

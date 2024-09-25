@@ -4,6 +4,8 @@ import type React from "react";
 import Button from "@shared/ui/Button/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import { InfoScreen } from "@widgets/ui/HomePage/InfoScreen/InfoScreen";
 interface Props {
   day: TimeArray;
   price: string;
@@ -21,6 +23,7 @@ const translateTime = {
   WEEK: "Неделя",
 };
 export const RatesCard: React.FC<Props> = ({ day, price, date, url }) => {
+  const [showInfo, setShowInfo] = useState(false);
   return (
     <div className={styles.rates__list__card}>
       <div className={styles.rates__list__card__left}>
@@ -41,12 +44,31 @@ export const RatesCard: React.FC<Props> = ({ day, price, date, url }) => {
           alt="logo_delivery"
           className={styles.rates__list__card__img}
         />
-        <button className={styles.btn}>{price}</button>
+        <button
+          className={styles.btn}
+          onClick={() => {
+            window.location.href = "/profile";
+          }}
+        >
+          {price}
+        </button>
       </div>
+      <div className="absolute bottom-[-15px]">
+        <span
+          onClick={() => {
+            setShowInfo(!showInfo);
+          }}
+          className="bg-main text-white font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-secondary transition transform hover:scale-105"
+        >
+          Details
+        </span>
+      </div>
+      {showInfo && <InfoScreen />}
     </div>
   );
 };
 export const RatesCardPC: React.FC<Props> = ({ day, price, date, url }) => {
+  const [showInfo, setShowInfo] = useState(false);
   return (
     <div className={styles.rates_pc__list__card}>
       <div className={styles.rates_pc__list__card__time}>
@@ -82,7 +104,13 @@ export const RatesCardPC: React.FC<Props> = ({ day, price, date, url }) => {
 
       <div className="flex flex-col justify-between items-end mr-10 mt-8 mb-8 ">
         <span className={styles.rates_pc__list__card__price}>{price}</span>
-        <Button text="Заказать" buttonType="filled"></Button>
+        <Button
+          text="Заказать"
+          buttonType="filled"
+          onClick={() => {
+            window.location.href = "/profile";
+          }}
+        ></Button>
       </div>
     </div>
   );

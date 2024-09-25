@@ -19,6 +19,11 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
   let dropdownTimeout1: any;
   let dropdownTimeout2: any;
   const handleMouseEnter = (setter: any, timer: any) => {
+    if (setter === setIsDropdown) {
+      setIsDropdown2(false);
+    } else {
+      setIsDropdown(false);
+    }
     clearTimeout(timer); // Clear any existing timeout
     setter(true); // Show the dropdown
   };
@@ -72,7 +77,7 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
             onMouseLeave={() =>
               handleMouseLeave(setIsDropdown, dropdownTimeout1)
             }
-            href="#calculate-pc"
+            href="/#calculate-pc"
           >
             Отправить посылку
           </a>
@@ -80,23 +85,23 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
             <div className={styles.dropdown}>
               <ul className={styles.dropdown__list}>
                 <li className={styles.dropdown__list__item}>
-                  <a className="text-main" href="#faq">
+                  <a className="text-main hover:underline" href="/#process-pc">
+                    Как это работает
+                  </a>
+                </li>
+                <li className={styles.dropdown__list__item}>
+                  <a className="text-main hover:underline" href="/cost">
+                    Стоимость
+                  </a>
+                </li>
+                <li className={styles.dropdown__list__item}>
+                  <a className="text-main hover:underline" href="/#contacts-pc">
+                    Заказать
+                  </a>
+                </li>
+                <li className={styles.dropdown__list__item}>
+                  <a className="text-main hover:underline" href="/#faq">
                     FAQ
-                  </a>
-                </li>
-                <li className={styles.dropdown__list__item}>
-                  <a className="text-main" href="#process-pc">
-                    Процессы работы
-                  </a>
-                </li>
-                <li className={styles.dropdown__list__item}>
-                  <a className="text-main" href="/profile">
-                    Личный кабинет
-                  </a>
-                </li>
-                <li className={styles.dropdown__list__item}>
-                  <a className="text-main" href="#contacts-pc">
-                    Контакты
                   </a>
                 </li>
               </ul>
@@ -104,6 +109,7 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
           )}
           <a
             className={`${styles.header_pc__nav__link} ${styles.hover_link2}`}
+            href="/#contacts-pc"
             onMouseEnter={() =>
               handleMouseEnter(setIsDropdown2, dropdownTimeout2)
             }
@@ -117,23 +123,23 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
             <div className={styles.dropdown2}>
               <ul className={styles.dropdown2__list}>
                 <li className={styles.dropdown2__list__item}>
-                  <a className="text-main" href="#faq">
+                  <a className="text-main hover:underline" href="#process-pc">
+                    Как это работает
+                  </a>
+                </li>
+                <li className={styles.dropdown2__list__item}>
+                  <a className="text-main hover:underline" href="/cost">
+                    Стоимость
+                  </a>
+                </li>
+                <li className={styles.dropdown2__list__item}>
+                  <a className="text-main hover:underline" href="#contacts-pc">
+                    Заказать
+                  </a>
+                </li>
+                <li className={styles.dropdown2__list__item}>
+                  <a className="text-main hover:underline" href="#faq">
                     FAQ
-                  </a>
-                </li>
-                <li className={styles.dropdown2__list__item}>
-                  <a className="text-main" href="#process-pc">
-                    Процессы работы
-                  </a>
-                </li>
-                <li className={styles.dropdown2__list__item}>
-                  <a className="text-main" href="/profile">
-                    Личный кабинет
-                  </a>
-                </li>
-                <li className={styles.dropdown2__list__item}>
-                  <a className="text-main" href="#contacts-pc">
-                    Контакты
                   </a>
                 </li>
               </ul>

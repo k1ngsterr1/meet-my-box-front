@@ -1,7 +1,10 @@
 import { useState } from "react";
+import cookie_file from "@assets/Cookies Policy ENG, RUS, ITA.pdf";
+import privacy_file from "@assets/Privacy Policy ENG, RUS, ITA.pdf";
 
 export const CookiePopup = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const [language, setLanguage] = useState<"ru" | "en">("ru"); // Manage language state
 
   const handleAccept = () => {
     // Set a cookie here or perform any action on accepting
@@ -10,24 +13,70 @@ export const CookiePopup = () => {
     setIsVisible(false); // Hide the popup after acceptance
   };
 
+  const handleLanguageChange = (lang: "ru" | "en") => {
+    setLanguage(lang); // Switch language
+  };
+
   if (!isVisible) return null; // Don't render if not visible
+
+  const text = {
+    en: {
+      message: `Our website uses cookies to ensure a comfortable browsing experience and all the necessary information for this purpose. By clicking "Accept," you confirm that you have reviewed and agree to the terms of our Cookie Policy and Privacy Policy.`,
+      accept: "Accept",
+    },
+    ru: {
+      message: `Наш сайт использует файлы cookies для обеспечения удобства просмотра и всю необходимую для этого информацию. Нажимая «принять» вы подтверждаете свое ознакомление и принимаете условия Политики использования файлов cookies и Политики конфиденциальности.`,
+      accept: "Принять",
+    },
+  };
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 shadow-lg flex justify-between items-center z-50">
       <p className="text-sm text-white">
-        Наш сайт использует файлы cookie для обеспечения удобства просмотра и
-        соответствующую информацию.
-        <a href="/privacy-policy" className="underline ml-1 text-main">
-          Политика использования файлов cookie и конфиденциальность.
+        {text[language].message}{" "}
+        <a
+          href={cookie_file}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline ml-1 text-main"
+        >
+          cookie
+        </a>{" "}
+        и
+        <a
+          href={privacy_file}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline ml-1 text-main"
+        >
+          конфиденциальность
         </a>
         .
       </p>
-      <button
-        onClick={handleAccept}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4"
-      >
-        Принять
-      </button>
+
+      <div className="flex items-center">
+        {/* Language Switcher */}
+        <button
+          className={`mr-2 text-sm ${language === "en" ? "font-bold" : ""}`}
+          onClick={() => handleLanguageChange("en")}
+        >
+          English
+        </button>
+        <button
+          className={`mr-4 text-sm ${language === "ru" ? "font-bold" : ""}`}
+          onClick={() => handleLanguageChange("ru")}
+        >
+          Русский
+        </button>
+
+        {/* Accept Button */}
+        <button
+          onClick={handleAccept}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          {text[language].accept}
+        </button>
+      </div>
     </div>
   );
 };
