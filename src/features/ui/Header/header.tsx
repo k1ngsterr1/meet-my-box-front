@@ -77,7 +77,7 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
             onMouseLeave={() =>
               handleMouseLeave(setIsDropdown, dropdownTimeout1)
             }
-            href="#calculate-pc"
+            href="/#calculate-pc"
           >
             Отправить посылку
           </a>
@@ -85,22 +85,22 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
             <div className={styles.dropdown}>
               <ul className={styles.dropdown__list}>
                 <li className={styles.dropdown__list__item}>
-                  <a className="text-main" href="#process-pc">
+                  <a className="text-main hover:underline" href="/#process-pc">
                     Как это работает
                   </a>
                 </li>
                 <li className={styles.dropdown__list__item}>
-                  <a className="text-main" href="/cost">
+                  <a className="text-main hover:underline" href="/cost">
                     Стоимость
                   </a>
                 </li>
                 <li className={styles.dropdown__list__item}>
-                  <a className="text-main" href="#contacts-pc">
+                  <a className="text-main hover:underline" href="/#contacts-pc">
                     Заказать
                   </a>
                 </li>
                 <li className={styles.dropdown__list__item}>
-                  <a className="text-main" href="#faq">
+                  <a className="text-main hover:underline" href="/#faq">
                     FAQ
                   </a>
                 </li>
@@ -109,6 +109,7 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
           )}
           <a
             className={`${styles.header_pc__nav__link} ${styles.hover_link2}`}
+            href="/#contacts-pc"
             onMouseEnter={() =>
               handleMouseEnter(setIsDropdown2, dropdownTimeout2)
             }
@@ -122,22 +123,22 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
             <div className={styles.dropdown2}>
               <ul className={styles.dropdown2__list}>
                 <li className={styles.dropdown2__list__item}>
-                  <a className="text-main" href="#process-pc">
+                  <a className="text-main hover:underline" href="#process-pc">
                     Как это работает
                   </a>
                 </li>
                 <li className={styles.dropdown2__list__item}>
-                  <a className="text-main" href="/cost">
+                  <a className="text-main hover:underline" href="/cost">
                     Стоимость
                   </a>
                 </li>
                 <li className={styles.dropdown2__list__item}>
-                  <a className="text-main" href="#contacts-pc">
+                  <a className="text-main hover:underline" href="#contacts-pc">
                     Заказать
                   </a>
                 </li>
                 <li className={styles.dropdown2__list__item}>
-                  <a className="text-main" href="#faq">
+                  <a className="text-main hover:underline" href="#faq">
                     FAQ
                   </a>
                 </li>

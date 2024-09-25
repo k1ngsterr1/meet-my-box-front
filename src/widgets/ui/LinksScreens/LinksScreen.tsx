@@ -1,3 +1,4 @@
+import file from "@assets/Запрещено отправлять RUS, ENG, ITA.pdf";
 import { AccordionItemText } from "@shared/ui/Accordion/faq-accordion";
 
 export const LinksScreen = () => {
@@ -68,6 +69,14 @@ export const LinksScreen = () => {
                 COUNCIL REGULATION (EU) 2023/1214
               </a>
             </>
+          }
+        />
+        <AccordionItemText
+          question="Запрещенные предметы"
+          answer={
+            <a className="text-main cursor-pointer" target="_blank" href={file}>
+              Посмотреть запрещенные предметы
+            </a>
           }
         />
       </main>

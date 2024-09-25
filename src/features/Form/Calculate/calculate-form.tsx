@@ -214,7 +214,9 @@ export const CalculateForm = () => {
       };
       setIsLoading(false);
       if (weight > 10) {
-        setError("Мы не перевозим груз выше 10кг");
+        setError(
+          "Дисклеймер: Вес, который вы указали (объемный или фактический) превышает 10 кг. Наш совет: разбейте посылку на две коробки поменьше или напишите нам для решения вопроса."
+        );
         return;
       }
       localStorage.setItem("rates", JSON.stringify(response));
@@ -500,7 +502,9 @@ export const CalculateFormPC = () => {
       };
       setIsLoading(false);
       if (weight > 10) {
-        setError("Мы не перевозим груз выше 10кг");
+        setError(
+          "Дисклеймер: Вес, который вы указали (объемный или фактический) превышает 10 кг. Наш совет: разбейте посылку на две коробки поменьше или напишите нам для решения вопроса."
+        );
         return;
       }
       localStorage.setItem("rates", JSON.stringify(response));
