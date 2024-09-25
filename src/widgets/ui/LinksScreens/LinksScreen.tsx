@@ -11,6 +11,7 @@ export const LinksScreen = () => {
           answer={
             <a
               className="text-main cursor-pointer"
+              target="_blank"
               href="https://customs.gov.ru/fiz/mezhdunarodnye-pochtovye-otpravleniya/normy-besposhlinnogo-vvoza-tovarov-dlya-lichnogo-pol-zovaniya,-dostavlyaemyx-iz-za-rubezha-v-mezhdunarodnyx-pochtovyx-otpravleniyax-ili-perevozchikom"
             >
               Открыть ссылку

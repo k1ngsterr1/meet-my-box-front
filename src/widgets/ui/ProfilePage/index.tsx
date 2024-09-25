@@ -1,12 +1,12 @@
+import ConsentCheckbox from "@features/AgreeCheck";
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useUpdateProfile } from "@shared/lib/hooks/useUpdateProfile";
 import Button from "@shared/ui/Button/ui/button";
 import React, { useState } from "react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import styles from "./styles.module.scss";
-import ConsentCheckbox from "@features/AgreeCheck";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
 // Sample list of countries in Russian
 const countries = [

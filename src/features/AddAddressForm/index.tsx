@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import styles from "./styles.module.scss";
+import { useAddAddress } from "@shared/lib/hooks/useAddAddress";
 import Button from "@shared/ui/Button/ui/button";
 import { BorderInput } from "@shared/ui/Input/BorderInput/border-input";
-import { useAddAddress } from "@shared/lib/hooks/useAddAddress";
+import React, { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 
 export const AddAddressForm = ({ user }: any) => {
   const [fullName, setFullName] = useState("");
@@ -69,7 +69,28 @@ export const AddAddressForm = ({ user }: any) => {
       </div>
       <form className={styles.add_address__form} onSubmit={handleSubmit}>
         <BorderInput
-          placeholder="ФИО"
+          placeholder="Ваше имя"
+          value={fullName ?? ""}
+          onChange={(e) => setFullName(e.target.value)}
+          width="w-3/4"
+          margin="mt-2"
+        />
+        <BorderInput
+          placeholder="Ваша фамилия"
+          value={fullName ?? ""}
+          onChange={(e) => setFullName(e.target.value)}
+          width="w-3/4"
+          margin="mt-2"
+        />
+        <BorderInput
+          placeholder="Фамилия на латинице"
+          value={fullName ?? ""}
+          onChange={(e) => setFullName(e.target.value)}
+          width="w-3/4"
+          margin="mt-2"
+        />
+        <BorderInput
+          placeholder="Имя на латинице"
           value={fullName ?? ""}
           onChange={(e) => setFullName(e.target.value)}
           width="w-3/4"
@@ -77,6 +98,13 @@ export const AddAddressForm = ({ user }: any) => {
         />
         <BorderInput
           placeholder="Номер мобильного телефона"
+          value={phone ?? ""}
+          onChange={(e) => setPhone(e.target.value)}
+          width="w-3/4"
+          margin="mt-2"
+        />
+        <BorderInput
+          placeholder="Ваш e-mail"
           value={phone ?? ""}
           onChange={(e) => setPhone(e.target.value)}
           width="w-3/4"
@@ -203,15 +231,29 @@ export const AddAddressFormPC = ({ user }: any) => {
       <form className={styles.add_address_pc__form} onSubmit={handleSubmit}>
         <div className="w-[100%] flex gap-4">
           <BorderInput
-            placeholder="ФИО"
+            placeholder="Ваше имя"
             value={fullName ?? ""}
             onChange={(e) => setFullName(e.target.value)}
             margin="mt-2"
           />
           <BorderInput
-            placeholder="Номер мобильного телефона"
-            value={phone ?? ""}
-            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Ваша фамилия"
+            value={fullName ?? ""}
+            onChange={(e) => setFullName(e.target.value)}
+            margin="mt-2"
+          />
+        </div>
+        <div className="w-full flex gap-4">
+          <BorderInput
+            placeholder="Фамилия на латинице"
+            value={fullName ?? ""}
+            onChange={(e) => setFullName(e.target.value)}
+            margin="mt-2"
+          />
+          <BorderInput
+            placeholder="Имя на латинице"
+            value={fullName ?? ""}
+            onChange={(e) => setFullName(e.target.value)}
             margin="mt-2"
           />
         </div>
@@ -224,6 +266,20 @@ export const AddAddressFormPC = ({ user }: any) => {
           />
           <BorderInput
             placeholder="Дом"
+            value={house ?? ""}
+            onChange={(e) => setHouse(e.target.value)}
+            margin="mt-2"
+          />
+        </div>
+        <div className="w-[100%] flex gap-4">
+          <BorderInput
+            placeholder="Номер мобильного телефона"
+            value={street ?? ""}
+            onChange={(e) => setStreet(e.target.value)}
+            margin="mt-2"
+          />
+          <BorderInput
+            placeholder="Ваш e-mail"
             value={house ?? ""}
             onChange={(e) => setHouse(e.target.value)}
             margin="mt-2"

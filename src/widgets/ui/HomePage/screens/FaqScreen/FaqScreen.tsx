@@ -1,8 +1,7 @@
-import { FAQList } from "@shared/ui/Accordion/faq-accordion";
-import styles from "./styles.module.scss";
-import { faqAccordions } from "@shared/lib/content/Accordion";
-import { useEffect, useState } from "react";
 import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
+import { FAQList } from "@shared/ui/Accordion/faq-accordion";
+import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 
 export const FAQScreen = () => {
   const [items, setItems] = useState<any>();

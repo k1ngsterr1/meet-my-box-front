@@ -1,10 +1,13 @@
-import { AddAddressForm, AddAddressFormPC } from "@features/AddAddressForm";
-import styles from "./styles.module.scss";
 import bg_face from "@assets/bg_face.svg";
-import { useEffect, useState } from "react";
+import { AddAddressForm, AddAddressFormPC } from "@features/AddAddressForm";
 import { useGetProfile } from "@shared/lib/hooks/useGetProfile";
+import { useEffect, useState } from "react";
+
+import styles from "./styles.module.scss";
+
 export const AddAddressPage = () => {
   const [user, setUser] = useState();
+
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await useGetProfile();
@@ -14,6 +17,7 @@ export const AddAddressPage = () => {
 
     fetchUser();
   }, []);
+
   return (
     <>
       {user ? (

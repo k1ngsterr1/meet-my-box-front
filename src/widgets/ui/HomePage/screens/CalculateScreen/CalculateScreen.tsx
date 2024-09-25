@@ -1,22 +1,21 @@
-// src/components/CalculateScreen.jsx
-import { useEffect, useState } from "react";
 import {
   CalculateForm,
   CalculateFormPC,
 } from "@features/Form/Calculate/calculate-form";
-import { calcFaqAccordions } from "@shared/lib/content/Accordion";
+import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import { FAQList } from "@shared/ui/Accordion/faq-accordion";
 import Button from "@shared/ui/Button/ui/button";
 import { Documents } from "@shared/ui/Documents";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
+import { useEffect, useState } from "react";
 import { InfoScreen } from "../../InfoScreen/InfoScreen";
 import styles from "./styles.module.scss";
-import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
-import { Loader } from "@widgets/ui/Loader/ui/loader";
 
 export const CalculateScreen = () => {
   const [calculate, setCalculate] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
   const [isForm, setIsForm] = useState(true);
+  const [parcels, setParcels] = useState([1]); // State to handle multiple parcels
 
   useEffect(() => {
     const fetchBlock = async () => {
@@ -36,6 +35,11 @@ export const CalculateScreen = () => {
 
   const handleToggleForm = () => {
     setIsForm(!isForm);
+  };
+
+  // Add a new parcel to the state
+  const handleAddParcel = () => {
+    setParcels((prevParcels) => [...prevParcels, prevParcels.length + 1]);
   };
 
   if (isLoading) {
@@ -58,8 +62,23 @@ export const CalculateScreen = () => {
           margin="mt-4"
           onClick={handleToggleForm}
         />
-        {isForm ? <CalculateForm /> : <Documents onClick={handleToggleForm} />}
+        {parcels.map((parcel, index) => (
+          <div key={index}>
+            {isForm ? (
+              <CalculateForm />
+            ) : (
+              <Documents onClick={handleToggleForm} />
+            )}
+          </div>
+        ))}
+        <Button
+          text="Добавить посылку"
+          buttonType="filled"
+          margin="mt-4"
+          onClick={handleAddParcel}
+        />
       </section>
+
       <section className={styles.calculate_pc} id="calculate-pc">
         <h2 className={styles.calculate_pc__heading}>{calculate.heading}</h2>
         <div className="w-full flex items-center justify-center gap-4 mt-25">
@@ -76,13 +95,24 @@ export const CalculateScreen = () => {
             onClick={handleToggleForm}
           />
         </div>
-        {isForm ? (
-          <CalculateFormPC />
-        ) : (
-          <Documents onClick={handleToggleForm} />
-        )}
+        {parcels.map((parcel, index) => (
+          <div key={index}>
+            {isForm ? (
+              <CalculateFormPC />
+            ) : (
+              <Documents onClick={handleToggleForm} />
+            )}
+          </div>
+        ))}
+        <Button
+          text="Добавить посылку"
+          buttonType="filled"
+          margin="mt-4"
+          onClick={handleAddParcel}
+        />
         <InfoScreen />
       </section>
+
       <div className="w-[90%] lg:w-[86.6%]">
         <FAQList items={calculate.questions} />
       </div>

@@ -1,0 +1,15 @@
+---
+// src/pages/index.astro or any relevant page
+
+import { Menu } from "@shared/ui/Menu/ui/menu";
+import Layout from "@widgets/layouts/ui/layout.astro";
+import { DocsScreen } from "@widgets/ui/DocsScreen";
+
+import { Loader } from "@widgets/ui/Loader/ui/loader";
+---
+
+<Layout>
+  <Loader client:load />
+  <Menu client:load />
+  <DocsScreen client:load />
+</Layout>

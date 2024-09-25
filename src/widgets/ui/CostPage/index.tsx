@@ -1,10 +1,10 @@
 import bg_face from "@assets/bg_face.svg";
+import ServicePricingTable from "@entities/AdditionalServiceTable";
 import PricingTable, { PricingTableExpress } from "@entities/CostTable";
 import Button from "@shared/ui/Button/ui/button";
+import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import { useState } from "react";
 import styles from "./styles.module.scss";
-import ServicePricingTable from "@entities/AdditionalServiceTable";
-import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 
 export const CostPage = () => {
   const [tableState, setTableState] = useState<string>("Стандарт");
@@ -50,7 +50,7 @@ export const CostPage = () => {
         buttonType="filled"
         margin="mt-8"
         onClick={() => {
-          window.location.href = "/links";
+          window.location.href = "/faq";
         }}
       ></Button>
     </div>
