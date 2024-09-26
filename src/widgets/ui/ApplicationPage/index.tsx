@@ -131,10 +131,10 @@ export const ApplicationPage = () => {
       });
 
       // Remove packageId from localStorage
-      // localStorage.removeItem("packageId");
+      localStorage.removeItem("packageId");
 
       // // Redirect to packages page
-      // window.location.href = "/packages";
+      window.location.href = "/packages";
     }
   };
 
