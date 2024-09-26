@@ -46,15 +46,15 @@ export function getFinalPrice(weight: number, toCountry: string): string[] {
   // Apply 23% tax if the destination is not Russia
   if (toCountry !== "Russia") {
     return [
+      expressPrice ? "€" + expressPrice.toFixed(2) : "Weight not available",
       standardPrice
         ? "€" + (standardPrice * 1.23).toFixed(2)
         : "Weight not available",
-      expressPrice ? "€" + expressPrice.toFixed(2) : "Weight not available",
     ];
   } else {
     return [
-      standardPrice ? "€" + standardPrice.toFixed(2) : "Weight not available",
       expressPrice ? "€" + expressPrice.toFixed(2) : "Weight not available",
+      standardPrice ? "€" + standardPrice.toFixed(2) : "Weight not available",
     ];
   }
 }
