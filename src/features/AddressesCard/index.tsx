@@ -9,7 +9,7 @@ export interface AddressProps {
   firstName: string;
   phoneNumber: string;
   street: string;
-  house: string;
+  housing: string;
   building: string;
   apartment: string;
   city: string;

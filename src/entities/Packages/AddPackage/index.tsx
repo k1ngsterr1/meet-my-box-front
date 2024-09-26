@@ -143,7 +143,8 @@ export const AddPackages = () => {
       status: "Pending",
     });
     if (current_package) {
-      localStorage.setItem("packageId", current_package.toString());
+      console.log(current_package);
+      localStorage.setItem("packageId", JSON.stringify(current_package));
     }
 
     setItems([]);
@@ -343,7 +344,7 @@ export const AddPackagesPC = () => {
       status: "Pending",
     });
     if (current_package) {
-      localStorage.setItem("packageId", current_package.toString());
+      localStorage.setItem("packageId", JSON.stringify(current_package));
     }
 
     setItems([]);
