@@ -8,12 +8,12 @@ interface Props {
 export const Documents: React.FC<Props> = ({ onClick }) => {
   return (
     <div className={styles.documents_pc}>
-      <p className={styles.documents_pc__p}>Максимальный вес: 25 кг</p>
+      <p className={styles.documents_pc__p}>Максимальный вес: 10 кг</p>
       <p className={styles.documents_pc__p}>
-        Длина + Высота + Ширина: <strong>&lt; 170 см</strong>
+        Длина + Высота + Ширина: <strong>&lt; 150 см</strong>
       </p>
       <p className={styles.documents_pc__p}>
-        Самая длинная сторона не должна превышать: 120 см
+        Самая длинная сторона не должна превышать: 100 см
       </p>
       <Button
         text="Узнать цену"

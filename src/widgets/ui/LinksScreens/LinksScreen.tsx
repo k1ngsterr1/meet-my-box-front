@@ -1,22 +1,21 @@
 import file from "@assets/Запрещено отправлять RUS, ENG, ITA.pdf";
 import { AccordionItemText } from "@shared/ui/Accordion/faq-accordion";
+import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
 
 export const LinksScreen = () => {
   return (
     <>
       <main className="flex flex-col items-center justify-center w-full h-[65.2799999vh]">
         <h1 className="text-4xl font-bold mb-8">Полезная информация</h1>
-        <AccordionItemText
-          question="Международные почтовые отправления. Гид от таможенной службы."
-          answer={
-            <a
-              className="text-main cursor-pointer"
-              target="_blank"
-              href="https://customs.gov.ru/fiz/mezhdunarodnye-pochtovye-otpravleniya/normy-besposhlinnogo-vvoza-tovarov-dlya-lichnogo-pol-zovaniya,-dostavlyaemyx-iz-za-rubezha-v-mezhdunarodnyx-pochtovyx-otpravleniyax-ili-perevozchikom"
-            >
-              Открыть ссылку
-            </a>
+        <IconButton
+          text="Международные почтовые отправления. Гид от таможенной службы."
+          onClick={() =>
+            window.open(
+              "https://customs.gov.ru/fiz/mezhdunarodnye-pochtovye-otpravleniya/normy-besposhlinnogo-vvoza-tovarov-dlya-lichnogo-pol-zovaniya,-dostavlyaemyx-iz-za-rubezha-v-mezhdunarodnyx-pochtovyx-otpravleniyax-ili-perevozchikom",
+              "_blank"
+            )
           }
+          margin="mt-4 mb-4"
         />
         <AccordionItemText
           question="Санкционные ограничения."
@@ -72,13 +71,10 @@ export const LinksScreen = () => {
             </>
           }
         />
-        <AccordionItemText
-          question="Запрещенные к отправке предметы"
-          answer={
-            <a className="text-main cursor-pointer" target="_blank" href={file}>
-              Посмотреть запрещенные предметы
-            </a>
-          }
+        <IconButton
+          text="Запрещенные к отправке предметы"
+          onClick={() => window.open(file, "_blank")}
+          margin="mt-4 mb-4"
         />
       </main>
     </>

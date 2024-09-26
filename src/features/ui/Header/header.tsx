@@ -95,7 +95,10 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
                   </a>
                 </li>
                 <li className={styles.dropdown__list__item}>
-                  <a className="text-main hover:underline" href="/#contacts-pc">
+                  <a
+                    className="text-main hover:underline"
+                    href="/#calculate-pc"
+                  >
                     Заказать
                   </a>
                 </li>
@@ -123,7 +126,7 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
             <div className={styles.dropdown2}>
               <ul className={styles.dropdown2__list}>
                 <li className={styles.dropdown2__list__item}>
-                  <a className="text-main hover:underline" href="#process-pc">
+                  <a className="text-main hover:underline" href="/#process-pc">
                     Как это работает
                   </a>
                 </li>
@@ -133,12 +136,15 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
                   </a>
                 </li>
                 <li className={styles.dropdown2__list__item}>
-                  <a className="text-main hover:underline" href="#contacts-pc">
+                  <a
+                    className="text-main hover:underline"
+                    href="/#calculate-pc"
+                  >
                     Заказать
                   </a>
                 </li>
                 <li className={styles.dropdown2__list__item}>
-                  <a className="text-main hover:underline" href="#faq">
+                  <a className="text-main hover:underline" href="/#faq">
                     FAQ
                   </a>
                 </li>
