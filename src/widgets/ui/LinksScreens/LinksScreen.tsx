@@ -73,7 +73,7 @@ export const LinksScreen = () => {
           }
         />
         <AccordionItemText
-          question="Запрещенные предметы"
+          question="Запрещенные к отправке предметы"
           answer={
             <a className="text-main cursor-pointer" target="_blank" href={file}>
               Посмотреть запрещенные предметы
