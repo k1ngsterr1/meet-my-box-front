@@ -7,22 +7,22 @@ import { AccordionItemText } from "@shared/ui/Accordion/faq-accordion";
 
 export const DocsScreen = () => {
   return (
-    <main className="w-full flex flex-col items-center justify-center">
+    <main className="w-full flex flex-col items-center justify-center mb-12">
       <h1 className="text-4xl font-bold mb-8">Юридические документы</h1>
       <AccordionItemText
-        question="Политика приватности | Privacy Policy"
+        question="Политика конфиденциальности | Privacy Policy"
         answer={
           <a
             className="text-main cursor-pointer"
             target="_blank"
             href={privacy_file}
           >
-            Ознакомьтесь с нашей политикой приватности
+            Ознакомьтесь с нашей политикой конфиденциальности
           </a>
         }
       />
       <AccordionItemText
-        question="Публичные оферта| Public Offer"
+        question="Публичные оферта | Public Offer"
         answer={
           <a className="text-main cursor-pointer" target="_blank" href={offer}>
             Ознакомьтесь с нашей публичной офертой
@@ -30,7 +30,7 @@ export const DocsScreen = () => {
         }
       />
       <AccordionItemText
-        question="Персональные данные| Personal Data"
+        question="Персональные данные | Personal Data"
         answer={
           <a
             className="text-main cursor-pointer"
