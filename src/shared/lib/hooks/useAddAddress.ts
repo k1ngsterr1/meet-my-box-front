@@ -2,14 +2,19 @@ import { axiosInstance } from "./useInterceptor";
 
 interface IAddressData {
   type: "receiver" | "sender";
-  full_name: string;
-  mobile_number: string;
+  lastName: string;
+  firstName: string;
+  lastNameLatin: string;
+  firstNameLatin: string;
+  phoneNumber: string;
+  postalCode: string;
+  country: string;
+  city: string;
   street: string;
-  house: string;
   building: string;
   apartment: string;
-  city: string;
-  postal_code: string;
+  housing: string;
+  intercomName: string;
 }
 
 export async function useAddAddress(data: IAddressData): Promise<string> {

@@ -3,9 +3,11 @@ import Button from "@shared/ui/Button/ui/button";
 import { BorderInput } from "@shared/ui/Input/BorderInput/border-input";
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-
 export const AddAddressForm = ({ user }: any) => {
-  const [fullName, setFullName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastNameLatin, setLastNameLatin] = useState("");
+  const [firstNameLatin, setFirstNameLatin] = useState("");
   const [phone, setPhone] = useState("");
   const [street, setStreet] = useState("");
   const [house, setHouse] = useState("");
@@ -13,17 +15,24 @@ export const AddAddressForm = ({ user }: any) => {
   const [apartment, setApartment] = useState("");
   const [city, setCity] = useState("");
   const [postalCode, setPostalCode] = useState("");
-  const [isReciever, setIsReciever] = useState(true);
+  const [isReceiver, setIsReceiver] = useState(true);
+  const [country, setCountry] = useState("");
+  const [intercomName, setIntercomName] = useState("");
 
   useEffect(() => {
     if (user) {
-      setFullName(`${user.lastName ?? ""} ${user.firstName ?? ""}`.trim());
+      setLastName(user.lastName ?? "");
+      setFirstName(user.firstName ?? "");
+      setLastNameLatin(user.lastNameLatin ?? "");
+      setFirstNameLatin(user.firstNameLatin ?? "");
       setPhone(user.phoneNumber ?? "");
       setStreet(user.street ?? "");
       setHouse(user.building ?? "");
       setApartment(user.apartment ?? "");
       setCity(user.city ?? "");
       setPostalCode(user.postalCode ?? "");
+      setCountry(user.country ?? "");
+      setIntercomName(user.intercomName ?? "");
     }
   }, [user]);
 
@@ -31,19 +40,26 @@ export const AddAddressForm = ({ user }: any) => {
     event.preventDefault();
 
     await useAddAddress({
-      type: isReciever ? "receiver" : "sender",
-      full_name: fullName,
-      mobile_number: phone,
+      type: isReceiver ? "receiver" : "sender",
+      lastName: lastName,
+      firstName: firstName,
+      lastNameLatin: lastNameLatin,
+      firstNameLatin: firstNameLatin,
+      phoneNumber: phone,
       street: street,
-      house: house,
-      building: building,
+      building: house,
       apartment: apartment,
       city: city,
-      postal_code: postalCode,
+      housing: building,
+      postalCode: postalCode,
+      country: country,
+      intercomName: intercomName,
     });
 
-    // Clear form fields
-    setFullName("");
+    setLastName("");
+    setFirstName("");
+    setLastNameLatin("");
+    setFirstNameLatin("");
     setPhone("");
     setStreet("");
     setHouse("");
@@ -51,6 +67,8 @@ export const AddAddressForm = ({ user }: any) => {
     setApartment("");
     setCity("");
     setPostalCode("");
+    setCountry("");
+    setIntercomName("");
   };
 
   return (
@@ -58,53 +76,46 @@ export const AddAddressForm = ({ user }: any) => {
       <div className={styles.add_address__type}>
         <Button
           text="Получатель"
-          buttonType={isReciever ? "filled" : "outline"}
-          onClick={() => setIsReciever(true)}
+          buttonType={isReceiver ? "filled" : "outline"}
+          onClick={() => setIsReceiver(true)}
         />
         <Button
           text="Отправитель"
-          buttonType={!isReciever ? "filled" : "outline"}
-          onClick={() => setIsReciever(false)}
+          buttonType={!isReceiver ? "filled" : "outline"}
+          onClick={() => setIsReceiver(false)}
         />
       </div>
       <form className={styles.add_address__form} onSubmit={handleSubmit}>
         <BorderInput
-          placeholder="Ваше имя"
-          value={fullName ?? ""}
-          onChange={(e) => setFullName(e.target.value)}
+          placeholder="Имя"
+          value={firstName ?? ""}
+          onChange={(e) => setFirstName(e.target.value)}
           width="w-3/4"
           margin="mt-2"
         />
         <BorderInput
-          placeholder="Ваша фамилия"
-          value={fullName ?? ""}
-          onChange={(e) => setFullName(e.target.value)}
+          placeholder="Фамилия"
+          value={lastName ?? ""}
+          onChange={(e) => setLastName(e.target.value)}
           width="w-3/4"
           margin="mt-2"
         />
         <BorderInput
           placeholder="Фамилия на латинице"
-          value={fullName ?? ""}
-          onChange={(e) => setFullName(e.target.value)}
+          value={lastNameLatin ?? ""}
+          onChange={(e) => setLastNameLatin(e.target.value)}
           width="w-3/4"
           margin="mt-2"
         />
         <BorderInput
           placeholder="Имя на латинице"
-          value={fullName ?? ""}
-          onChange={(e) => setFullName(e.target.value)}
+          value={firstNameLatin ?? ""}
+          onChange={(e) => setFirstNameLatin(e.target.value)}
           width="w-3/4"
           margin="mt-2"
         />
         <BorderInput
           placeholder="Номер мобильного телефона"
-          value={phone ?? ""}
-          onChange={(e) => setPhone(e.target.value)}
-          width="w-3/4"
-          margin="mt-2"
-        />
-        <BorderInput
-          placeholder="Ваш e-mail"
           value={phone ?? ""}
           onChange={(e) => setPhone(e.target.value)}
           width="w-3/4"
@@ -139,14 +150,20 @@ export const AddAddressForm = ({ user }: any) => {
           margin="mt-2"
         />
         <BorderInput
-          placeholder="Город получателя"
+          placeholder="Город"
           value={city ?? ""}
           onChange={(e) => setCity(e.target.value)}
           width="w-3/4"
           margin="mt-2"
         />
         <BorderInput
-          placeholder="Индекс получателя"
+          placeholder="Страна"
+          value={country ?? ""}
+          onChange={(e) => setCountry(e.target.value)}
+          margin="mt-2"
+        />
+        <BorderInput
+          placeholder="Индекс"
           value={postalCode ?? ""}
           onChange={(e) => setPostalCode(e.target.value)}
           width="w-3/4"
@@ -158,12 +175,22 @@ export const AddAddressForm = ({ user }: any) => {
           type="submit"
           margin="mt-12"
         />
+        <BorderInput
+          placeholder="Имя на домофоне"
+          value={intercomName ?? ""}
+          onChange={(e) => setIntercomName(e.target.value)}
+          margin="mt-2"
+        />
       </form>
     </>
   );
 };
+
 export const AddAddressFormPC = ({ user }: any) => {
-  const [fullName, setFullName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastNameLatin, setLastNameLatin] = useState("");
+  const [firstNameLatin, setFirstNameLatin] = useState("");
   const [phone, setPhone] = useState("");
   const [street, setStreet] = useState("");
   const [house, setHouse] = useState("");
@@ -171,17 +198,24 @@ export const AddAddressFormPC = ({ user }: any) => {
   const [apartment, setApartment] = useState("");
   const [city, setCity] = useState("");
   const [postalCode, setPostalCode] = useState("");
-  const [isReciever, setIsReciever] = useState(true);
+  const [country, setCountry] = useState("");
+  const [intercomName, setIntercomName] = useState("");
+  const [isReceiver, setIsReceiver] = useState(true);
 
   useEffect(() => {
     if (user) {
-      setFullName(`${user.lastName ?? ""} ${user.firstName ?? ""}`.trim());
+      setLastName(user.lastName ?? "");
+      setFirstName(user.firstName ?? "");
+      setLastNameLatin(user.lastNameLatin ?? "");
+      setFirstNameLatin(user.firstNameLatin ?? "");
       setPhone(user.phoneNumber ?? "");
       setStreet(user.street ?? "");
       setHouse(user.building ?? "");
       setApartment(user.apartment ?? "");
       setCity(user.city ?? "");
       setPostalCode(user.postalCode ?? "");
+      setCountry(user.country ?? "");
+      setIntercomName(user.intercomName ?? "");
     }
   }, [user]);
 
@@ -189,18 +223,26 @@ export const AddAddressFormPC = ({ user }: any) => {
     event.preventDefault();
 
     await useAddAddress({
-      type: isReciever ? "receiver" : "sender",
-      full_name: fullName,
-      mobile_number: phone,
+      type: isReceiver ? "receiver" : "sender",
+      lastName: lastName,
+      firstName: firstName,
+      lastNameLatin: lastNameLatin,
+      firstNameLatin: firstNameLatin,
+      phoneNumber: phone,
       street: street,
-      house: house,
-      building: building,
+      building: house,
       apartment: apartment,
       city: city,
-      postal_code: postalCode,
+      postalCode: postalCode,
+      country: country,
+      housing: building,
+      intercomName: intercomName,
     });
 
-    setFullName("");
+    setLastName("");
+    setFirstName("");
+    setLastNameLatin("");
+    setFirstNameLatin("");
     setPhone("");
     setStreet("");
     setHouse("");
@@ -208,6 +250,8 @@ export const AddAddressFormPC = ({ user }: any) => {
     setApartment("");
     setCity("");
     setPostalCode("");
+    setCountry("");
+    setIntercomName("");
   };
 
   return (
@@ -215,45 +259,45 @@ export const AddAddressFormPC = ({ user }: any) => {
       <div className={styles.add_address_pc__type}>
         <Button
           text="Получатель"
-          buttonType={isReciever ? "filled" : "outline"}
+          buttonType={isReceiver ? "filled" : "outline"}
           onClick={() => {
-            setIsReciever(true);
+            setIsReceiver(true);
           }}
         />
         <Button
           text="Отправитель"
-          buttonType={!isReciever ? "filled" : "outline"}
+          buttonType={!isReceiver ? "filled" : "outline"}
           onClick={() => {
-            setIsReciever(false);
+            setIsReceiver(false);
           }}
         />
       </div>
       <form className={styles.add_address_pc__form} onSubmit={handleSubmit}>
         <div className="w-[100%] flex gap-4">
           <BorderInput
-            placeholder="Ваше имя"
-            value={fullName ?? ""}
-            onChange={(e) => setFullName(e.target.value)}
+            placeholder="Имя"
+            value={firstName ?? ""}
+            onChange={(e) => setFirstName(e.target.value)}
             margin="mt-2"
           />
           <BorderInput
-            placeholder="Ваша фамилия"
-            value={fullName ?? ""}
-            onChange={(e) => setFullName(e.target.value)}
+            placeholder="Фамилия"
+            value={lastName ?? ""}
+            onChange={(e) => setLastName(e.target.value)}
             margin="mt-2"
           />
         </div>
         <div className="w-full flex gap-4">
           <BorderInput
             placeholder="Фамилия на латинице"
-            value={fullName ?? ""}
-            onChange={(e) => setFullName(e.target.value)}
+            value={lastNameLatin ?? ""}
+            onChange={(e) => setLastNameLatin(e.target.value)}
             margin="mt-2"
           />
           <BorderInput
             placeholder="Имя на латинице"
-            value={fullName ?? ""}
-            onChange={(e) => setFullName(e.target.value)}
+            value={firstNameLatin ?? ""}
+            onChange={(e) => setFirstNameLatin(e.target.value)}
             margin="mt-2"
           />
         </div>
@@ -274,42 +318,50 @@ export const AddAddressFormPC = ({ user }: any) => {
         <div className="w-[100%] flex gap-4">
           <BorderInput
             placeholder="Номер мобильного телефона"
-            value={street ?? ""}
-            onChange={(e) => setStreet(e.target.value)}
+            value={phone ?? ""}
+            onChange={(e) => setPhone(e.target.value)}
             margin="mt-2"
           />
           <BorderInput
-            placeholder="Ваш e-mail"
-            value={house ?? ""}
-            onChange={(e) => setHouse(e.target.value)}
+            placeholder="Корпус"
+            value={building ?? ""}
+            onChange={(e) => setBuilding(e.target.value)}
             margin="mt-2"
           />
         </div>
         <div className="w-[100%] flex gap-4">
-          <BorderInput
-            placeholder="Корпус"
-            value={building}
-            onChange={(e) => setBuilding(e.target.value)}
-            margin="mt-2"
-          />
           <BorderInput
             placeholder="Квартира"
             value={apartment ?? ""}
             onChange={(e) => setApartment(e.target.value)}
             margin="mt-2"
           />
+          <BorderInput
+            placeholder="Имя на домофоне"
+            value={intercomName ?? ""}
+            onChange={(e) => setIntercomName(e.target.value)}
+            margin="mt-2"
+          />
         </div>
         <div className="w-[100%] flex gap-4">
           <BorderInput
-            placeholder="Город получателя"
+            placeholder="Город"
             value={city ?? ""}
             onChange={(e) => setCity(e.target.value)}
             margin="mt-2"
           />
           <BorderInput
-            placeholder="Индекс получателя"
+            placeholder="Индекс"
             value={postalCode ?? ""}
             onChange={(e) => setPostalCode(e.target.value)}
+            margin="mt-2"
+          />
+        </div>
+        <div className="w-[100%] flex gap-4">
+          <BorderInput
+            placeholder="Страна"
+            value={country ?? ""}
+            onChange={(e) => setCountry(e.target.value)}
             margin="mt-2"
           />
         </div>
