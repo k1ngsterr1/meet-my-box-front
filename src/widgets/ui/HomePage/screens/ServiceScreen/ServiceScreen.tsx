@@ -73,6 +73,14 @@ export const ServiceScreen = () => {
           <div className="w-[90%] lg:w-[86.6%]">
             <FAQList items={service.questions} />
           </div>
+          <Button
+            text="FAQ"
+            margin="mt-8"
+            buttonType="filled"
+            onClick={() => {
+              window.location.href = "/faq";
+            }}
+          />
         </>
       ) : (
         <></>

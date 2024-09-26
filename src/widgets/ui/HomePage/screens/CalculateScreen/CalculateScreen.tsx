@@ -112,10 +112,17 @@ export const CalculateScreen = () => {
         />
         <InfoScreen />
       </section>
-
       <div className="w-[90%] lg:w-[86.6%]">
         <FAQList items={calculate.questions} />
       </div>
+      <Button
+        text="FAQ"
+        margin="mt-8"
+        buttonType="filled"
+        onClick={() => {
+          window.location.href = "/faq";
+        }}
+      />
     </>
   );
 };
