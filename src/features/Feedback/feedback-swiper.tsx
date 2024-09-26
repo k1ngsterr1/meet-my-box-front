@@ -60,7 +60,7 @@ export const FeedbackSwiperPC = ({ items }: any) => {
       <Swiper
         modules={[Navigation, Scrollbar, A11y]}
         spaceBetween={10}
-        slidesPerView={3}
+        slidesPerView={4}
         loop={true}
         navigation={{
           prevEl: `.${styles.prev_pc}`,
@@ -101,7 +101,6 @@ export const FeedbackItemPC: React.FC<IFeedbackItem> = ({
         ))}
       </div>
       <p className={styles.feedback_pc__item__paragraph}>{text}</p>
-      <IconButton text="Скриншот" margin="mt-4" />
     </div>
   );
 };
@@ -126,7 +125,6 @@ export const FeedbackItem: React.FC<IFeedbackItem> = ({
       <Paragraph isCentered margin="mt-4" width="w-3/4">
         {text}
       </Paragraph>
-      <IconButton text="Скриншот" margin="mt-4" />
     </div>
   );
 };
