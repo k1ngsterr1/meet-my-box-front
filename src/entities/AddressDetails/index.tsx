@@ -10,7 +10,7 @@ export const AddressDetails: React.FC<IAddressDetails> = ({
   onClick,
 }) => {
   return (
-    <div className={styles.bg}>
+    <div className={styles.bg} onClick={onClick}>
       <div className={styles.container}>
         <div className={styles.package_card}>
           {items.map((item, index) => (

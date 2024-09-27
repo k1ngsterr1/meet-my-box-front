@@ -1,8 +1,8 @@
-import type React from "react";
-import styles from "./styles.module.scss";
-import Button from "@shared/ui/Button/ui/button";
-import { useState } from "react";
 import { AddressDetails } from "@entities/AddressDetails";
+import Button from "@shared/ui/Button/ui/button";
+import type React from "react";
+import { useState } from "react";
+import styles from "./styles.module.scss";
 export interface AddressProps {
   id: number;
   type: "receiver" | "sender";

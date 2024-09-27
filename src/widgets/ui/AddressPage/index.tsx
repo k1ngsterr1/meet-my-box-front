@@ -1,9 +1,9 @@
-import Button from "@shared/ui/Button/ui/button";
-import styles from "./styles.module.scss";
 import no_address from "@assets/no_address.png";
-import { useEffect, useState } from "react";
 import { Address, AddressPC, type AddressProps } from "@features/AddressesCard";
 import { useGetAddresses } from "@shared/lib/hooks/useGetAddress";
+import Button from "@shared/ui/Button/ui/button";
+import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 export const AddressPage = () => {
   const [address, setAddress] = useState<AddressProps[]>([]);
   useEffect(() => {
