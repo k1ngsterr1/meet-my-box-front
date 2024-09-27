@@ -2,10 +2,10 @@ import logo from "@assets/logo_mob.svg";
 import { useStore } from "@nanostores/react";
 import { sidePanelLinks } from "@shared/lib/content/SidePanel";
 import { isSideMenuOpen } from "@stores/menuState";
+import { useEffect, useState } from "react";
 import { BurgerButton } from "../Burger/ui/burger-button";
 import Button from "../Button/ui/button";
 import styles from "./styles.module.scss";
-import { useEffect, useState } from "react";
 
 export const SidePanel = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -23,6 +23,11 @@ export const SidePanel = () => {
     }
   }, []);
 
+  const handleLogOut = () => {
+    window.location.href = "/login";
+    localStorage.removeItem("userData");
+  };
+
   // Scroll to the anchor #calculate-pc if on the homepage "/"
   const scrollToAnchor = () => {
     if (
@@ -39,7 +44,7 @@ export const SidePanel = () => {
   // Use this function when the button is clicked
   const handleOrderClick = () => {
     if (window.location.pathname !== "/") {
-      window.location.href = "/#calculate-pc";
+      window.location.href = "/calculate";
     } else {
       scrollToAnchor(); // If already on "/", just scroll
     }
@@ -89,10 +94,7 @@ export const SidePanel = () => {
         />
       )}
 
-      <button
-        className="text-red-500"
-        onClick={() => localStorage.removeItem("userData")}
-      >
+      <button className="text-red-500" onClick={handleLogOut}>
         Выйти
       </button>
     </div>

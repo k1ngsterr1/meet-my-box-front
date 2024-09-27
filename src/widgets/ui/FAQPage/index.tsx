@@ -1,8 +1,6 @@
-import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
-import { AccordionItemText, FAQList } from "@shared/ui/Accordion/faq-accordion";
-import { useEffect, useState } from "react";
-import styles from "./styles.module.scss";
 import type { AccordionItem as AccordionItemType } from "@shared/lib/content/Accordion";
+import { AccordionItemText } from "@shared/ui/Accordion/faq-accordion";
+import styles from "./styles.module.scss";
 
 export const FAQPage = () => {
   const items: AccordionItemType[] = [
@@ -48,7 +46,7 @@ export const FAQPage = () => {
       ),
     },
     {
-      question: "Как упаковать коробку?",
+      question: "Как правильно упаковатьь посылку?",
       answer: (
         <>
           Посылка должна быть упакована только в картонную прочную коробку.{" "}

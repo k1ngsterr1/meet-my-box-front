@@ -164,7 +164,7 @@ export const calcFaqAccordions: AccordionItem[] = [
 ];
 export const processFaqAccordions: AccordionItem[] = [
   {
-    question: "Как упаковать коробку? ",
+    question: "Как правильно упаковатьь посылку? ",
     answer: (
       <>
         Посылка должна быть упакована только в картонную прочную коробку. <br />
