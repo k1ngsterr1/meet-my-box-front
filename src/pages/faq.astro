@@ -1,12 +1,12 @@
 ---
 import { Menu } from "@shared/ui/Menu/ui/menu";
 import Layout from "@widgets/layouts/ui/single.astro";
-import { FAQScreen } from "@widgets/ui/HomePage/screens/FaqScreen/FaqScreen";
+import { FAQPage } from "@widgets/ui/FAQPage";
 import { Loader } from "@widgets/ui/Loader/ui/loader";
 ---
 
 <Layout>
   <Loader client:load />
   <Menu client:load />
-  <FAQScreen client:load />
+  <FAQPage client:load />
 </Layout>

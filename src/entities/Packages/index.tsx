@@ -7,6 +7,7 @@ export interface PackageProps {
   status: string;
   departure: string;
   arrival: string;
+  items: any[];
 }
 
 interface PackagesProps {

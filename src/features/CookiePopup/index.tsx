@@ -21,38 +21,68 @@ export const CookiePopup = () => {
 
   const text = {
     en: {
-      message: `Our website uses cookies to ensure a comfortable browsing experience and all the necessary information for this purpose. By clicking "Accept," you confirm that you have reviewed and agree to the terms of our Cookie Policy and Privacy Policy.`,
+      message: (
+        <>
+          Our website uses cookies to ensure a comfortable browsing experience
+          and all the necessary information for this purpose. By clicking
+          "Accept," you confirm that you have reviewed and agree to the terms of
+          our
+          <a
+            href={cookie_file}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer"
+          >
+            Cookie Policy
+          </a>{" "}
+          and
+          <a
+            href={privacy_file}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer"
+          >
+            Privacy Policy
+          </a>
+          .
+        </>
+      ),
       accept: "Accept",
     },
     ru: {
-      message: `Наш сайт использует файлы cookies для обеспечения удобства просмотра и всю необходимую для этого информацию. Нажимая «принять» вы подтверждаете свое ознакомление и принимаете условия Политики использования файлов cookies и Политики конфиденциальности.`,
+      message: (
+        <>
+          Наш сайт использует файлы cookies для обеспечения удобства просмотра и
+          всю необходимую для этого информацию. Нажимая «Принять», вы
+          подтверждаете свое ознакомление и принимаете условия Политики
+          использования файлов
+          <a
+            href={cookie_file}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer underline ml-1 text-main"
+          >
+            cookies
+          </a>{" "}
+          и
+          <a
+            href={privacy_file}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer ml-1 text-main underline"
+          >
+            Политики конфиденциальности
+          </a>
+          .
+        </>
+      ),
       accept: "Принять",
     },
   };
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 shadow-lg flex justify-between items-center z-50">
-      <p className="text-sm text-white">
-        {text[language].message}{" "}
-        <a
-          href={cookie_file}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline ml-1 text-main"
-        >
-          cookie
-        </a>{" "}
-        и
-        <a
-          href={privacy_file}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline ml-1 text-main"
-        >
-          конфиденциальность
-        </a>
-        .
-      </p>
+      <p className="text-sm text-white">{text[language].message} </p>
 
       <div className="flex items-center">
         {/* Language Switcher */}

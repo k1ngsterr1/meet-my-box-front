@@ -8,10 +8,9 @@ import Button from "@shared/ui/Button/ui/button";
 import { Documents } from "@shared/ui/Documents";
 import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { useEffect, useState } from "react";
-import { InfoScreen } from "../../InfoScreen/InfoScreen";
 import styles from "./styles.module.scss";
 
-export const CalculateScreen = () => {
+export const CalculatePage = () => {
   const [calculate, setCalculate] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
   const [isForm, setIsForm] = useState(true);
@@ -74,7 +73,7 @@ export const CalculateScreen = () => {
         <Button
           text="Добавить посылку"
           buttonType="filled"
-          margin="mt-4"
+          margin="mt-4 mb-8"
           onClick={handleAddParcel}
         />
       </section>
@@ -107,22 +106,10 @@ export const CalculateScreen = () => {
         <Button
           text="Добавить посылку"
           buttonType="filled"
-          margin="mt-4"
+          margin="mt-4 mb-12"
           onClick={handleAddParcel}
         />
-        <InfoScreen />
       </section>
-      <div className="w-[90%] lg:w-[86.6%]">
-        <FAQList items={calculate.questions} />
-      </div>
-      <Button
-        text="FAQ"
-        margin="mt-8"
-        buttonType="filled"
-        onClick={() => {
-          window.location.href = "/faq";
-        }}
-      />
     </>
   );
 };

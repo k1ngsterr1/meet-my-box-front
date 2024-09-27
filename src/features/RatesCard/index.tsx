@@ -47,7 +47,7 @@ export const RatesCard: React.FC<Props> = ({ day, price, date, url }) => {
         <button
           className={styles.btn}
           onClick={() => {
-            window.location.href = "/profile";
+            window.location.href = "/packages/add";
           }}
         >
           {price}
@@ -108,7 +108,7 @@ export const RatesCardPC: React.FC<Props> = ({ day, price, date, url }) => {
           text="Заказать"
           buttonType="filled"
           onClick={() => {
-            window.location.href = "/profile";
+            window.location.href = "/packages/add";
           }}
         ></Button>
       </div>

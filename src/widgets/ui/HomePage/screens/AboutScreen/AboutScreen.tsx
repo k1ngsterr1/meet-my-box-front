@@ -36,22 +36,22 @@ export const AboutScreen = () => {
             <Fade>
               <h3 className={styles.about__heading}>{about.heading}</h3>
             </Fade>
-            <Fade className="w-full flex items-center justify-center">
+            {/* <Fade className="w-full flex items-center justify-center">
               <Paragraph isCentered width="w-[80%]" margin="mt-4">
                 {about.paragraph}
               </Paragraph>
-            </Fade>
+            </Fade> */}
             <AboutGroup items={about.about_card} />
           </section>
           <section className={styles.about_pc} id="about-pc">
             <Fade>
               <h3 className={styles.about_pc__heading}>{about.heading}</h3>
             </Fade>
-            <Fade className="w-full flex items-center justify-center">
+            {/* <Fade className="w-full flex items-center justify-center">
               <Paragraph isCentered width="w-[60%]" margin="mt-4">
                 {about.paragraph}
               </Paragraph>
-            </Fade>
+            </Fade> */}
             <AboutGroupPC items={about.about_card} />
           </section>
         </>

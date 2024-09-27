@@ -4,7 +4,7 @@ import type { ApplicationProps } from "@features/ApplicationCard";
 
 export async function useGetAddresses(): Promise<AddressProps[]> {
   try {
-    const response = await axiosInstance.get("/api/address/get-addresses");
+    const response = await axiosInstance.get("api/address/get-addresses");
 
     console.log("Addresses got successfully:", response.data);
 

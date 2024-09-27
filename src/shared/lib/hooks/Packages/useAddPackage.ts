@@ -26,7 +26,7 @@ export async function useAddPackage(data: IData): Promise<PackageProps | null> {
 
     console.log("Packages got successfully:", response.data);
 
-    return response.data.id;
+    return response.data.package;
   } catch (error: unknown | any) {
     console.error("Failed to get packages:", error);
     if (error.response) {

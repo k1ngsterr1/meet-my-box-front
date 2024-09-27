@@ -559,6 +559,9 @@ export const CalculateFormPC = () => {
     if (value > 10) value = 10; // Limit the value to a maximum of 100
     setter(value);
   };
+  const handleClick = (setter: any) => {
+    setter("");
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md mt-8">
@@ -590,6 +593,7 @@ export const CalculateFormPC = () => {
             </label>
             <CalculateInput
               value={fromPostcode}
+              onClick={() => {}}
               placeholder="Почтовый индекс"
               onChange={(e) => setFromPostcode(e.target.value)}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"

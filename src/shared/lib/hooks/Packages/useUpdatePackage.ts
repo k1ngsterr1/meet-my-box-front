@@ -7,6 +7,7 @@ interface IData {
   courier: string;
   note: string;
   addressId?: number;
+  items: any[];
 }
 
 export async function useUpdatePackage(

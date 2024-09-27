@@ -70,7 +70,7 @@ export const InfoScreen: React.FC = () => {
           </li>
           <li>
             <a
-              onClick={() => (window.location.href = "/links")}
+              onClick={() => (window.location.href = "/faq")}
               className="hover:underline"
             >
               Правила упаковки посылок

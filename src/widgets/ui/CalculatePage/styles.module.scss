@@ -1,10 +1,11 @@
 @import "@shared/styles/mixins";
 @import "@shared/styles/variables";
-.about {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+
+.calculate {
   @apply mt-14;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 90%;
   &__heading {
     @apply font-bold;
@@ -12,17 +13,17 @@
     font-size: clamp(14px, 24 / 360 * 100vw, 46px);
   }
 }
-.about_pc {
+.calculate_pc {
   display: none;
 }
+
 @include respond-to("tablet_sm") {
-  .about_pc {
+  .calculate_pc {
     max-width: 86.6%;
-    @apply mt-12;
+    @apply mt-24;
     display: flex;
     flex-direction: column;
     align-items: center;
-
     &__heading {
       width: 100%;
       text-align: center;
@@ -72,7 +73,7 @@
       }
     }
   }
-  .about {
+  .calculate {
     display: none;
   }
 }
