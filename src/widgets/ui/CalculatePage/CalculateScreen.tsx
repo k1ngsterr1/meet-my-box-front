@@ -3,7 +3,6 @@ import {
   CalculateFormPC,
 } from "@features/Form/Calculate/calculate-form";
 import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
-import { FAQList } from "@shared/ui/Accordion/faq-accordion";
 import Button from "@shared/ui/Button/ui/button";
 import { Documents } from "@shared/ui/Documents";
 import { Loader } from "@widgets/ui/Loader/ui/loader";

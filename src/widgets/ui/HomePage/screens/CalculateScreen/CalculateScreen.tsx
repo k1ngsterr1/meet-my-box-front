@@ -16,7 +16,7 @@ export const CalculateScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isForm, setIsForm] = useState(true);
   const [parcels, setParcels] = useState([1]); // State to handle multiple parcels
-
+  Documents;
   useEffect(() => {
     const fetchBlock = async () => {
       try {
@@ -115,14 +115,12 @@ export const CalculateScreen = () => {
       <div className="w-[90%] lg:w-[86.6%]">
         <FAQList items={calculate.questions} />
       </div>
-      <Button
-        text="FAQ"
-        margin="mt-8"
-        buttonType="filled"
-        onClick={() => {
-          window.location.href = "/faq";
-        }}
-      />
+      <button
+        className="text-main text-sm mt-8"
+        onClick={() => (window.location.href = "/faq")}
+      >
+        FAQ
+      </button>
     </>
   );
 };

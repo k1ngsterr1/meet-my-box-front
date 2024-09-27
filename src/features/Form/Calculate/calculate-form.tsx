@@ -1,15 +1,14 @@
+import logo from "@assets/brandmark-design 2.svg";
 import {
   addMargin,
   getDateInfo,
   getFinalPrice,
-  getPriceForWeight,
 } from "@shared/lib/content/CostTables";
 import { useGetRates } from "@shared/lib/hooks/useGetRates";
 import { validatePostcode } from "@shared/lib/hooks/usePostCodeValidate";
 import { CalculateInput } from "@shared/ui/Input/Calculate/calculate-input";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import logo from "@assets/brandmark-design 2.svg";
 
 const countriesFrom = [
   { value: "Italy", label: "Италия" },
@@ -338,7 +337,7 @@ export const CalculateForm = () => {
             </label>
             <CalculateInput
               value={weight}
-              placeholder="0"
+              placeholder="Вес"
               min={1}
               type="number"
               max={10}
@@ -354,7 +353,7 @@ export const CalculateForm = () => {
             </label>
             <CalculateInput
               value={length}
-              placeholder="0"
+              placeholder="Длина"
               min={1}
               type="number"
               max={100}
@@ -369,7 +368,7 @@ export const CalculateForm = () => {
             </label>
             <CalculateInput
               value={width}
-              placeholder="0"
+              placeholder="Ширина"
               min={1}
               type="number"
               max={100}
@@ -384,7 +383,7 @@ export const CalculateForm = () => {
             </label>
             <CalculateInput
               value={height}
-              placeholder="0"
+              placeholder="Высота"
               min={1}
               type="number"
               max={100}
@@ -637,7 +636,7 @@ export const CalculateFormPC = () => {
             </label>
             <CalculateInput
               value={weight}
-              placeholder="1"
+              placeholder="Вес"
               min={1}
               type="number"
               max={10}
@@ -653,7 +652,7 @@ export const CalculateFormPC = () => {
             </label>
             <CalculateInput
               value={length}
-              placeholder="1"
+              placeholder="Длина"
               min={1}
               type="number"
               max={100}
@@ -668,7 +667,7 @@ export const CalculateFormPC = () => {
             </label>
             <CalculateInput
               value={width}
-              placeholder="1"
+              placeholder="Ширина"
               min={1}
               type="number"
               max={100}
@@ -683,7 +682,7 @@ export const CalculateFormPC = () => {
             </label>
             <CalculateInput
               value={height}
-              placeholder="1"
+              placeholder="Высота"
               min={1}
               type="number"
               max={100}

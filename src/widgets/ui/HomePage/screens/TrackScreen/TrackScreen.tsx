@@ -1,9 +1,9 @@
+import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import { TrackBlock, TrackBlockPC } from "@shared/ui/Track/ui/track-block";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
+import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
-import { useEffect, useState } from "react";
-import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
-import { Loader } from "@widgets/ui/Loader/ui/loader";
 export const TrackScreen = () => {
   const [track, setTrack] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);

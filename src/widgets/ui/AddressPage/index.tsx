@@ -1,11 +1,13 @@
 import no_address from "@assets/no_address.png";
-import { Address, AddressPC, type AddressProps } from "@features/AddressesCard";
+import { AddressPC, type AddressProps } from "@features/AddressesCard";
 import { useGetAddresses } from "@shared/lib/hooks/useGetAddress";
 import Button from "@shared/ui/Button/ui/button";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
+
 export const AddressPage = () => {
   const [address, setAddress] = useState<AddressProps[]>([]);
+
   useEffect(() => {
     const fetchAddress = async () => {
       const fetchedAddress = await useGetAddresses();
@@ -14,11 +16,12 @@ export const AddressPage = () => {
 
     fetchAddress();
   }, []);
+
   return (
     <>
       <div className={styles.address}>
         {address.length > 0 ? (
-          <Address items={address} />
+          <AddressPC items={address} />
         ) : (
           <>
             <img src={no_address.src} alt="" className={styles.address__img} />

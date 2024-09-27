@@ -1,26 +1,56 @@
+import { Box, Button, Typography } from "@mui/material";
 import React from "react";
-import Button from "../Button/ui/button";
-import styles from "./styles.module.scss";
+
 interface Props {
   onClick: () => void;
 }
 
 export const Documents: React.FC<Props> = ({ onClick }) => {
   return (
-    <div className={styles.documents_pc}>
-      <p className={styles.documents_pc__p}>Максимальный вес: 10 кг</p>
-      <p className={styles.documents_pc__p}>
+    <Box
+      marginTop={2}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        gap: 1.5,
+        padding: 3,
+        borderRadius: 2,
+        boxShadow: 3,
+        backgroundColor: "#f9f9f9",
+        border: "1px solid #e0e0e0",
+      }}
+    >
+      {/* Weight Information */}
+      <Typography variant="body1" sx={{ fontWeight: 500, color: "#333" }}>
+        Максимальный вес: 10 кг
+      </Typography>
+
+      {/* Dimensions Information */}
+      <Typography variant="body1" sx={{ color: "#333" }}>
         Длина + Высота + Ширина: <strong>&lt; 150 см</strong>
-      </p>
-      <p className={styles.documents_pc__p}>
+      </Typography>
+
+      {/* Longest Side Information */}
+      <Typography variant="body1" sx={{ color: "#333" }}>
         Самая длинная сторона не должна превышать: 100 см
-      </p>
+      </Typography>
+
+      {/* Action Button */}
       <Button
-        text="Узнать цену"
-        buttonType="filled"
-        margin="mt-4"
+        variant="contained"
         onClick={onClick}
-      />
-    </div>
+        sx={{
+          backgroundColor: "#220CF3",
+          marginTop: 2,
+          padding: "8px 16px",
+          borderRadius: 2,
+          fontWeight: "bold",
+          textTransform: "none", // Keep the text casing consistent
+        }}
+      >
+        Узнать цену
+      </Button>
+    </Box>
   );
 };

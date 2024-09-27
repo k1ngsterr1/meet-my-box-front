@@ -1,12 +1,11 @@
-import { processFaqAccordions } from "@shared/lib/content/Accordion";
+import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import { FAQList } from "@shared/ui/Accordion/faq-accordion";
 import Button from "@shared/ui/Button/ui/button";
 import { ProcessList, ProcessListPC } from "@shared/ui/Process/process-list";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
-import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
-import { Loader } from "@widgets/ui/Loader/ui/loader";
 
 export const ProcessScreen = () => {
   const [process, setProcess] = useState<any>();
@@ -89,14 +88,12 @@ export const ProcessScreen = () => {
           <div className="w-[90%] lg:w-[86.6%]">
             <FAQList items={process.questions} />
           </div>
-          <Button
-            text="FAQ"
-            margin="mt-8"
-            buttonType="filled"
-            onClick={() => {
-              window.location.href = "/faq";
-            }}
-          />
+          <button
+            className="text-main text-sm mt-8"
+            onClick={() => (window.location.href = "/faq")}
+          >
+            FAQ
+          </button>
         </>
       ) : (
         <></>
