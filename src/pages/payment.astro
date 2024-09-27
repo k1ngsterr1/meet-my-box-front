@@ -1,0 +1,11 @@
+---
+import { Menu } from "@shared/ui/Menu/ui/menu";
+import Layout from "@widgets/layouts/ui/single.astro";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
+import { PaymentPage } from "@widgets/ui/PaymentPage";
+---
+
+<Layout>
+  <Loader client:load />
+  <PaymentPage client:load />
+</Layout>
