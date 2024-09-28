@@ -25,12 +25,17 @@ export const ApplicationPage = () => {
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
   const [packageCurrent, setPackageCurrent] = useState<any>(null);
+  const [price, setPrice] = useState<string>("");
 
   useEffect(() => {
     const fetchAddressesAsync = async () => {
       const storedPackageId = JSON.parse(
         localStorage.getItem("packageId") || "{}"
       );
+      const priceData = localStorage.getItem("packagePrice");
+      if (priceData) {
+        setPrice(priceData);
+      }
       if (storedPackageId) {
         setId(storedPackageId.id);
         setPackageCurrent(storedPackageId);
@@ -79,37 +84,44 @@ export const ApplicationPage = () => {
       // Обновление и отправка данных пакета
       const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
 
-      const updatedItems = packageData.items.map((item: any) => {
-        let updatedCost = item.cost;
-        if (insurance) updatedCost += item.cost * 0.05;
-        if (courier) updatedCost += item.cost * 0.02;
-        return { ...item, cost: updatedCost };
+      // Retrieve and update the cost of the package from localStorage
+      let packagePrice = parseFloat(
+        localStorage.getItem("packagePrice")?.replace(/[^0-9.]/g, "") || "0"
+      );
+
+      // If insurance is needed, add 5%
+      if (insurance) {
+        packagePrice += packagePrice * 0.05;
+      }
+
+      // If courier is needed, add 2%
+      if (courier) {
+        packagePrice += packagePrice * 0.02;
+      }
+
+      // Format the updated price with the euro sign
+      const formattedPrice = `€${packagePrice.toFixed(2)}`;
+
+      // Update the localStorage with the new price
+      localStorage.setItem("packagePrice", formattedPrice);
+
+      // Proceed with the package update
+      const package_now = await useUpdatePackage({
+        id: parseInt(id !== undefined ? id : "", 10),
+        insurance: !insurance ? "Не нужна" : "Нужна",
+        courier: !courier ? "Не нужен" : "Нужен",
+        note: note,
+        addressId: chosenAddress,
       });
 
-      try {
-        const updatedPackage = await useUpdatePackage({
-          id: parseInt(id !== undefined ? id : "", 10),
-          insurance: insurance ? "Нужна" : "Не нужна",
-          courier: courier ? "Нужен" : "Не нужен",
-          note: note,
-          addressId: chosenAddress,
-          items: updatedItems,
-        });
+      console.log(package_now);
 
-        localStorage.setItem("packageId", JSON.stringify(updatedPackage));
-        window.location.href = "/payment"; // Редирект на страницу оплаты
-      } catch (error) {
-        console.error("Ошибка обновления пакета:", error);
-        alert("Произошла ошибка при обновлении данных. Попробуйте снова.");
-      }
+      // Update package data in localStorage
+      localStorage.setItem("packageId", JSON.stringify(package_now));
+
+      // Redirect to the payment page
+      window.location.href = "/payment";
     }
-  };
-
-  const handleAddressChange = (addressId: number) =>
-    setChosenAddress(addressId);
-
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setSelectedTab(newValue);
   };
 
   const handleAddressType = (type: string) => {
@@ -229,6 +241,7 @@ export const ApplicationPage = () => {
         <CostCard
           onCostClick={handleCostClick}
           packageCurrent={packageCurrent}
+          price={price}
         />
       )}
       {selectedTab === 5 && (

@@ -24,6 +24,15 @@ const translateTime = {
 };
 export const RatesCard: React.FC<Props> = ({ day, price, date, url }) => {
   const [showInfo, setShowInfo] = useState(false);
+
+  const handleButtonClick = () => {
+    // Store the price in localStorage
+    localStorage.setItem("packagePrice", price);
+    setTimeout(() => {
+      window.location.assign("/packages/add");
+    }, 500);
+  };
+
   return (
     <div className={styles.rates__list__card}>
       <div className={styles.rates__list__card__left}>
@@ -44,20 +53,13 @@ export const RatesCard: React.FC<Props> = ({ day, price, date, url }) => {
           alt="logo_delivery"
           className={styles.rates__list__card__img}
         />
-        <button
-          className={styles.btn}
-          onClick={() => {
-            window.location.href = "/packages/add";
-          }}
-        >
+        <button className={styles.btn} onClick={handleButtonClick}>
           {price}
         </button>
       </div>
       <div className="absolute bottom-[-15px]">
         <span
-          onClick={() => {
-            setShowInfo(!showInfo);
-          }}
+          onClick={() => setShowInfo(!showInfo)}
           className="bg-main text-white font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-secondary transition transform hover:scale-105"
         >
           Details
@@ -69,6 +71,13 @@ export const RatesCard: React.FC<Props> = ({ day, price, date, url }) => {
 };
 export const RatesCardPC: React.FC<Props> = ({ day, price, date, url }) => {
   const [showInfo, setShowInfo] = useState(false);
+  const handleButtonClick = () => {
+    // Store the price in localStorage
+    localStorage.setItem("packagePrice", price);
+    setTimeout(() => {
+      window.location.assign("/packages/add");
+    }, 500);
+  };
   return (
     <div className={styles.rates_pc__list__card}>
       <div className={styles.rates_pc__list__card__time}>
@@ -107,9 +116,7 @@ export const RatesCardPC: React.FC<Props> = ({ day, price, date, url }) => {
         <Button
           text="Заказать"
           buttonType="filled"
-          onClick={() => {
-            window.location.href = "/packages/add";
-          }}
+          onClick={handleButtonClick}
         ></Button>
       </div>
     </div>
