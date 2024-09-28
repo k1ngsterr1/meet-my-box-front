@@ -4,12 +4,12 @@ import {
   Button,
   Card,
   CardContent,
-  Divider,
   IconButton,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 
+// Address Properties Interface
 export interface AddressProps {
   id: number;
   type: "receiver" | "sender";
@@ -23,12 +23,23 @@ export interface AddressProps {
   postal_code: string;
 }
 
+// Component Props Interface
 interface Items {
   items: AddressProps[];
 }
 
+// Main Component to Display Address List
 export const AddressPC: React.FC<Items> = ({ items }) => {
   const [show, setShow] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState<AddressProps | null>(
+    null
+  );
+
+  // Function to handle "Подробнее" button click
+  const handleShowDetails = (item: AddressProps) => {
+    setSelectedAddress(item);
+    setShow(true);
+  };
 
   return (
     <Box
@@ -40,6 +51,7 @@ export const AddressPC: React.FC<Items> = ({ items }) => {
         width: "100%",
       }}
     >
+      {/* Render Address List */}
       {items.map((item, index) => (
         <Card
           key={index}
@@ -89,28 +101,40 @@ export const AddressPC: React.FC<Items> = ({ items }) => {
               width: "40%",
             }}
           >
-            {show && <PopupCard onClose={() => setShow(false)} items={items} />}
+            {/* Open Popup with Address Details */}
             <Button
               variant="contained"
               sx={{ width: "100%", mt: 2, backgroundColor: "#220CF3" }}
-              onClick={() => setShow(true)}
+              onClick={() => handleShowDetails(item)}
             >
               Подробнее
             </Button>
           </Box>
         </Card>
       ))}
+
+      {/* Popup to Display Single Address Details */}
+      {show && selectedAddress && (
+        <PopupCard
+          item={selectedAddress}
+          onClose={() => {
+            setShow(false);
+            setSelectedAddress(null);
+          }}
+        />
+      )}
     </Box>
   );
 };
 
+// Popup Card Props Interface
 interface PopupCardProps {
-  items: AddressProps[];
+  item: AddressProps;
   onClose: () => void;
 }
 
-// Popup Card Component
-const PopupCard: React.FC<PopupCardProps> = ({ items, onClose }) => {
+// Popup Card Component to Show Single Address
+const PopupCard: React.FC<PopupCardProps> = ({ item, onClose }) => {
   return (
     <Box
       sx={{
@@ -151,36 +175,33 @@ const PopupCard: React.FC<PopupCardProps> = ({ items, onClose }) => {
           <Close />
         </IconButton>
 
-        {/* Popup Content */}
+        {/* Popup Content for Single Address */}
         <CardContent>
           <Typography variant="h5" sx={{ mb: 2, fontWeight: "bold" }}>
             Детали Адреса
           </Typography>
-          {items.map((item, index) => (
-            <Box key={index} sx={{ mb: 2 }}>
-              <Typography variant="body1">
-                <strong>Имя: </strong> {item.firstName || "Неизвестно"}
-              </Typography>
-              <Typography variant="body1">
-                <strong>Тип: </strong>
-                {item.type === "receiver" ? "Получатель" : "Отправитель"}
-              </Typography>
-              <Typography variant="body1">
-                <strong>Номер телефона: </strong> {item.phoneNumber}
-              </Typography>
-              <Typography variant="body1">
-                <strong>Адрес: </strong>{" "}
-                {`${item.street}, ${item.housing}, ${item.building}, ${item.apartment}`}
-              </Typography>
-              <Typography variant="body1">
-                <strong>Город: </strong> {item.city}
-              </Typography>
-              <Typography variant="body1">
-                <strong>Почтовый индекс: </strong> {item.postal_code}
-              </Typography>
-              {index < items.length - 1 && <Divider sx={{ mt: 2 }} />}
-            </Box>
-          ))}
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="body1">
+              <strong>Имя: </strong> {item.firstName || "Неизвестно"}
+            </Typography>
+            <Typography variant="body1">
+              <strong>Тип: </strong>
+              {item.type === "receiver" ? "Получатель" : "Отправитель"}
+            </Typography>
+            <Typography variant="body1">
+              <strong>Номер телефона: </strong> {item.phoneNumber}
+            </Typography>
+            <Typography variant="body1">
+              <strong>Адрес: </strong>{" "}
+              {`${item.street}, ${item.housing}, ${item.building}, ${item.apartment}`}
+            </Typography>
+            <Typography variant="body1">
+              <strong>Город: </strong> {item.city}
+            </Typography>
+            <Typography variant="body1">
+              <strong>Почтовый индекс: </strong> {item.postal_code}
+            </Typography>
+          </Box>
         </CardContent>
       </Card>
     </Box>

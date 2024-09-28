@@ -1,6 +1,6 @@
-import { useState } from "react";
 import cookie_file from "@assets/Cookies Policy ENG, RUS, ITA.pdf";
 import privacy_file from "@assets/Privacy Policy ENG, RUS, ITA.pdf";
+import { useState } from "react";
 
 export const CookiePopup = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -26,23 +26,23 @@ export const CookiePopup = () => {
           Our website uses cookies to ensure a comfortable browsing experience
           and all the necessary information for this purpose. By clicking
           "Accept," you confirm that you have reviewed and agree to the terms of
-          our
+          our{""}
           <a
             href={cookie_file}
             target="_blank"
             rel="noopener noreferrer"
-            className="cursor-pointer"
+            className="cursor-pointer text-main text-underline"
           >
-            Cookie Policy
+            {""} Cookie Policy
           </a>{" "}
           and
           <a
             href={privacy_file}
             target="_blank"
             rel="noopener noreferrer"
-            className="cursor-pointer"
+            className="cursor-pointer text-main text-underline"
           >
-            Privacy Policy
+            {""} Privacy Policy
           </a>
           .
         </>
