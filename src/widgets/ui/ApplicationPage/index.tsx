@@ -218,14 +218,19 @@ export const ApplicationPage = () => {
       {/* {showDocumentCard && (
         <DocumentUpload onDocumentClick={handleDocumentClick} />
       )} */}
-      {showCostCard && (
+      {/* {showCostCard && (
+        <CostCard
+          onCostClick={handleCostClick}
+          packageCurrent={packageCurrent}
+        />
+      )} */}
+      {/* {showAgreeCard && ( */}
+      {selectedTab === 4 && (
         <CostCard
           onCostClick={handleCostClick}
           packageCurrent={packageCurrent}
         />
       )}
-      {showAgreeCard && (
-      {selectedTab === 4 && <CostCard onCostClick={handleCostClick} />}
       {selectedTab === 5 && (
         <AgreeCard
           onAgreeClick={handleAgreeClick}
