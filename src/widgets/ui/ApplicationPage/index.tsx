@@ -5,10 +5,13 @@ import { CourierCard } from "@features/Cards/CourierCard";
 import { InsuranceCard } from "@features/Cards/InsuranceCard";
 // import DocumentUpload from "@features/Documents";
 import { NoteCard } from "@features/NoteCard";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useUpdatePackage } from "@shared/lib/hooks/Packages/useUpdatePackage";
 import { useGetAddresses } from "@shared/lib/hooks/useGetAddress";
 import Button from "@shared/ui/Button/ui/button";
 import { useEffect, useState } from "react";
+import { Tooltip } from "react-tooltip";
 
 export const ApplicationPage = () => {
   const [addresses, setAddresses] = useState<AddressProps[]>();
@@ -154,11 +157,19 @@ export const ApplicationPage = () => {
     setAgree2(!agree2);
   };
   return (
-    <div className="w-full flex items-center justify-center">
+    <div className="w-full h-[100vh] flex items-center justify-center">
       {showAddresses && (
         <div className="flex flex-col gap-4 items-center justify-center w-[90%] max-w-[800px] min-h-[300px]">
-          <span className="w-full text-xl text-center">
+          <span className="w-full text-xl flex text-center  justify-center gap-4">
             Выберите итоговый адрес
+            <span
+              data-tooltip-id="my-tooltip"
+              data-tooltip-place="bottom"
+              data-tooltip-content="Выберите адрес получателя и отправителя, которые вы заполняли ранее"
+            >
+              <FontAwesomeIcon icon={faInfoCircle} className="text-main" />
+            </span>
+            <Tooltip id="my-tooltip" />
           </span>
           <div className="w-full flex items-center justify-center gap-2">
             <Button

@@ -182,10 +182,7 @@ export const AddAddressForm: React.FC<{ user?: any }> = ({ user }) => {
         onChange={(e) => setIntercomName(e.target.value)}
         fullWidth
       />
-
-      <Button variant="contained" color="primary" type="submit" fullWidth>
-        Сохранить
-      </Button>
+      <Button text="Сохранить" type="submit" buttonType="filled" />
     </Box>
   );
 };

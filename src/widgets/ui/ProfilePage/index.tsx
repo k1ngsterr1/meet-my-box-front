@@ -1,6 +1,7 @@
 import ConsentCheckbox from "@features/AgreeCheck";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useGetProfile } from "@shared/lib/hooks/useGetProfile";
 import { useUpdateProfile } from "@shared/lib/hooks/useUpdateProfile";
 import Button from "@shared/ui/Button/ui/button";
 import React, { useState } from "react";
@@ -8,7 +9,7 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import styles from "./styles.module.scss";
 
-// Sample list of countries in Russian
+// Список стран на русском
 const countries = [
   { value: "KZ", label: "Казахстан" },
   { value: "RU", label: "Россия" },
@@ -22,49 +23,55 @@ const countries = [
   { value: "GE", label: "Грузия" },
 ];
 
-// Regular expressions for postal code validation by country
+// Регулярные выражения для индексов по странам
 const postalCodePatterns: Record<string, RegExp> = {
-  KZ: /^\d{6}$/, // Kazakhstan
-  RU: /^\d{6}$/, // Russia
-  BY: /^\d{6}$/, // Belarus
-  UA: /^\d{5}$/, // Ukraine
-  UZ: /^\d{6}$/, // Uzbekistan
-  KG: /^\d{6}$/, // Kyrgyzstan
-  TJ: /^\d{6}$/, // Tajikistan
-  TM: /^\d{6}$/, // Turkmenistan
-  AZ: /^\d{4}$/, // Azerbaijan
-  GE: /^\d{4}$/, // Georgia
+  KZ: /^\d{6}$/,
+  RU: /^\d{6}$/,
+  BY: /^\d{6}$/,
+  UA: /^\d{5}$/,
+  UZ: /^\d{6}$/,
+  KG: /^\d{6}$/,
+  TJ: /^\d{6}$/,
+  TM: /^\d{6}$/,
+  AZ: /^\d{4}$/,
+  GE: /^\d{4}$/,
 };
 
 export const ProfilePage: React.FC = () => {
+  const { result } = useGetProfile(); // Функция получения данных профиля
+
+  console.log("result:", result);
+
   const [profileData, setProfileData] = useState({
-    lastName: "",
-    firstName: "",
-    lastNameLatin: "",
-    firstNameLatin: "",
-    phoneNumber: "",
-    email: "",
-    postalCode: "",
-    country: "",
-    city: "",
-    street: "",
-    building: "",
-    apartment: "",
-    intercomName: "",
-    whatsapp: "",
+    lastName: result?.lastName ?? "",
+    firstName: result?.firstName ?? "",
+    lastNameLatin: result?.lastNameLatin ?? "",
+    firstNameLatin: result?.firstNameLatin ?? "",
+    phoneNumber: result?.phoneNumber ?? "",
+    email: result?.email ?? "",
+    postalCode: result?.postalCode ?? "",
+    country: result?.country ?? "",
+    city: result?.city ?? "",
+    street: result?.street ?? "",
+    building: result?.building ?? "",
+    apartment: result?.apartment ?? "",
+    intercomName: result?.intercomName ?? "",
+    whatsapp: result?.whatsapp ?? "",
   });
+
+  // Установить начальные значения из profileDataBack, если они есть
+
   const [checked, setChecked] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleCheckboxChange = () => {
     setChecked(!checked);
   };
 
-  const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
   const validatePostalCode = (country: string, postalCode: string): boolean => {
     const pattern = postalCodePatterns[country];
-    return pattern ? pattern.test(postalCode) : true; // Return true if no pattern exists
+    return pattern ? pattern.test(postalCode) : true;
   };
 
   const handleChange = (
@@ -77,12 +84,13 @@ export const ProfilePage: React.FC = () => {
     e.preventDefault();
     setError(null);
     setSuccessMessage(null);
+
     if (!checked) {
       setError("Согласие об обработке персональных данных не подтверждено.");
       return;
     }
 
-    // Validate postal code based on selected country
+    // Валидация почтового индекса
     if (!validatePostalCode(profileData.country, profileData.postalCode)) {
       setError("Индекс не соответствует формату выбранной страны.");
       return;
@@ -97,7 +105,7 @@ export const ProfilePage: React.FC = () => {
         setError(result);
       }
     } catch (error) {
-      setError("An error occurred while updating the profile.");
+      setError("Ошибка при обновлении профиля.");
     }
   };
 
@@ -122,119 +130,68 @@ export const ProfilePage: React.FC = () => {
         className="grid grid-cols-1 md:grid-cols-2 gap-4"
         onSubmit={handleSubmit}
       >
+        {/* Отображение полей профиля */}
         {[
-          {
-            name: "lastName",
-            label: "Фамилия",
-            placeholder: "Ваша фамилия",
-            info: "Введите вашу фамилию, как в документе. Пример: Иванов.",
-          },
-          {
-            name: "firstName",
-            label: "Имя",
-            placeholder: "Ваше имя",
-            info: "Введите ваше имя, как в паспорте. Пример: Алексей.",
-          },
+          { name: "lastName", label: "Фамилия", placeholder: "Ваша фамилия" },
+          { name: "firstName", label: "Имя", placeholder: "Ваше имя" },
           {
             name: "lastNameLatin",
             label: "Фамилия на латинице",
             placeholder: "Фамилия на латинице",
-            info: "Укажите фамилию латинскими буквами. Пример: Ivanov.",
           },
           {
             name: "firstNameLatin",
             label: "Имя на латинице",
             placeholder: "Имя на латинице",
-            info: "Укажите имя латинскими буквами. Пример: Alexey.",
           },
           {
             name: "phoneNumber",
-            label: "Номер мобильного телефона с кодом страны",
-            placeholder: "87759932587",
-            info: "Введите номер с кодом страны. Пример: +7 775 993 2587.",
+            label: "Номер телефона",
+            placeholder: "+7 777 777 7777",
           },
           {
             name: "email",
             label: "Ваш e-mail",
             placeholder: "example@gmail.com",
             type: "email",
-            info: "Введите ваш действующий e-mail. Пример: example@gmail.com.",
           },
-          {
-            name: "postalCode",
-            label: "Индекс",
-            placeholder: "000000",
-            info: "Введите ваш почтовый индекс. Пример: 050000.",
-          },
-          {
-            name: "city",
-            label: "Город/населенный пункт",
-            placeholder: "Ваш Город",
-            info: "Введите название города. Пример: Алматы.",
-          },
-          {
-            name: "street",
-            label: "Улица",
-            placeholder: "Ваша Улица",
-            info: "Введите название улицы. Пример: Абая.",
-          },
-          {
-            name: "building",
-            label: "Дом",
-            placeholder: "Номер вашего дома",
-            info: "Укажите номер вашего дома. Пример: 45.",
-          },
-          {
-            name: "apartment",
-            label: "Квартира",
-            placeholder: "Номер квартиры",
-            info: "Укажите номер квартиры (если применимо). Пример: 12.",
-          },
+          { name: "postalCode", label: "Индекс", placeholder: "050000" },
+          { name: "city", label: "Город", placeholder: "Алматы" },
+          { name: "street", label: "Улица", placeholder: "Абая" },
+          { name: "building", label: "Дом", placeholder: "45" },
+          { name: "apartment", label: "Квартира", placeholder: "12" },
           {
             name: "intercomName",
             label: "Имя на домофоне",
-            placeholder: "Код домофона",
-            info: "Введите код или имя на домофоне. Пример: Иванов.",
+            placeholder: "Иванов",
           },
           {
             name: "whatsapp",
             label: "WhatsApp",
-            placeholder: "Ваш WhatsApp",
-            info: "Укажите номер для WhatsApp. Пример: +7 775 993 2587.",
+            placeholder: "+7 777 777 7777",
           },
-        ].map(({ name, label, placeholder, info, type = "text" }) => (
+        ].map(({ name, label, placeholder, type = "text" }) => (
           <div className="flex flex-col" key={name}>
-            <div className="flex items-center justify-between">
-              <label className="mb-1 text-gray-700 text-sm">{label}</label>
-              <span
-                className="text-main"
-                data-tooltip-id={`${name}`}
-                data-tooltip-place="bottom"
-                data-tooltip-content={info}
-              >
-                <FontAwesomeIcon icon={faCircleInfo} size="sm" />
-              </span>
-              <Tooltip id={`${name}`} />
-            </div>
+            <label className="mb-1 text-gray-700 text-sm">{label}</label>
             <input
               type={type}
               name={name}
               className="p-2 border border-gray-300 rounded"
               placeholder={placeholder}
-              value={profileData[name as keyof typeof profileData]}
+              value={profileData[name as keyof typeof profileData] || ""}
               onChange={handleChange}
             />
           </div>
         ))}
-        {/* Dropdown for Country Selection */}
+
+        {/* Dropdown для выбора страны */}
         <div className="flex flex-col">
           <label className="mb-1 text-gray-700 text-sm">Страна</label>
           <select
             name="country"
             className="p-2 border border-gray-300 rounded bg-white"
-            value={profileData.country}
+            value={profileData.country || ""}
             onChange={handleChange}
-            required
           >
             <option value="" disabled>
               Выберите страну
@@ -246,12 +203,16 @@ export const ProfilePage: React.FC = () => {
             ))}
           </select>
         </div>
+
+        {/* Поле для согласия с обработкой данных */}
         <div className="w-full flex items-start mt-2">
           <ConsentCheckbox
             checked={checked}
             handleCheck={handleCheckboxChange}
           />
         </div>
+
+        {/* Сообщения об ошибках или успешном обновлении */}
         {error && (
           <p className="text-red-500 col-span-1 md:col-span-2">{error}</p>
         )}
@@ -261,6 +222,7 @@ export const ProfilePage: React.FC = () => {
           </p>
         )}
 
+        {/* Кнопка Сохранить */}
         <Button
           type="submit"
           buttonType="filled"

@@ -1,39 +1,91 @@
-import type React from "react";
-import styles from "./styles.module.scss";
-export const InsuranceCard = ({ onInsuranceClick }: any) => {
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  Checkbox,
+  FormControlLabel,
+  Typography,
+} from "@mui/material";
+import React from "react";
+
+interface InsuranceCardProps {
+  onInsuranceClick: (value: boolean) => void;
+}
+
+export const InsuranceCard: React.FC<InsuranceCardProps> = ({
+  onInsuranceClick,
+}) => {
   const handleClick = (value: boolean) => {
     onInsuranceClick(value);
   };
+
   return (
-    <div className={styles.card}>
-      <h3 className={styles.insurance__heading}>Страховка</h3>
-      <p className={styles.insurance__paragraph}>
-        *5% от стоимости содержимого.Подробнее о правилах страхования читать
-      </p>
-      <div className={styles.answer}>
-        <div className={styles.box}>
-          <label className={styles.box__container}>
-            <input
-              type="checkbox"
-              className={styles.input}
-              onClick={() => handleClick(true)}
-            />
-            <span className={styles.checkmark}></span>
-            Да
-          </label>
-        </div>
-        <div className={styles.box}>
-          <label className={styles.box__container}>
-            <input
-              type="checkbox"
-              className={styles.input}
-              onClick={() => handleClick(false)}
-            />
-            <span className={styles.checkmark}></span>
-            Нет
-          </label>
-        </div>
-      </div>
-    </div>
+    <Card
+      sx={{
+        boxShadow: 4,
+        borderRadius: 3,
+        backgroundColor: "#f7f7f7",
+        width: "70%",
+        padding: 2,
+        mb: 2,
+        textAlign: "center",
+      }}
+    >
+      <CardContent>
+        <Typography
+          variant="h5"
+          sx={{
+            fontWeight: "bold",
+            color: "#3F51B5",
+            mb: 1,
+          }}
+        >
+          Страховка
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            color: "#6A6A6A",
+            mb: 2,
+            fontSize: "16px",
+          }}
+        >
+          *5% от стоимости содержимого. Подробнее о правилах страхования читать.
+        </Typography>
+      </CardContent>
+      <CardActions
+        sx={{
+          justifyContent: "center",
+          gap: 4,
+          mt: 2,
+        }}
+      >
+        <Box>
+          <FormControlLabel
+            control={
+              <Checkbox color="primary" onClick={() => handleClick(true)} />
+            }
+            label={
+              <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>
+                Да
+              </Typography>
+            }
+          />
+        </Box>
+        <Box>
+          <FormControlLabel
+            control={
+              <Checkbox color="error" onClick={() => handleClick(false)} />
+            }
+            label={
+              <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>
+                Нет
+              </Typography>
+            }
+          />
+        </Box>
+      </CardActions>
+    </Card>
   );
 };

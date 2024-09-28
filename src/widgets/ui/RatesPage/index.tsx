@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
-import styles from "./styles.module.scss";
 import { RatesList, RatesListPC } from "@entities/RatesList";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
+import { Tooltip } from "react-tooltip";
+import styles from "./styles.module.scss";
+
 export const RatesPage = () => {
   const [showInfo, setShowInfo] = useState();
   const [rates, setRates] = useState<any>(null);
+
   useEffect(() => {
     const fetchedRates = () => {
       const all_rates = localStorage.getItem("rates");
@@ -14,6 +19,7 @@ export const RatesPage = () => {
 
     fetchedRates(); // Call the function to fetch rates
   }, []);
+
   return (
     <>
       <div className={styles.rates}>
@@ -31,7 +37,18 @@ export const RatesPage = () => {
         {}
       </div>
       <div className={styles.rates_pc}>
-        <h2 className={styles.rates_pc__heading}>Информация о доставках</h2>
+        <span className="flex items-center gap-4">
+          <h2 className={styles.rates_pc__heading}>Информация о доставках</h2>
+          <span
+            data-tooltip-id="my-tooltip"
+            data-tooltip-place="bottom"
+            data-tooltip-content="Выберите наиболее подходящую для вас доставку"
+          >
+            <FontAwesomeIcon icon={faInfoCircle} className="text-main" />
+          </span>{" "}
+        </span>
+        <Tooltip id="my-tooltip" />
+
         {rates ? (
           <RatesListPC
             days={rates.days}
