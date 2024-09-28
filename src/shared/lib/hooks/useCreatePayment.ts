@@ -32,7 +32,7 @@ export async function useCreatePayment(): Promise<any> {
     //  amount: response.data.result.amount / 100,
     return {
       client_secret: response.data.result.client_secret,
-      amount: response.data.result.amount / 100,
+      amount: 10,
     }; // Return the response from the backend
   } catch (error: unknown) {
     console.error("Failed to create payment:", error);

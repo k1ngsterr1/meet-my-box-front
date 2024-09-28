@@ -1,3 +1,4 @@
+import file from "@assets/Privacy Policy ENG, RUS, ITA.pdf";
 import {
   Box,
   Button,
@@ -55,7 +56,8 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
               <Typography variant="body1">
                 Даю согласие на обработку{" "}
                 <Link
-                  href="#"
+                  href={file}
+                  target="_blank"
                   underline="hover"
                   onClick={(e) => e.stopPropagation()}
                   sx={{ color: "#220CF3", cursor: "pointer" }}
