@@ -2,12 +2,14 @@ import {
   CalculateForm,
   CalculateFormPC,
 } from "@features/Form/Calculate/calculate-form";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
-import { FAQList } from "@shared/ui/Accordion/faq-accordion";
 import Button from "@shared/ui/Button/ui/button";
 import { Documents } from "@shared/ui/Documents";
 import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { useEffect, useState } from "react";
+import { Tooltip } from "react-tooltip";
 import styles from "./styles.module.scss";
 
 export const CalculatePage = () => {
@@ -79,7 +81,17 @@ export const CalculatePage = () => {
       </section>
 
       <section className={styles.calculate_pc} id="calculate-pc">
-        <h2 className={styles.calculate_pc__heading}>{calculate.heading}</h2>
+        <div className="flex items-center gap-3">
+          <h2 className={styles.calculate_pc__heading}>{calculate.heading}</h2>
+          <span
+            data-tooltip-id="my-tooltip"
+            data-tooltip-place="bottom"
+            data-tooltip-content="Рассчитайте цену за вашу посылку и перейдите к её оформлению"
+          >
+            <FontAwesomeIcon icon={faInfoCircle} className="text-main" />
+          </span>
+          <Tooltip id="my-tooltip" />
+        </div>
         <div className="w-full flex items-center justify-center gap-4 mt-25">
           <Button
             text="Посылка"

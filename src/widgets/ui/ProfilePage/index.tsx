@@ -20,7 +20,6 @@ const countries = [
   { value: "TM", label: "Туркменистан" },
   { value: "AZ", label: "Азербайджан" },
   { value: "GE", label: "Грузия" },
-  // Add more countries as needed
 ];
 
 // Regular expressions for postal code validation by country

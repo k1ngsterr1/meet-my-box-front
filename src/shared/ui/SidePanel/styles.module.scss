@@ -1,96 +1,91 @@
 @import "@shared/styles/mixins";
 @import "@shared/styles/variables";
+
 .side_panel {
-  width: 100%;
-  height: 100vh;
-  position: sticky;
-  top: 0;
-  left: 0;
-  z-index: 49;
-  @apply bg-white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  @apply h-screen sticky top-0 left-0 z-50 bg-white flex flex-col justify-around items-center shadow-lg;
+  width: 250px; // Default expanded width
+  transition: width 0.5s ease;
   @include respond-to("tablet_sm") {
-    height: 85vh;
+    @apply h-[85vh];
   }
   @include respond-to("lg") {
-    height: 100vh;
+    @apply h-screen;
   }
+
+  &.collapsed {
+    width: 80px; // Collapsed state width
+  }
+
   &__img {
-    @apply mt-16;
-    width: clamp(80px, 8.3328vw, 320px);
-    height: clamp(50px, 5.208vw, 200px);
+    @apply mt-16 cursor-pointer;
+    width: clamp(80px, 8.3328vw, 120px);
+    height: clamp(50px, 5.208vw, 80px);
   }
+
+  &__header {
+    @apply w-full px-4 flex justify-between items-center;
+  }
+
+  &__toggle_button {
+    @apply text-main text-2xl bg-transparent border-none cursor-pointer;
+  }
+
   &__nav {
+    @apply w-full mt-8;
+
+    &__item {
+      @apply py-4 flex items-center justify-start;
+    }
+
     &__link {
-      font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
+      @apply text-dark text-xl font-bold transition-colors duration-300 cursor-pointer flex items-center gap-4;
+      white-space: nowrap;
 
-      @include respond-to("tablet_sm") {
-        line-height: 48px;
-        font-size: clamp(9px, 18 / 1024 * 100vw, 36px);
+      &:hover {
+        @apply text-hover;
       }
+    }
 
-      @include respond-to("tablet") {
-        font-size: clamp(9px, 18 / 1100 * 100vw, 36px);
-      }
-
-      @include respond-to("lg") {
-        font-size: clamp(9px, 18 / 1200 * 100vw, 36px);
-      }
-
-      @include respond-to("2xl") {
-        font-size: clamp(9px, 18 / 1280 * 100vw, 36px);
-      }
-
-      @include respond-to("xl") {
-        font-size: clamp(9px, 18 / 1360 * 100vw, 36px);
-      }
-
-      @include respond-to("2xl") {
-        font-size: clamp(9px, 18 / 1520 * 100vw, 36px);
-      }
-
-      @include respond-to("3xl") {
-        font-size: clamp(9px, 18 / 1680 * 100vw, 36px);
-      }
-
-      @include respond-to("4xl") {
-        font-size: clamp(9px, 18 / 1920 * 100vw, 36px);
-      }
-
-      @include respond-to("5xl") {
-        font-size: clamp(9px, 18 / 2560 * 100vw, 36px);
-      }
-
-      @include respond-to("6xl") {
-        font-size: clamp(9px, 18 / 3840 * 100vw, 36px);
-      }
+    &__text {
+      display: inline-block;
     }
   }
 }
+
 .side_panel_mob {
-  width: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  @apply pt-8;
+  @apply w-[90%] flex items-center justify-between fixed top-0 left-0 z-50 bg-white pt-8;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+
+  @include respond-to("tablet_sm") {
+    @apply w-[75%];
+  }
+
+  &__header {
+    @apply w-full flex justify-between items-center px-4;
+  }
+
+  &__toggle_button {
+    @apply text-main text-2xl bg-transparent border-none cursor-pointer;
+  }
 
   &__img {
-    @include respond-to("xxs") {
-      width: clamp(30px, 60 / 390 * 100vh, 120px);
-      height: clamp(30px, 60 / 390 * 100vh, 120px);
+    @apply cursor-pointer;
+  }
+
+  &__nav {
+    @apply w-full mt-8;
+
+    &__item {
+      @apply py-4;
     }
 
-    @include respond-to("xs") {
-      width: clamp(30px, 60 / 480 * 100vh, 120px);
-      height: clamp(30px, 60 / 480 * 100vh, 120px);
-    }
-    @include respond-to("md") {
-      width: clamp(20px, 80 / 992 * 100vh, 110px);
-      height: clamp(20px, 80 / 992 * 100vh, 110px);
+    &__link {
+      @apply text-dark text-xl font-bold transition-colors duration-300 cursor-pointer;
+
+      &:hover {
+        @apply text-hover;
+      }
     }
   }
 }

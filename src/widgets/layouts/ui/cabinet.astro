@@ -5,7 +5,7 @@ import "@shared/styles/global.scss";
 
 import { Footer } from "@features/Footer/ui/footer";
 import { Menu } from "@shared/ui/Menu/SideMenu";
-import { SidePanel, SidePanelMob } from "@shared/ui/SidePanel";
+import { SidePanel } from "@shared/ui/SidePanel";
 import { Loader } from "@widgets/ui/Loader/ui/loader";
 ---
 
@@ -23,10 +23,10 @@ import { Loader } from "@widgets/ui/Loader/ui/loader";
       <Loader client:load/>
       <div class="w-full flex flex-col lg:flex-row">
         <div class="w-full flex flex-col items-center lg:hidden">
-          <SidePanelMob client:load />
+          <!-- Добавить мобильную версию SidePanel -->
         </div>
         <div class="hidden lg:block xl:w-[20%] lg:w-[30%]">
-          <SidePanel client:load />
+           <SidePanel client:only/>
         </div>
         <div class="w-full lg:w-[70%] xl:w-[80%] flex flex-col items-center lg:flex lg:flex-col lg:items-center lg:justify-center">
           <slot />

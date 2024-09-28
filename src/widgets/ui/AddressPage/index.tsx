@@ -1,11 +1,16 @@
-import Button from "@shared/ui/Button/ui/button";
-import styles from "./styles.module.scss";
 import no_address from "@assets/no_address.png";
-import { useEffect, useState } from "react";
-import { Address, AddressPC, type AddressProps } from "@features/AddressesCard";
+import { AddressPC, type AddressProps } from "@features/AddressesCard";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGetAddresses } from "@shared/lib/hooks/useGetAddress";
+import Button from "@shared/ui/Button/ui/button";
+import { useEffect, useState } from "react";
+import { Tooltip } from "react-tooltip";
+import styles from "./styles.module.scss";
+
 export const AddressPage = () => {
   const [address, setAddress] = useState<AddressProps[]>([]);
+
   useEffect(() => {
     const fetchAddress = async () => {
       const fetchedAddress = await useGetAddresses();
@@ -14,11 +19,12 @@ export const AddressPage = () => {
 
     fetchAddress();
   }, []);
+
   return (
     <>
       <div className={styles.address}>
         {address.length > 0 ? (
-          <Address items={address} />
+          <AddressPC items={address} />
         ) : (
           <>
             <img src={no_address.src} alt="" className={styles.address__img} />
@@ -29,7 +35,20 @@ export const AddressPage = () => {
 
       <div className={styles.address_pc}>
         {address.length > 0 ? (
-          <AddressPC items={address} />
+          <>
+            <div className="flex items-center gap-3">
+              <h1 className="text-3xl">Ваши адреса</h1>
+              <span
+                data-tooltip-id="my-tooltip"
+                data-tooltip-place="bottom"
+                data-tooltip-content="Здесь вы видите ваши адреса, которые заполнили ранее"
+              >
+                <FontAwesomeIcon icon={faInfoCircle} className="text-main" />
+              </span>
+              <Tooltip id="my-tooltip" />
+            </div>
+            <AddressPC items={address} />
+          </>
         ) : (
           <>
             <img

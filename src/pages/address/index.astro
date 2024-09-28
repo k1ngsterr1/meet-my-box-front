@@ -1,8 +1,8 @@
 ---
 import Layout from "@widgets/layouts/ui/cabinet.astro";
-import { AddressPage } from "@widgets/ui/AddressPage";
+import { AddressPage } from "@widgets/ui/AddressPage/index";
 ---
 
 <Layout>
-  <AddressPage client:load />
+  <AddressPage client:only />
 </Layout>

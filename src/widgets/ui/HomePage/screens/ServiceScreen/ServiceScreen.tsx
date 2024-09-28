@@ -1,4 +1,4 @@
-import { serviceFaqAccordions } from "@shared/lib/content/Accordion";
+import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import { FAQList } from "@shared/ui/Accordion/faq-accordion";
 import Button from "@shared/ui/Button/ui/button";
 import {
@@ -6,11 +6,11 @@ import {
   ServiceGroupPC,
 } from "@shared/ui/Card/ui/Service/service-card";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
+import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
-import { useEffect, useState } from "react";
-import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
-import { Loader } from "@widgets/ui/Loader/ui/loader";
+
 export const ServiceScreen = () => {
   const [service, setService] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
@@ -73,14 +73,12 @@ export const ServiceScreen = () => {
           <div className="w-[90%] lg:w-[86.6%]">
             <FAQList items={service.questions} />
           </div>
-          <Button
-            text="FAQ"
-            margin="mt-8"
-            buttonType="filled"
-            onClick={() => {
-              window.location.href = "/faq";
-            }}
-          />
+          <button
+            className="text-main text-sm mt-8 mb-4"
+            onClick={() => (window.location.href = "/faq")}
+          >
+            FAQ
+          </button>
         </>
       ) : (
         <></>

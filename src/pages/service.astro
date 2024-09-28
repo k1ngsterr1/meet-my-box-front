@@ -1,6 +1,7 @@
 ---
 import { Menu } from "@shared/ui/Menu/ui/menu";
 import Layout from "@widgets/layouts/ui/layout.astro";
+import { ServiceScreen } from "@widgets/ui/HomePage/screens/ServiceScreen/ServiceScreen";
 import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { ServicePage } from "@widgets/ui/ServicePage";
 ---
@@ -9,4 +10,5 @@ import { ServicePage } from "@widgets/ui/ServicePage";
   <Loader client:load />
   <Menu client:load />
   <ServicePage client:load />
+  <ServiceScreen client:load />
 </Layout>

@@ -1,9 +1,9 @@
+import { ErrorDisplay } from "@entities/Error";
 import { useLogin } from "@shared/lib/hooks/useLogin";
 import Button from "@shared/ui/Button/ui/button";
 import { FormInput } from "@shared/ui/Input/Form/form-input";
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
-import { ErrorDisplay } from "@entities/Error";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +22,7 @@ export const LoginForm = () => {
     }
     setEmail("");
     setPassword("");
-    window.location.href = "/";
+    window.location.href = "/profile";
   };
 
   return (
