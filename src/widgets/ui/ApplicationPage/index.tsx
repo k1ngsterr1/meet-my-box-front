@@ -3,10 +3,10 @@ import { AgreeCard } from "@features/Cards/AgreeCard";
 import { CostCard } from "@features/Cards/CostCard";
 import { CourierCard } from "@features/Cards/CourierCard";
 import { InsuranceCard } from "@features/Cards/InsuranceCard";
-// import DocumentUpload from "@features/Documents";
 import { NoteCard } from "@features/NoteCard";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Tab, Tabs } from "@mui/material"; // Импортируем компоненты MUI для табов
 import { useUpdatePackage } from "@shared/lib/hooks/Packages/useUpdatePackage";
 import { useGetAddresses } from "@shared/lib/hooks/useGetAddress";
 import Button from "@shared/ui/Button/ui/button";
@@ -18,16 +18,10 @@ export const ApplicationPage = () => {
   const [currentAddress, setCurrentAddress] = useState<AddressProps[]>();
   const [chosenAddress, setChosenAddress] = useState<number>();
   const [id, setId] = useState<string>();
-  const [showAddresses, setShowAddresses] = useState(true);
-  const [showInsuranceCard, setShowInsuranceCard] = useState(false);
-  const [showCourierCard, setShowCourierCard] = useState(false);
-  const [showNoteCard, setShowNoteCard] = useState(false);
-  const [showCostCard, setShowCostCard] = useState(false);
-  const [showAgreeCard, setShowAgreeCard] = useState(false);
+  const [selectedTab, setSelectedTab] = useState(0); // Состояние для выбранного таба
   const [insurance, setInsurance] = useState(false);
   const [courier, setCourier] = useState(false);
   const [note, setNote] = useState("");
-  const [documents, setDocuments] = useState([]);
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
   const [packageCurrent, setPackageCurrent] = useState<any>(null);
@@ -45,18 +39,15 @@ export const ApplicationPage = () => {
       if (storedPackageId) {
         setId(storedPackageId.id);
         setPackageCurrent(storedPackageId);
-
         try {
           const fetchedAddresses = await useGetAddresses();
           if (fetchedAddresses) {
-            console.log(fetchedAddresses);
             setAddresses(fetchedAddresses);
             setCurrentAddress(
               fetchedAddresses.filter((address) => address.type === "receiver")
             );
-            if (fetchedAddresses !== undefined) {
-              console.log("workss", fetchedAddresses[0].id);
-              await setChosenAddress(fetchedAddresses[0].id);
+            if (fetchedAddresses.length > 0) {
+              setChosenAddress(fetchedAddresses[0].id);
             }
           }
         } catch (error) {
@@ -64,47 +55,33 @@ export const ApplicationPage = () => {
         }
       }
     };
-
-    // Call the async function inside useEffect
     fetchAddressesAsync();
   }, []);
 
-  const handleAddressClick = () => {
-    setShowAddresses(false);
-    setShowInsuranceCard(true);
-  };
-  const handleAddressChange = (addressId: number) => {
-    console.log(addressId);
-    setChosenAddress(addressId);
-  };
+  const handleAddressClick = () => setSelectedTab(1);
+
   const handleInsuranceClick = (value: boolean) => {
     setInsurance(value);
-    setShowInsuranceCard(false);
-    setShowCourierCard(true);
+    setSelectedTab(2);
   };
+
   const handleCourierClick = (value: boolean) => {
     setCourier(value);
-    setShowCourierCard(false);
-    setShowNoteCard(true);
+    setSelectedTab(3);
   };
+
   const handleNoteClick = (value: string) => {
-    setShowNoteCard(false);
-    // setShowDocumentCard(true);
-    setShowCostCard(true);
-    console.log(note);
+    setSelectedTab(4);
   };
-  const handleCostClick = () => {
-    setShowCostCard(false);
-    setShowAgreeCard(true);
-  };
+
+  const handleCostClick = () => setSelectedTab(5);
+
   const handleAgreeClick = async () => {
     if (!agree1 || !agree2) {
       alert("Вы должны согласиться с обеими условиями!");
       return;
     } else {
-      setShowAgreeCard(false);
-
-      // Extract package data from localStorage
+      // Обновление и отправка данных пакета
       const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
 
       // Retrieve and update the cost of the package from localStorage
@@ -148,25 +125,39 @@ export const ApplicationPage = () => {
   };
 
   const handleAddressType = (type: string) => {
-    const currentAddress = addresses?.filter(
+    const filteredAddresses = addresses?.filter(
       (address) => address.type === type
     );
-    setCurrentAddress(currentAddress);
-    if (currentAddress !== undefined) {
-      setChosenAddress(currentAddress[0].id);
+    setCurrentAddress(filteredAddresses);
+    if (filteredAddresses && filteredAddresses.length > 0) {
+      setChosenAddress(filteredAddresses[0].id);
     }
   };
-  const toggle1 = () => {
-    setAgree1(!agree1);
-  };
-  const toggle2 = () => {
-    setAgree2(!agree2);
-  };
+
+  const toggle1 = () => setAgree1(!agree1);
+  const toggle2 = () => setAgree2(!agree2);
+
   return (
-    <div className="w-full h-[100vh] flex items-center justify-center">
-      {showAddresses && (
+    <div className="w-full min-h-[100vh] flex flex-col items-center justify-center">
+      {/* Табы навигации */}
+      <Tabs
+        value={selectedTab}
+        onChange={handleTabChange}
+        sx={{ marginBottom: 4 }}
+        centered
+      >
+        <Tab label="Адрес" />
+        <Tab label="Страховка" disabled={selectedTab < 1} />
+        <Tab label="Курьер" disabled={selectedTab < 2} />
+        <Tab label="Примечания" disabled={selectedTab < 3} />
+        <Tab label="Стоимость" disabled={selectedTab < 4} />
+        <Tab label="Согласие" disabled={selectedTab < 5} />
+      </Tabs>
+
+      {/* Содержимое каждого этапа */}
+      {selectedTab === 0 && (
         <div className="flex flex-col gap-4 items-center justify-center w-[90%] max-w-[800px] min-h-[300px]">
-          <span className="w-full text-xl flex text-center  justify-center gap-4">
+          <span className="w-full text-xl flex text-center justify-center gap-4">
             Выберите итоговый адрес
             <span
               data-tooltip-id="my-tooltip"
@@ -181,71 +172,59 @@ export const ApplicationPage = () => {
             <Button
               text={"Получатель"}
               buttonType={
-                currentAddress !== undefined &&
-                currentAddress[0].type === "receiver"
+                currentAddress && currentAddress[0]?.type === "receiver"
                   ? "filled"
                   : "outline"
               }
-              onClick={() => {
-                if (
-                  currentAddress !== undefined &&
-                  currentAddress[0].type !== "receiver"
-                ) {
-                  handleAddressType("receiver");
-                }
-              }}
+              onClick={() => handleAddressType("receiver")}
             />
             <Button
               text={"Отправитель"}
               buttonType={
-                currentAddress !== undefined &&
-                currentAddress[0].type !== "receiver"
+                currentAddress && currentAddress[0]?.type === "sender"
                   ? "filled"
                   : "outline"
               }
-              onClick={() => {
-                if (
-                  currentAddress !== undefined &&
-                  currentAddress[0].type === "receiver"
-                ) {
-                  handleAddressType("sender");
-                }
-              }}
+              onClick={() => handleAddressType("sender")}
             />
           </div>
           <select
             className="block w-[60%] px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-500 focus:border-indigo-500"
             onChange={(e) => handleAddressChange(parseInt(e.target.value))}
-            defaultValue="" // Set default to empty string
+            value={chosenAddress || ""}
           >
             <option value="" disabled>
               Выберите адрес
             </option>
             {currentAddress?.map((address) => (
-              <option key={address.id} value={address.id} className="w-full">
-                {address.city +
-                  ", Здание " +
-                  address.housing +
-                  ", Кв. " +
-                  address.apartment +
-                  ", Дом " +
-                  address.building}
+              <option key={address.id} value={address.id}>
+                {`${address.city}, Здание ${address.housing}, Кв. ${address.apartment}, Дом ${address.building}`}
               </option>
             ))}
           </select>
-
           <Button
             text="Выбрать"
             buttonType="filled"
             onClick={handleAddressClick}
-          ></Button>
+          />
+          <Button
+            text={"Добавить"}
+            buttonType="outline"
+            onClick={() => (window.location.href = "/address/add")}
+          />
+          <Button
+            text={"Содержимое посылки"}
+            buttonType="outline"
+            onClick={() => (window.location.href = "/packages/add")}
+          />
         </div>
       )}
-      {showInsuranceCard && (
+
+      {selectedTab === 1 && (
         <InsuranceCard onInsuranceClick={handleInsuranceClick} />
       )}
-      {showCourierCard && <CourierCard onCourierClick={handleCourierClick} />}
-      {showNoteCard && (
+      {selectedTab === 2 && <CourierCard onCourierClick={handleCourierClick} />}
+      {selectedTab === 3 && (
         <NoteCard onNoteClick={handleNoteClick} setter={setNote} />
       )}
       {/* {showDocumentCard && (
@@ -259,6 +238,8 @@ export const ApplicationPage = () => {
         />
       )}
       {showAgreeCard && (
+      {selectedTab === 4 && <CostCard onCostClick={handleCostClick} />}
+      {selectedTab === 5 && (
         <AgreeCard
           onAgreeClick={handleAgreeClick}
           toggle1={toggle1}

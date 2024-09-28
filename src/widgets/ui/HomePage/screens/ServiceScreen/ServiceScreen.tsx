@@ -73,11 +73,11 @@ export const ServiceScreen = () => {
           <div className="w-[90%] lg:w-[86.6%]">
             <FAQList items={service.questions} />
           </div>
-          <button
-            className="text-main text-sm mt-8 mb-4"
-            onClick={() => (window.location.href = "/faq")}
-          >
-            FAQ
+          <button className="text-black text-sm mt-8 mb-8">
+            Еще больше ответов на вопросы{" "}
+            <a href="/faq" className="text-main">
+              здесь
+            </a>
           </button>
         </>
       ) : (

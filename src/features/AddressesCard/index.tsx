@@ -57,7 +57,7 @@ export const AddressPC: React.FC<Items> = ({ items }) => {
       {/* Grid Layout for Address Cards */}
       <Grid container spacing={3}>
         {items.slice(startIndex, endIndex).map((item, index) => (
-          <Grid item xs={12} sm={6} md={6} key={index}>
+          <Grid item xs={12} sm={6} md={4} key={index}>
             <Card
               sx={{
                 display: "flex",

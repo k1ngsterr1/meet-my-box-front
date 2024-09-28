@@ -1,9 +1,9 @@
 import { AddPackages, AddPackagesPC } from "@entities/Packages/AddPackage";
-import styles from "./styles.module.scss";
 import type { AddressProps } from "@features/AddressesCard";
-import { useEffect, useState } from "react";
 import { useGetAddresses } from "@shared/lib/hooks/useGetAddress";
 import Button from "@shared/ui/Button/ui/button";
+import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 
 export const AddPackagesPage = () => {
   const [address, setAddress] = useState<AddressProps[]>([]);

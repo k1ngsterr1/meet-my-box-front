@@ -1,11 +1,11 @@
 import type { DateArray, TimeArray } from "@entities/RatesList";
-import styles from "./styles.module.scss";
-import type React from "react";
-import Button from "@shared/ui/Button/ui/button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Button from "@shared/ui/Button/ui/button";
 import { InfoScreen } from "@widgets/ui/HomePage/InfoScreen/InfoScreen";
+import type React from "react";
+import { useState } from "react";
+import styles from "./styles.module.scss";
 interface Props {
   day: TimeArray;
   price: string;

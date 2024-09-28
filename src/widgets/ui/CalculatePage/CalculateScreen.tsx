@@ -79,7 +79,6 @@ export const CalculatePage = () => {
           onClick={handleAddParcel}
         />
       </section>
-
       <section className={styles.calculate_pc} id="calculate-pc">
         <div className="flex items-center gap-3">
           <h2 className={styles.calculate_pc__heading}>{calculate.heading}</h2>
