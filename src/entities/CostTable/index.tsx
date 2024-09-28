@@ -1,125 +1,104 @@
-const PricingTable = () => {
-  return (
-    <div className="w-full flex justify-center">
-      <table className="w-full max-w-4xl bg-white border-collapse rounded-lg shadow-md overflow-hidden">
-        <thead>
-          <tr className="bg-blue-600 text-white">
-            <th className="py-4 px-8 text-left text-sm font-semibold uppercase">
-              Стоимость
-            </th>
-            <th className="py-4 px-8 text-left text-sm font-semibold uppercase">
-              Вес
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">36€</td>
-            <td className="py-3 px-8 text-gray-800">1.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">38€</td>
-            <td className="py-3 px-8 text-gray-800">2.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">42€</td>
-            <td className="py-3 px-8 text-gray-800">3.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">44€</td>
-            <td className="py-3 px-8 text-gray-800">4.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">47€</td>
-            <td className="py-3 px-8 text-gray-800">5.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">48€</td>
-            <td className="py-3 px-8 text-gray-800">6.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">51€</td>
-            <td className="py-3 px-8 text-gray-800">7.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">54€</td>
-            <td className="py-3 px-8 text-gray-800">8.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">56€</td>
-            <td className="py-3 px-8 text-gray-800">9.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">58€</td>
-            <td className="py-3 px-8 text-gray-800">10.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">63€</td>
-            <td className="py-3 px-8 text-gray-800">11.00</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
-};
+import { useState } from "react";
 
-export const PricingTableExpress = () => {
+// Компонент для таблицы со стандартной и экспресс доставкой
+const PricingTable = () => {
+  const [tableState, setTableState] = useState<"Стандарт" | "Экспресс">(
+    "Стандарт"
+  );
+
+  // Данные таблицы
+  const pricingData = {
+    standard: [
+      { weight: "1.00", price: "36€" },
+      { weight: "2.00", price: "38€" },
+      { weight: "3.00", price: "42€" },
+      { weight: "4.00", price: "44€" },
+      { weight: "5.00", price: "47€" },
+      { weight: "6.00", price: "48€" },
+      { weight: "7.00", price: "51€" },
+      { weight: "8.00", price: "54€" },
+      { weight: "9.00", price: "56€" },
+      { weight: "10.00", price: "58€" },
+      { weight: "11.00", price: "63€" },
+    ],
+    express: [
+      { weight: "0.50 - 1.00", price: "39€" },
+      { weight: "1.50 - 2.00", price: "43€" },
+      { weight: "2.50 - 3.00", price: "50€" },
+      { weight: "3.50 - 4.00", price: "57€" },
+      { weight: "4.50 - 5.00", price: "60€" },
+      { weight: "5.50 - 6.00", price: "65€" },
+      { weight: "6.50 - 7.00", price: "70€" },
+      { weight: "7.50 - 8.00", price: "75€" },
+      { weight: "8.50 - 9.00", price: "79€" },
+      { weight: "9.50 - 10.00", price: "82€" },
+    ],
+  };
+
+  // Обработчик переключения таблицы
+  const handleTableSwitch = (type: "Стандарт" | "Экспресс") => {
+    setTableState(type);
+  };
+
   return (
-    <div className="w-full flex justify-center">
-      <table className="w-full max-w-4xl bg-white border-collapse rounded-lg shadow-md overflow-hidden">
-        <thead>
-          <tr className="bg-blue-600 text-white">
-            <th className="py-4 px-8 text-left text-sm font-semibold uppercase">
-              Стоимость
-            </th>
-            <th className="py-4 px-8 text-left text-sm font-semibold uppercase">
-              Вес
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">39€</td>
-            <td className="py-3 px-8 text-gray-800">0.50 - 1.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">43€</td>
-            <td className="py-3 px-8 text-gray-800">1.50 - 2.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">50€</td>
-            <td className="py-3 px-8 text-gray-800">2.50 - 3.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">57€</td>
-            <td className="py-3 px-8 text-gray-800">3.50 - 4.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">60€</td>
-            <td className="py-3 px-8 text-gray-800">4.50 - 5.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">65€</td>
-            <td className="py-3 px-8 text-gray-800">5.50 - 6.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">70€</td>
-            <td className="py-3 px-8 text-gray-800">6.50 - 7.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">75€</td>
-            <td className="py-3 px-8 text-gray-800">7.50 - 8.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">79€</td>
-            <td className="py-3 px-8 text-gray-800">8.50 - 9.00</td>
-          </tr>
-          <tr className="border-t hover:bg-gray-50">
-            <td className="py-3 px-8 text-gray-800">82€</td>
-            <td className="py-3 px-8 text-gray-800">9.50 - 10.00</td>
-          </tr>
-        </tbody>
-      </table>
+    <div className="flex flex-col items-center mt-4">
+      {/* Кнопки переключения таблицы */}
+      <div className="flex mb-4 space-x-2">
+        <button
+          className={`px-3 py-1 rounded-md text-sm ${
+            tableState === "Стандарт" ? "bg-blue-600 text-white" : "bg-gray-300"
+          }`}
+          onClick={() => handleTableSwitch("Стандарт")}
+        >
+          Стандарт
+        </button>
+        <button
+          className={`px-3 py-1 rounded-md text-sm ${
+            tableState === "Экспресс" ? "bg-blue-600 text-white" : "bg-gray-300"
+          }`}
+          onClick={() => handleTableSwitch("Экспресс")}
+        >
+          Экспресс
+        </button>
+      </div>
+
+      {/* Подсказки для сроков доставки */}
+      {tableState === "Стандарт" ? (
+        <div className="text-xs text-gray-600 mb-3">
+          *Срок доставки от 8 дней, средний срок доставки - 14 дней. Точные
+          сроки зависят от адреса отправителя, получателя и графика работы
+          логистических партнеров.
+        </div>
+      ) : (
+        <div className="text-xs text-gray-600 mb-3">
+          *Сроки доставки от 3 дней, средний срок доставки - 10 дней. Точные
+          сроки зависят от адреса отправителя, получателя и графика работы
+          логистических партнеров.
+        </div>
+      )}
+
+      {/* Таблица с данными */}
+      <div className="overflow-x-auto w-full max-w-2xl">
+        <table className="min-w-full bg-white border border-gray-200 text-sm">
+          <thead>
+            <tr className="bg-blue-600 text-white">
+              <th className="py-2 px-2 border">Вес (кг)</th>
+              <th className="py-2 px-2 border">Стоимость (EUR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {(tableState === "Стандарт"
+              ? pricingData.standard
+              : pricingData.express
+            ).map((item, index) => (
+              <tr key={index} className="hover:bg-gray-100">
+                <td className="py-1 px-2 border text-center">{item.weight}</td>
+                <td className="py-1 px-2 border text-center">{item.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

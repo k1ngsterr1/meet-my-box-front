@@ -1,17 +1,12 @@
 import bg_face from "@assets/bg_face.svg";
 import ServicePricingTable from "@entities/AdditionalServiceTable";
-import PricingTable, { PricingTableExpress } from "@entities/CostTable";
+import PricingTable from "@entities/CostTable";
 import Button from "@shared/ui/Button/ui/button";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
-import { useEffect, useState } from "react";
-import styles from "./styles.module.scss";
-import {
-  ContactForm,
-  ContactFormPC,
-} from "@features/Form/Contact/contact-form";
-import { ContactScreen } from "../HomePage/screens/ContactScreen/ContactScreen";
-import { AboutGroupPC } from "@shared/ui/Card/ui/About/about-card";
+import { useState } from "react";
 import { AboutScreen } from "../HomePage/screens/AboutScreen/AboutScreen";
+import { ContactScreen } from "../HomePage/screens/ContactScreen/ContactScreen";
+import styles from "./styles.module.scss";
 
 export const CostPage = () => {
   const [tableState, setTableState] = useState<string>("Стандарт");
@@ -25,31 +20,13 @@ export const CostPage = () => {
           Германии в страны СНГ
         </Paragraph>
 
-        <div className="flex items-center justify-between gap-4 mt-4 mb-8">
-          <Button
-            text="Стандарт"
-            onClick={() => setTableState("Стандарт")}
-            buttonType={tableState === "Стандарт" ? "filled" : "outline"}
-          />
-          <Button
-            text="Экспресс"
-            onClick={() => setTableState("Экспресс")}
-            buttonType={tableState === "Экспресс" ? "filled" : "outline"}
-          />
-        </div>
         <div className="w-full flex flex-col md:flex-row justify-center items-start space-x-4">
-          {tableState === "Стандарт" ? (
-            <>
-              <PricingTable />
-            </>
-          ) : (
-            <>
-              <PricingTableExpress />
-            </>
-          )}
+          <>
+            <PricingTable />
+          </>
         </div>
         <h3 className={`${styles.cost__heading} mt-4 mb-4`}>
-          Дополнительные услуги
+          Помощь с покупкой
         </h3>
         <ServicePricingTable />
         <Button

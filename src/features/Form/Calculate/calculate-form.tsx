@@ -1,4 +1,5 @@
 import logo from "@assets/brandmark-design 2.svg";
+import PostcodeDropdown from "@entities/Postcodes";
 import {
   addMargin,
   getDateInfo,
@@ -594,13 +595,10 @@ export const CalculateFormPC = () => {
             <label className="block text-sm font-medium text-gray-700">
               Ваш индекс:
             </label>
-            <CalculateInput
+            <PostcodeDropdown
               value={fromPostcode}
-              onClick={() => {}}
-              placeholder="Почтовый индекс"
-              onChange={(e) => setFromPostcode(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-              required
+              onChange={setFromPostcode}
+              placeholder="Введите индекс"
             />
           </div>
           <div className="flex-1">
