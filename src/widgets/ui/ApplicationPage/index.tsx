@@ -130,6 +130,8 @@ export const ApplicationPage = () => {
       window.location.href = "/payment";
     }
   };
+  const handleAddressChange = (addressId: number) =>
+    setChosenAddress(addressId);
 
   const handleAddressType = (type: string) => {
     const filteredAddresses = addresses?.filter(
@@ -139,6 +141,9 @@ export const ApplicationPage = () => {
     if (filteredAddresses && filteredAddresses.length > 0) {
       setChosenAddress(filteredAddresses[0].id);
     }
+  };
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setSelectedTab(newValue);
   };
 
   const toggle1 = () => setAgree1(!agree1);
