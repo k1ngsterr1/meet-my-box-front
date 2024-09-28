@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import styles from "./styles.module.scss";
 import { PaymentForm } from "@features/PaymentForm";
-import { Loader } from "../Loader/ui/loader";
 import { useCreatePayment } from "@shared/lib/hooks/useCreatePayment";
-import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 
 // Initialize Stripe with your publishable key
 const stripePromise = loadStripe(
-  "pk_test_51Q142VRwuyHMOHJmXMXfDSCue1q8w6lFH6ifjxdP7NvCeEp2wraU4HcauvAF4YxUgCJN3ZAmlGWecz0Cu4xcv8xx00ylvLtl8B"
+  "pk_live_51Q142VRwuyHMOHJmDuYHnUiZDu0Q7r4k99GEv9Yt7w02045Vap5fXuvE6F3e1KCG5QoLNeL1a5FeXd9ObghCkotB00bBRD1M8f"
 );
 
 export const PaymentPage = () => {
