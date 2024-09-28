@@ -31,12 +31,17 @@ export const ApplicationPage = () => {
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
   const [packageCurrent, setPackageCurrent] = useState<any>(null);
+  const [price, setPrice] = useState<string>("");
 
   useEffect(() => {
     const fetchAddressesAsync = async () => {
       const storedPackageId = JSON.parse(
         localStorage.getItem("packageId") || "{}"
       );
+      const priceData = localStorage.getItem("packagePrice");
+      if (priceData) {
+        setPrice(priceData);
+      }
       if (storedPackageId) {
         setId(storedPackageId.id);
         setPackageCurrent(storedPackageId);
@@ -102,43 +107,42 @@ export const ApplicationPage = () => {
       // Extract package data from localStorage
       const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
 
-      // Update the cost of each item
-      const updatedItems = packageData.items.map((item: any) => {
-        let updatedCost = item.cost;
+      // Retrieve and update the cost of the package from localStorage
+      let packagePrice = parseFloat(
+        localStorage.getItem("packagePrice")?.replace(/[^0-9.]/g, "") || "0"
+      );
 
-        // Add 5% to the cost if insurance is needed
-        if (insurance) {
-          updatedCost += item.cost * 0.05;
-        }
+      // If insurance is needed, add 5%
+      if (insurance) {
+        packagePrice += packagePrice * 0.05;
+      }
 
-        // Add 2% to the cost if courier is needed
-        if (courier) {
-          updatedCost += item.cost * 0.02;
-        }
+      // If courier is needed, add 2%
+      if (courier) {
+        packagePrice += packagePrice * 0.02;
+      }
 
-        // Return the updated item with the new cost
-        return {
-          ...item,
-          cost: updatedCost,
-        };
-      });
-      console.log(chosenAddress);
-      console.log(updatedItems);
+      // Format the updated price with the euro sign
+      const formattedPrice = `€${packagePrice.toFixed(2)}`;
 
-      // Proceed with the update, including updated items
+      // Update the localStorage with the new price
+      localStorage.setItem("packagePrice", formattedPrice);
+
+      // Proceed with the package update
       const package_now = await useUpdatePackage({
         id: parseInt(id !== undefined ? id : "", 10),
         insurance: !insurance ? "Не нужна" : "Нужна",
         courier: !courier ? "Не нужен" : "Нужен",
         note: note,
         addressId: chosenAddress,
-        items: updatedItems, // Include updated items with new cost
       });
+
       console.log(package_now);
 
+      // Update package data in localStorage
       localStorage.setItem("packageId", JSON.stringify(package_now));
 
-      // // Redirect to packages page
+      // Redirect to the payment page
       window.location.href = "/payment";
     }
   };
@@ -251,6 +255,7 @@ export const ApplicationPage = () => {
         <CostCard
           onCostClick={handleCostClick}
           packageCurrent={packageCurrent}
+          price={price}
         />
       )}
       {showAgreeCard && (

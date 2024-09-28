@@ -10,28 +10,25 @@ export async function useCreatePayment(): Promise<any> {
 
     // Parse the packageData from localStorage
     const parsedPackage = JSON.parse(packageId);
-
-    // Step 3: Calculate the total amount from the `items` array
-    const totalAmount = parsedPackage.items.reduce(
-      (sum: number, item: { cost: number }) => {
-        return sum + item.cost;
-      },
-      0
-    ); // Initialize sum to 0
+    const price = localStorage.getItem("packagePrice");
 
     // Step 4: Send a POST request to create a new payment order with the calculated amount
-    const response = await axiosInstance.post("/api/user/payment/create", {
-      amount: totalAmount, // Pass the total amount in the request body
-    });
-    console.log(
-      "Worked",
-      response.data.result.client_secret,
-      response.data.result.amount
-    );
-    return {
-      client_secret: response.data.result.client_secret,
-      amount: response.data.result.amount / 100,
-    }; // Return the response from the backend
+    if (price !== null && price !== undefined) {
+      const response = await axiosInstance.post("/api/user/payment/create", {
+        amount: parseFloat(price.replace(/[^0-9.]/g, "")), // Pass the total amount in the request body
+      });
+      console.log(
+        "Worked",
+        response.data.result.client_secret,
+        response.data.result.amount
+      );
+      return {
+        client_secret: response.data.result.client_secret,
+        amount: response.data.result.amount / 100,
+      }; // Return the response from the backend
+    } else {
+      return "Error";
+    }
   } catch (error: unknown) {
     console.error("Failed to create payment:", error);
 
