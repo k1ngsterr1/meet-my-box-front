@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import styles from "./styles.module.scss";
 import { Packages, PackagesPC, type PackageProps } from "@entities/Packages";
 import { useGetPackages } from "@shared/lib/hooks/Packages/useGetPackages";
+import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 
 export const PackagesPage = () => {
   const [packages, setPackages] = useState<PackageProps[]>([]);

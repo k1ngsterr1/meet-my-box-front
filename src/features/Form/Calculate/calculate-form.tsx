@@ -147,6 +147,7 @@ export const CalculateForm = () => {
   const [toPostcode, setToPostcode] = useState("");
   const [shippingRates, setShippingRates] = useState([]);
   const [error, setError] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: any) => {
@@ -428,6 +429,7 @@ export const CalculateFormPC = () => {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [length, setLength] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [fromCountry, setFromCountry] = useState("Italy");
   const [toCountry, setToCountry] = useState("Russia");
   const [fromPostcode, setFromPostcode] = useState("");
@@ -435,6 +437,8 @@ export const CalculateFormPC = () => {
   const [shippingRates, setShippingRates] = useState([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  console.log("fromCountry:", fromCountry);
 
   // Handle form submission
   const handleSubmit = async (e: any) => {
@@ -692,6 +696,25 @@ export const CalculateFormPC = () => {
             />
           </div>
         </div>
+        {fromCountry === "Italy" && (
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700">
+              Количество посылок:
+            </label>
+            <CalculateInput
+              value={quantity}
+              placeholder="Введите количество"
+              min={1}
+              type="number"
+              max={100}
+              step={1}
+              onChange={(e) => setQuantity(parseInt(e.target.value) || 0)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+              required
+            />
+          </div>
+        )}
+
         <div className="flex justify-end mt-4">
           <button
             // type="submit"
