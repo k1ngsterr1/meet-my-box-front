@@ -76,10 +76,7 @@ export function getDateInfo(daysFromNow: number) {
 
   return { text, datetime };
 }
-export function addMargin(price: string, weight: number): string[] {
-  // Extract the numeric part from the price string
-  const priceFloat = parseFloat(price.replace(/[^\d.]/g, ""));
-
+export function addMargin(prices: string[], weight: number): string[] {
   // Define weight-price mappings for СТАНДАРТ
   const standartMargins: Record<number, number> = {
     1: 27.23,
@@ -109,13 +106,22 @@ export function addMargin(price: string, weight: number): string[] {
     10: 87.62,
   };
 
-  let margin1 = 0,
-    margin2 = 0;
+  // Retrieve the appropriate margins based on the weight
+  const marginStandard = standartMargins[weight] || 0;
+  const marginExpress = expressMargins[weight] || 0;
 
-  // Add margin based on the weight
-  margin1 = standartMargins[weight] || 0; // СТАНДАРТ
-  margin2 = expressMargins[weight] || 0; // ЭКСПРЕСС
+  const last = prices.map((price) => {
+    // Extract the numeric part from the price string
+    const priceFloat = parseFloat(price.replace(/[^\d.]/g, ""));
 
-  // Return the total price with margin
-  return ["€" + (priceFloat + margin1), "€" + (priceFloat + margin2)];
+    // Calculate the prices with the added margins
+    const standardPrice = `€${(priceFloat + marginStandard).toFixed(2)}`;
+    const expressPrice = `€${(priceFloat + marginExpress).toFixed(2)}`;
+
+    // Return an array containing the new prices for СТАНДАРТ and ЭКСПРЕСС
+    return [expressPrice, standardPrice];
+  });
+
+  // Iterate through each price string in the array
+  return last[0];
 }
