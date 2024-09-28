@@ -30,6 +30,7 @@ export const ApplicationPage = () => {
   const [documents, setDocuments] = useState([]);
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
+  const [packageCurrent, setPackageCurrent] = useState<any>(null);
 
   useEffect(() => {
     const fetchAddressesAsync = async () => {
@@ -38,6 +39,7 @@ export const ApplicationPage = () => {
       );
       if (storedPackageId) {
         setId(storedPackageId.id);
+        setPackageCurrent(storedPackageId);
 
         try {
           const fetchedAddresses = await useGetAddresses();
@@ -245,7 +247,12 @@ export const ApplicationPage = () => {
       {/* {showDocumentCard && (
         <DocumentUpload onDocumentClick={handleDocumentClick} />
       )} */}
-      {showCostCard && <CostCard onCostClick={handleCostClick} />}
+      {showCostCard && (
+        <CostCard
+          onCostClick={handleCostClick}
+          packageCurrent={packageCurrent}
+        />
+      )}
       {showAgreeCard && (
         <AgreeCard
           onAgreeClick={handleAgreeClick}

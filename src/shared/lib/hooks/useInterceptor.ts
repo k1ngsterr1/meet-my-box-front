@@ -8,8 +8,8 @@ const parsedData = JSON.parse(data || "{}");
 
 // Создание экземпляра Axios с предустановленными конфигурациями
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000/",
-  // baseURL: "https://meet-my-box-production.up.railway.app/",
+  // baseURL: "http://localhost:4000/",
+  baseURL: "https://meet-my-box-production.up.railway.app/",
 });
 
 // Добавление интерсептора для вставки JWT в заголовки каждого запроса
