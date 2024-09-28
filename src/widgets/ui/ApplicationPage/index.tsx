@@ -24,6 +24,7 @@ export const ApplicationPage = () => {
   const [note, setNote] = useState("");
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
+  const [packageCurrent, setPackageCurrent] = useState<any>(null);
 
   useEffect(() => {
     const fetchAddressesAsync = async () => {
@@ -32,6 +33,7 @@ export const ApplicationPage = () => {
       );
       if (storedPackageId) {
         setId(storedPackageId.id);
+        setPackageCurrent(storedPackageId);
         try {
           const fetchedAddresses = await useGetAddresses();
           if (fetchedAddresses) {
@@ -213,6 +215,16 @@ export const ApplicationPage = () => {
       {selectedTab === 3 && (
         <NoteCard onNoteClick={handleNoteClick} setter={setNote} />
       )}
+      {/* {showDocumentCard && (
+        <DocumentUpload onDocumentClick={handleDocumentClick} />
+      )} */}
+      {showCostCard && (
+        <CostCard
+          onCostClick={handleCostClick}
+          packageCurrent={packageCurrent}
+        />
+      )}
+      {showAgreeCard && (
       {selectedTab === 4 && <CostCard onCostClick={handleCostClick} />}
       {selectedTab === 5 && (
         <AgreeCard

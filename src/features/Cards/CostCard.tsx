@@ -8,11 +8,38 @@ import {
 } from "@mui/material";
 import React from "react";
 
-interface CostCardProps {
-  onCostClick: () => void;
+interface PackageItem {
+  cost: number;
+  name: string;
+  weight: number;
+  country: string;
+  quantity: number;
 }
 
-export const CostCard: React.FC<CostCardProps> = ({ onCostClick }) => {
+interface CostCardProps {
+  onCostClick: () => void;
+  packageCurrent: {
+    departure: string;
+    items: PackageItem[];
+  };
+}
+
+export const CostCard: React.FC<CostCardProps> = ({
+  onCostClick,
+  packageCurrent,
+}) => {
+  // Calculate total weight and total cost
+  const totalWeight = packageCurrent.items.reduce(
+    (acc, item) => acc + item.weight,
+    0
+  );
+
+  const totalCost = packageCurrent.items.reduce(
+    (acc, item) => acc + item.cost,
+    0
+  );
+
+  // Handle button click
   const handleClick = () => {
     onCostClick();
   };
@@ -40,7 +67,7 @@ export const CostCard: React.FC<CostCardProps> = ({ onCostClick }) => {
             marginBottom: 2,
           }}
         >
-          Тариф: Тариф Cтандарт Италия - Россия
+          Посылка из {packageCurrent.items[0]?.country ?? "неизвестно"}
         </Typography>
         <Divider sx={{ marginY: 2 }} />
         <Box
@@ -53,9 +80,7 @@ export const CostCard: React.FC<CostCardProps> = ({ onCostClick }) => {
           <Typography variant="body1" sx={{ fontWeight: "bold" }}>
             Посылка:
           </Typography>
-          <Typography variant="body1">
-            1 кг, размеры: 15 x 15 x 15 см
-          </Typography>
+          <Typography variant="body1">{totalWeight} кг</Typography>
         </Box>
         <Divider sx={{ marginY: 1 }} />
         <Box
@@ -68,7 +93,7 @@ export const CostCard: React.FC<CostCardProps> = ({ onCostClick }) => {
           <Typography variant="body1" sx={{ fontWeight: "bold" }}>
             Цена:
           </Typography>
-          <Typography variant="body1">37.00€</Typography>
+          <Typography variant="body1">{totalCost}€</Typography>
         </Box>
         <Divider sx={{ marginY: 1 }} />
         <Box
@@ -81,7 +106,9 @@ export const CostCard: React.FC<CostCardProps> = ({ onCostClick }) => {
           <Typography variant="body1" sx={{ fontWeight: "bold" }}>
             Содержимое:
           </Typography>
-          <Typography variant="body1">0 предметов на сумму 0 евро</Typography>
+          <Typography variant="body1">
+            {packageCurrent.items.length} предметов на сумму {totalCost} евро
+          </Typography>
         </Box>
         <Divider sx={{ marginY: 1 }} />
         <Box
@@ -94,7 +121,7 @@ export const CostCard: React.FC<CostCardProps> = ({ onCostClick }) => {
           <Typography variant="body1" sx={{ fontWeight: "bold" }}>
             Всего:
           </Typography>
-          <Typography variant="body1">37.00€</Typography>
+          <Typography variant="body1">{totalCost}€</Typography>
         </Box>
         <Divider sx={{ marginY: 2 }} />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
