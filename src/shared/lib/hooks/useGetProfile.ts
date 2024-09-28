@@ -1,18 +1,27 @@
+import { useEffect, useState } from "react";
 import { axiosInstance } from "./useInterceptor";
 
-export async function useGetProfile(): Promise<any> {
-  try {
-    const response = await axiosInstance.get("/api/user/get-profile");
+// Custom hook to get the profile
+export function useGetProfile() {
+  const [result, setResult] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
-    console.log("Profile got successfully:", response.data);
-
-    return response.data.profile;
-  } catch (error: unknown | any) {
-    console.error("Failed to get profile:", error);
-    if (error.response) {
-      return [];
-    } else {
-      return [];
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        const response = await axiosInstance.get("/api/user/get-profile");
+        console.log("Profile got successfully:", response.data);
+        setResult(response.data.profile);
+      } catch (error: unknown | any) {
+        console.error("Failed to get profile:", error);
+        setError(error.message || "Failed to fetch profile");
+      } finally {
+        setLoading(false);
+      }
     }
-  }
+    fetchProfile();
+  }, []);
+
+  return { result, loading, error };
 }

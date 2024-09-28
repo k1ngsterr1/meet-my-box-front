@@ -1,38 +1,101 @@
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Checkbox,
+  FormControlLabel,
+  Link,
+  Typography,
+} from "@mui/material";
 import React from "react";
-import styles from "./styles.module.scss";
-import Button from "@shared/ui/Button/ui/button";
 
-export const AgreeCard = ({ onAgreeClick, toggle1, toggle2 }: any) => {
+interface AgreeCardProps {
+  onAgreeClick: () => void;
+  toggle1: () => void;
+  toggle2: () => void;
+}
+
+export const AgreeCard: React.FC<AgreeCardProps> = ({
+  onAgreeClick,
+  toggle1,
+  toggle2,
+}) => {
   const handleClick = () => {
     onAgreeClick();
   };
 
   return (
-    <div className={styles.card}>
-      <div className={styles.agree_box}>
-        <div className={styles["box--agree"]}>
-          <label className={styles["box--agree__container"]}>
-            <input type="checkbox" className={styles.input} onClick={toggle1} />
-            <span className={styles.checkmark}></span>
-            Даю согласие на обработку{" "}
-            <a
-              href="#"
-              className={styles.link}
-              onClick={(e) => e.stopPropagation()}
-            >
-              персональный данных
-            </a>
-          </label>
-        </div>
-        <div className={styles["box--agree"]}>
-          <label className={styles["box--agree__container"]}>
-            <input type="checkbox" className={styles.input} onClick={toggle2} />
-            <span className={styles.checkmark}></span>
-            Принимаю пользовательское соглашение
-          </label>
-        </div>
-      </div>
-      <Button text="Закончить" buttonType="filled" onClick={onAgreeClick} />
-    </div>
+    <Card
+      sx={{
+        width: "100%",
+        maxWidth: 500,
+        margin: "auto",
+        boxShadow: 6,
+        borderRadius: 3,
+        padding: 3,
+        backgroundColor: "#f9fafb",
+        border: "1px solid #e0e0e0",
+      }}
+    >
+      <CardContent>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                onClick={toggle1}
+                sx={{
+                  color: "#220CF3",
+                  "&.Mui-checked": { color: "#1E0AD1" },
+                }}
+              />
+            }
+            label={
+              <Typography variant="body1">
+                Даю согласие на обработку{" "}
+                <Link
+                  href="#"
+                  underline="hover"
+                  onClick={(e) => e.stopPropagation()}
+                  sx={{ color: "#220CF3", cursor: "pointer" }}
+                >
+                  персональных данных
+                </Link>
+              </Typography>
+            }
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                onClick={toggle2}
+                sx={{
+                  color: "#220CF3",
+                  "&.Mui-checked": { color: "#1E0AD1" },
+                }}
+              />
+            }
+            label={
+              <Typography variant="body1">
+                Принимаю пользовательское соглашение
+              </Typography>
+            }
+          />
+        </Box>
+      </CardContent>
+      <CardActions sx={{ justifyContent: "center", mt: 2 }}>
+        <Button
+          variant="contained"
+          onClick={handleClick}
+          sx={{
+            backgroundColor: "#220CF3",
+            textTransform: "none",
+            "&:hover": { backgroundColor: "#1E0AD1" },
+          }}
+        >
+          Закончить
+        </Button>
+      </CardActions>
+    </Card>
   );
 };

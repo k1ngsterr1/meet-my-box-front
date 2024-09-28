@@ -4,12 +4,13 @@ import {
   Button,
   Card,
   CardContent,
+  Grid,
   IconButton,
+  Pagination,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 
-// Address Properties Interface
 export interface AddressProps {
   id: number;
   type: "receiver" | "sender";
@@ -23,97 +24,132 @@ export interface AddressProps {
   postal_code: string;
 }
 
-// Component Props Interface
 interface Items {
   items: AddressProps[];
 }
 
-// Main Component to Display Address List
 export const AddressPC: React.FC<Items> = ({ items }) => {
   const [show, setShow] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState<AddressProps | null>(
     null
   );
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
 
-  // Function to handle "Подробнее" button click
   const handleShowDetails = (item: AddressProps) => {
     setSelectedAddress(item);
     setShow(true);
   };
 
+  const handlePageChange = (
+    _event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setCurrentPage(value);
+  };
+
+  // Calculate pagination indices
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 3,
-        mt: 4,
-        width: "100%",
-      }}
-    >
-      {/* Render Address List */}
-      {items.map((item, index) => (
-        <Card
-          key={index}
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            p: 3,
-            borderRadius: 2,
-            boxShadow: 3,
-          }}
-        >
-          {/* Left Section */}
-          <Box sx={{ display: "flex", flexDirection: "column", width: "50%" }}>
-            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-              {item.firstName || "Неизвестно"}
-            </Typography>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>
-              <Box
-                sx={{
-                  width: 12,
-                  height: 12,
-                  borderRadius: "50%",
-                  backgroundColor:
-                    item.type === "receiver" ? "#91BB45" : "#FF6347",
-                }}
-              />
-              <Typography variant="body2" sx={{ color: "#666" }}>
-                {item.type === "receiver" ? "Получатель" : "Отправитель"}
-              </Typography>
-            </Box>
-            <Typography variant="body2" sx={{ mt: 2 }}>
-              Номер телефона: <strong>{item.phoneNumber}</strong>
-            </Typography>
-            <Typography variant="body2">
-              Город: <strong>{item.city}</strong>
-            </Typography>
-          </Box>
-
-          {/* Right Section */}
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-end",
-              width: "40%",
-            }}
-          >
-            {/* Open Popup with Address Details */}
-            <Button
-              variant="contained"
-              sx={{ width: "100%", mt: 2, backgroundColor: "#220CF3" }}
-              onClick={() => handleShowDetails(item)}
+    <Box sx={{ width: "90%", mt: 4 }}>
+      {/* Grid Layout for Address Cards */}
+      <Grid container spacing={3}>
+        {items.slice(startIndex, endIndex).map((item, index) => (
+          <Grid item xs={12} sm={6} md={6} key={index}>
+            <Card
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                alignItems: "center",
+                p: 3,
+                borderRadius: 2,
+                boxShadow: 3,
+                width: "400px",
+                height: "100%",
+              }}
             >
-              Подробнее
-            </Button>
-          </Box>
-        </Card>
-      ))}
+              <CardContent sx={{ width: "100%" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    width: "100%",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                    {item.firstName || "Неизвестно"}
+                  </Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1,
+                      mt: 1,
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: 12,
+                        height: 12,
+                        borderRadius: "50%",
+                        backgroundColor:
+                          item.type === "receiver" ? "#91BB45" : "#FF6347",
+                      }}
+                    />
+                    <Typography variant="body2" sx={{ color: "#666" }}>
+                      {item.type === "receiver" ? "Получатель" : "Отправитель"}
+                    </Typography>
+                  </Box>
+                  <Typography variant="body2" sx={{ mt: 2 }}>
+                    Номер телефона: <strong>{item.phoneNumber}</strong>
+                  </Typography>
+                  <Typography variant="body2">
+                    Город: <strong>{item.city}</strong>
+                  </Typography>
+                </Box>
+              </CardContent>
 
-      {/* Popup to Display Single Address Details */}
+              {/* Details Button */}
+              <Button
+                variant="contained"
+                sx={{
+                  width: "100%",
+                  mt: 2,
+                  backgroundColor: "#220CF3",
+                  "&:hover": { backgroundColor: "#1b06b8" },
+                }}
+                onClick={() => handleShowDetails(item)}
+              >
+                Подробнее
+              </Button>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+
+      {/* Pagination Component */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          mt: 4,
+        }}
+      >
+        <Pagination
+          count={Math.ceil(items.length / itemsPerPage)}
+          page={currentPage}
+          onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
+          color="primary"
+        />
+      </Box>
+
+      {/* Popup with Address Details */}
       {show && selectedAddress && (
         <PopupCard
           item={selectedAddress}
@@ -174,8 +210,6 @@ const PopupCard: React.FC<PopupCardProps> = ({ item, onClose }) => {
         >
           <Close />
         </IconButton>
-
-        {/* Popup Content for Single Address */}
         <CardContent>
           <Typography variant="h5" sx={{ mb: 2, fontWeight: "bold" }}>
             Детали Адреса

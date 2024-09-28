@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import styles from "./styles.module.scss";
 import Button from "@shared/ui/Button/ui/button";
 import { BorderInput } from "@shared/ui/Input/BorderInput/border-input";
+import React, { useEffect } from "react";
+import styles from "./styles.module.scss";
 
 type Item = {
   item_name: string;
@@ -140,12 +140,14 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
       <form className={styles.add_package_pc__form} onSubmit={handleSubmit}>
         <div className="w-full flex gap-4">
           <BorderInput
+            type="text"
             placeholder="Наименование"
             value={itemName}
             onChange={(e) => setItemName(e.target.value)}
             margin="mt-2"
           />
           <BorderInput
+            type="text"
             placeholder="Страна происхождения"
             value={originCountry}
             onChange={(e) => setOriginCountry(e.target.value)}
@@ -155,6 +157,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
         </div>
         <div className="w-full flex gap-4">
           <BorderInput
+            type="text"
             placeholder="Кол-во, шт"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
@@ -162,14 +165,17 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
             margin="mt-2"
           />
           <BorderInput
+            type="number"
             placeholder="Вес (кг)"
             value={weight}
+            max={10}
             onChange={(e) => setWeight(e.target.value)}
             width="w-[50%]"
             margin="mt-2"
           />
         </div>
         <BorderInput
+          type="text"
           placeholder="Стоимость (евро)"
           value={price}
           onChange={(e) => setPrice(e.target.value)}

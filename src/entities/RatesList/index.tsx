@@ -1,9 +1,8 @@
-import type React from "react";
-import styles from "./styles.module.scss";
 import { RatesCard, RatesCardPC } from "@features/RatesCard";
-import Button from "@shared/ui/Button/ui/button";
-import { useState } from "react";
 import { InfoScreen } from "@widgets/ui/HomePage/InfoScreen/InfoScreen";
+import type React from "react";
+import { useState } from "react";
+import styles from "./styles.module.scss";
 export type TimeArray = {
   estimateNumber: string;
   estimateTime: string;

@@ -12,7 +12,7 @@ export const AddAddressPage = () => {
     const fetchUser = async () => {
       const fetchedUser = await useGetProfile();
       console.log("user", fetchedUser);
-      setUser(fetchedUser);
+      setUser(fetchedUser as any);
     };
 
     fetchUser();
