@@ -1,5 +1,5 @@
 import card_img from "@assets/card_img.png";
-import { cardInfo, type ICardInfo } from "@shared/lib/content/Cards";
+import { type ICardInfo } from "@shared/lib/content/Cards";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import type React from "react";
 import { Fade } from "react-awesome-reveal";

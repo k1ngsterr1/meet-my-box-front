@@ -1,6 +1,6 @@
+import Button from "@shared/ui/Button/ui/button";
 import React from "react";
 import styles from "./styles.module.scss";
-import Button from "@shared/ui/Button/ui/button";
 
 export interface PackageProps {
   id: number;

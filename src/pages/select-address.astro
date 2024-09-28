@@ -1,13 +1,12 @@
 ---
 import { Menu } from "@shared/ui/Menu/ui/menu";
 import Layout from "@widgets/layouts/ui/layout.astro";
-import { ServiceScreen } from "@widgets/ui/HomePage/screens/ServiceScreen/ServiceScreen";
+import { AddressesSelectors } from "@widgets/ui/AddressesList";
 import { Loader } from "@widgets/ui/Loader/ui/loader";
 ---
 
 <Layout>
   <Loader client:load />
   <Menu client:load />
-  <!-- <ServicePage client:load /> -->
-  <ServiceScreen client:load />
+  <AddressesSelectors client:load />
 </Layout>
