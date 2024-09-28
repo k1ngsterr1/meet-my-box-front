@@ -74,6 +74,13 @@ export const ApplicationPage = () => {
     setSelectedTab(4);
   };
 
+  const handleAddressChange = (addressId: number) =>
+    setChosenAddress(addressId);
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setSelectedTab(newValue);
+  };
+
   const handleCostClick = () => setSelectedTab(5);
 
   const handleAgreeClick = async () => {
