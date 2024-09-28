@@ -18,6 +18,7 @@ interface PackageItem {
 
 interface CostCardProps {
   onCostClick: () => void;
+  price: string;
   packageCurrent: {
     departure: string;
     items: PackageItem[];
@@ -27,6 +28,7 @@ interface CostCardProps {
 export const CostCard: React.FC<CostCardProps> = ({
   onCostClick,
   packageCurrent,
+  price,
 }) => {
   // Calculate total weight and total cost
   const totalWeight = packageCurrent.items.reduce(
@@ -93,7 +95,7 @@ export const CostCard: React.FC<CostCardProps> = ({
           <Typography variant="body1" sx={{ fontWeight: "bold" }}>
             Цена:
           </Typography>
-          <Typography variant="body1">{totalCost}€</Typography>
+          <Typography variant="body1">{price}€</Typography>
         </Box>
         <Divider sx={{ marginY: 1 }} />
         <Box
@@ -107,7 +109,7 @@ export const CostCard: React.FC<CostCardProps> = ({
             Содержимое:
           </Typography>
           <Typography variant="body1">
-            {packageCurrent.items.length} предметов на сумму {totalCost} евро
+            {packageCurrent.items.length} предметов на сумму {price}
           </Typography>
         </Box>
         <Divider sx={{ marginY: 1 }} />
@@ -121,7 +123,7 @@ export const CostCard: React.FC<CostCardProps> = ({
           <Typography variant="body1" sx={{ fontWeight: "bold" }}>
             Всего:
           </Typography>
-          <Typography variant="body1">{totalCost}€</Typography>
+          <Typography variant="body1">{price}</Typography>
         </Box>
         <Divider sx={{ marginY: 2 }} />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
