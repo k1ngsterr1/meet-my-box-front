@@ -23,9 +23,15 @@ export async function useCreatePayment(): Promise<any> {
     const response = await axiosInstance.post("/api/user/payment/create", {
       amount: totalAmount, // Pass the total amount in the request body
     });
-    console.log("Response", response);
-
-    return response.data.result.client_secret; // Return the response from the backend
+    console.log(
+      "Worked",
+      response.data.result.client_secret,
+      response.data.result.amount
+    );
+    return {
+      client_secret: response.data.result.client_secret,
+      amount: response.data.result.amount / 100,
+    }; // Return the response from the backend
   } catch (error: unknown) {
     console.error("Failed to create payment:", error);
 
