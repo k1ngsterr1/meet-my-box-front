@@ -121,7 +121,7 @@ export const ApplicationPage = () => {
       console.log(updatedItems);
 
       // Proceed with the update, including updated items
-      await useUpdatePackage({
+      const package_now = await useUpdatePackage({
         id: parseInt(id !== undefined ? id : "", 10),
         insurance: !insurance ? "Не нужна" : "Нужна",
         courier: !courier ? "Не нужен" : "Нужен",
@@ -129,12 +129,12 @@ export const ApplicationPage = () => {
         addressId: chosenAddress,
         items: updatedItems, // Include updated items with new cost
       });
+      console.log(package_now);
 
-      // Remove packageId from localStorage
-      localStorage.removeItem("packageId");
+      localStorage.setItem("packageId", JSON.stringify(package_now));
 
       // // Redirect to packages page
-      window.location.href = "/packages";
+      window.location.href = "/payment";
     }
   };
 

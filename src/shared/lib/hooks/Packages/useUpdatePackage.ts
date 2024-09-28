@@ -2,12 +2,13 @@ import type { PackageProps } from "@entities/Packages";
 import { axiosInstance } from "../useInterceptor";
 
 interface IData {
-  id: number;
-  insurance: string;
-  courier: string;
-  note: string;
+  id?: number;
+  insurance?: string;
+  courier?: string;
+  note?: string;
   addressId?: number;
-  items: any[];
+  items?: any[];
+  payed?: boolean;
 }
 
 export async function useUpdatePackage(
@@ -21,7 +22,7 @@ export async function useUpdatePackage(
 
     console.log("Packages got successfully:", response.data);
 
-    return response.data.items;
+    return response.data.package;
   } catch (error: unknown | any) {
     console.error("Failed to get packages:", error);
     if (error.response) {

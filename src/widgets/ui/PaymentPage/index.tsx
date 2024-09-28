@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PricingTable from "@entities/AdditionalServiceTable";
 import styles from "./styles.module.scss";
 import { PaymentForm } from "@features/PaymentForm";
 import { Loader } from "../Loader/ui/loader";
@@ -14,13 +13,22 @@ const stripePromise = loadStripe(
 
 export const PaymentPage = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null); // State to store client secret
+  const [amount, setAmount] = useState<number>(0); // State to store amount
 
   useEffect(() => {
     // Fetch the client secret when the component mounts
     const fetchClientSecret = async () => {
-      const secret = await useCreatePayment();
-      setClientSecret(secret); // Set the client secret
+      try {
+        const { client_secret, amount } = await useCreatePayment();
+
+        setClientSecret(client_secret); // Set the client secret correctly
+        setAmount(amount); // Set the amount to be charged correctly
+        console.log(client_secret, amount); // Log the client secret and amount
+      } catch (error) {
+        console.error("Error fetching payment details:", error);
+      }
     };
+
     fetchClientSecret();
   }, []);
 
@@ -29,10 +37,10 @@ export const PaymentPage = () => {
       {clientSecret ? (
         // Wrap the PaymentForm with the Elements provider
         <Elements stripe={stripePromise}>
-          <PaymentForm clientSecret={clientSecret} />
+          <PaymentForm clientSecret={clientSecret} amount={amount} />
         </Elements>
       ) : (
-        <Loader />
+        <></>
       )}
     </div>
   );
