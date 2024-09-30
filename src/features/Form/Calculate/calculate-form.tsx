@@ -12,28 +12,28 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const countriesFrom = [
-  { value: "Italy", label: "Италия" },
-  { value: "France", label: "Франция" },
-  { value: "Germany", label: "Германия" },
-  { value: "Spain", label: "Испания" },
-  { value: "Netherlands", label: "Нидерланды" },
-  { value: "Austria", label: "Австрия" },
-  { value: "Poland", label: "Польша" },
-  { value: "Switzerland", label: "Швейцария" },
-  { value: "United Kingdom", label: "Великобритания" },
-  { value: "Cyprus", label: "Кипр" },
-  // Add more countries as needed
+  { value: "Italy", label: "Италия", countryCode: "IT" },
+  { value: "France", label: "Франция", countryCode: "FR" },
+  { value: "Germany", label: "Германия", countryCode: "DE" },
+  { value: "Spain", label: "Испания", countryCode: "ES" },
+  { value: "Netherlands", label: "Нидерланды", countryCode: "NL" },
+  { value: "Austria", label: "Австрия", countryCode: "AT" },
+  { value: "Poland", label: "Польша", countryCode: "PL" },
+  { value: "Switzerland", label: "Швейцария", countryCode: "CH" },
+  { value: "United Kingdom", label: "Великобритания", countryCode: "GB" },
+  { value: "Cyprus", label: "Кипр", countryCode: "CY" },
+  // Добавьте другие страны с их кодами
 ];
 
 const countriesTo = [
-  { value: "Russia", label: "Россия" },
-  { value: "Kazakhstan", label: "Казахстан" },
-  { value: "Belarus", label: "Беларусь" },
-  { value: "Kyrgyzstan", label: "Кыргыстан" },
-  { value: "Georgia", label: "Грузия" },
-  { value: "Turkmenistan", label: "Туркменистан" },
-  { value: "Azerbaijan", label: "Азербайджан" },
-  // Add more countries as needed
+  { value: "Russia", label: "Россия", countryCode: "RU" },
+  { value: "Kazakhstan", label: "Казахстан", countryCode: "KZ" },
+  { value: "Belarus", label: "Беларусь", countryCode: "BY" },
+  { value: "Kyrgyzstan", label: "Кыргыстан", countryCode: "KG" },
+  { value: "Georgia", label: "Грузия", countryCode: "GE" },
+  { value: "Turkmenistan", label: "Туркменистан", countryCode: "TM" },
+  { value: "Azerbaijan", label: "Азербайджан", countryCode: "AZ" },
+  // Добавьте другие страны с их кодами
 ];
 
 // const shippoToken = process.env.SHIPPO_API_TOKEN; // Use environment variable
@@ -194,7 +194,6 @@ export const CalculateForm = () => {
         return Math.floor(weight); // Round down
       }
     };
-    console.log(roundWeight(weight));
 
     if (fromCountry === "Italy" || fromCountry === "Germany") {
       let response = {
@@ -332,12 +331,14 @@ export const CalculateForm = () => {
               </option>
             ))}
           </select>
-          <CalculateInput
+          <PostcodeDropdown
             value={toPostcode}
-            placeholder="Почтовый индекс"
-            onChange={(e) => setToPostcode(e.target.value)}
-            className="mt-2 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
-            required
+            onChange={setToPostcode}
+            placeholder="Введите индекс"
+            country={
+              countriesTo.find((country) => country.value === fromCountry)
+                ?.countryCode
+            } //
           />
         </div>
 
@@ -450,6 +451,7 @@ export const CalculateFormPC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   console.log("fromCountry:", fromCountry);
+  console.log("toCountry:", toCountry);
 
   // Handle form submission
   const handleSubmit = async (e: any) => {
@@ -624,6 +626,10 @@ export const CalculateFormPC = () => {
               value={fromPostcode}
               onChange={setFromPostcode}
               placeholder="Введите индекс"
+              country={
+                countriesFrom.find((country) => country.value === fromCountry)
+                  ?.countryCode
+              } // Находим `countryCode` по `value`
             />
           </div>
           <div className="flex-1">
@@ -647,12 +653,14 @@ export const CalculateFormPC = () => {
             <label className="block text-sm font-medium text-gray-700">
               Ваш индекс:
             </label>
-            <CalculateInput
+            <PostcodeDropdown
               value={toPostcode}
-              placeholder="Почтовый индекс"
-              onChange={(e) => setToPostcode(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-              required
+              onChange={setToPostcode}
+              placeholder="Введите индекс"
+              country={
+                countriesTo.find((country) => country.value === toCountry)
+                  ?.countryCode
+              } // Находим `countryCode` по `value`
             />
           </div>
         </div>

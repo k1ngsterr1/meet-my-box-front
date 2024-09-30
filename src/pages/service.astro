@@ -1,6 +1,8 @@
 ---
+import { ContactsButton } from "@features/ContactsButton/ui/contacts-button";
 import { Menu } from "@shared/ui/Menu/ui/menu";
 import Layout from "@widgets/layouts/ui/layout.astro";
+import { ContactScreen } from "@widgets/ui/HomePage/screens/ContactScreen/ContactScreen";
 import { ServiceScreen } from "@widgets/ui/HomePage/screens/ServiceScreen/ServiceScreen";
 import { Loader } from "@widgets/ui/Loader/ui/loader";
 ---
@@ -8,6 +10,7 @@ import { Loader } from "@widgets/ui/Loader/ui/loader";
 <Layout>
   <Loader client:load />
   <Menu client:load />
-  <!-- <ServicePage client:load /> -->
   <ServiceScreen client:load />
+  <ContactScreen client:load />
+  <ContactsButton client:load />
 </Layout>

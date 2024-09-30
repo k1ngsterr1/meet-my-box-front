@@ -1,7 +1,7 @@
-import cookie_file from "@assets/Cookies Policy ENG, RUS, ITA.pdf";
-import personal_data from "@assets/PERSONAL DATA RUS, ENG, ITA (1).pdf";
-import privacy_file from "@assets/Privacy Policy ENG, RUS, ITA.pdf";
-import offer from "@assets/Public offer RUS, ENG, ITA.pdf";
+import cookie_file from "@assets/cookies_policy.pdf";
+import personal_data from "@assets/personal_data.pdf";
+import privacy_file from "@assets/privacy_policy.pdf";
+import offer from "@assets/public_offer.pdf";
 
 import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";

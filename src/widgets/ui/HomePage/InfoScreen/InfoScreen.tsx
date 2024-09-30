@@ -1,5 +1,5 @@
-import box_img from "@assets/icons8-коробка.svg";
-import file from "@assets/Запрещено отправлять RUS, ENG, ITA.pdf";
+import file from "@assets/forbidden.pdf";
+import box_img from "@assets/icons8.svg";
 export const InfoScreen: React.FC = () => {
   const scrollToBottom = () => {
     window.scrollTo({

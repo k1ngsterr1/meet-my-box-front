@@ -183,6 +183,11 @@ export const AddAddressForm: React.FC<{ user?: any }> = ({ user }) => {
         fullWidth
       />
       <Button text="Сохранить" type="submit" buttonType="filled" />
+      <Button
+        text="Вернуться к заявке"
+        buttonType="outline"
+        onClick={() => (window.location.href = "/application")}
+      />
     </Box>
   );
 };
@@ -436,10 +441,15 @@ export const AddAddressFormPC: React.FC<{ user?: any }> = ({ user }) => {
           ))}
         </Select>
       </FormControl>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center flex-col justify-center">
         <Button text="Сохранить" type="submit" buttonType="filled" />
+        <Button
+          margin="mt-4"
+          text="Вернуться к заявке"
+          buttonType="outline"
+          onClick={() => (window.location.href = "/application")}
+        />
       </div>
-      {/* Snackbar for Success and Error Messages */}
       <Snackbar
         open={successMessage}
         autoHideDuration={6000}
@@ -449,7 +459,6 @@ export const AddAddressFormPC: React.FC<{ user?: any }> = ({ user }) => {
           Адрес успешно добавлен!
         </Alert>
       </Snackbar>
-
       <Snackbar
         open={errorMessage}
         autoHideDuration={6000}

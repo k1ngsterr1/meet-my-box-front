@@ -1,10 +1,8 @@
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
-import { defineConfig } from "astro/config";
+import { defineConfig } from "astro/config"; // Make sure this is imported correctly!
 
-// https://astro.build/config
 export default defineConfig({
-  // output: "client",
   integrations: [react(), tailwind()],
   vite: {
     resolve: {
@@ -12,7 +10,6 @@ export default defineConfig({
         "@shared": "/src/shared",
         "@features": "/src/features",
         "@entities": "/src/entities",
-        "@shared": "/src/shared",
         "@widgets": "/src/widgets",
         "@assets": "/src/assets",
       },

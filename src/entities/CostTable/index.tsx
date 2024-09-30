@@ -9,29 +9,38 @@ const PricingTable = () => {
   // Данные таблицы
   const pricingData = {
     standard: [
-      { weight: "1.00", price: "36€" },
-      { weight: "2.00", price: "38€" },
-      { weight: "3.00", price: "42€" },
-      { weight: "4.00", price: "44€" },
-      { weight: "5.00", price: "47€" },
-      { weight: "6.00", price: "48€" },
-      { weight: "7.00", price: "51€" },
-      { weight: "8.00", price: "54€" },
-      { weight: "9.00", price: "56€" },
-      { weight: "10.00", price: "58€" },
-      { weight: "11.00", price: "63€" },
+      { weight: "1", price: "36€" },
+      { weight: "2", price: "38€" },
+      { weight: "3", price: "42€" },
+      { weight: "4", price: "44€" },
+      { weight: "5", price: "47€" },
+      { weight: "6", price: "48€" },
+      { weight: "7", price: "51€" },
+      { weight: "8", price: "54€" },
+      { weight: "9", price: "56€" },
+      { weight: "10", price: "58€" },
+      { weight: "11", price: "63€" },
+      { weight: "12", price: "66€" },
+      { weight: "13", price: "68€" },
+      { weight: "14", price: "71€" },
+      { weight: "15", price: "73€" },
     ],
     express: [
-      { weight: "0.50 - 1.00", price: "39€" },
-      { weight: "1.50 - 2.00", price: "43€" },
-      { weight: "2.50 - 3.00", price: "50€" },
-      { weight: "3.50 - 4.00", price: "57€" },
-      { weight: "4.50 - 5.00", price: "60€" },
-      { weight: "5.50 - 6.00", price: "65€" },
-      { weight: "6.50 - 7.00", price: "70€" },
-      { weight: "7.50 - 8.00", price: "75€" },
-      { weight: "8.50 - 9.00", price: "79€" },
-      { weight: "9.50 - 10.00", price: "82€" },
+      { weight: "1", price: "39€" },
+      { weight: "2", price: "43€" },
+      { weight: "3", price: "50€" },
+      { weight: "4", price: "57€" },
+      { weight: "5", price: "60€" },
+      { weight: "6", price: "65€" },
+      { weight: "7", price: "70€" },
+      { weight: "8", price: "75€" },
+      { weight: "9", price: "79€" },
+      { weight: "10", price: "82€" },
+      { weight: "11", price: "90€" },
+      { weight: "12", price: "94€" },
+      { weight: "13", price: "99€" },
+      { weight: "14", price: "104€" },
+      { weight: "15", price: "108€" },
     ],
   };
 
@@ -54,7 +63,9 @@ const PricingTable = () => {
         </button>
         <button
           className={`px-3 py-1 rounded-md text-sm ${
-            tableState === "Экспресс" ? "bg-blue-600 text-white" : "bg-gray-300"
+            tableState === "Экспресс"
+              ? "bg-yellow-500 text-white"
+              : "bg-gray-300"
           }`}
           onClick={() => handleTableSwitch("Экспресс")}
         >
@@ -81,7 +92,9 @@ const PricingTable = () => {
       <div className="overflow-x-auto w-full max-w-2xl">
         <table className="min-w-full bg-white border border-gray-200 text-sm">
           <thead>
-            <tr className="bg-blue-600 text-white">
+            <tr
+              className={`  ${tableState === "Стандарт" ? "bg-blue-600" : "bg-yellow-500"} text-white`}
+            >
               <th className="py-2 px-2 border">Вес (кг)</th>
               <th className="py-2 px-2 border">Стоимость (EUR)</th>
             </tr>

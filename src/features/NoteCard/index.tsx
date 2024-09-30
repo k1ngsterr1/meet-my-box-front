@@ -31,16 +31,27 @@ export const NoteCard: React.FC<NoteCardProps> = ({ onNoteClick, setter }) => {
       }}
     >
       <CardContent>
+        <div className="flex items-center justify-center gap-4 mb-3">
+          <Typography
+            variant="h5"
+            sx={{
+              fontWeight: "bold",
+              textAlign: "center",
+              color: "#3F51B5",
+            }}
+          >
+            Примечание
+          </Typography>
+        </div>
         <Typography
-          variant="h5"
+          variant="body2"
           sx={{
-            fontWeight: "bold",
             textAlign: "center",
-            color: "#3F51B5",
-            mb: 3,
+            color: "#757575",
+            mb: 2,
           }}
         >
-          Примечание
+          *Это примечание будет видно только курьеру.
         </Typography>
         <TextField
           fullWidth

@@ -2,6 +2,7 @@ import bg_face from "@assets/bg_face.svg";
 import { ServiceList } from "@entities/ServiceList";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import styles from "./styles.module.scss";
+import { ServiceScreen } from "dist/_astro/ServiceScreen.Kch0nGiB";
 
 export const ServicePage = () => {
   return (

@@ -4,6 +4,7 @@ interface PostcodeDropdownProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  country: string | undefined;
 }
 
 interface PostcodeSuggestion {
@@ -15,6 +16,7 @@ const PostcodeDropdown: React.FC<PostcodeDropdownProps> = ({
   value,
   onChange,
   placeholder = "Введите индекс",
+  country,
 }) => {
   const [suggestions, setSuggestions] = useState<PostcodeSuggestion[]>([]);
   const [loading, setLoading] = useState(false);
@@ -22,7 +24,7 @@ const PostcodeDropdown: React.FC<PostcodeDropdownProps> = ({
 
   useEffect(() => {
     if (value.length >= 3) {
-      fetchPostcodes(value);
+      fetchPostcodes(value, country);
       setShowSuggestions(true);
     } else {
       setSuggestions([]);
@@ -31,18 +33,33 @@ const PostcodeDropdown: React.FC<PostcodeDropdownProps> = ({
   }, [value]);
 
   // Функция для загрузки почтовых индексов с использованием GeoNames API
-  const fetchPostcodes = async (postcode: string) => {
+  const fetchPostcodes = async (
+    postcode: string,
+    countryCode: string | undefined
+  ) => {
     setLoading(true);
     try {
-      const username = "k1ngsterr"; // Замените на ваш username, зарегистрировавшись на geonames.org
+      const username = "k1ngsterr"; // Ваш username на GeoNames.org
       const response = await fetch(
-        `https://secure.geonames.org/postalCodeSearchJSON?postalcode_startsWith=${postcode}&username=${username}&maxRows=5`
+        `https://secure.geonames.org/postalCodeSearchJSON?postalcode_startsWith=${postcode}&country=${countryCode}&username=${username}&maxRows=5`
       );
       const data = await response.json();
+      console.log("GeoNames API Response:", data); // Логируем полный ответ API
+
+      if (!data.postalCodes || data.postalCodes.length === 0) {
+        console.warn(`Нет результатов для ${postcode} в стране ${countryCode}`);
+        setSuggestions([]);
+        return;
+      }
+
+      // Формируем список подсказок
       const postcodes = data.postalCodes.map((item: any) => ({
         postalCode: item.postalCode,
+        placeName: item.placeName,
         countryCode: item.countryCode,
       }));
+
+      console.log("Найденные индексы:", postcodes);
       setSuggestions(postcodes);
     } catch (error) {
       console.error("Ошибка загрузки индексов: ", error);

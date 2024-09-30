@@ -22,7 +22,6 @@ export async function useCreatePayment(): Promise<any> {
         response.data.result.client_secret,
         response.data.result.amount
       );
-      // amount: response.data.result.amount / 100,
 
       return {
         client_secret: response.data.result.client_secret,

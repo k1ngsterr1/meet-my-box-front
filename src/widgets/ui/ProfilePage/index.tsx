@@ -129,10 +129,8 @@ export const ProfilePage: React.FC = () => {
   };
 
   return (
-    <main
-      className={`${styles.profile_page} p-6 bg-blue-50 mt-8 mb-8 rounded-lg`}
-    >
-      <div className="flex items-center justify-between">
+    <main className={`${styles.profile_page} p-6  mt-8 mb-8 rounded-lg`}>
+      <div className="flex items-center justify-between ">
         <h1 className="font-bold text-xl mb-4">Профиль клиента</h1>
         <span
           className="text-main"
@@ -146,7 +144,7 @@ export const ProfilePage: React.FC = () => {
       </div>
       <hr className="bg-main border-2 border-main rounded-full mb-6" />
       <form
-        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-blue-50 p-8 rounded-lg"
         onSubmit={handleSubmit}
       >
         {[
@@ -253,7 +251,6 @@ export const ProfilePage: React.FC = () => {
             />
           </div>
         ))}
-        {/* Dropdown for Country Selection */}
         <div className="flex flex-col">
           <label className="mb-1 text-gray-700 text-sm">Страна</label>
           <select
