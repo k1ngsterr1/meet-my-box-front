@@ -127,7 +127,7 @@ export const ApplicationPage = () => {
       localStorage.setItem("packageId", JSON.stringify(package_now));
 
       // Redirect to the payment page
-      window.location.href = "/payment";
+      window.location.href = "/payment-methods";
     }
   };
 
