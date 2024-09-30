@@ -1,4 +1,4 @@
-import file from "@assets/Privacy Policy ENG, RUS, ITA.pdf";
+import file from "@assets/privacy_policy.pdf";
 import {
   Box,
   Button,

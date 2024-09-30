@@ -16,7 +16,6 @@ export const CalculateScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isForm, setIsForm] = useState(true);
   const [parcels, setParcels] = useState([1]); // State to handle multiple parcels
-  Documents;
   useEffect(() => {
     const fetchBlock = async () => {
       try {

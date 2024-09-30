@@ -1,5 +1,5 @@
-import cookie_file from "@assets/Cookies Policy ENG, RUS, ITA.pdf";
-import privacy_file from "@assets/Privacy Policy ENG, RUS, ITA.pdf";
+import cookie_file from "@assets/cookies_policy.pdf";
+import privacy_file from "@assets/privacy_policy.pdf";
 import { useState } from "react";
 
 export const CookiePopup = () => {

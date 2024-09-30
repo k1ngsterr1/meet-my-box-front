@@ -22,11 +22,10 @@ export async function useCreatePayment(): Promise<any> {
         response.data.result.client_secret,
         response.data.result.amount
       );
-      // amount: response.data.result.amount / 100,
 
       return {
         client_secret: response.data.result.client_secret,
-        amount: 10,
+        amount: response.data.result.amount / 100,
       }; // Return the response from the backend
     } else {
       return "Error";
