@@ -20,6 +20,10 @@ const PricingTable = () => {
       { weight: "9", price: "56€" },
       { weight: "10", price: "58€" },
       { weight: "11", price: "63€" },
+      { weight: "12", price: "66€" },
+      { weight: "13", price: "68€" },
+      { weight: "14", price: "71€" },
+      { weight: "15", price: "73€" },
     ],
     express: [
       { weight: "1", price: "39€" },
@@ -32,6 +36,11 @@ const PricingTable = () => {
       { weight: "8", price: "75€" },
       { weight: "9", price: "79€" },
       { weight: "10", price: "82€" },
+      { weight: "11", price: "90€" },
+      { weight: "12", price: "94€" },
+      { weight: "13", price: "99€" },
+      { weight: "14", price: "104€" },
+      { weight: "15", price: "108€" },
     ],
   };
 

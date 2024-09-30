@@ -24,6 +24,7 @@ export const ApplicationPage = () => {
   const [note, setNote] = useState("");
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
+  const [agree3, setAgree3] = useState(false); // Состояние для третьего чекбокса
   const [packageCurrent, setPackageCurrent] = useState<any>(null);
   const [price, setPrice] = useState<string>("");
 
@@ -85,7 +86,7 @@ export const ApplicationPage = () => {
 
   const handleAgreeClick = async () => {
     if (!agree1 || !agree2) {
-      alert("Вы должны согласиться с обеими условиями!");
+      alert("Вы должны со всеми условиями!");
       return;
     } else {
       // Обновление и отправка данных пакета
@@ -143,6 +144,7 @@ export const ApplicationPage = () => {
 
   const toggle1 = () => setAgree1(!agree1);
   const toggle2 = () => setAgree2(!agree2);
+  const toggle3 = () => setAgree3(!agree3); // Обработчик для третьего состояния
 
   return (
     <div className="w-full min-h-[100vh] flex flex-col items-center justify-center">
@@ -256,6 +258,7 @@ export const ApplicationPage = () => {
           onAgreeClick={handleAgreeClick}
           toggle1={toggle1}
           toggle2={toggle2}
+          toggle3={toggle3}
         />
       )}
     </div>

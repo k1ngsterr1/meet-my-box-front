@@ -33,7 +33,7 @@ export const AddPackagesPage = () => {
               >
                 <FontAwesomeIcon icon={faCircleInfo} size="lg" />
               </span>
-              <Tooltip />
+              <Tooltip id="my-tooltip" />
             </div>
             <AddPackages />
           </div>
