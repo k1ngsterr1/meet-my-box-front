@@ -78,6 +78,7 @@ export function getDateInfo(daysFromNow: number) {
 }
 export function addMargin(prices: string[], weight: number): string[] {
   // Define weight-price mappings for СТАНДАРТ
+  // Define weight-price mappings for СТАНДАРТ
   const standartMargins: Record<number, number> = {
     1: 27.23,
     2: 30.04,
@@ -90,6 +91,10 @@ export function addMargin(prices: string[], weight: number): string[] {
     9: 49.77,
     10: 52.59,
     11: 55.41,
+    12: 58.23,
+    13: 61.04,
+    14: 63.86,
+    15: 66.68,
   };
 
   // Define weight-price mappings for ЭКСПРЕСС
@@ -104,6 +109,11 @@ export function addMargin(prices: string[], weight: number): string[] {
     8: 74.16,
     9: 81.21,
     10: 87.62,
+    11: 95.76,
+    12: 103.9,
+    13: 112.05,
+    14: 120.19,
+    15: 128.33,
   };
 
   // Retrieve the appropriate margins based on the weight

@@ -6,7 +6,20 @@ import { InsuranceCard } from "@features/Cards/InsuranceCard";
 import { NoteCard } from "@features/NoteCard";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Tab, Tabs } from "@mui/material"; // Импортируем компоненты MUI для табов
+import {
+  Dialog,
+  Button as MUIBTN,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Tab,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Tabs,
+  Typography,
+} from "@mui/material"; // Импортируем компоненты MUI для табов
 import { useUpdatePackage } from "@shared/lib/hooks/Packages/useUpdatePackage";
 import { useGetAddresses } from "@shared/lib/hooks/useGetAddress";
 import Button from "@shared/ui/Button/ui/button";
@@ -27,12 +40,20 @@ export const ApplicationPage = () => {
   const [agree3, setAgree3] = useState(false); // Состояние для третьего чекбокса
   const [packageCurrent, setPackageCurrent] = useState<any>(null);
   const [price, setPrice] = useState<string>("");
+  const [countryData, setCountryData] = useState<any>("");
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     const fetchAddressesAsync = async () => {
       const storedPackageId = JSON.parse(
         localStorage.getItem("packageId") || "{}"
       );
+      const countryData = JSON.parse(
+        localStorage.getItem("countryData") || "{}"
+      );
+      if (countryData) {
+        setCountryData(countryData);
+      }
       const priceData = localStorage.getItem("packagePrice");
       if (priceData) {
         setPrice(priceData);
@@ -92,27 +113,6 @@ export const ApplicationPage = () => {
       // Обновление и отправка данных пакета
       const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
 
-      // Retrieve and update the cost of the package from localStorage
-      let packagePrice = parseFloat(
-        localStorage.getItem("packagePrice")?.replace(/[^0-9.]/g, "") || "0"
-      );
-
-      // If insurance is needed, add 5%
-      if (insurance) {
-        packagePrice += packagePrice * 0.05;
-      }
-
-      // If courier is needed, add 2%
-      if (courier) {
-        packagePrice += packagePrice * 0.02;
-      }
-
-      // Format the updated price with the euro sign
-      const formattedPrice = `€${packagePrice.toFixed(2)}`;
-
-      // Update the localStorage with the new price
-      localStorage.setItem("packagePrice", formattedPrice);
-
       // Proceed with the package update
       const package_now = await useUpdatePackage({
         id: parseInt(id !== undefined ? id : "", 10),
@@ -128,7 +128,7 @@ export const ApplicationPage = () => {
       localStorage.setItem("packageId", JSON.stringify(package_now));
 
       // Redirect to the payment page
-      window.location.href = "/payment";
+      window.location.href = "/payment-methods";
     }
   };
 
@@ -144,7 +144,9 @@ export const ApplicationPage = () => {
 
   const toggle1 = () => setAgree1(!agree1);
   const toggle2 = () => setAgree2(!agree2);
-  const toggle3 = () => setAgree3(!agree3); // Обработчик для третьего состояния
+  const handleDialogOpen = () => setOpenDialog(true);
+  const handleDialogClose = () => setOpenDialog(false);
+  const toggle3 = () => setAgree3(!agree3); // Обработчик для третьего сост
 
   return (
     <div className="w-full min-h-[100vh] flex flex-col items-center justify-center">
@@ -224,8 +226,49 @@ export const ApplicationPage = () => {
           <Button
             text={"Содержимое посылки"}
             buttonType="outline"
-            onClick={() => (window.location.href = "/packages/add")}
+            onClick={() => handleDialogOpen()}
           />
+          {openDialog && (
+            <Dialog
+              open={openDialog}
+              onClose={handleDialogClose}
+              maxWidth="sm"
+              fullWidth
+            >
+              <DialogTitle>Детали содержимого</DialogTitle>
+              <DialogContent>
+                <Table>
+                  <TableBody>
+                    {packageCurrent.items.map((item: any, index: number) => (
+                      <TableRow key={index}>
+                        <TableCell>
+                          <Typography
+                            variant="body2"
+                            sx={{ fontWeight: "bold" }}
+                          >
+                            {item.name}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>Вес: {item.weight} кг</TableCell>
+                        <TableCell>Количество: {item.quantity}</TableCell>
+                        <TableCell>Страна: {item.country}</TableCell>
+                        <TableCell>Цена: €{item.cost}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </DialogContent>
+              <DialogActions>
+                <MUIBTN
+                  onClick={handleDialogClose}
+                  variant="contained"
+                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                >
+                  Закрыть
+                </MUIBTN>
+              </DialogActions>
+            </Dialog>
+          )}
         </div>
       )}
 
@@ -251,6 +294,9 @@ export const ApplicationPage = () => {
           onCostClick={handleCostClick}
           packageCurrent={packageCurrent}
           price={price}
+          country={countryData}
+          insurance={insurance}
+          courier={courier}
         />
       )}
       {selectedTab === 5 && (
