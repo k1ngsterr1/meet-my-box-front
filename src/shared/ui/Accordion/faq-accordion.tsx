@@ -56,10 +56,11 @@ export const AccordionItem: React.FC<AccordionItemType> = ({
   );
 };
 export const AccordionItemText: React.FC<AccordionItemType> = ({
+  isActive,
   question,
   answer,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(isActive ? true : false);
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);

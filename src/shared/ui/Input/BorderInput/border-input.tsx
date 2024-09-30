@@ -5,6 +5,7 @@ export interface IBorderInput
   placeholder: string;
   margin?: string;
   width?: string;
+  type: string;
 }
 export const BorderInput: React.FC<IBorderInput> = ({
   placeholder,
@@ -14,7 +15,6 @@ export const BorderInput: React.FC<IBorderInput> = ({
 }) => {
   return (
     <input
-      type="text"
       placeholder={placeholder}
       className={`${styles.input} ${margin || ""} ${width || ""}`}
       {...rest}

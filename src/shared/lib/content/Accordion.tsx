@@ -1,4 +1,5 @@
 export interface AccordionItem {
+  isActive?: boolean;
   question: string;
   answer: any;
 }

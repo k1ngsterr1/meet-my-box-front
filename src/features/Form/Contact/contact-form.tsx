@@ -1,12 +1,10 @@
+import ConsentCheckbox from "@features/AgreeCheck";
 import { contactInputs } from "@shared/lib/content/Input";
 import { useMail } from "@shared/lib/hooks/useMail";
 import Button from "@shared/ui/Button/ui/button";
 import { ContactInput } from "@shared/ui/Input/Contact/contact-input";
 import { useState } from "react";
 import styles from "./styles.module.scss";
-import ReCAPTCHA from "react-google-recaptcha";
-import { useCheckCaptcha } from "@shared/lib/hooks/useCheckCaptcha";
-import ConsentCheckbox from "@features/AgreeCheck";
 
 export const ContactForm = () => {
   const [name, setName] = useState("");
@@ -99,12 +97,8 @@ export const ContactFormPC = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [question, setQuestion] = useState("");
-  const [captchaValue, setCaptchaValue] = useState(null);
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const handleCaptchaChange = (value: any) => {
-    setCaptchaValue(value); // Set captcha response token
-  };
 
   const handleCheckboxChange = () => {
     setChecked(!checked);
@@ -131,8 +125,6 @@ export const ContactFormPC = () => {
     };
     console.log(data.service_id);
     console.log(data);
-
-    await useCheckCaptcha(captchaValue);
 
     const result = await useMail(data);
 

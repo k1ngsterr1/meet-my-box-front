@@ -18,7 +18,7 @@ export const ContactsButton = () => {
           href="https://wa.me/393931577805"
           target="_blank"
           rel="noopener noreferrer"
-          className={styles.icon}
+          className={styles.icon_wa}
         >
           <FontAwesomeIcon icon={faWhatsapp} />
         </a>
