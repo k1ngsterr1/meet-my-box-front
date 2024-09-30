@@ -5,7 +5,7 @@ import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 export const LinksScreen = () => {
   return (
     <>
-      <main className="flex flex-col items-center justify-center w-full">
+      <main className="flex flex-col items-center justify-center w-full min-h-[90vh]">
         <h1 className="text-4xl font-bold mb-8">Полезная информация</h1>
         <div className="flex flex-col items-center justify-start">
           <IconButton
@@ -21,7 +21,7 @@ export const LinksScreen = () => {
           <br />
           <IconButton
             className="text-main cursor-pointer mt-4 hover:text-underline"
-            text="Council regulation (EU) No 833/2014"
+            text="Санкционные ограничения от 31-го июля 2014-го года"
             onClick={() =>
               window.open(
                 "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0833&from=EN",
@@ -32,7 +32,7 @@ export const LinksScreen = () => {
           />
           <br />
           <IconButton
-            text="Council regulation (EU) 2022/428"
+            text="Санкционные ограничения от 15-го марта 2022-го года"
             className="text-main cursor-pointer mt-2 hover:text-underline"
             // icon={faLock}
             onClick={() =>
@@ -44,7 +44,7 @@ export const LinksScreen = () => {
           />
           <br />
           <IconButton
-            text="Council regulation (EU) 2022/1904"
+            text="Санкционные ограничения от 6-го октября 2022-го года"
             className="text-main cursor-pointer mt-2 hover:text-underline"
             // icon={faLock}
             onClick={() =>
@@ -64,13 +64,13 @@ export const LinksScreen = () => {
                 "_blank"
               )
             }
-            text="Council regulation (EU) 2022/2474"
+            text="Санкционные ограничения от 15-го декабря 2022-го года"
           />
           <br />
           <IconButton
             className="text-main cursor-pointer mt-2"
             // icon={faLock}
-            text="Council regulation (EU) 2023/427"
+            text="Санкционные ограничения от 25-го февраля 2023-го года"
             onClick={() =>
               window.open(
                 "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32023R0427&qid=1681818109431&from=EN",
@@ -82,7 +82,7 @@ export const LinksScreen = () => {
           <IconButton
             className="text-main cursor-pointer mt-2"
             // icon={faLock}
-            text="Council regulation (EU) 2023/1214"
+            text="Санкционные ограничения от 23-го июня 2023-го года"
             onClick={() =>
               window.open(
                 "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32023R1214&qid=1687857212540",

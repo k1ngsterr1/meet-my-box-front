@@ -63,7 +63,7 @@ export const AddressPage = () => {
         )}
         <Button
           buttonType="filled"
-          text="Добавить"
+          text="Добавить адрес"
           margin="mt-6"
           onClick={() => {
             window.location.href = "/address/add";
