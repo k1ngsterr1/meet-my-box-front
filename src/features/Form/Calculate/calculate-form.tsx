@@ -172,11 +172,6 @@ export const CalculateForm = () => {
       setError("Неверный почтовый индекс получателя.");
       return;
     }
-    if (weight < (length * width * height) / 5000) {
-      weight = (length * width * height) / 5000;
-      setWeight((length * width * height) / 5000);
-    }
-
     const shipmentData = {
       weight: weight,
       length: length,
@@ -187,6 +182,10 @@ export const CalculateForm = () => {
       fromCountry: fromCountry,
       toCountry: toCountry,
     };
+    if (weight < (length * width * height) / 5000) {
+      weight = (length * width * height) / 5000;
+    }
+
     const roundWeight = (weight: number) => {
       const decimalPart = weight % 1; // Get the decimal part
       if (decimalPart > 0) {
@@ -231,6 +230,17 @@ export const CalculateForm = () => {
         }
         setIsLoading(false);
         response.price = addMargin(response.price, roundWeight(weight));
+        response.days = [
+          {
+            estimateNumber: "10",
+            estimateTime: "DAYS",
+          },
+          {
+            estimateNumber: "14",
+            estimateTime: "DAYS",
+          },
+        ];
+        response.dates = [getDateInfo(10), getDateInfo(14)];
         localStorage.setItem("rates", JSON.stringify(response));
         window.location.href = `/rates`;
       } catch (err: any) {
@@ -269,7 +279,7 @@ export const CalculateForm = () => {
     }
     value = parseFloat(e.target.value);
     if (isNaN(value)) value = 0;
-    if (value > 10) value = 10; // Limit the value to a maximum of 100
+    if (value > 15) value = 15; // Limit the value to a maximum of 100
     setter(value);
   };
 
@@ -338,11 +348,11 @@ export const CalculateForm = () => {
               Вес (кг):
             </label>
             <CalculateInput
-              value={weight}
+              value={weight === 0 ? "" : weight}
               placeholder="Вес"
-              min={1}
+              min={0}
               type="number"
-              max={10}
+              max={15}
               step={0.1}
               onChange={handleNumberInputWeight(setWeight)}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
@@ -354,9 +364,9 @@ export const CalculateForm = () => {
               Длина (см):
             </label>
             <CalculateInput
-              value={length}
+              value={length === 0 ? "" : length}
               placeholder="Длина"
-              min={1}
+              min={0}
               type="number"
               max={100}
               onChange={handleNumberInput(setLength)}
@@ -369,9 +379,9 @@ export const CalculateForm = () => {
               Ширина (см):
             </label>
             <CalculateInput
-              value={width}
+              value={width === 0 ? "" : width}
               placeholder="Ширина"
-              min={1}
+              min={0}
               type="number"
               max={100}
               onChange={handleNumberInput(setWidth)}
@@ -384,9 +394,9 @@ export const CalculateForm = () => {
               Высота (см):
             </label>
             <CalculateInput
-              value={height}
+              value={height === 0 ? "" : height}
               placeholder="Высота"
-              min={1}
+              min={0}
               type="number"
               max={100}
               onChange={handleNumberInput(setHeight)}
@@ -463,11 +473,6 @@ export const CalculateFormPC = () => {
       setError("Неверный почтовый индекс получателя.");
       return;
     }
-    if (weight < (length * width * height) / 5000) {
-      weight = (length * width * height) / 5000;
-      setWeight((length * width * height) / 5000);
-    }
-
     const shipmentData = {
       weight: weight,
       length: length,
@@ -478,6 +483,15 @@ export const CalculateFormPC = () => {
       fromCountry: fromCountry,
       toCountry: toCountry,
     };
+    if (weight < (length * width * height) / 5000) {
+      weight = (length * width * height) / 5000;
+    }
+
+    localStorage.setItem(
+      "countryData",
+      JSON.stringify({ from: fromCountry, to: toCountry })
+    );
+
     const roundWeight = (weight: number) => {
       const decimalPart = weight % 1; // Get the decimal part
       if (decimalPart > 0) {
@@ -522,6 +536,17 @@ export const CalculateFormPC = () => {
         }
         setIsLoading(false);
         response.price = addMargin(response.price, roundWeight(weight));
+        response.days = [
+          {
+            estimateNumber: "10",
+            estimateTime: "DAYS",
+          },
+          {
+            estimateNumber: "14",
+            estimateTime: "DAYS",
+          },
+        ];
+        response.dates = [getDateInfo(10), getDateInfo(14)];
         localStorage.setItem("rates", JSON.stringify(response));
         window.location.href = `/rates`;
       } catch (err: any) {
@@ -560,7 +585,7 @@ export const CalculateFormPC = () => {
     }
     value = parseFloat(e.target.value);
     if (isNaN(value)) value = 0;
-    if (value > 10) value = 10; // Limit the value to a maximum of 100
+    if (value > 15) value = 15; // Limit the value to a maximum of 100
     setter(value);
   };
   const handleClick = (setter: any) => {
@@ -637,11 +662,11 @@ export const CalculateFormPC = () => {
               Вес (кг):
             </label>
             <CalculateInput
-              value={weight}
+              value={weight === 0 ? "" : weight}
               placeholder="Вес"
-              min={1}
+              min={0}
               type="number"
-              max={10}
+              max={15}
               step={0.1}
               onChange={handleNumberInputWeight(setWeight)}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
@@ -653,9 +678,9 @@ export const CalculateFormPC = () => {
               Длина (см):
             </label>
             <CalculateInput
-              value={length}
+              value={length === 0 ? "" : length}
               placeholder="Длина"
-              min={1}
+              min={0}
               type="number"
               max={100}
               onChange={handleNumberInput(setLength)}
@@ -668,9 +693,9 @@ export const CalculateFormPC = () => {
               Ширина (см):
             </label>
             <CalculateInput
-              value={width}
+              value={width === 0 ? "" : width}
               placeholder="Ширина"
-              min={1}
+              min={0}
               type="number"
               max={100}
               onChange={handleNumberInput(setWidth)}
@@ -683,9 +708,9 @@ export const CalculateFormPC = () => {
               Высота (см):
             </label>
             <CalculateInput
-              value={height}
+              value={height === 0 ? "" : height}
               placeholder="Высота"
-              min={1}
+              min={0}
               type="number"
               max={100}
               onChange={handleNumberInput(setHeight)}
@@ -702,7 +727,7 @@ export const CalculateFormPC = () => {
             <CalculateInput
               value={quantity}
               placeholder="Введите количество"
-              min={1}
+              min={0}
               type="number"
               max={100}
               step={1}
