@@ -6,12 +6,14 @@ import { InsuranceCard } from "@features/Cards/InsuranceCard";
 import { NoteCard } from "@features/NoteCard";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Delete } from "@mui/icons-material";
 import {
   Dialog,
-  Button as MUIBTN,
   DialogActions,
   DialogContent,
   DialogTitle,
+  IconButton,
+  Button as MUIBTN,
   Tab,
   Table,
   TableBody,
@@ -19,7 +21,7 @@ import {
   TableRow,
   Tabs,
   Typography,
-} from "@mui/material"; // Импортируем компоненты MUI для табов
+} from "@mui/material";
 import { useUpdatePackage } from "@shared/lib/hooks/Packages/useUpdatePackage";
 import { useGetAddresses } from "@shared/lib/hooks/useGetAddress";
 import Button from "@shared/ui/Button/ui/button";
@@ -112,12 +114,14 @@ export const ApplicationPage = () => {
     } else {
       // Обновление и отправка данных пакета
       const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
+      const items = packageData ? JSON.parse(packageData).items : [];
 
       // Proceed with the package update
       const package_now = await useUpdatePackage({
         id: parseInt(id !== undefined ? id : "", 10),
         insurance: !insurance ? "Не нужна" : "Нужна",
         courier: !courier ? "Не нужен" : "Нужен",
+        items: items,
         note: note,
         addressId: chosenAddress,
       });
@@ -148,8 +152,22 @@ export const ApplicationPage = () => {
   const handleDialogClose = () => setOpenDialog(false);
   const toggle3 = () => setAgree3(!agree3); // Обработчик для третьего сост
 
+  const handleNavigation = () => {
+    window.location.href = "/packages/add";
+  };
+
+  const handleItemDelete = (index: number) => {
+    const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
+    if (packageData.items) {
+      packageData.items.splice(index, 1); // Удаление элемента по индексу
+      localStorage.setItem("packageId", JSON.stringify(packageData)); // Обновление `localStorage`
+    }
+    // Обновляем состояние после удаления
+    setPackageCurrent({ ...packageCurrent, items: packageData.items });
+  };
+
   return (
-    <div className="w-full min-h-[100vh] flex flex-col items-center justify-center">
+    <div className="w-full min-h-[80vh] pb-8 pt-8 flex flex-col items-center justify-center">
       {/* Табы навигации */}
       <Tabs
         value={selectedTab}
@@ -157,14 +175,13 @@ export const ApplicationPage = () => {
         sx={{ marginBottom: 4 }}
         centered
       >
-        <Tab label="Адрес" />
+        <Tab label="Адреса" />
         <Tab label="Страховка" disabled={selectedTab < 1} />
-        <Tab label="Курьер" disabled={selectedTab < 2} />
+        <Tab label="Вызов курьер" disabled={selectedTab < 2} />
         <Tab label="Примечания" disabled={selectedTab < 3} />
-        <Tab label="Стоимость" disabled={selectedTab < 4} />
+        <Tab label="Итог" disabled={selectedTab < 4} />
         <Tab label="Согласие" disabled={selectedTab < 5} />
       </Tabs>
-
       {/* Содержимое каждого этапа */}
       {selectedTab === 0 && (
         <div className="flex flex-col gap-4 items-center justify-center w-[90%] max-w-[800px] min-h-[300px]">
@@ -236,29 +253,56 @@ export const ApplicationPage = () => {
               fullWidth
             >
               <DialogTitle>Детали содержимого</DialogTitle>
-              <DialogContent>
-                <Table>
-                  <TableBody>
-                    {packageCurrent.items.map((item: any, index: number) => (
-                      <TableRow key={index}>
-                        <TableCell>
-                          <Typography
-                            variant="body2"
-                            sx={{ fontWeight: "bold" }}
-                          >
-                            {item.name}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>Вес: {item.weight} кг</TableCell>
-                        <TableCell>Количество: {item.quantity}</TableCell>
-                        <TableCell>Страна: {item.country}</TableCell>
-                        <TableCell>Цена: €{item.cost}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </DialogContent>
+              {packageCurrent.items === undefined ? (
+                <div className="ml-4">Содержимое вашей посылки пусто</div>
+              ) : (
+                <DialogContent>
+                  <Table>
+                    <TableBody>
+                      {packageCurrent.items.map((item: any, index: number) => (
+                        <TableRow
+                          key={index}
+                          sx={{ display: { xs: "block", sm: "table-row" } }}
+                        >
+                          <TableCell>
+                            <Typography
+                              variant="body2"
+                              sx={{
+                                fontWeight: "bold",
+                                wordWrap: "break-word",
+                              }}
+                            >
+                              {item.name}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>Вес: {item.weight} кг</TableCell>
+                          <TableCell>Количество: {item.quantity}</TableCell>
+                          <TableCell>Страна: {item.country}</TableCell>
+                          <TableCell>Цена: €{item.cost}</TableCell>
+                          {/* Добавленная иконка удаления */}
+                          <TableCell align="right">
+                            <IconButton
+                              onClick={() => handleItemDelete(index)}
+                              sx={{ color: "red" }}
+                              aria-label="удалить"
+                            >
+                              <Delete />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </DialogContent>
+              )}
               <DialogActions>
+                <MUIBTN
+                  onClick={handleNavigation}
+                  variant="contained"
+                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                >
+                  Вернуться к содержимому
+                </MUIBTN>
                 <MUIBTN
                   onClick={handleDialogClose}
                   variant="contained"
@@ -271,13 +315,241 @@ export const ApplicationPage = () => {
           )}
         </div>
       )}
-
       {selectedTab === 1 && (
-        <InsuranceCard onInsuranceClick={handleInsuranceClick} />
+        <>
+          <InsuranceCard onInsuranceClick={handleInsuranceClick} />
+          <Button
+            text={"Содержимое посылки"}
+            buttonType="outline"
+            onClick={() => handleDialogOpen()}
+          />
+          {openDialog && (
+            <Dialog
+              open={openDialog}
+              onClose={handleDialogClose}
+              maxWidth="sm"
+              fullWidth
+            >
+              <DialogTitle>Детали содержимого</DialogTitle>
+              {packageCurrent.items === undefined ? (
+                <div className="ml-4">Содержимое вашей посылки пусто</div>
+              ) : (
+                <DialogContent>
+                  <Table>
+                    <TableBody>
+                      {packageCurrent.items.map((item: any, index: number) => (
+                        <TableRow
+                          key={index}
+                          sx={{ display: { xs: "block", sm: "table-row" } }}
+                        >
+                          <TableCell>
+                            <Typography
+                              variant="body2"
+                              sx={{
+                                fontWeight: "bold",
+                                wordWrap: "break-word",
+                              }}
+                            >
+                              {item.name}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>Вес: {item.weight} кг</TableCell>
+                          <TableCell>Количество: {item.quantity}</TableCell>
+                          <TableCell>Страна: {item.country}</TableCell>
+                          <TableCell>Цена: €{item.cost}</TableCell>
+                          {/* Добавленная иконка удаления */}
+                          <TableCell align="right">
+                            <IconButton
+                              onClick={() => handleItemDelete(index)}
+                              sx={{ color: "red" }}
+                              aria-label="удалить"
+                            >
+                              <Delete />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </DialogContent>
+              )}
+              <DialogActions>
+                <MUIBTN
+                  onClick={handleNavigation}
+                  variant="contained"
+                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                >
+                  Вернуться к содержимому
+                </MUIBTN>
+                <MUIBTN
+                  onClick={handleDialogClose}
+                  variant="contained"
+                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                >
+                  Закрыть
+                </MUIBTN>
+              </DialogActions>
+            </Dialog>
+          )}
+        </>
       )}
-      {selectedTab === 2 && <CourierCard onCourierClick={handleCourierClick} />}
+      {selectedTab === 2 && (
+        <>
+          <CourierCard onCourierClick={handleCourierClick} />
+          <Button
+            text={"Содержимое посылки"}
+            buttonType="outline"
+            margin="mt-4"
+            onClick={() => handleDialogOpen()}
+          />
+          {openDialog && (
+            <Dialog
+              open={openDialog}
+              onClose={handleDialogClose}
+              maxWidth="sm"
+              fullWidth
+            >
+              <DialogTitle>Детали содержимого</DialogTitle>
+              {packageCurrent.items === undefined ? (
+                <div className="ml-4">Содержимое вашей посылки пусто</div>
+              ) : (
+                <DialogContent>
+                  <Table>
+                    <TableBody>
+                      {packageCurrent.items.map((item: any, index: number) => (
+                        <TableRow
+                          key={index}
+                          sx={{ display: { xs: "block", sm: "table-row" } }}
+                        >
+                          <TableCell>
+                            <Typography
+                              variant="body2"
+                              sx={{
+                                fontWeight: "bold",
+                                wordWrap: "break-word",
+                              }}
+                            >
+                              {item.name}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>Вес: {item.weight} кг</TableCell>
+                          <TableCell>Количество: {item.quantity}</TableCell>
+                          <TableCell>Страна: {item.country}</TableCell>
+                          <TableCell>Цена: €{item.cost}</TableCell>
+                          {/* Добавленная иконка удаления */}
+                          <TableCell align="right">
+                            <IconButton
+                              onClick={() => handleItemDelete(index)}
+                              sx={{ color: "red" }}
+                              aria-label="удалить"
+                            >
+                              <Delete />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </DialogContent>
+              )}
+              <DialogActions>
+                <MUIBTN
+                  onClick={handleNavigation}
+                  variant="contained"
+                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                >
+                  Вернуться к содержимому
+                </MUIBTN>
+                <MUIBTN
+                  onClick={handleDialogClose}
+                  variant="contained"
+                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                >
+                  Закрыть
+                </MUIBTN>
+              </DialogActions>
+            </Dialog>
+          )}
+        </>
+      )}
       {selectedTab === 3 && (
-        <NoteCard onNoteClick={handleNoteClick} setter={setNote} />
+        <>
+          <NoteCard onNoteClick={handleNoteClick} setter={setNote} />
+          <Button
+            text={"Содержимое посылки"}
+            buttonType="outline"
+            margin="mt-4"
+            onClick={() => handleDialogOpen()}
+          />
+          {openDialog && (
+            <Dialog
+              open={openDialog}
+              onClose={handleDialogClose}
+              maxWidth="sm"
+              fullWidth
+            >
+              <DialogTitle>Детали содержимого</DialogTitle>
+              {packageCurrent.items === undefined ? (
+                <div className="ml-4">Содержимое вашей посылки пусто</div>
+              ) : (
+                <DialogContent>
+                  <Table>
+                    <TableBody>
+                      {packageCurrent.items.map((item: any, index: number) => (
+                        <TableRow
+                          key={index}
+                          sx={{ display: { xs: "block", sm: "table-row" } }}
+                        >
+                          <TableCell>
+                            <Typography
+                              variant="body2"
+                              sx={{
+                                fontWeight: "bold",
+                                wordWrap: "break-word",
+                              }}
+                            >
+                              {item.name}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>Вес: {item.weight} кг</TableCell>
+                          <TableCell>Количество: {item.quantity}</TableCell>
+                          <TableCell>Страна: {item.country}</TableCell>
+                          <TableCell>Цена: €{item.cost}</TableCell>
+                          {/* Добавленная иконка удаления */}
+                          <TableCell align="right">
+                            <IconButton
+                              onClick={() => handleItemDelete(index)}
+                              sx={{ color: "red" }}
+                              aria-label="удалить"
+                            >
+                              <Delete />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </DialogContent>
+              )}
+              <DialogActions>
+                <MUIBTN
+                  onClick={handleNavigation}
+                  variant="contained"
+                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                >
+                  Вернуться к содержимому
+                </MUIBTN>
+                <MUIBTN
+                  onClick={handleDialogClose}
+                  variant="contained"
+                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                >
+                  Закрыть
+                </MUIBTN>
+              </DialogActions>
+            </Dialog>
+          )}
+        </>
       )}
       {/* {showDocumentCard && (
         <DocumentUpload onDocumentClick={handleDocumentClick} />
@@ -300,12 +572,88 @@ export const ApplicationPage = () => {
         />
       )}
       {selectedTab === 5 && (
-        <AgreeCard
-          onAgreeClick={handleAgreeClick}
-          toggle1={toggle1}
-          toggle2={toggle2}
-          toggle3={toggle3}
-        />
+        <>
+          <AgreeCard
+            onAgreeClick={handleAgreeClick}
+            toggle1={toggle1}
+            toggle2={toggle2}
+            toggle3={toggle3}
+          />
+          <Button
+            text={"Содержимое посылки"}
+            buttonType="outline"
+            margin="mt-4"
+            onClick={() => handleDialogOpen()}
+          />
+          {openDialog && (
+            <Dialog
+              open={openDialog}
+              onClose={handleDialogClose}
+              maxWidth="sm"
+              fullWidth
+            >
+              <DialogTitle>Детали содержимого</DialogTitle>
+              {packageCurrent.items === undefined ? (
+                <div className="ml-4">Содержимое вашей посылки пусто</div>
+              ) : (
+                <DialogContent>
+                  <Table>
+                    <TableBody>
+                      {packageCurrent.items.map((item: any, index: number) => (
+                        <TableRow
+                          key={index}
+                          sx={{ display: { xs: "block", sm: "table-row" } }}
+                        >
+                          <TableCell>
+                            <Typography
+                              variant="body2"
+                              sx={{
+                                fontWeight: "bold",
+                                wordWrap: "break-word",
+                              }}
+                            >
+                              {item.name}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>Вес: {item.weight} кг</TableCell>
+                          <TableCell>Количество: {item.quantity}</TableCell>
+                          <TableCell>Страна: {item.country}</TableCell>
+                          <TableCell>Цена: €{item.cost}</TableCell>
+                          {/* Добавленная иконка удаления */}
+                          <TableCell align="right">
+                            <IconButton
+                              onClick={() => handleItemDelete(index)}
+                              sx={{ color: "red" }}
+                              aria-label="удалить"
+                            >
+                              <Delete />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </DialogContent>
+              )}
+              <DialogActions>
+                <MUIBTN
+                  onClick={handleNavigation}
+                  variant="contained"
+                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                >
+                  Вернуться к содержимому
+                </MUIBTN>
+                <MUIBTN
+                  onClick={handleDialogClose}
+                  variant="contained"
+                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                >
+                  Закрыть
+                </MUIBTN>
+              </DialogActions>
+            </Dialog>
+          )}
+        </>
       )}
     </div>
   );
