@@ -1,5 +1,8 @@
 import { RatesList, RatesListPC } from "@entities/RatesList";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronRight,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
@@ -48,6 +51,13 @@ export const RatesPage = () => {
           </span>{" "}
         </span>
         <Tooltip id="my-tooltip" />
+        <button
+          className="text-main text-lg flex items-center gap-2 mb-4 cursor-pointer hover:underline"
+          onClick={() => (window.location.href = "/")}
+        >
+          Вернуться назад{" "}
+          <FontAwesomeIcon icon={faChevronRight} className="text-sm" />
+        </button>
 
         {rates ? (
           <RatesListPC

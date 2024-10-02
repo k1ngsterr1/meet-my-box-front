@@ -1,4 +1,4 @@
-import file from "@assets/Запрещено отправлять RUS, ENG, ITA.pdf";
+import file from "@assets/forbidden.pdf";
 import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 

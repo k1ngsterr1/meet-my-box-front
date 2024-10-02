@@ -1,4 +1,3 @@
-import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 
 interface Props {
@@ -7,50 +6,27 @@ interface Props {
 
 export const Documents: React.FC<Props> = ({ onClick }) => {
   return (
-    <Box
-      marginTop={2}
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        gap: 1.5,
-        padding: 3,
-        borderRadius: 2,
-        boxShadow: 3,
-        backgroundColor: "#f9f9f9",
-        border: "1px solid #e0e0e0",
-      }}
-    >
+    <div className="mt-2 flex flex-col items-start gap-4 p-4 rounded-md shadow-md bg-gray-50 border border-gray-200">
       {/* Weight Information */}
-      <Typography variant="body1" sx={{ fontWeight: 500, color: "#333" }}>
-        Максимальный вес: 10 кг
-      </Typography>
+      <p className="text-gray-800 font-medium">Максимальный вес: 10 кг</p>
 
       {/* Dimensions Information */}
-      <Typography variant="body1" sx={{ color: "#333" }}>
+      <p className="text-gray-800">
         Длина + Высота + Ширина: <strong>&lt; 150 см</strong>
-      </Typography>
+      </p>
 
       {/* Longest Side Information */}
-      <Typography variant="body1" sx={{ color: "#333" }}>
+      <p className="text-gray-800">
         Самая длинная сторона не должна превышать: 100 см
-      </Typography>
+      </p>
 
       {/* Action Button */}
-      <Button
-        variant="contained"
+      <button
         onClick={onClick}
-        sx={{
-          backgroundColor: "#220CF3",
-          marginTop: 2,
-          padding: "8px 16px",
-          borderRadius: 2,
-          fontWeight: "bold",
-          textTransform: "none", // Keep the text casing consistent
-        }}
+        className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
       >
         Узнать цену
-      </Button>
-    </Box>
+      </button>
+    </div>
   );
 };

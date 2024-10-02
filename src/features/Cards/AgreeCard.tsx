@@ -1,4 +1,3 @@
-import file from "@assets/Privacy Policy ENG, RUS, ITA.pdf";
 import {
   Box,
   Button,
@@ -16,12 +15,14 @@ interface AgreeCardProps {
   onAgreeClick: () => void;
   toggle1: () => void;
   toggle2: () => void;
+  toggle3: () => void; // Новый пропс для третьего состояния
 }
 
 export const AgreeCard: React.FC<AgreeCardProps> = ({
   onAgreeClick,
   toggle1,
   toggle2,
+  toggle3,
 }) => {
   const handleClick = () => {
     onAgreeClick();
@@ -56,7 +57,7 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
               <Typography variant="body1">
                 Даю согласие на обработку{" "}
                 <Link
-                  href={file}
+                  href="https://example.com/personal_data.pdf"
                   target="_blank"
                   underline="hover"
                   onClick={(e) => e.stopPropagation()}
@@ -67,6 +68,7 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
               </Typography>
             }
           />
+
           <FormControlLabel
             control={
               <Checkbox
@@ -79,7 +81,53 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
             }
             label={
               <Typography variant="body1">
-                Принимаю пользовательское соглашение
+                Принимаю{" "}
+                <Link
+                  href="https://example.com/user_agreement.pdf"
+                  target="_blank"
+                  underline="hover"
+                  onClick={(e) => e.stopPropagation()}
+                  sx={{ color: "#220CF3", cursor: "pointer" }}
+                >
+                  пользовательское соглашение
+                </Link>{" "}
+                и{" "}
+                <Link
+                  href="https://example.com/privacy_policy.pdf"
+                  target="_blank"
+                  underline="hover"
+                  onClick={(e) => e.stopPropagation()}
+                  sx={{ color: "#220CF3", cursor: "pointer" }}
+                >
+                  условия предоставления услуг
+                </Link>
+              </Typography>
+            }
+          />
+
+          {/* Новый пункт с правилами перевозки */}
+          <FormControlLabel
+            control={
+              <Checkbox
+                onClick={toggle3}
+                sx={{
+                  color: "#220CF3",
+                  "&.Mui-checked": { color: "#1E0AD1" },
+                }}
+              />
+            }
+            label={
+              <Typography variant="body1">
+                Ознакомлен с{" "}
+                <Link
+                  href="https://example.com/rules_of_transportation.pdf"
+                  target="_blank"
+                  underline="hover"
+                  onClick={(e) => e.stopPropagation()}
+                  sx={{ color: "#220CF3", cursor: "pointer" }}
+                >
+                  правилами перевозки
+                </Link>
               </Typography>
             }
           />
