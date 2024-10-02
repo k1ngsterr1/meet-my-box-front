@@ -9,18 +9,28 @@ export const standard = [
   { price: 54, quantity: 8 },
   { price: 56, quantity: 9 },
   { price: 58, quantity: 10 },
+  { price: 63, quantity: 11 },
+  { price: 66, quantity: 12 },
+  { price: 68, quantity: 13 },
+  { price: 71, quantity: 14 },
+  { price: 73, quantity: 15 },
 ];
 export const express = [
-  { price: 39, minQuantity: 0.5, maxQuantity: 1.0 },
-  { price: 43, minQuantity: 1.5, maxQuantity: 2.0 },
-  { price: 50, minQuantity: 2.5, maxQuantity: 3.0 },
-  { price: 57, minQuantity: 3.5, maxQuantity: 4.0 },
-  { price: 60, minQuantity: 4.5, maxQuantity: 5.0 },
-  { price: 65, minQuantity: 5.5, maxQuantity: 6.0 },
-  { price: 70, minQuantity: 6.5, maxQuantity: 7.0 },
-  { price: 75, minQuantity: 7.5, maxQuantity: 8.0 },
-  { price: 79, minQuantity: 8.5, maxQuantity: 9.0 },
-  { price: 82, minQuantity: 9.5, maxQuantity: 10.0 },
+  { price: 39, quantity: 1 },
+  { price: 43, quantity: 2 },
+  { price: 50, quantity: 3 },
+  { price: 57, quantity: 4 },
+  { price: 60, quantity: 5 },
+  { price: 65, quantity: 6 },
+  { price: 70, quantity: 7 },
+  { price: 75, quantity: 8 },
+  { price: 79, quantity: 9 },
+  { price: 82, quantity: 10 },
+  { price: 90, quantity: 11 },
+  { price: 94, quantity: 12 },
+  { price: 99, quantity: 13 },
+  { price: 104, quantity: 14 },
+  { price: 108, quantity: 15 },
 ];
 
 export function getPriceForWeight(
@@ -28,9 +38,7 @@ export function getPriceForWeight(
   isExpress: boolean = false
 ): number | undefined {
   if (isExpress) {
-    const expressItem = express.find(
-      (item) => weight >= item.minQuantity && weight <= item.maxQuantity
-    );
+    const expressItem = express.find((item) => item.quantity === weight);
     return expressItem ? expressItem.price : undefined;
   } else {
     const standardItem = standard.find((item) => item.quantity === weight);

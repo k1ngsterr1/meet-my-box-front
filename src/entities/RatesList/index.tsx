@@ -18,6 +18,9 @@ interface Props {
   urls: string[];
 }
 export const RatesList: React.FC<Props> = ({ days, prices, dates, urls }) => {
+  const [selectedCardIndex, setSelectedCardIndex] = useState<number | null>(
+    null
+  );
   return (
     <div className={styles.rates__list}>
       {days.map((item, index) =>
@@ -25,13 +28,28 @@ export const RatesList: React.FC<Props> = ({ days, prices, dates, urls }) => {
         dates[index] !== undefined &&
         urls[index] !== undefined &&
         index <= 1 ? (
-          <RatesCard
-            day={item}
-            price={prices[index]}
-            date={dates[index]}
-            url={urls[index]}
-            key={index}
-          />
+          <div className="w-full relative">
+            <RatesCard
+              day={item}
+              price={prices[index]}
+              date={dates[index]}
+              url={urls[index]}
+              key={index}
+            />
+            {selectedCardIndex === index && <InfoScreen />}
+            <div className="absolute bottom-[-15px] left-[40%]">
+              <span
+                onClick={() => {
+                  setSelectedCardIndex(
+                    selectedCardIndex === index ? null : index
+                  );
+                }}
+                className="bg-main text-white font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-secondary transition transform hover:scale-105"
+              >
+                Details
+              </span>
+            </div>
+          </div>
         ) : null
       )}
     </div>

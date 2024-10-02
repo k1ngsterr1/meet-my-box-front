@@ -219,7 +219,7 @@ export const ApplicationPage = () => {
             onClick={handleAddressClick}
           />
           <Button
-            text={"Добавить"}
+            text={"Добавить адрес"}
             buttonType="outline"
             onClick={() => (window.location.href = "/address/add")}
           />
