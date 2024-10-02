@@ -165,20 +165,24 @@ export const ApplicationPage = () => {
   return (
     <div className="w-full min-h-[100vh] flex flex-col items-center justify-center">
       {/* Табы навигации */}
-      <Tabs
-        value={selectedTab}
-        onChange={handleTabChange}
-        sx={{ marginBottom: 4 }}
-        centered={!isSmallScreen} // Centered only on larger screens
-        variant={isSmallScreen ? "scrollable" : "fullWidth"}
-      >
-        <Tab label="Адрес" />
-        <Tab label="Страховка" disabled={selectedTab < 1} />
-        <Tab label="Курьер" disabled={selectedTab < 2} />
-        <Tab label="Примечания" disabled={selectedTab < 3} />
-        <Tab label="Стоимость" disabled={selectedTab < 4} />
-        <Tab label="Согласие" disabled={selectedTab < 5} />
-      </Tabs>
+      <div style={{ width: "100%", overflowX: "auto" }}>
+        <Tabs
+          value={selectedTab}
+          onChange={handleTabChange}
+          sx={{ marginBottom: 4, width: "100%" }} // Set width to ensure it fits the container
+          centered={!isSmallScreen} // Centered only on larger screens
+          variant={isSmallScreen ? "scrollable" : "fullWidth"} // Scrollable on small screens
+          scrollButtons="auto" // Automatically show scroll buttons when needed
+          allowScrollButtonsMobile // Enable scroll buttons for mobile devices
+        >
+          <Tab label="Адрес" />
+          <Tab label="Страховка" disabled={selectedTab < 1} />
+          <Tab label="Курьер" disabled={selectedTab < 2} />
+          <Tab label="Примечания" disabled={selectedTab < 3} />
+          <Tab label="Стоимость" disabled={selectedTab < 4} />
+          <Tab label="Согласие" disabled={selectedTab < 5} />
+        </Tabs>
+      </div>
 
       {/* Содержимое каждого этапа */}
       {selectedTab === 0 && (
