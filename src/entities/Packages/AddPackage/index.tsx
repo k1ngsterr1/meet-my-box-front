@@ -188,13 +188,6 @@ export const AddPackages = () => {
             ))}
           </select>
         </div>
-        <div className="flex max-w-fit items-center justify-center">
-          <Button
-            text={`Предмет ${current}`}
-            buttonType="filled"
-            onClick={toggleMenu}
-          />
-        </div>
       </div>
 
       <AddPackagesForm
