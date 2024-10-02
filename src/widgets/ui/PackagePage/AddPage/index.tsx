@@ -10,6 +10,12 @@ import styles from "./styles.module.scss";
 
 export const AddPackagesPage = () => {
   const [address, setAddress] = useState<AddressProps[]>([]);
+  const packageQuantityData = JSON.parse(
+    localStorage.getItem("packageQuantity") as any
+  );
+
+  console.log(packageQuantityData);
+
   useEffect(() => {
     const fetchAddress = async () => {
       const fetchedAddress = await useGetAddresses();
@@ -24,7 +30,9 @@ export const AddPackagesPage = () => {
         <>
           <div className={styles.package}>
             <div className="flex items-center justify-between gap-2">
-              <h2 className={styles.package__heading}>Содержимое посылки</h2>
+              <h2 className={styles.package__heading}>
+                Содержимое посылки {packageQuantityData}
+              </h2>
               <span
                 className="text-main"
                 data-tooltip-id="my-tooltip"
@@ -39,18 +47,26 @@ export const AddPackagesPage = () => {
           </div>
           <div className={styles.package_pc}>
             <div className="flex items-center justify-between gap-2">
-              <h2 className={styles.package_pc__heading}>Содержимое посылки</h2>
-              <span
-                className="text-main"
-                data-tooltip-id="my-tooltip"
-                data-tooltip-place="bottom"
-                data-tooltip-content="Внимательно заполните все поля, наименование, страна происхождение, кол-во предметов, вес и стоимость"
-              >
-                <FontAwesomeIcon icon={faCircleInfo} size="lg" />
-              </span>
+              <div className="flex flex-col">
+                <div className="flex items-center justify-between gap-2">
+                  <h2 className={styles.package_pc__heading}>
+                    Содержимое посылки
+                  </h2>
+                  <span
+                    className="text-main"
+                    data-tooltip-id="my-tooltip"
+                    data-tooltip-place="bottom"
+                    data-tooltip-content="Внимательно заполните все поля, наименование, страна происхождение, кол-во предметов, вес и стоимость"
+                  >
+                    <FontAwesomeIcon icon={faCircleInfo} size="lg" />
+                  </span>
+                </div>
+                <h2 className="text-xl text-center">
+                  Кол-во посылок {packageQuantityData}
+                </h2>
+              </div>
               <Tooltip id="my-tooltip" />
             </div>
-
             <AddPackagesPC />
           </div>
         </>

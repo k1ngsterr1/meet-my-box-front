@@ -405,6 +405,22 @@ export const CalculateForm = () => {
               required
             />
           </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Количество посылок:
+            </label>
+            <CalculateInput
+              placeholder="Количество посылок"
+              min={1}
+              type="number"
+              max={100}
+              onChange={(e: any) =>
+                localStorage.setItem("packageQuantity", e.target.value)
+              }
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
+              required
+            />
+          </div>
         </div>
         <div className="flex justify-end mt-4">
           <button
@@ -733,13 +749,14 @@ export const CalculateFormPC = () => {
               Количество посылок:
             </label>
             <CalculateInput
-              value={quantity}
               placeholder="Введите количество"
-              min={0}
+              min={1}
               type="number"
               max={100}
               step={1}
-              onChange={(e) => setQuantity(parseInt(e.target.value) || 0)}
+              onChange={(e: any) =>
+                localStorage.setItem("packageQuantity", e.target.value)
+              }
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
               required
             />

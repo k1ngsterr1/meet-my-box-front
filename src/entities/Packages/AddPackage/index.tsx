@@ -24,6 +24,7 @@ export const AddPackages = () => {
   const [counter, setCounter] = useState(1);
   const [current, setCurrent] = useState(1);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+  const packageQuantity = localStorage.getItem("packageQuantity");
 
   const handleAddItem = () => {
     let updatedItems: Item[] = [];
