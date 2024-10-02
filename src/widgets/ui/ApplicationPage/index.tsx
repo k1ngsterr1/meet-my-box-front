@@ -19,6 +19,7 @@ import {
   TableRow,
   Tabs,
   Typography,
+  useMediaQuery,
 } from "@mui/material"; // Импортируем компоненты MUI для табов
 import { useUpdatePackage } from "@shared/lib/hooks/Packages/useUpdatePackage";
 import { useGetAddresses } from "@shared/lib/hooks/useGetAddress";
@@ -159,6 +160,7 @@ export const ApplicationPage = () => {
   const handleDialogOpen = () => setOpenDialog(true);
   const handleDialogClose = () => setOpenDialog(false);
   const toggle3 = () => setAgree3(!agree3); // Обработчик для третьего сост
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   return (
     <div className="w-full min-h-[100vh] flex flex-col items-center justify-center">
@@ -167,7 +169,8 @@ export const ApplicationPage = () => {
         value={selectedTab}
         onChange={handleTabChange}
         sx={{ marginBottom: 4 }}
-        centered
+        centered={!isSmallScreen} // Centered only on larger screens
+        variant={isSmallScreen ? "scrollable" : "fullWidth"}
       >
         <Tab label="Адрес" />
         <Tab label="Страховка" disabled={selectedTab < 1} />
