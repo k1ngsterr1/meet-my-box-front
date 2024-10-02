@@ -29,6 +29,7 @@ import { Tooltip } from "react-tooltip";
 export const ApplicationPage = () => {
   const [addresses, setAddresses] = useState<AddressProps[]>();
   const [currentAddress, setCurrentAddress] = useState<AddressProps[]>();
+  const [address, setAddress] = useState<AddressProps>();
   const [chosenAddress, setChosenAddress] = useState<number>();
   const [id, setId] = useState<string>();
   const [selectedTab, setSelectedTab] = useState(0); // Состояние для выбранного таба
@@ -70,6 +71,7 @@ export const ApplicationPage = () => {
             );
             if (fetchedAddresses.length > 0) {
               setChosenAddress(fetchedAddresses[0].id);
+              setAddress(fetchedAddresses[0]);
             }
           }
         } catch (error) {
@@ -96,8 +98,17 @@ export const ApplicationPage = () => {
     setSelectedTab(4);
   };
 
-  const handleAddressChange = (addressId: number) =>
-    setChosenAddress(addressId);
+  const handleAddressChange = (addressId: number) => {
+    // Assuming `addresses` is your array of address objects
+    const selectedAddress = addresses?.find(
+      (address) => address.id === addressId
+    );
+
+    if (selectedAddress) {
+      setChosenAddress(addressId); // Set the chosen address ID
+      setAddress(selectedAddress); // Set the full address object
+    }
+  };
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue);
@@ -139,6 +150,7 @@ export const ApplicationPage = () => {
     setCurrentAddress(filteredAddresses);
     if (filteredAddresses && filteredAddresses.length > 0) {
       setChosenAddress(filteredAddresses[0].id);
+      setAddress(filteredAddresses[0]);
     }
   };
 
@@ -297,6 +309,7 @@ export const ApplicationPage = () => {
           country={countryData}
           insurance={insurance}
           courier={courier}
+          address={address}
         />
       )}
       {selectedTab === 5 && (
