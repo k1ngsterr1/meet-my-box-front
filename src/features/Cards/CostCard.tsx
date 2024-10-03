@@ -34,6 +34,7 @@ interface CostCardProps {
   country: any;
   courier: boolean;
   insurance: boolean;
+  address: any;
 }
 
 export const CostCard: React.FC<CostCardProps> = ({
@@ -43,8 +44,10 @@ export const CostCard: React.FC<CostCardProps> = ({
   country,
   insurance,
   courier,
+  address,
 }) => {
-  const [openDialog, setOpenDialog] = useState(false); // State for dialog visibility
+  const [openDialog, setOpenDialog] = useState(false);
+  const [openAddressDialog, setOpenAddressDialog] = useState(false);
 
   if (!packageCurrent.items) {
     return <>В вашей посылке нет предметов, пожалуйста добавьте его</>;
@@ -67,6 +70,8 @@ export const CostCard: React.FC<CostCardProps> = ({
   // Handle dialog open and close
   const handleDialogOpen = () => setOpenDialog(true);
   const handleDialogClose = () => setOpenDialog(false);
+  const handleAddressDialogClose = () => setOpenAddressDialog(false);
+  const handleAddressDialogOpen = () => setOpenAddressDialog(true);
 
   const priceNumber = parseFloat(price.replace(/[^\d.]/g, ""));
   const finalInsuranceCost = (insurance ? parseFloat(totalCost) : 0).toFixed(2);
@@ -85,11 +90,12 @@ export const CostCard: React.FC<CostCardProps> = ({
         sx={{
           maxWidth: 500,
           margin: "auto",
-          padding: 3,
-          boxShadow: 5,
-          borderRadius: 2,
+          padding: 4, // Increased padding for a cleaner look
+          boxShadow: 6, // Slightly elevated box-shadow
+          borderRadius: 3,
           backgroundColor: "#f9fafb",
           border: "1px solid #e0e0e0",
+          position: "relative",
         }}
       >
         <CardContent>
@@ -100,7 +106,7 @@ export const CostCard: React.FC<CostCardProps> = ({
               fontWeight: "bold",
               color: "#220CF3",
               textAlign: "center",
-              marginBottom: 2,
+              marginBottom: 3, // Add more spacing below the title
             }}
           >
             Посылка из {country.from} в {country.to}
@@ -110,7 +116,7 @@ export const CostCard: React.FC<CostCardProps> = ({
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              marginBottom: 1,
+              marginBottom: 2, // Increase spacing between sections
             }}
           >
             <Typography variant="body1" sx={{ fontWeight: "bold" }}>
@@ -127,7 +133,7 @@ export const CostCard: React.FC<CostCardProps> = ({
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              marginBottom: 1,
+              marginBottom: 2,
             }}
           >
             <Typography variant="body1" sx={{ fontWeight: "bold" }}>
@@ -142,7 +148,7 @@ export const CostCard: React.FC<CostCardProps> = ({
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              marginBottom: 1,
+              marginBottom: 2,
             }}
           >
             <Typography variant="body1" sx={{ fontWeight: "bold" }}>
@@ -157,7 +163,7 @@ export const CostCard: React.FC<CostCardProps> = ({
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              marginBottom: 1,
+              marginBottom: 2,
             }}
           >
             <Typography variant="body1" sx={{ fontWeight: "bold" }}>
@@ -166,7 +172,16 @@ export const CostCard: React.FC<CostCardProps> = ({
             <Typography variant="body1">€{lastPrice}</Typography>
           </Box>
           <Divider sx={{ marginY: 2 }} />
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
+          {/* Button Container with Adjusted Spacing */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 2, // Added spacing between buttons
+              marginTop: 2,
+            }}
+          >
             <Button
               variant="contained"
               onClick={handleClick}
@@ -174,6 +189,7 @@ export const CostCard: React.FC<CostCardProps> = ({
                 backgroundColor: "#220CF3",
                 color: "#fff",
                 textTransform: "none",
+                padding: "8px 16px", // Added more padding for a nicer look
                 "&:hover": {
                   backgroundColor: "#1E0AD1",
                 },
@@ -181,40 +197,70 @@ export const CostCard: React.FC<CostCardProps> = ({
             >
               Далее
             </Button>
+            <Button
+              variant="outlined"
+              onClick={handleAddressDialogOpen}
+              sx={{
+                borderColor: "#220CF3",
+                color: "#220CF3",
+                textTransform: "none",
+                padding: "8px 16px", // Matching padding for consistency
+                "&:hover": {
+                  backgroundColor: "rgba(34, 12, 243, 0.04)",
+                  borderColor: "#220CF3",
+                },
+              }}
+            >
+              Адрес
+            </Button>
           </Box>
         </CardContent>
       </Card>
 
       {/* Dialog for Package Details */}
       <Dialog
-        open={openDialog}
-        onClose={handleDialogClose}
+        open={openAddressDialog}
+        onClose={handleAddressDialogClose}
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>Детали содержимого</DialogTitle>
+        <DialogTitle>Детали адреса</DialogTitle>
         <DialogContent>
-          <Table>
-            <TableBody>
-              {packageCurrent.items.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-                      {item.name}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>Вес: {item.weight.toFixed(2)} кг</TableCell>
-                  <TableCell>Количество: {item.quantity}</TableCell>
-                  <TableCell>Страна: {item.country}</TableCell>
-                  <TableCell>Цена: €{item.cost.toFixed(2)}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <Typography variant="body1">
+            Тип адреса:{" "}
+            {address.type === "receiver" ? "Получатель" : "Отправитель"}
+          </Typography>
+          <Typography variant="body1">
+            Имя: {address.firstName || "Не указана"}
+          </Typography>
+          <Typography variant="body1">
+            Телефон: {address.phoneNumber}
+          </Typography>
+          <Typography variant="body1">
+            Улица: {address.street || "Не указана"}
+          </Typography>
+          <Typography variant="body1">
+            Дом: {address.housing || "Не указана"}
+          </Typography>
+          <Typography variant="body1">
+            Корпус: {address.building || "Не указана"}
+          </Typography>
+          <Typography variant="body1">
+            Квартира: {address.apartment || "Не указана"}
+          </Typography>
+          <Typography variant="body1">
+            Город: {address.city || "Не указана"}
+          </Typography>
+          <Typography variant="body1">
+            Почтовый индекс: {address.postal_code || "Не указана"}
+          </Typography>
+          <Typography variant="body1">
+            Страна: {address.country || "Не указана"}
+          </Typography>
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={handleDialogClose}
+            onClick={handleAddressDialogClose}
             variant="contained"
             sx={{ backgroundColor: "#220CF3", color: "#fff" }}
           >

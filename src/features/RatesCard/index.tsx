@@ -57,15 +57,6 @@ export const RatesCard: React.FC<Props> = ({ day, price, date, url }) => {
           {price}
         </button>
       </div>
-      <div className="absolute bottom-[-15px]">
-        <span
-          onClick={() => setShowInfo(!showInfo)}
-          className="bg-main text-white font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-secondary transition transform hover:scale-105"
-        >
-          Details
-        </span>
-      </div>
-      {showInfo && <InfoScreen />}
     </div>
   );
 };

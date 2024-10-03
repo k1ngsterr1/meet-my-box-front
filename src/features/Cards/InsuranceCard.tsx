@@ -1,3 +1,5 @@
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Box,
   Card,
@@ -8,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { Tooltip } from "react-tooltip";
 
 interface InsuranceCardProps {
   onInsuranceClick: (value: boolean) => void;
@@ -42,6 +45,14 @@ export const InsuranceCard: React.FC<InsuranceCardProps> = ({
           }}
         >
           Страховка
+          <span
+            data-tooltip-id="my-tooltip2"
+            data-tooltip-place="bottom"
+            data-tooltip-content="Укажите нужна ли вам страховка посылки."
+          >
+            <FontAwesomeIcon icon={faInfoCircle} className="ml-2 text-main" />
+          </span>
+          <Tooltip id="my-tooltip2" style={{ fontSize: "18px" }} />
         </Typography>
         <Typography
           variant="body2"

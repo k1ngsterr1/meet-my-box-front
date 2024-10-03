@@ -67,8 +67,9 @@ export const AddressPC: React.FC<Items> = ({ items }) => {
                 p: 3,
                 borderRadius: 2,
                 boxShadow: 3,
-                width: "400px",
                 height: "100%",
+                width: { xs: "100%", sm: "100%", md: "auto" }, // Adjusts width based on screen size
+                minWidth: "300px",
               }}
             >
               <CardContent sx={{ width: "100%" }}>

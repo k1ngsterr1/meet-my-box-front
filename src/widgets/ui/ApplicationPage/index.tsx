@@ -21,7 +21,8 @@ import {
   TableRow,
   Tabs,
   Typography,
-} from "@mui/material";
+  useMediaQuery,
+} from "@mui/material"; // Импортируем компоненты MUI для табов
 import { useUpdatePackage } from "@shared/lib/hooks/Packages/useUpdatePackage";
 import { useGetAddresses } from "@shared/lib/hooks/useGetAddress";
 import Button from "@shared/ui/Button/ui/button";
@@ -31,6 +32,7 @@ import { Tooltip } from "react-tooltip";
 export const ApplicationPage = () => {
   const [addresses, setAddresses] = useState<AddressProps[]>();
   const [currentAddress, setCurrentAddress] = useState<AddressProps[]>();
+  const [address, setAddress] = useState<AddressProps>();
   const [chosenAddress, setChosenAddress] = useState<number>();
   const [id, setId] = useState<string>();
   const [selectedTab, setSelectedTab] = useState(0); // Состояние для выбранного таба
@@ -72,6 +74,7 @@ export const ApplicationPage = () => {
             );
             if (fetchedAddresses.length > 0) {
               setChosenAddress(fetchedAddresses[0].id);
+              setAddress(fetchedAddresses[0]);
             }
           }
         } catch (error) {
@@ -98,8 +101,17 @@ export const ApplicationPage = () => {
     setSelectedTab(4);
   };
 
-  const handleAddressChange = (addressId: number) =>
-    setChosenAddress(addressId);
+  const handleAddressChange = (addressId: number) => {
+    // Assuming `addresses` is your array of address objects
+    const selectedAddress = addresses?.find(
+      (address) => address.id === addressId
+    );
+
+    if (selectedAddress) {
+      setChosenAddress(addressId); // Set the chosen address ID
+      setAddress(selectedAddress); // Set the full address object
+    }
+  };
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue);
@@ -143,6 +155,7 @@ export const ApplicationPage = () => {
     setCurrentAddress(filteredAddresses);
     if (filteredAddresses && filteredAddresses.length > 0) {
       setChosenAddress(filteredAddresses[0].id);
+      setAddress(filteredAddresses[0]);
     }
   };
 
@@ -151,6 +164,7 @@ export const ApplicationPage = () => {
   const handleDialogOpen = () => setOpenDialog(true);
   const handleDialogClose = () => setOpenDialog(false);
   const toggle3 = () => setAgree3(!agree3); // Обработчик для третьего сост
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   const handleNavigation = () => {
     window.location.href = "/packages/add";
@@ -169,6 +183,24 @@ export const ApplicationPage = () => {
   return (
     <div className="w-full min-h-[80vh] pb-8 pt-8 flex flex-col items-center justify-center">
       {/* Табы навигации */}
+      <div style={{ width: "100%", overflowX: "auto" }}>
+        <Tabs
+          value={selectedTab}
+          onChange={handleTabChange}
+          sx={{ marginBottom: 4, width: "100%" }} // Set width to ensure it fits the container
+          centered={!isSmallScreen} // Centered only on larger screens
+          variant={isSmallScreen ? "scrollable" : "fullWidth"} // Scrollable on small screens
+          scrollButtons="auto" // Automatically show scroll buttons when needed
+          allowScrollButtonsMobile // Enable scroll buttons for mobile devices
+        >
+          <Tab label="Адрес" />
+          <Tab label="Страховка" disabled={selectedTab < 1} />
+          <Tab label="Курьер" disabled={selectedTab < 2} />
+          <Tab label="Примечания" disabled={selectedTab < 3} />
+          <Tab label="Стоимость" disabled={selectedTab < 4} />
+          <Tab label="Согласие" disabled={selectedTab < 5} />
+        </Tabs>
+      </div>
       <Tabs
         value={selectedTab}
         onChange={handleTabChange}
@@ -236,7 +268,7 @@ export const ApplicationPage = () => {
             onClick={handleAddressClick}
           />
           <Button
-            text={"Добавить"}
+            text={"Добавить адрес"}
             buttonType="outline"
             onClick={() => (window.location.href = "/address/add")}
           />
@@ -569,6 +601,7 @@ export const ApplicationPage = () => {
           country={countryData}
           insurance={insurance}
           courier={courier}
+          address={address}
         />
       )}
       {selectedTab === 5 && (

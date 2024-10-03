@@ -1,3 +1,5 @@
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
   Card,
@@ -7,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { Tooltip } from "react-tooltip";
 
 interface NoteCardProps {
   onNoteClick: any;
@@ -41,6 +44,14 @@ export const NoteCard: React.FC<NoteCardProps> = ({ onNoteClick, setter }) => {
             }}
           >
             Примечание
+            <span
+              data-tooltip-id="my-tooltip4"
+              data-tooltip-place="bottom"
+              data-tooltip-content="Можете указать примечание если они у вас есть."
+            >
+              <FontAwesomeIcon icon={faInfoCircle} className="ml-2 text-main" />
+            </span>
+            <Tooltip id="my-tooltip4" style={{ fontSize: "18px" }} />
           </Typography>
         </div>
         <Typography

@@ -50,7 +50,7 @@ export const AddPackages = () => {
       setPrice("");
       setItems(updatedItems);
       setSelectedItem(null);
-      setCurrent(counter);
+      setCurrent(selectedItem.id);
     } else {
       if (
         itemName !== "" &&
@@ -69,11 +69,13 @@ export const AddPackages = () => {
         };
         updatedItems = [...items, newItem];
         setItems(updatedItems);
+
         setCounter((prevCounter) => {
           const newCounter = prevCounter + 1;
           setCurrent(newCounter);
           return newCounter;
         });
+
         setItemName("");
         setOriginCountry("");
         setQuantity("");
@@ -144,7 +146,6 @@ export const AddPackages = () => {
       status: "Pending",
     });
     if (current_package) {
-      console.log(current_package);
       localStorage.setItem("packageId", JSON.stringify(current_package));
     }
 
@@ -154,7 +155,6 @@ export const AddPackages = () => {
     setQuantity("");
     setWeight("");
     setPrice("");
-
     window.location.href = "/application";
   };
 
@@ -171,28 +171,23 @@ export const AddPackages = () => {
   return (
     <>
       <div className="flex items-center flex-col w-full">
-        {isMenuOpen && (
-          <div className={styles.add_package__menu}>
-            {items
-              .filter((item) => current !== item.id) // Filter items where current is not equal to item.id
-              .map((item, index) => (
-                <div className="flex-1">
-                  <Button
-                    key={index}
-                    text={`Предмет ${item.id}`}
-                    onClick={() => handleSelectItem(index)}
-                    buttonType="outline"
-                  />
-                </div>
-              ))}
-          </div>
-        )}
-        <div className="flex max-w-fit items-center justify-center">
-          <Button
-            text={`Предмет ${current}`}
-            buttonType="filled"
-            onClick={toggleMenu}
-          />
+        <div className="flex items-center justify-center mt-4 w-[60%]">
+          <select
+            value={current || ""}
+            onChange={(e) => {
+              handleSelectItem(parseInt(e.target.value, 10));
+            }}
+            className="border px-2 py-1 rounded-md w-full"
+          >
+            <option value="" disabled>
+              Предметы
+            </option>
+            {items.map((item) => (
+              <option key={item.id} value={item.id}>
+                Предмет {item.id}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
@@ -222,7 +217,6 @@ export const AddPackagesPC = () => {
   const [quantity, setQuantity] = useState("");
   const [weight, setWeight] = useState("");
   const [price, setPrice] = useState("");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [counter, setCounter] = useState(1);
   const [current, setCurrent] = useState(1);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
@@ -251,7 +245,7 @@ export const AddPackagesPC = () => {
       setPrice("");
       setItems(updatedItems);
       setSelectedItem(null);
-      setCurrent(counter);
+      setCurrent(selectedItem.id);
     } else {
       if (
         itemName !== "" &&
@@ -270,11 +264,13 @@ export const AddPackagesPC = () => {
         };
         updatedItems = [...items, newItem];
         setItems(updatedItems);
+
         setCounter((prevCounter) => {
           const newCounter = prevCounter + 1;
           setCurrent(newCounter);
           return newCounter;
         });
+
         setItemName("");
         setOriginCountry("");
         setQuantity("");
@@ -357,42 +353,34 @@ export const AddPackagesPC = () => {
     window.location.href = "/application";
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleSelectItem = (index: number) => {
-    setSelectedItem(items[index]);
-    setCurrent(items[index].id);
-    setIsMenuOpen(false);
+  const handleSelectItem = (id: number) => {
+    const item = items.find((item) => item.id === id);
+    if (item) {
+      setSelectedItem(item);
+      setCurrent(item.id);
+    }
   };
 
   return (
     <>
       <div className="flex items-center flex-col w-full">
-        {isMenuOpen && (
-          <div className={styles.add_package__menu}>
-            {items
-              .filter((item) => current !== item.id) // Filter items where current is not equal to item.id
-              .map((item, index) => (
-                <div className="flex-1">
-                  <Button
-                    key={index}
-                    text={`Предмет ${item.id}`}
-                    onClick={() => handleSelectItem(index)}
-                    buttonType="outline"
-                  />
-                </div>
-              ))}
-          </div>
-        )}
-        <div className="flex max-w-fit items-center justify-center">
-          <Button
-            text={`Предмет ${current}`}
-            buttonType="filled"
-            margin={isMenuOpen ? "mt-0" : "mt-4"}
-            onClick={toggleMenu}
-          />
+        <div className="flex items-center justify-center mt-4 w-[60%]">
+          <select
+            value={current || ""}
+            onChange={(e) => {
+              handleSelectItem(parseInt(e.target.value, 10));
+            }}
+            className="border px-2 py-1 rounded-md w-full"
+          >
+            <option value="" disabled>
+              Предметы
+            </option>
+            {items.map((item) => (
+              <option key={item.id} value={item.id}>
+                Предмет {item.id}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
       <AddPackagesFormPC

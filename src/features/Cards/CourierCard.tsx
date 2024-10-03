@@ -1,3 +1,5 @@
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Box,
   Card,
@@ -8,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { Tooltip } from "react-tooltip";
 
 interface CourierCardProps {
   onCourierClick: (value: boolean) => void;
@@ -40,6 +43,14 @@ export const CourierCard: React.FC<CourierCardProps> = ({ onCourierClick }) => {
           }}
         >
           Нужен ли курьер, чтобы забрать посылку?
+          <span
+            data-tooltip-id="my-tooltip3"
+            data-tooltip-place="bottom"
+            data-tooltip-content="Укажите нужен ли курьер чтобы забрать посылки."
+          >
+            <FontAwesomeIcon icon={faInfoCircle} className="ml-2 text-main" />
+          </span>
+          <Tooltip id="my-tooltip3" style={{ fontSize: "18px" }} />
         </Typography>
       </CardContent>
       <CardActions
