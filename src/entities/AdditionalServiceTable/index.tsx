@@ -43,7 +43,7 @@ const PricingTable = () => {
               Консолидация/разделение заказов по разным посылкам
             </td>
             <td className="py-2 px-4 text-gray-800 text-sm">1 кг</td>
-            <td className="py-2 px-4 text-gray-800 text-sm">10€</td>
+            <td className="py-2 px-4 text-gray-800 text-sm">5€</td>
           </tr>
           <tr className="border-t hover:bg-gray-50">
             <td className="py-2 px-4 text-gray-800 text-sm">

@@ -1,20 +1,20 @@
-import React, { useState } from "react";
 import {
   Box,
   Button,
   Card,
   CardContent,
-  Divider,
-  Typography,
   Dialog,
-  DialogTitle,
-  DialogContent,
   DialogActions,
+  DialogContent,
+  DialogTitle,
+  Divider,
   Table,
   TableBody,
   TableCell,
   TableRow,
+  Typography,
 } from "@mui/material";
+import React, { useState } from "react";
 
 interface PackageItem {
   cost: number;
@@ -49,12 +49,16 @@ export const CostCard: React.FC<CostCardProps> = ({
   const [openDialog, setOpenDialog] = useState(false);
   const [openAddressDialog, setOpenAddressDialog] = useState(false);
 
+  if (!packageCurrent.items) {
+    return <>В вашей посылке нет предметов, пожалуйста добавьте его</>;
+  }
+
   // Calculate total weight and total cost
-  const totalWeight = packageCurrent.items
+  const totalWeight = packageCurrent?.items
     .reduce((acc, item) => acc + item.weight, 0)
     .toFixed(2); // Fixed to 2 digits
 
-  const totalCost = packageCurrent.items
+  const totalCost = packageCurrent?.items
     .reduce((acc, item) => acc + item.cost * 0.05, 0)
     .toFixed(2); // Fixed to 2 digits
 

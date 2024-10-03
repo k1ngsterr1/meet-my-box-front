@@ -15,10 +15,10 @@ export const InfoScreen: React.FC = () => {
         <div className="flex items-start">
           <ul className="text-sm">
             <li>
-              Максимальный вес: <strong>10 кг</strong>
+              Максимальный вес: <strong>15 кг</strong>
             </li>
             <li>
-              Максимальный объемный вес: <strong>10 кг</strong>
+              Максимальный объемный вес: <strong>15 кг</strong>
             </li>
             <li>
               Длина + Высота + Ширина: <strong>&lt; 150 см</strong>
