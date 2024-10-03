@@ -1,9 +1,11 @@
-import card_img from "@assets/card_img.png";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { type ICardInfo } from "@shared/lib/content/Cards";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import type React from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
+
 interface Items {
   items: any;
 }
@@ -41,15 +43,14 @@ export const ServiceGroupPC: React.FC<Items> = ({ items }: any) => {
 export const ServiceCardPC: React.FC<ICardInfo> = ({ title, description }) => {
   return (
     <div className={styles.service_pc__card}>
-      <img
-        src={card_img.src}
-        alt="card_img"
-        className={styles.service_pc__card__img}
-      />
       <h3 className={styles.service_pc__card__title}>{title}</h3>
       <Paragraph isCentered margin="mt-4" width="w-5/6">
         {description}
       </Paragraph>
+      <FontAwesomeIcon
+        icon={faGlobe}
+        className="absolute z-0 text-blue-500 text-[128px] opacity-[0.15]"
+      />
     </div>
   );
 };
@@ -57,15 +58,11 @@ export const ServiceCardPC: React.FC<ICardInfo> = ({ title, description }) => {
 export const ServiceCard: React.FC<ICardInfo> = ({ title, description }) => {
   return (
     <div className={styles.service__card}>
-      <img
-        src={card_img.src}
-        alt="card_img"
-        className={styles.service__card__img}
-      />
       <h3 className={styles.service__card__title}>{title}</h3>
       <Paragraph isCentered margin="mt-4" width="w-5/6">
         {description}
       </Paragraph>
+      <FontAwesomeIcon icon={faGlobe} />
     </div>
   );
 };

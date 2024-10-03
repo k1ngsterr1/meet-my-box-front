@@ -305,12 +305,14 @@ export const CalculateForm = () => {
               </option>
             ))}
           </select>
-          <CalculateInput
+          <PostcodeDropdown
             value={fromPostcode}
-            placeholder="Почтовый индекс"
-            onChange={(e) => setFromPostcode(e.target.value)}
-            className="mt-2 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
-            required
+            onChange={setFromPostcode}
+            placeholder="Введите индекс"
+            country={
+              countriesFrom.find((country) => country.value === fromCountry)
+                ?.countryCode
+            } //
           />
         </div>
 
@@ -336,7 +338,7 @@ export const CalculateForm = () => {
             onChange={setToPostcode}
             placeholder="Введите индекс"
             country={
-              countriesTo.find((country) => country.value === fromCountry)
+              countriesTo.find((country) => country.value === toCountry)
                 ?.countryCode
             } //
           />
@@ -406,7 +408,7 @@ export const CalculateForm = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            {/* <label className="block text-sm font-medium text-gray-700">
               Количество посылок:
             </label>
             <CalculateInput
@@ -419,7 +421,7 @@ export const CalculateForm = () => {
               }
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
               required
-            />
+            /> */}
           </div>
         </div>
         <div className="flex justify-end mt-4">
@@ -465,9 +467,6 @@ export const CalculateFormPC = () => {
   const [shippingRates, setShippingRates] = useState([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  console.log("fromCountry:", fromCountry);
-  console.log("toCountry:", toCountry);
 
   // Handle form submission
   const handleSubmit = async (e: any) => {
@@ -547,7 +546,6 @@ export const CalculateFormPC = () => {
       window.location.href = `/rates`;
     } else {
       try {
-        // Call the Shippo API
         const response = await useGetRates(shipmentData);
         if (response === "Error") {
           throw new Error("Failed to fetch shipping rates");
@@ -577,7 +575,6 @@ export const CalculateFormPC = () => {
   const handleNumberInput = (setter: any) => (e: any) => {
     let value = e.target.value;
 
-    // If the input is empty, set it as an empty string
     if (value === "") {
       setter("");
       return;
@@ -596,7 +593,6 @@ export const CalculateFormPC = () => {
   const handleNumberInputWeight = (setter: any) => (e: any) => {
     let value = e.target.value;
 
-    // If the input is empty, set it as an empty string
     if (value === "") {
       setter("");
       return;
@@ -745,7 +741,7 @@ export const CalculateFormPC = () => {
         </div>
         {fromCountry === "Italy" && (
           <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-700">
+            {/* <label className="block text-sm font-medium text-gray-700">
               Количество посылок:
             </label>
             <CalculateInput
@@ -759,7 +755,7 @@ export const CalculateFormPC = () => {
               }
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
               required
-            />
+            /> */}
           </div>
         )}
 

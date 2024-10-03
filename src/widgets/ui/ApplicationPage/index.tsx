@@ -35,7 +35,7 @@ export const ApplicationPage = () => {
   const [address, setAddress] = useState<AddressProps>();
   const [chosenAddress, setChosenAddress] = useState<number>();
   const [id, setId] = useState<string>();
-  const [selectedTab, setSelectedTab] = useState(0); // Состояние для выбранного таба
+  const [selectedTab, setSelectedTab] = useState(1); // Состояние для выбранного таба
   const [insurance, setInsurance] = useState(false);
   const [courier, setCourier] = useState(false);
   const [note, setNote] = useState("");
@@ -82,6 +82,7 @@ export const ApplicationPage = () => {
         }
       }
     };
+    setSelectedTab(1);
     fetchAddressesAsync();
   }, []);
 
@@ -121,12 +122,15 @@ export const ApplicationPage = () => {
 
   const handleAgreeClick = async () => {
     if (!agree1 || !agree2) {
-      alert("Вы должны со всеми условиями!");
+      alert("Вы должны согласиться со всеми условиями!");
       return;
     } else {
       // Обновление и отправка данных пакета
       const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
-      const items = packageData ? JSON.parse(packageData).items : [];
+      console.log("data:", packageData);
+
+      // В данном случае packageData уже распарсен и items можно получить напрямую
+      const items = packageData.items || []; // Проверка на наличие items в объекте
 
       // Proceed with the package update
       const package_now = await useUpdatePackage({
@@ -193,29 +197,21 @@ export const ApplicationPage = () => {
           scrollButtons="auto" // Automatically show scroll buttons when needed
           allowScrollButtonsMobile // Enable scroll buttons for mobile devices
         >
-          <Tab label="Адрес" />
-          <Tab label="Страховка" disabled={selectedTab < 1} />
-          <Tab label="Курьер" disabled={selectedTab < 2} />
-          <Tab label="Примечания" disabled={selectedTab < 3} />
-          <Tab label="Стоимость" disabled={selectedTab < 4} />
-          <Tab label="Согласие" disabled={selectedTab < 5} />
+          <Tab
+            label="Рассчитать"
+            onClick={() => (window.location.href = "/calculate")}
+          />
+          <Tab label="Адреса" />
+          <Tab label="Страховка" />
+          <Tab label="Вызов курьера" />
+          <Tab label="Примечание" />
+          <Tab label="Стоимость" />
+          <Tab label="Согласие" />
         </Tabs>
       </div>
-      <Tabs
-        value={selectedTab}
-        onChange={handleTabChange}
-        sx={{ marginBottom: 4 }}
-        centered
-      >
-        <Tab label="Адреса" />
-        <Tab label="Страховка" disabled={selectedTab < 1} />
-        <Tab label="Вызов курьер" disabled={selectedTab < 2} />
-        <Tab label="Примечания" disabled={selectedTab < 3} />
-        <Tab label="Итог" disabled={selectedTab < 4} />
-        <Tab label="Согласие" disabled={selectedTab < 5} />
-      </Tabs>
+
       {/* Содержимое каждого этапа */}
-      {selectedTab === 0 && (
+      {selectedTab === 1 && (
         <div className="flex flex-col gap-4 items-center justify-center w-[90%] max-w-[800px] min-h-[300px]">
           <span className="w-full text-xl flex text-center justify-center gap-4">
             Выберите итоговый адрес
@@ -347,7 +343,7 @@ export const ApplicationPage = () => {
           )}
         </div>
       )}
-      {selectedTab === 1 && (
+      {selectedTab === 2 && (
         <>
           <InsuranceCard onInsuranceClick={handleInsuranceClick} />
           <Button
@@ -425,7 +421,7 @@ export const ApplicationPage = () => {
           )}
         </>
       )}
-      {selectedTab === 2 && (
+      {selectedTab === 3 && (
         <>
           <CourierCard onCourierClick={handleCourierClick} />
           <Button
@@ -504,7 +500,7 @@ export const ApplicationPage = () => {
           )}
         </>
       )}
-      {selectedTab === 3 && (
+      {selectedTab === 4 && (
         <>
           <NoteCard onNoteClick={handleNoteClick} setter={setNote} />
           <Button
@@ -593,7 +589,7 @@ export const ApplicationPage = () => {
         />
       )} */}
       {/* {showAgreeCard && ( */}
-      {selectedTab === 4 && (
+      {selectedTab === 5 && (
         <CostCard
           onCostClick={handleCostClick}
           packageCurrent={packageCurrent}
@@ -604,7 +600,7 @@ export const ApplicationPage = () => {
           address={address}
         />
       )}
-      {selectedTab === 5 && (
+      {selectedTab === 6 && (
         <>
           <AgreeCard
             onAgreeClick={handleAgreeClick}

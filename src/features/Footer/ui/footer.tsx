@@ -13,6 +13,7 @@ export const Footer = () => {
       <footer className={styles.footer} id="footer">
         <a href="#main-mob" className="w-full flex items-center justify-center">
           <img
+            onClick={() => (window.location.href = "/")}
             src={logo.src}
             alt="footer_logo"
             className={styles.footer__logo}

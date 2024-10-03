@@ -8,7 +8,12 @@ import {
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { useEffect, useState } from "react";
-import { Fade, Slide } from "react-awesome-reveal";
+import { Fade } from "react-awesome-reveal";
+
+import process_1 from "@assets/process_1.png";
+import process_2 from "@assets/process_2.png";
+import process_3 from "@assets/process_3.png";
+
 import styles from "./styles.module.scss";
 
 export const ServiceScreen = () => {
@@ -34,25 +39,6 @@ export const ServiceScreen = () => {
   if (isLoading) {
     return <Loader />;
   }
-
-  // New Highlight Block Data
-  const featureHighlights = [
-    {
-      title: "Быстрая доставка",
-      description: "Мы доставляем ваши посылки в самые короткие сроки.",
-      icon: "🚀",
-    },
-    {
-      title: "Гарантия качества",
-      description: "Все товары проходят тщательную проверку перед отправкой.",
-      icon: "✅",
-    },
-    {
-      title: "Поддержка 24/7",
-      description: "Наша служба поддержки готова помочь вам в любое время.",
-      icon: "📞",
-    },
-  ];
 
   return (
     <>
@@ -88,32 +74,29 @@ export const ServiceScreen = () => {
               </Paragraph>
             </Fade>
             <ServiceGroupPC items={service} />
+            <div className="flex items-center justify-between gap-8">
+              <img
+                src={process_3.src}
+                alt="Услуга 1"
+                className="w-[90%] h-[300px]"
+              />
+              <img
+                src={process_2.src}
+                alt="Услуга 2"
+                className="w-[90%] h-[300px]"
+              />
+              <img
+                src={process_1.src}
+                alt="Услуга 3"
+                className="w-[90%] h-[300px]"
+              />
+            </div>
             <Button
               text="Заказать"
               buttonType="filled"
               margin="mt-8"
               onClick={() => window.open("http://t.me/meetmbox")}
             />
-          </section>
-
-          {/* New Feature Highlights Block */}
-          <section className={styles.featureHighlights}>
-            <h2 className="text-center text-3xl font-bold mt-16 mb-8">
-              Наши преимущества
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-              {featureHighlights.map((feature, index) => (
-                <Slide key={index} direction="up" triggerOnce>
-                  <div className="bg-white shadow-lg rounded-xl p-6 text-center">
-                    <span className="text-6xl">{feature.icon}</span>
-                    <h3 className="mt-4 text-2xl font-semibold text-gray-800">
-                      {feature.title}
-                    </h3>
-                    <p className="mt-2 text-gray-600">{feature.description}</p>
-                  </div>
-                </Slide>
-              ))}
-            </div>
           </section>
 
           {/* FAQ Section */}

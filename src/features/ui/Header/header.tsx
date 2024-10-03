@@ -3,8 +3,6 @@ import { useStore } from "@nanostores/react";
 import { BurgerButton } from "@shared/ui/Burger/ui/burger-button";
 import Button from "@shared/ui/Button/ui/button";
 import { isMenuOpen } from "@stores/menuState";
-import { togglePopup } from "@stores/popupState";
-import { toggleRequestPopup } from "@stores/requestState";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 
@@ -58,7 +56,12 @@ export const Header: React.FC<IHeader> = ({ isMobile }) => {
   return (
     <>
       <header className={styles.header}>
-        <img className={styles.header__logo} src={logo.src} alt="Logotype" />
+        <img
+          className={styles.header__logo}
+          src={logo.src}
+          alt="Logotype"
+          onClick={() => (window.location.href = "/")}
+        />
         <BurgerButton onClick={toggleMenu} />
       </header>
       <header className={styles.header_pc}>

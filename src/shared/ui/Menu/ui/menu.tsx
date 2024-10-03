@@ -40,8 +40,11 @@ export const Menu = () => {
               >
                 Отправить посылку
               </a>
-              <a className="text-dark text-xl" href="/">
-                Принять заказ из интернет магазина
+              <a className="text-dark text-xl" href="/faq">
+                Помощь с покупкой
+              </a>
+              <a className="text-dark text-xl" href="/cost">
+                Стоимость
               </a>
               <a className="text-dark text-xl" href="#contacts-mob">
                 Контакты

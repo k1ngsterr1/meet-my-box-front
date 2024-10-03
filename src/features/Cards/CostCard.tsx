@@ -8,10 +8,12 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
+  Tab,
   Table,
   TableBody,
   TableCell,
   TableRow,
+  Tabs,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
@@ -47,31 +49,33 @@ export const CostCard: React.FC<CostCardProps> = ({
   address,
 }) => {
   const [openDialog, setOpenDialog] = useState(false);
-  const [openAddressDialog, setOpenAddressDialog] = useState(false);
+  const [tabValue, setTabValue] = useState(0); // Для управления вкладками
+
+  const handleClick = () => {
+    onCostClick();
+  };
 
   if (!packageCurrent.items) {
     return <>В вашей посылке нет предметов, пожалуйста добавьте его</>;
   }
 
   // Calculate total weight and total cost
-  const totalWeight = packageCurrent?.items
+  const totalWeight = packageCurrent.items
     .reduce((acc, item) => acc + item.weight, 0)
     .toFixed(2); // Fixed to 2 digits
 
-  const totalCost = packageCurrent?.items
+  const totalCost = packageCurrent.items
     .reduce((acc, item) => acc + item.cost * 0.05, 0)
     .toFixed(2); // Fixed to 2 digits
-
-  // Handle button click
-  const handleClick = () => {
-    onCostClick();
-  };
 
   // Handle dialog open and close
   const handleDialogOpen = () => setOpenDialog(true);
   const handleDialogClose = () => setOpenDialog(false);
-  const handleAddressDialogClose = () => setOpenAddressDialog(false);
-  const handleAddressDialogOpen = () => setOpenAddressDialog(true);
+
+  // Управление вкладками
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
 
   const priceNumber = parseFloat(price.replace(/[^\d.]/g, ""));
   const finalInsuranceCost = (insurance ? parseFloat(totalCost) : 0).toFixed(2);
@@ -171,96 +175,88 @@ export const CostCard: React.FC<CostCardProps> = ({
             </Typography>
             <Typography variant="body1">€{lastPrice}</Typography>
           </Box>
-          <Divider sx={{ marginY: 2 }} />
-          {/* Button Container with Adjusted Spacing */}
-          <Box
+          <Button
+            variant="contained"
+            onClick={handleClick}
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: 2, // Added spacing between buttons
-              marginTop: 2,
+              backgroundColor: "#220CF3",
+              color: "#fff",
+              textTransform: "none",
+              padding: "8px 16px", // Added more padding for a nicer look
+              "&:hover": {
+                backgroundColor: "#1E0AD1",
+              },
             }}
           >
-            <Button
-              variant="contained"
-              onClick={handleClick}
-              sx={{
-                backgroundColor: "#220CF3",
-                color: "#fff",
-                textTransform: "none",
-                padding: "8px 16px", // Added more padding for a nicer look
-                "&:hover": {
-                  backgroundColor: "#1E0AD1",
-                },
-              }}
-            >
-              Далее
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={handleAddressDialogOpen}
-              sx={{
-                borderColor: "#220CF3",
-                color: "#220CF3",
-                textTransform: "none",
-                padding: "8px 16px", // Matching padding for consistency
-                "&:hover": {
-                  backgroundColor: "rgba(34, 12, 243, 0.04)",
-                  borderColor: "#220CF3",
-                },
-              }}
-            >
-              Адрес
-            </Button>
-          </Box>
+            Далее
+          </Button>
         </CardContent>
       </Card>
 
-      {/* Dialog for Package Details */}
+      {/* Объединенное диалоговое окно */}
       <Dialog
-        open={openAddressDialog}
-        onClose={handleAddressDialogClose}
-        maxWidth="sm"
+        open={openDialog}
+        onClose={handleDialogClose}
+        maxWidth="md"
         fullWidth
       >
-        <DialogTitle>Детали адреса</DialogTitle>
+        <DialogTitle>Детали посылки и адреса</DialogTitle>
         <DialogContent>
-          <Typography variant="body1">
-            Тип адреса:{" "}
-            {address.type === "receiver" ? "Получатель" : "Отправитель"}
-          </Typography>
-          <Typography variant="body1">
-            Имя: {address.firstName || "Не указана"}
-          </Typography>
-          <Typography variant="body1">
-            Телефон: {address.phoneNumber}
-          </Typography>
-          <Typography variant="body1">
-            Улица: {address.street || "Не указана"}
-          </Typography>
-          <Typography variant="body1">
-            Дом: {address.housing || "Не указана"}
-          </Typography>
-          <Typography variant="body1">
-            Корпус: {address.building || "Не указана"}
-          </Typography>
-          <Typography variant="body1">
-            Квартира: {address.apartment || "Не указана"}
-          </Typography>
-          <Typography variant="body1">
-            Город: {address.city || "Не указана"}
-          </Typography>
-          <Typography variant="body1">
-            Почтовый индекс: {address.postal_code || "Не указана"}
-          </Typography>
-          <Typography variant="body1">
-            Страна: {address.country || "Не указана"}
-          </Typography>
+          <Tabs value={tabValue} onChange={handleTabChange} centered>
+            <Tab label="Содержимое" />
+            <Tab label="Адрес" />
+          </Tabs>
+          <Divider sx={{ marginY: 2 }} />
+          {tabValue === 0 && (
+            <Box>
+              <Table>
+                <TableBody>
+                  {packageCurrent.items.map((item, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{item.name}</TableCell>
+                      <TableCell align="right">€{item.cost}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
+          )}
+          {tabValue === 1 && (
+            <Box>
+              <Typography variant="body1">
+                Тип адреса:{" "}
+                {address.type === "receiver" ? "Получатель" : "Отправитель"}
+              </Typography>
+              <Typography variant="body1">
+                Имя: {address.firstName || "Не указана"}
+              </Typography>
+              <Typography variant="body1">
+                Телефон: {address.phoneNumber}
+              </Typography>
+              <Typography variant="body1">
+                Улица: {address.street || "Не указана"}
+              </Typography>
+              <Typography variant="body1">
+                Дом: {address.housing || "Не указана"}
+              </Typography>
+              <Typography variant="body1">
+                Квартира: {address.apartment || "Не указана"}
+              </Typography>
+              <Typography variant="body1">
+                Город: {address.city || "Не указана"}
+              </Typography>
+              <Typography variant="body1">
+                Почтовый индекс: {address.postal_code || "Не указана"}
+              </Typography>
+              <Typography variant="body1">
+                Страна: {address.country || "Не указана"}
+              </Typography>
+            </Box>
+          )}
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={handleAddressDialogClose}
+            onClick={handleDialogClose}
             variant="contained"
             sx={{ backgroundColor: "#220CF3", color: "#fff" }}
           >
