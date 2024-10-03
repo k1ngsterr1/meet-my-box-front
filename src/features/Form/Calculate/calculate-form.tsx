@@ -485,13 +485,21 @@ export const CalculateFormPC = () => {
       setError("Неверный почтовый индекс отправителя.");
       return;
     }
+    const roundWeight = (weight: number) => {
+      const decimalPart = weight % 1; // Get the decimal part
+      if (decimalPart > 0) {
+        return Math.ceil(weight); // Round up
+      } else {
+        return Math.floor(weight); // Round down
+      }
+    };
 
     if (!isToPostcodeValid) {
       setError("Неверный почтовый индекс получателя.");
       return;
     }
     const shipmentData = {
-      weight: weight,
+      weight: roundWeight(weight),
       length: length,
       width: width,
       height: height,
@@ -509,14 +517,6 @@ export const CalculateFormPC = () => {
       JSON.stringify({ from: fromCountry, to: toCountry })
     );
 
-    const roundWeight = (weight: number) => {
-      const decimalPart = weight % 1; // Get the decimal part
-      if (decimalPart > 0) {
-        return Math.ceil(weight); // Round up
-      } else {
-        return Math.floor(weight); // Round down
-      }
-    };
     console.log(roundWeight(weight));
 
     if (fromCountry === "Italy" || fromCountry === "Germany") {
@@ -551,7 +551,7 @@ export const CalculateFormPC = () => {
           throw new Error("Failed to fetch shipping rates");
         }
         setIsLoading(false);
-        response.price = addMargin(response.price, roundWeight(weight));
+        // response.price = addMargin(response.price, roundWeight(weight));
         response.days = [
           {
             estimateNumber: "10",
