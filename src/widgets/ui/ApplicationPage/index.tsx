@@ -106,13 +106,6 @@ export const ApplicationPage = () => {
     if (!isAuthenticated) return;
   }, []);
 
-  useEffect(() => {
-    const isAuthenticated = checkAuth();
-    if (!isAuthenticated) return;
-  }, []);
-
-  console.log(addresses);
-
   const handleAddressClick = () => setSelectedTab(2);
 
   const handleInsuranceClick = (value: boolean) => {
