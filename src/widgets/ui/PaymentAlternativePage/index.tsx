@@ -1,7 +1,8 @@
-import React from "react";
-import { Box, Typography } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Box, Typography } from "@mui/material";
+import Button from "@shared/ui/Button/ui/button";
+import React from "react";
 
 export const PaymentAlternativePage: React.FC = () => {
   return (
@@ -37,6 +38,11 @@ export const PaymentAlternativePage: React.FC = () => {
       >
         В скором времени с вами свяжутся наши менеджеры.
       </Typography>
+      <Button
+        buttonType="filled"
+        text="Назад"
+        onClick={() => (window.location.href = "/")}
+      />
     </Box>
   );
 };

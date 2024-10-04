@@ -143,7 +143,7 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
             "&:hover": { backgroundColor: "#1E0AD1" },
           }}
         >
-          Закончить
+          Перейти к оплате
         </Button>
       </CardActions>
     </Card>

@@ -26,16 +26,30 @@ export const AddPackages = () => {
   const [defaultItem, setDefaultItem] = useState<Item | null>(null);
   const { addItem, removeItem } = useItemsManagement();
 
-  const initialItems = (() => {
-    const packageData = localStorage.getItem("packageId");
-    if (packageData) {
-      const parsedPackage = JSON.parse(packageData);
-      if (parsedPackage && parsedPackage.items) {
-        return parsedPackage.items;
+  // Господи, не удаляйте эту функцию, она спасла жизнь многим детям в будующем
+  useEffect(() => {
+    // Используем setTimeout для отладки проблемы с загрузкой
+    setTimeout(() => {
+      const packageData = localStorage.getItem("packageId");
+      if (packageData) {
+        const parsedPackage = JSON.parse(packageData); // Парсим строку из localStorage
+        if (parsedPackage && parsedPackage.items) {
+          console.log(
+            "Загрузка предметов из localStorage:",
+            parsedPackage.items
+          );
+          setItems(parsedPackage.items); // Устанавливаем состояние items из localStorage
+          // Устанавливаем начальное значение counter на основе максимального ID
+          const maxId = parsedPackage.items.reduce(
+            (max: number, item: Item) => Math.max(max, item.id),
+            0
+          );
+          setCounter(maxId + 1);
+        }
       }
-    }
-    return [];
-  })();
+      setIsDataLoaded(true); // Устанавливаем флаг, что данные успешно загружены
+    }, 500); // 500ms задержка для корректной инициализации состояния
+  }, []);
 
   // Загрузка предметов из localStorage при загрузке компонента
   useEffect(() => {
@@ -62,44 +76,30 @@ export const AddPackages = () => {
       }
     }
   }, []);
-  // Обновление предметов и сохранение в localStorage
-  useEffect(() => {
-    const packageData = localStorage.getItem("packageId");
-    if (packageData) {
-      const parsedPackage = JSON.parse(packageData);
-      const updatedPackage = {
-        ...parsedPackage,
-        items,
-      };
-      localStorage.setItem("packageId", JSON.stringify(updatedPackage));
-    }
-  }, [items]);
 
   const handleUpdateItem = () => {
-    let updatedItems: Item[] = [];
+    if (!selectedItem) return;
 
-    if (selectedItem) {
-      const updatedItem: Item = {
-        ...selectedItem,
-        item_name: itemName,
-        origin_country: originCountry,
-        quantity: quantity,
-        weight: weight,
-        price: price,
-      };
+    // Обновленный элемент
+    const updatedItem: Item = {
+      ...selectedItem,
+      item_name: itemName,
+      origin_country: originCountry,
+      quantity: quantity,
+      weight: weight,
+      price: price,
+    };
 
-      // Обновляем предметы, заменяя отредактированный элемент
-      updatedItems = items.map((item) =>
-        item.id === selectedItem.id ? updatedItem : item
-      );
-    }
+    // Заменяем элемент в массиве
+    const updatedItems = items.map((item) =>
+      item.id === updatedItem.id ? updatedItem : item
+    );
 
-    // Проверяем, не превышает ли общий вес 15 кг после добавления или изменения предмета
+    // Считаем общий вес всех элементов после обновления
     const totalWeight = updatedItems.reduce(
       (sum, item) => sum + parseInt(item.weight),
       0
     );
-
     if (totalWeight > 15) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать 15 кг!`
@@ -107,30 +107,12 @@ export const AddPackages = () => {
       return; // Прекращаем выполнение, если превышен лимит
     }
 
-    // Обновляем состояние items только если общий вес допустим
-    const newItem: Item = {
-      id: counter,
-      item_name: itemName,
-      origin_country: originCountry,
-      quantity: quantity,
-      weight: weight,
-      price: price,
-    };
+    // Обновляем состояние и сохраняем в localStorage
     setItems(updatedItems);
-    addItem(newItem);
-    saveItemsToPackage(updatedItems);
-
-    // Если это был новый элемент, обновляем счетчик
-    if (!selectedItem) {
-      setCounter((prevCounter) => {
-        const newCounter = prevCounter + 1;
-        setCurrent(newCounter); // Устанавливаем текущий элемент
-        return newCounter;
-      });
-    }
+    syncLocalStorage(updatedItems);
 
     setSelectedItem(null); // Сбрасываем состояние редактируемого элемента
-    clearForm(); // Очищаем поля формы после добавления или редактирования
+    clearForm(); // Очищаем поля формы после редактирования
   };
 
   // Синхронизация `localStorage` при изменении `items`
@@ -147,14 +129,27 @@ export const AddPackages = () => {
       return;
     }
 
-    // Используем функцию обновления состояния для корректного обновления `counter`
+    // Вес нового элемента
+    const newItemWeight = parseInt(weight);
+    // Суммируем вес всех элементов + новый элемент
+    const totalWeight =
+      items.reduce((sum, item) => sum + parseInt(item.weight), 0) +
+      newItemWeight;
+
+    if (totalWeight > 15) {
+      alert(
+        `Общий вес всех предметов (${totalWeight} кг) не может превышать 15 кг!`
+      );
+      return; // Прекращаем выполнение, если превышен лимит
+    }
+
+    // Обновление `counter` для нового элемента
     setCounter((prevCounter) => {
       const newId =
         prevCounter === 1 ? 1 : prevCounter === 2 ? 2 : prevCounter + 1;
 
-      console.log("prev counter:", prevCounter);
       const newItem: Item = {
-        id: newId, // Уникальный ID из предыдущего значения
+        id: newId, // Уникальный ID
         item_name: itemName,
         origin_country: originCountry,
         quantity: quantity,
@@ -162,19 +157,15 @@ export const AddPackages = () => {
         price: price,
       };
 
-      // Обновляем состояние `items` и сохраняем в `localStorage`
+      // Обновляем массив элементов и сохраняем в localStorage
       const updatedItems = [...items, newItem];
       setItems(updatedItems);
       syncLocalStorage(updatedItems);
 
-      // Очищаем форму после добавления предмета
-      clearForm();
-
-      // Возвращаем увеличенное значение для следующего элемента
-      return prevCounter + 1;
+      clearForm(); // Очищаем форму после добавления
+      return newId; // Возвращаем новый `counter`
     });
   };
-
   // Обработчик удаления предмета
   const handleRemoveItem = (id: number) => {
     removeItem(id); // Используем существующий метод `removeItem` из хука
@@ -306,14 +297,6 @@ export const AddPackages = () => {
     window.location.href = "/application";
   };
 
-  const handleSelectItem = (id: number) => {
-    const item = items.find((item) => item.id === id);
-    if (item) {
-      setSelectedItem(item);
-      setCurrent(item.id);
-    }
-  };
-
   return (
     <>
       <div className="flex items-center flex-col w-full">
@@ -351,7 +334,7 @@ export const AddPackages = () => {
                   <Button
                     text="Удалить"
                     buttonType="outline"
-                    onClick={() => removeItem(item.id)}
+                    onClick={() => handleRemoveItem(item.id)}
                     className="text-red-500 hover:text-red-700 w-full"
                   />
                 </CardActions>
@@ -410,17 +393,32 @@ export const AddPackagesPC = () => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [defaultItem, setDefaultItem] = useState<Item | null>(null);
   const { addItem, removeItem } = useItemsManagement();
+  const [isDataLoaded, setIsDataLoaded] = useState(false); // Флаг для отслеживания загрузки данных
 
-  const initialItems = (() => {
-    const packageData = localStorage.getItem("packageId");
-    if (packageData) {
-      const parsedPackage = JSON.parse(packageData);
-      if (parsedPackage && parsedPackage.items) {
-        return parsedPackage.items;
+  // Господи, не удаляйте эту функцию, она спасла жизнь многим детям в будующем
+  useEffect(() => {
+    // Используем setTimeout для отладки проблемы с загрузкой
+    setTimeout(() => {
+      const packageData = localStorage.getItem("packageId");
+      if (packageData) {
+        const parsedPackage = JSON.parse(packageData); // Парсим строку из localStorage
+        if (parsedPackage && parsedPackage.items) {
+          console.log(
+            "Загрузка предметов из localStorage:",
+            parsedPackage.items
+          );
+          setItems(parsedPackage.items); // Устанавливаем состояние items из localStorage
+          // Устанавливаем начальное значение counter на основе максимального ID
+          const maxId = parsedPackage.items.reduce(
+            (max: number, item: Item) => Math.max(max, item.id),
+            0
+          );
+          setCounter(maxId + 1);
+        }
       }
-    }
-    return [];
-  })();
+      setIsDataLoaded(true); // Устанавливаем флаг, что данные успешно загружены
+    }, 500); // 500ms задержка для корректной инициализации состояния
+  }, []);
 
   // Загрузка предметов из localStorage при загрузке компонента
   useEffect(() => {
@@ -447,57 +445,30 @@ export const AddPackagesPC = () => {
       }
     }
   }, []);
-  // Обновление предметов и сохранение в localStorage
-  useEffect(() => {
-    const packageData = localStorage.getItem("packageId");
-    if (packageData) {
-      const parsedPackage = JSON.parse(packageData);
-      const updatedPackage = {
-        ...parsedPackage,
-        items,
-      };
-      localStorage.setItem("packageId", JSON.stringify(updatedPackage));
-    }
-  }, [items]);
 
   const handleUpdateItem = () => {
-    let updatedItems: Item[] = [];
+    if (!selectedItem) return;
 
-    if (selectedItem) {
-      const updatedItem: Item = {
-        ...selectedItem,
-        item_name: itemName,
-        origin_country: originCountry,
-        quantity: quantity,
-        weight: weight,
-        price: price,
-      };
+    // Обновленный элемент
+    const updatedItem: Item = {
+      ...selectedItem,
+      item_name: itemName,
+      origin_country: originCountry,
+      quantity: quantity,
+      weight: weight,
+      price: price,
+    };
 
-      // Обновляем предметы, заменяя отредактированный элемент
-      updatedItems = items.map((item) =>
-        item.id === selectedItem.id ? updatedItem : item
-      );
-    } else {
-      // Добавление нового элемента
-      const newItem: Item = {
-        id: counter, // Используем внутренний счетчик для ID
-        item_name: itemName,
-        origin_country: originCountry,
-        quantity: quantity,
-        weight: weight,
-        price: price,
-      };
+    // Заменяем элемент в массиве
+    const updatedItems = items.map((item) =>
+      item.id === updatedItem.id ? updatedItem : item
+    );
 
-      // Обновляем массив с новым элементом
-      updatedItems = [...items, newItem];
-    }
-
-    // Проверяем, не превышает ли общий вес 15 кг после добавления или изменения предмета
+    // Считаем общий вес всех элементов после обновления
     const totalWeight = updatedItems.reduce(
       (sum, item) => sum + parseInt(item.weight),
       0
     );
-
     if (totalWeight > 15) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать 15 кг!`
@@ -505,30 +476,12 @@ export const AddPackagesPC = () => {
       return; // Прекращаем выполнение, если превышен лимит
     }
 
-    // Обновляем состояние items только если общий вес допустим
-    const newItem: Item = {
-      id: counter,
-      item_name: itemName,
-      origin_country: originCountry,
-      quantity: quantity,
-      weight: weight,
-      price: price,
-    };
+    // Обновляем состояние и сохраняем в localStorage
     setItems(updatedItems);
-    addItem(newItem);
-    saveItemsToPackage(updatedItems);
-
-    // Если это был новый элемент, обновляем счетчик
-    if (!selectedItem) {
-      setCounter((prevCounter) => {
-        const newCounter = prevCounter + 1;
-        setCurrent(newCounter); // Устанавливаем текущий элемент
-        return newCounter;
-      });
-    }
+    syncLocalStorage(updatedItems);
 
     setSelectedItem(null); // Сбрасываем состояние редактируемого элемента
-    clearForm(); // Очищаем поля формы после добавления или редактирования
+    clearForm(); // Очищаем поля формы после редактирования
   };
 
   // Синхронизация `localStorage` при изменении `items`
@@ -545,14 +498,27 @@ export const AddPackagesPC = () => {
       return;
     }
 
-    // Используем функцию обновления состояния для корректного обновления `counter`
+    // Вес нового элемента
+    const newItemWeight = parseInt(weight);
+    // Суммируем вес всех элементов + новый элемент
+    const totalWeight =
+      items.reduce((sum, item) => sum + parseInt(item.weight), 0) +
+      newItemWeight;
+
+    if (totalWeight > 15) {
+      alert(
+        `Общий вес всех предметов (${totalWeight} кг) не может превышать 15 кг!`
+      );
+      return; // Прекращаем выполнение, если превышен лимит
+    }
+
+    // Обновление `counter` для нового элемента
     setCounter((prevCounter) => {
       const newId =
         prevCounter === 1 ? 1 : prevCounter === 2 ? 2 : prevCounter + 1;
 
-      console.log("prev counter:", prevCounter);
       const newItem: Item = {
-        id: newId, // Уникальный ID из предыдущего значения
+        id: newId, // Уникальный ID
         item_name: itemName,
         origin_country: originCountry,
         quantity: quantity,
@@ -560,19 +526,15 @@ export const AddPackagesPC = () => {
         price: price,
       };
 
-      // Обновляем состояние `items` и сохраняем в `localStorage`
+      // Обновляем массив элементов и сохраняем в localStorage
       const updatedItems = [...items, newItem];
       setItems(updatedItems);
       syncLocalStorage(updatedItems);
 
-      // Очищаем форму после добавления предмета
-      clearForm();
-
-      // Возвращаем увеличенное значение для следующего элемента
-      return prevCounter + 1;
+      clearForm(); // Очищаем форму после добавления
+      return newId; // Возвращаем новый `counter`
     });
   };
-
   // Обработчик удаления предмета
   const handleRemoveItem = (id: number) => {
     removeItem(id); // Используем существующий метод `removeItem` из хука
