@@ -379,7 +379,7 @@ export const AddPackagesPC = () => {
 
     // Обновляем состояние items только если общий вес допустим
     const newItem: Item = {
-      id: counter, // Используем внутренний счетчик для ID
+      id: counter,
       item_name: itemName,
       origin_country: originCountry,
       quantity: quantity,
@@ -595,6 +595,7 @@ export const AddPackagesPC = () => {
         setWeight={setWeight}
         setPrice={setPrice}
         handleAddItem={handleAddItem}
+        handleItemChange={handleUpdateItem}
         handleSubmit={handleSubmit}
       />
     </>
