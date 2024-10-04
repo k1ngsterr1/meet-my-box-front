@@ -574,7 +574,7 @@ export const ApplicationPage = () => {
           address={address}
         />
       )} */}
-      {selectedTab === 6 && (
+      {selectedTab === 4 && (
         <>
           <AgreeCard
             onAgreeClick={handleAgreeClick}
