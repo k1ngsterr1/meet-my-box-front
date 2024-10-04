@@ -394,7 +394,11 @@ export const ApplicationPage = () => {
       )}
       {selectedTab === 2 && (
         <>
-          <InsuranceCard onInsuranceClick={handleInsuranceClick} />
+          <InsuranceCard
+            onInsuranceClick={handleInsuranceClick}
+            packageCurrent={packageCurrent.items}
+            price={price}
+          />
           <Button
             text={"Содержимое посылки"}
             buttonType="outline"
