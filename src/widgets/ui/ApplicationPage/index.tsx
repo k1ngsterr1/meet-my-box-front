@@ -33,6 +33,8 @@ export const ApplicationPage = () => {
     "sender" | "receiver" | null
   >(null);
   const [addresses, setAddresses] = useState<AddressProps[]>();
+  const [previousInsurance, setPreviousInsurance] = useState(false);
+  const [previousCourier, setPreviousCourier] = useState(false);
   const [currentAddress, setCurrentAddress] = useState<AddressProps[]>();
   const [address, setAddress] = useState<AddressProps>();
   const [chosenAddress, setChosenAddress] = useState<number>();
@@ -46,6 +48,7 @@ export const ApplicationPage = () => {
   const [agree3, setAgree3] = useState(false); // Состояние для третьего чекбокса
   const [packageCurrent, setPackageCurrent] = useState<any>(null);
   const [price, setPrice] = useState<string>("");
+  const [totalPrice, setTotalPrice] = useState<number>(0);
   const [countryData, setCountryData] = useState<any>("");
   const [openDialog, setOpenDialog] = useState(false);
   const toggle1 = () => setAgree1(!agree1);
@@ -59,8 +62,6 @@ export const ApplicationPage = () => {
   const [receiverAddressId, setReceiverAddressId] = useState<number | null>(
     null
   );
-
-  const finalInsuranceCost = (insurance ? parseFloat(totalCost) : 0).toFixed(2);
 
   useEffect(() => {
     const fetchAddressesAsync = async () => {
@@ -76,6 +77,7 @@ export const ApplicationPage = () => {
       const priceData = localStorage.getItem("packagePrice");
       if (priceData) {
         setPrice(priceData);
+        setTotalPrice(parseFloat(priceData.replace("€", "")));
       }
       if (storedPackageId) {
         setId(storedPackageId.id);
@@ -108,6 +110,42 @@ export const ApplicationPage = () => {
     if (!isAuthenticated) return;
   }, []);
 
+  useEffect(() => {
+    if (!packageCurrent || !packageCurrent.items) {
+      return; // Возвращаемся, если данные еще не загружены
+    }
+    // Рассчитываем 5% от стоимости всех элементов
+    const totalCost = packageCurrent.items.reduce((sum: number, item: any) => {
+      const itemCost = parseFloat(item.cost);
+      return sum + itemCost * 0.05;
+    }, 0);
+
+    // Используем предыдущее значение для корректного пересчета
+    setTotalPrice((prevPrice) => {
+      let newTotalPrice = prevPrice;
+      if (previousInsurance === false && insurance === true) {
+        // Переход с false на true — добавляем стоимость страховки
+        newTotalPrice += totalCost;
+      } else if (previousInsurance === true && insurance === false) {
+        // Переход с true на false — убираем стоимость страховки
+        newTotalPrice -= totalCost;
+      }
+
+      // Добавляем или убираем стоимость страховки
+      if (previousCourier === false && courier === true) {
+        // Переход с false на true — добавляем стоимость курьера
+        newTotalPrice += 3;
+      } else if (previousCourier === true && courier === false) {
+        // Переход с true на false — убираем стоимость курьера
+        newTotalPrice -= 3;
+      }
+      console.log(newTotalPrice);
+      setPreviousInsurance(insurance);
+      setPreviousCourier(courier);
+
+      return parseFloat(newTotalPrice.toFixed(2)); // Форматируем итоговую стоимость с 2 знаками после запятой
+    });
+  }, [insurance, courier, packageCurrent]);
   const handleAddressClick = () => setSelectedTab(2);
 
   const handleInsuranceClick = (value: boolean) => {
@@ -168,6 +206,7 @@ export const ApplicationPage = () => {
 
       // Update package data in localStorage
       localStorage.setItem("packageId", JSON.stringify(package_now));
+      localStorage.setItem("priceData", `€${totalPrice}`);
 
       // Redirect to the payment page
       window.location.href = "/payment-methods";
@@ -588,13 +627,21 @@ export const ApplicationPage = () => {
             </span>
           </h2>
           <h3 className="text-2xl mt-2">
-            Цена со страховкой <span className="text-main"></span>
+            Итого <span className="text-main">€{totalPrice}</span>
           </h3>
+          {courier && (
+            <h3 className="text-sm mt-2 mb-2">
+              В цену входит курьер <span className="text-main">(+€3)</span>
+            </h3>
+          )}
           <AgreeCard
             onAgreeClick={handleAgreeClick}
             toggle1={toggle1}
             toggle2={toggle2}
             toggle3={toggle3}
+            senderID={senderAddressId ? senderAddressId : 0}
+            receiverID={receiverAddressId ? receiverAddressId : 0}
+            addresses={addresses}
           />
           <Button
             text={"Содержимое посылки"}

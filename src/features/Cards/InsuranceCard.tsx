@@ -28,13 +28,16 @@ export const InsuranceCard: React.FC<InsuranceCardProps> = ({
   };
 
   const totalCost = parseFloat(
-    packageCurrent.reduce((sum: number, item: any) => {
-      // Convert cost to number (if it's a string) and calculate 5%
-      const itemCost = parseFloat(item.cost);
-      const fivePercent = itemCost * 0.05; // Calculate 5% of the cost
-      return (sum + fivePercent).toFixed(2);
-    }, 0)
+    packageCurrent
+      .reduce((sum: number, item: any) => {
+        // Convert cost to number (if it's a string) and calculate 5%
+        const itemCost = parseFloat(item.cost);
+        const fivePercent = itemCost * 0.05; // Calculate 5% of the cost
+        return sum + fivePercent;
+      }, 0)
+      .toFixed(2)
   );
+  console.log(totalCost);
 
   const priceNumber = parseFloat(price.replace("€", ""));
 
