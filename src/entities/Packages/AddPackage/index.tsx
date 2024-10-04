@@ -403,6 +403,41 @@ export const AddPackagesPC = () => {
     clearForm(); // Очищаем поля формы после добавления или редактирования
   };
 
+  const syncLocalStorage = (updatedItems: Item[]) => {
+    const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
+    packageData.items = updatedItems;
+    localStorage.setItem("packageId", JSON.stringify(packageData));
+  };
+
+  const handleAddItem = () => {
+    if (!itemName || !originCountry || !quantity || !weight || !price) {
+      alert("Пожалуйста, заполните все поля!");
+      return;
+    }
+
+    // Создание нового предмета с уникальным ID
+    const newItem: Item = {
+      id: counter, // Используем текущий `counter` для уникального ID
+      item_name: itemName,
+      origin_country: originCountry,
+      quantity: quantity,
+      weight: weight,
+      price: price,
+    };
+
+    // Обновляем состояние `items` и сохраняем в `localStorage`
+    const updatedItems = [...items, newItem];
+    setItems(updatedItems);
+    syncLocalStorage(updatedItems);
+
+    // Обновляем `counter` для следующего элемента
+    setCounter(counter + 1);
+
+    clearForm(); // Очищаем форму после добавления предмета
+  };
+
+  // Функция для очистки формы
+
   const checkTotalWeight = (newItemWeight: number) => {
     const packageData = localStorage.getItem("packageId");
     if (packageData) {
@@ -421,7 +456,6 @@ export const AddPackagesPC = () => {
     }
     return true; // Если нет данных в localStorage, то проверка пройдена
   };
-  // Функция для сохранения предметов в packageId внутри localStorage
 
   const saveItemsToPackage = (updatedItems: Item[]) => {
     const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
