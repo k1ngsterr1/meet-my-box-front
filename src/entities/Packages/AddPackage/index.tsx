@@ -12,6 +12,7 @@ type Item = {
   weight: string;
   price: string;
 };
+// WTF
 
 export const AddPackages = () => {
   const [items, setItems] = useState<Item[]>([]);
