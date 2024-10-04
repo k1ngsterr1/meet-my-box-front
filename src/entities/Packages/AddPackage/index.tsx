@@ -181,6 +181,48 @@ export const AddPackages = () => {
   return (
     <>
       <div className="flex items-center flex-col w-full">
+        <div className="flex flex-wrap gap-4 justify-center mb-4">
+          {items.map((item) => (
+            <Box
+              key={item.id}
+              sx={{
+                width: 250,
+                borderRadius: 2,
+                boxShadow: 3,
+                mb: 3,
+                backgroundColor: "#fff",
+              }}
+            >
+              <Card variant="outlined" sx={{ borderRadius: 2 }}>
+                <CardContent>
+                  <Typography variant="h6" component="div" fontWeight="bold">
+                    {item.item_name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Страна: {item.origin_country}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Количество: {item.quantity}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Вес: {item.weight} кг
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Цена: {item.price} €
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    text="Удалить"
+                    buttonType="outline"
+                    onClick={() => removeItem(item.id)}
+                    className="text-red-500 hover:text-red-700 w-full"
+                  />
+                </CardActions>
+              </Card>
+            </Box>
+          ))}
+        </div>
         <div className="flex items-center justify-center mt-4 w-[60%]">
           <select
             value={current || ""}
@@ -198,13 +240,6 @@ export const AddPackages = () => {
               </option>
             ))}
           </select>
-        </div>
-        <div className="flex max-w-fit items-center justify-center">
-          <Button
-            text={`Предмет ${current}`}
-            buttonType="filled"
-            onClick={toggleMenu}
-          />
         </div>
       </div>
       <AddPackagesForm
@@ -236,6 +271,7 @@ export const AddPackagesPC = () => {
   const [counter, setCounter] = useState(1);
   const [current, setCurrent] = useState(1);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+  const [defaultItem, setDefaultItem] = useState<Item | null>(null);
   const { addItem, removeItem } = useItemsManagement();
 
   // Загрузка предметов из localStorage при загрузке компонента
@@ -243,17 +279,26 @@ export const AddPackagesPC = () => {
     const packageData = localStorage.getItem("packageId");
     if (packageData) {
       const parsedPackage = JSON.parse(packageData);
-      if (parsedPackage && parsedPackage.items) {
-        setItems(parsedPackage.items);
-        setCounter(
-          parsedPackage.items.length > 0
-            ? parsedPackage.items[parsedPackage.items.length - 1].id + 1
-            : 1
-        );
+      if (
+        parsedPackage &&
+        parsedPackage.items &&
+        parsedPackage.items.length > 0
+      ) {
+        const loadedItems = parsedPackage.items;
+        setItems(loadedItems);
+
+        // Устанавливаем первый предмет в качестве текущего по умолчанию
+        const firstItem = loadedItems[0];
+        setCurrent(firstItem.id);
+        setSelectedItem(firstItem);
+        setItemName(firstItem.item_name);
+        setOriginCountry(firstItem.origin_country);
+        setQuantity(firstItem.quantity);
+        setWeight(firstItem.weight);
+        setPrice(firstItem.price);
       }
     }
   }, []);
-
   // Обновление предметов и сохранение в localStorage
   useEffect(() => {
     const packageData = localStorage.getItem("packageId");
@@ -267,15 +312,9 @@ export const AddPackagesPC = () => {
     }
   }, [items]);
 
-  const handleAddItem = () => {
-    if (!itemName || !originCountry || !quantity || !weight || !price) {
-      alert("Пожалуйста, заполните все поля!");
-      return;
-    }
-
+  const handleUpdateItem = () => {
     let updatedItems: Item[] = [];
 
-    // Если редактируем существующий предмет
     if (selectedItem) {
       const updatedItem: Item = {
         ...selectedItem,
@@ -292,27 +331,38 @@ export const AddPackagesPC = () => {
       addItem(updatedItem as any); // Добавляем обновленный элемент в `items` из `useItemsManagement`
       setSelectedItem(null); // Сбрасываем состояние редактируемого элемента
       setCurrent(updatedItem.id); // Устанавливаем текущий элемент
-    } else {
-      // Добавление нового элемента
-      const newItem: Item = {
-        id: counter, // Используем внутренний счетчик для ID
-        item_name: itemName,
-        origin_country: originCountry,
-        quantity: quantity,
-        weight: weight,
-        price: price,
-      };
-
-      addItem(newItem as any); // Добавляем новый элемент в `items` из `useItemsManagement`
-      updatedItems = [...items, newItem]; // Обновляем локальный массив предметов
-
-      // Обновление счетчика для следующего элемента
-      setCounter((prevCounter) => {
-        const newCounter = prevCounter + 1;
-        setCurrent(newCounter); // Устанавливаем текущий элемент
-        return newCounter;
-      });
     }
+  };
+
+  const handleAddItem = () => {
+    if (!itemName || !originCountry || !quantity || !weight || !price) {
+      alert("Пожалуйста, заполните все поля!");
+      return;
+    }
+
+    let updatedItems: Item[] = [];
+
+    // Если редактируем существующий предмет
+
+    // Добавление нового элемента
+    const newItem: Item = {
+      id: counter, // Используем внутренний счетчик для ID
+      item_name: itemName,
+      origin_country: originCountry,
+      quantity: quantity,
+      weight: weight,
+      price: price,
+    };
+
+    addItem(newItem as any); // Добавляем новый элемент в `items` из `useItemsManagement`
+    updatedItems = [...items, newItem]; // Обновляем локальный массив предметов
+
+    // Обновление счетчика для следующего элемента
+    setCounter((prevCounter) => {
+      const newCounter = prevCounter + 1;
+      setCurrent(newCounter); // Устанавливаем текущий элемент
+      return newCounter;
+    });
 
     // Сохранение предметов в localStorage как packageId
     saveItemsToPackage(updatedItems);
