@@ -20,259 +20,22 @@ export const AddPackages = () => {
   const [quantity, setQuantity] = useState("");
   const [weight, setWeight] = useState("");
   const [price, setPrice] = useState("");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [counter, setCounter] = useState(1);
-  const [current, setCurrent] = useState(1);
-  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
-  const { addItem, removeItem } = useItemsManagement();
-
-  const handleAddItem = () => {
-    if (!itemName || !originCountry || !quantity || !weight || !price) {
-      alert("Пожалуйста, заполните все поля!");
-      return;
-    }
-
-    let updatedItems: Item[] = [];
-
-    // Если редактируем существующий предмет
-    if (selectedItem) {
-      const updatedItem: Item = {
-        ...selectedItem,
-        item_name: itemName,
-        origin_country: originCountry,
-        quantity: quantity,
-        weight: weight,
-        price: price,
-      };
-
-      // Удаляем старую версию и добавляем обновленную версию предмета
-      updatedItems = items.map((item) =>
-        item.id === selectedItem.id ? updatedItem : item
-      ); // Обновляем локальный массив
-      addItem(updatedItem); // Добавляем обновленный элемент в `items` из `useItemsManagement`
-      setSelectedItem(null); // Сбрасываем состояние редактируемого элемента
-      setCurrent(updatedItem.id); // Устанавливаем текущий элемент
-    } else {
-      // Добавление нового элемента
-      const newItem: Item = {
-        id: counter, // Используем внутренний счетчик для ID
-        item_name: itemName,
-        origin_country: originCountry,
-        quantity: quantity,
-        weight: weight,
-        price: price,
-      };
-
-      addItem(newItem); // Добавляем новый элемент в `items` из `useItemsManagement`
-      updatedItems = [...items, newItem]; // Обновляем локальный массив предметов
-
-      // Обновление счетчика для следующего элемента
-      setCounter((prevCounter) => {
-        const newCounter = prevCounter + 1;
-        setCurrent(newCounter); // Устанавливаем текущий элемент
-        return newCounter;
-      });
-    }
-
-    // Сохранение предметов в localStorage как packageId
-    saveItemsToPackage(updatedItems);
-
-    clearForm(); // Очищаем поля формы после добавления или редактирования
-  };
-
-  // Функция для сохранения предметов в packageId внутри localStorage
-  const saveItemsToPackage = (updatedItems: Item[]) => {
-    const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
-    const updatedPackageData = {
-      ...packageData,
-      items: updatedItems,
-    };
-
-    localStorage.setItem("packageId", JSON.stringify(updatedPackageData));
-  };
-
-  const clearForm = () => {
-    setItemName("");
-    setOriginCountry("");
-    setQuantity("");
-    setWeight("");
-    setPrice("");
-  };
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    let updatedItems = items;
-
-    if (selectedItem) {
-      updatedItems = items.map((item) =>
-        item.id === selectedItem.id
-          ? {
-              ...item,
-              item_name: itemName,
-              origin_country: originCountry,
-              quantity: quantity,
-              weight: weight,
-              price: price,
-            }
-          : item
-      );
-
-      setItems(updatedItems);
-      setSelectedItem(null);
-      setCurrent(counter);
-    } else {
-      if (
-        itemName !== "" &&
-        originCountry !== "" &&
-        quantity !== "" &&
-        weight !== "" &&
-        price !== ""
-      ) {
-        const newItem: Item = {
-          id: counter,
-          item_name: itemName,
-          origin_country: originCountry,
-          quantity: quantity,
-          weight: weight,
-          price: price,
-        };
-        updatedItems = [...items, newItem];
-        setItems(updatedItems);
-      }
-    }
-
-    const backendItems = updatedItems.map((item) => ({
-      name: item.item_name,
-      country: item.origin_country,
-      quantity: parseInt(item.quantity, 10),
-      weight: parseInt(item.weight, 10),
-      cost: parseInt(item.price, 10),
-    }));
-
-    console.log(backendItems);
-
-    const current_package = await useAddPackage({
-      items: backendItems,
-      status: "Pending",
-    });
-    if (current_package) {
-      localStorage.setItem("packageId", JSON.stringify(current_package));
-    }
-
-    setItems([]);
-    setItemName("");
-    setOriginCountry("");
-    setQuantity("");
-    setWeight("");
-    setPrice("");
-    window.location.href = "/application";
-  };
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleSelectItem = (index: number) => {
-    setSelectedItem(items[index]);
-    setCurrent(items[index].id);
-    setIsMenuOpen(false);
-  };
-
-  return (
-    <>
-      <div className="flex items-center flex-col w-full">
-        <div className="flex flex-wrap gap-4 justify-center mb-4">
-          {items.map((item) => (
-            <Box
-              key={item.id}
-              sx={{
-                width: 250,
-                borderRadius: 2,
-                boxShadow: 3,
-                mb: 3,
-                backgroundColor: "#fff",
-              }}
-            >
-              <Card variant="outlined" sx={{ borderRadius: 2 }}>
-                <CardContent>
-                  <Typography variant="h6" component="div" fontWeight="bold">
-                    {item.item_name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Страна: {item.origin_country}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Количество: {item.quantity}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Вес: {item.weight} кг
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Цена: {item.price} €
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button
-                    text="Удалить"
-                    buttonType="outline"
-                    onClick={() => removeItem(item.id)}
-                    className="text-red-500 hover:text-red-700 w-full"
-                  />
-                </CardActions>
-              </Card>
-            </Box>
-          ))}
-        </div>
-        <div className="flex items-center justify-center mt-4 w-[60%]">
-          <select
-            value={current || ""}
-            onChange={(e) => {
-              handleSelectItem(parseInt(e.target.value, 10));
-            }}
-            className="border px-2 py-1 rounded-md w-full"
-          >
-            <option value="" disabled>
-              Предметы
-            </option>
-            {items.map((item) => (
-              <option key={item.id} value={item.id}>
-                Предмет {item.id}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-      <AddPackagesForm
-        item={selectedItem}
-        itemName={itemName}
-        originCountry={originCountry}
-        quantity={quantity}
-        weight={weight}
-        price={price}
-        setItemName={setItemName}
-        setOriginCountry={setOriginCountry}
-        setQuantity={setQuantity}
-        setWeight={setWeight}
-        setPrice={setPrice}
-        handleAddItem={handleAddItem}
-        handleSubmit={handleSubmit}
-      />
-    </>
-  );
-};
-
-export const AddPackagesPC = () => {
-  const [items, setItems] = useState<Item[]>([]);
-  const [itemName, setItemName] = useState("");
-  const [originCountry, setOriginCountry] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [weight, setWeight] = useState("");
-  const [price, setPrice] = useState("");
-  const [counter, setCounter] = useState(1);
-  const [current, setCurrent] = useState(1);
+  const [current, setCurrent] = useState<any>(1);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [defaultItem, setDefaultItem] = useState<Item | null>(null);
   const { addItem, removeItem } = useItemsManagement();
+
+  const initialItems = (() => {
+    const packageData = localStorage.getItem("packageId");
+    if (packageData) {
+      const parsedPackage = JSON.parse(packageData);
+      if (parsedPackage && parsedPackage.items) {
+        return parsedPackage.items;
+      }
+    }
+    return [];
+  })();
 
   // Загрузка предметов из localStorage при загрузке компонента
   useEffect(() => {
@@ -383,40 +146,470 @@ export const AddPackagesPC = () => {
     clearForm(); // Очищаем поля формы после добавления или редактирования
   };
 
+  // Синхронизация `localStorage` при изменении `items`
   const syncLocalStorage = (updatedItems: Item[]) => {
     const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
     packageData.items = updatedItems;
     localStorage.setItem("packageId", JSON.stringify(packageData));
   };
 
+  // Обработчик добавления предмета с новым ID
   const handleAddItem = () => {
     if (!itemName || !originCountry || !quantity || !weight || !price) {
       alert("Пожалуйста, заполните все поля!");
       return;
     }
 
-    // Создание нового предмета с уникальным ID
+    // Используем функцию обновления состояния для корректного обновления `counter`
+    setCounter((prevCounter) => {
+      const newId =
+        prevCounter === 1 ? 1 : prevCounter === 2 ? 2 : prevCounter + 1;
+
+      console.log("prev counter:", prevCounter);
+      const newItem: Item = {
+        id: newId, // Уникальный ID из предыдущего значения
+        item_name: itemName,
+        origin_country: originCountry,
+        quantity: quantity,
+        weight: weight,
+        price: price,
+      };
+
+      // Обновляем состояние `items` и сохраняем в `localStorage`
+      const updatedItems = [...items, newItem];
+      setItems(updatedItems);
+      syncLocalStorage(updatedItems);
+
+      // Очищаем форму после добавления предмета
+      clearForm();
+
+      // Возвращаем увеличенное значение для следующего элемента
+      return prevCounter + 1;
+    });
+  };
+
+  // Обработчик удаления предмета
+  const handleRemoveItem = (id: number) => {
+    removeItem(id); // Используем существующий метод `removeItem` из хука
+    // Обновляем состояние напрямую
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
+  useEffect(() => {
+    if (items.length > 0) {
+      const firstItem = items[0];
+      setSelectedItem(firstItem);
+      setCurrent(firstItem.id);
+      setItemName(firstItem.item_name);
+      setOriginCountry(firstItem.origin_country);
+      setQuantity(firstItem.quantity);
+      setWeight(firstItem.weight);
+      setPrice(firstItem.price);
+    } else {
+      // Если нет элементов, сбросить значения
+      setSelectedItem(null);
+      setCurrent(null);
+      clearForm();
+    }
+  }, [items]);
+
+  const checkTotalWeight = (newItemWeight: number) => {
+    const packageData = localStorage.getItem("packageId");
+    if (packageData) {
+      const parsedPackage = JSON.parse(packageData);
+      if (parsedPackage && parsedPackage.items) {
+        // Вычисляем общий вес предметов
+        const totalWeight = parsedPackage.items.reduce(
+          (sum: number, item: Item) => sum + item.weight,
+          0
+        );
+        // Добавляем вес нового предмета
+        const newTotalWeight = totalWeight + newItemWeight;
+        // Проверяем, меньше ли общий вес 15 кг
+        return newTotalWeight <= 15;
+      }
+    }
+    return true; // Если нет данных в localStorage, то проверка пройдена
+  };
+
+  const saveItemsToPackage = (updatedItems: Item[]) => {
+    const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
+    const updatedPackageData = {
+      ...packageData,
+      items: updatedItems,
+    };
+
+    localStorage.setItem("packageId", JSON.stringify(updatedPackageData));
+  };
+
+  const clearForm = () => {
+    setItemName("");
+    setOriginCountry("");
+    setQuantity("");
+    setWeight("");
+    setPrice("");
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    let updatedItems = items;
+
+    if (selectedItem) {
+      updatedItems = items.map((item) =>
+        item.id === selectedItem.id
+          ? {
+              ...item,
+              item_name: itemName,
+              origin_country: originCountry,
+              quantity: quantity,
+              weight: weight,
+              price: price,
+            }
+          : item
+      );
+
+      setItems(updatedItems);
+      setSelectedItem(null);
+      setCurrent(counter);
+    } else {
+      if (
+        itemName !== "" &&
+        originCountry !== "" &&
+        quantity !== "" &&
+        weight !== "" &&
+        price !== ""
+      ) {
+        const newItem: Item = {
+          id: counter,
+          item_name: itemName,
+          origin_country: originCountry,
+          quantity: quantity,
+          weight: weight,
+          price: price,
+        };
+        updatedItems = [...items, newItem];
+        setItems(updatedItems);
+      }
+    }
+
+    const backendItems = updatedItems.map((item) => ({
+      name: item.item_name,
+      country: item.origin_country,
+      quantity: parseInt(item.quantity, 10),
+      weight: parseInt(item.weight, 10),
+      cost: parseInt(item.price, 10),
+    }));
+
+    console.log("backend items:", backendItems);
+
+    const current_package = await useAddPackage({
+      items: backendItems,
+      status: "Pending",
+    });
+    if (current_package) {
+      localStorage.setItem("packageId", JSON.stringify(current_package));
+    }
+
+    // setItems([]);
+    setItemName("");
+    setOriginCountry("");
+    setQuantity("");
+    setWeight("");
+    setPrice("");
+    window.location.href = "/application";
+  };
+
+  const handleSelectItem = (id: number) => {
+    const item = items.find((item) => item.id === id);
+    if (item) {
+      setSelectedItem(item);
+      setCurrent(item.id);
+    }
+  };
+
+  return (
+    <>
+      <div className="flex items-center flex-col w-full">
+        <div className="flex flex-wrap gap-4 justify-center mb-4">
+          {items.map((item) => (
+            <Box
+              key={item.id}
+              sx={{
+                width: 250,
+                borderRadius: 2,
+                boxShadow: 3,
+                mb: 3,
+                backgroundColor: "#fff",
+              }}
+            >
+              <Card variant="outlined" sx={{ borderRadius: 2 }}>
+                <CardContent>
+                  <Typography variant="h6" component="div" fontWeight="bold">
+                    {item.item_name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Страна: {item.origin_country}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Количество: {item.quantity}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Вес: {item.weight} кг
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Цена: {item.price} €
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    text="Удалить"
+                    buttonType="outline"
+                    onClick={() => removeItem(item.id)}
+                    className="text-red-500 hover:text-red-700 w-full"
+                  />
+                </CardActions>
+              </Card>
+            </Box>
+          ))}
+        </div>
+        <div className="flex items-center justify-center mt-4 w-[60%]">
+          <select
+            value={current || ""}
+            onChange={(e) => {
+              handleSelectItem(parseInt(e.target.value, 10));
+            }}
+            className="border px-2 py-1 rounded-md w-full"
+          >
+            <option value="" disabled>
+              Предметы
+            </option>
+            {items.map((item) => (
+              <option key={item.id} value={item.id}>
+                Предмет {item.id}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <AddPackagesForm
+        item={selectedItem}
+        itemName={itemName}
+        originCountry={originCountry}
+        quantity={quantity}
+        weight={weight}
+        price={price}
+        setItemName={setItemName}
+        setOriginCountry={setOriginCountry}
+        setQuantity={setQuantity}
+        setWeight={setWeight}
+        setPrice={setPrice}
+        handleAddItem={handleAddItem}
+        handleItemChange={handleUpdateItem}
+        handleSubmit={handleSubmit}
+      />
+    </>
+  );
+};
+
+export const AddPackagesPC = () => {
+  const [items, setItems] = useState<Item[]>([]);
+  const [itemName, setItemName] = useState("");
+  const [originCountry, setOriginCountry] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [weight, setWeight] = useState("");
+  const [price, setPrice] = useState("");
+  const [counter, setCounter] = useState(1);
+  const [current, setCurrent] = useState<any>(1);
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+  const [defaultItem, setDefaultItem] = useState<Item | null>(null);
+  const { addItem, removeItem } = useItemsManagement();
+
+  const initialItems = (() => {
+    const packageData = localStorage.getItem("packageId");
+    if (packageData) {
+      const parsedPackage = JSON.parse(packageData);
+      if (parsedPackage && parsedPackage.items) {
+        return parsedPackage.items;
+      }
+    }
+    return [];
+  })();
+
+  // Загрузка предметов из localStorage при загрузке компонента
+  useEffect(() => {
+    const packageData = localStorage.getItem("packageId");
+    if (packageData) {
+      const parsedPackage = JSON.parse(packageData);
+      if (
+        parsedPackage &&
+        parsedPackage.items &&
+        parsedPackage.items.length > 0
+      ) {
+        const loadedItems = parsedPackage.items;
+        setItems(loadedItems);
+
+        // Устанавливаем первый предмет в качестве текущего по умолчанию
+        const firstItem = loadedItems[0];
+        setCurrent(firstItem.id);
+        setSelectedItem(firstItem);
+        setItemName(firstItem.item_name);
+        setOriginCountry(firstItem.origin_country);
+        setQuantity(firstItem.quantity);
+        setWeight(firstItem.weight);
+        setPrice(firstItem.price);
+      }
+    }
+  }, []);
+  // Обновление предметов и сохранение в localStorage
+  useEffect(() => {
+    const packageData = localStorage.getItem("packageId");
+    if (packageData) {
+      const parsedPackage = JSON.parse(packageData);
+      const updatedPackage = {
+        ...parsedPackage,
+        items,
+      };
+      localStorage.setItem("packageId", JSON.stringify(updatedPackage));
+    }
+  }, [items]);
+
+  const handleUpdateItem = () => {
+    let updatedItems: Item[] = [];
+
+    if (selectedItem) {
+      const updatedItem: Item = {
+        ...selectedItem,
+        item_name: itemName,
+        origin_country: originCountry,
+        quantity: quantity,
+        weight: weight,
+        price: price,
+      };
+
+      // Обновляем предметы, заменяя отредактированный элемент
+      updatedItems = items.map((item) =>
+        item.id === selectedItem.id ? updatedItem : item
+      );
+    } else {
+      // Добавление нового элемента
+      const newItem: Item = {
+        id: counter, // Используем внутренний счетчик для ID
+        item_name: itemName,
+        origin_country: originCountry,
+        quantity: quantity,
+        weight: weight,
+        price: price,
+      };
+
+      // Обновляем массив с новым элементом
+      updatedItems = [...items, newItem];
+    }
+
+    // Проверяем, не превышает ли общий вес 15 кг после добавления или изменения предмета
+    const totalWeight = updatedItems.reduce(
+      (sum, item) => sum + parseInt(item.weight),
+      0
+    );
+
+    if (totalWeight > 15) {
+      alert(
+        `Общий вес всех предметов (${totalWeight} кг) не может превышать 15 кг!`
+      );
+      return; // Прекращаем выполнение, если превышен лимит
+    }
+
+    // Обновляем состояние items только если общий вес допустим
     const newItem: Item = {
-      id: counter, // Используем текущий `counter` для уникального ID
+      id: counter,
       item_name: itemName,
       origin_country: originCountry,
       quantity: quantity,
       weight: weight,
       price: price,
     };
-
-    // Обновляем состояние `items` и сохраняем в `localStorage`
-    const updatedItems = [...items, newItem];
     setItems(updatedItems);
-    syncLocalStorage(updatedItems);
+    addItem(newItem);
+    saveItemsToPackage(updatedItems);
 
-    // Обновляем `counter` для следующего элемента
-    setCounter(counter + 1);
+    // Если это был новый элемент, обновляем счетчик
+    if (!selectedItem) {
+      setCounter((prevCounter) => {
+        const newCounter = prevCounter + 1;
+        setCurrent(newCounter); // Устанавливаем текущий элемент
+        return newCounter;
+      });
+    }
 
-    clearForm(); // Очищаем форму после добавления предмета
+    setSelectedItem(null); // Сбрасываем состояние редактируемого элемента
+    clearForm(); // Очищаем поля формы после добавления или редактирования
   };
 
-  // Функция для очистки формы
+  // Синхронизация `localStorage` при изменении `items`
+  const syncLocalStorage = (updatedItems: Item[]) => {
+    const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
+    packageData.items = updatedItems;
+    localStorage.setItem("packageId", JSON.stringify(packageData));
+  };
+
+  // Обработчик добавления предмета с новым ID
+  const handleAddItem = () => {
+    if (!itemName || !originCountry || !quantity || !weight || !price) {
+      alert("Пожалуйста, заполните все поля!");
+      return;
+    }
+
+    // Используем функцию обновления состояния для корректного обновления `counter`
+    setCounter((prevCounter) => {
+      const newId =
+        prevCounter === 1 ? 1 : prevCounter === 2 ? 2 : prevCounter + 1;
+
+      console.log("prev counter:", prevCounter);
+      const newItem: Item = {
+        id: newId, // Уникальный ID из предыдущего значения
+        item_name: itemName,
+        origin_country: originCountry,
+        quantity: quantity,
+        weight: weight,
+        price: price,
+      };
+
+      // Обновляем состояние `items` и сохраняем в `localStorage`
+      const updatedItems = [...items, newItem];
+      setItems(updatedItems);
+      syncLocalStorage(updatedItems);
+
+      // Очищаем форму после добавления предмета
+      clearForm();
+
+      // Возвращаем увеличенное значение для следующего элемента
+      return prevCounter + 1;
+    });
+  };
+
+  // Обработчик удаления предмета
+  const handleRemoveItem = (id: number) => {
+    removeItem(id); // Используем существующий метод `removeItem` из хука
+    // Обновляем состояние напрямую
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
+  useEffect(() => {
+    if (items.length > 0) {
+      const firstItem = items[0];
+      setSelectedItem(firstItem);
+      setCurrent(firstItem.id);
+      setItemName(firstItem.item_name);
+      setOriginCountry(firstItem.origin_country);
+      setQuantity(firstItem.quantity);
+      setWeight(firstItem.weight);
+      setPrice(firstItem.price);
+    } else {
+      // Если нет элементов, сбросить значения
+      setSelectedItem(null);
+      setCurrent(null);
+      clearForm();
+    }
+  }, [items]);
 
   const checkTotalWeight = (newItemWeight: number) => {
     const packageData = localStorage.getItem("packageId");
@@ -568,7 +761,7 @@ export const AddPackagesPC = () => {
                 <Button
                   text="Удалить"
                   buttonType="outline"
-                  onClick={() => removeItem(item.id)}
+                  onClick={() => handleRemoveItem(item.id)}
                   className="text-red-500 hover:text-red-700 w-full"
                 />
               </CardActions>
