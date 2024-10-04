@@ -98,12 +98,7 @@ export const AddPackagesForm: React.FC<AddPackagesFormProps> = ({
           width="w-full"
           margin="mt-2"
         />
-        <Button
-          text="Сохранить"
-          buttonType="filled"
-          type="submit"
-          margin="mt-8"
-        />
+        <Button text="Далее" buttonType="filled" type="submit" margin="mt-8" />
         <Button
           text="Добавить"
           type="button"
@@ -130,7 +125,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
   setPrice,
   handleAddItem,
   handleSubmit,
-  handleChangeItem,
+  handleItemChange,
 }) => {
   const [totalSum, setTotalSum] = useState<number>(0); // Состояние для общей стоимости
   useEffect(() => {
@@ -238,7 +233,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
 
         {/* Buttons */}
         <Box className="flex items-center justify-evenly mt-8 gap-2">
-          <Button text="Сохранить" buttonType="filled" type="submit" />
+          <Button text="Далее" buttonType="filled" type="submit" />
           <Button
             text="Добавить предмет"
             type="button"
@@ -251,7 +246,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
             text="Сохранить изменения"
             type="button"
             buttonType="outline"
-            onClick={handleChangeItem}
+            onClick={handleItemChange}
           />
         </div>
       </form>

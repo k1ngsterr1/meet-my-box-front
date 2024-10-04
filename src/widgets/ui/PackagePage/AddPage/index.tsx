@@ -28,6 +28,7 @@ export const AddPackagesPage = () => {
 
     fetchAddress();
   }, []);
+
   return (
     <>
       {address && address.length !== 0 ? (
@@ -66,7 +67,6 @@ export const AddPackagesPage = () => {
               </div>
               <Tooltip id="my-tooltip" />
             </div>
-
             <AddPackagesPC />
           </div>
         </>

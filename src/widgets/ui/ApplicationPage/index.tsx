@@ -60,6 +60,8 @@ export const ApplicationPage = () => {
     null
   );
 
+  const finalInsuranceCost = (insurance ? parseFloat(totalCost) : 0).toFixed(2);
+
   useEffect(() => {
     const fetchAddressesAsync = async () => {
       const storedPackageId = JSON.parse(
@@ -570,8 +572,20 @@ export const ApplicationPage = () => {
           address={address}
         />
       )} */}
-      {selectedTab === 6 && (
+      {selectedTab === 4 && (
         <>
+          <h1 className="text-3xl">Проверьте все ваши данные</h1>
+          <h2 className="text-2xl mt-4">
+            Посылка из <span className="text-main">{countryData.from}</span> в
+            {""} {""}
+            <span className="text-main">
+              {""} {""}
+              {countryData.to}
+            </span>
+          </h2>
+          <h3 className="text-2xl mt-2">
+            Цена со страховкой <span className="text-main"></span>
+          </h3>
           <AgreeCard
             onAgreeClick={handleAgreeClick}
             toggle1={toggle1}

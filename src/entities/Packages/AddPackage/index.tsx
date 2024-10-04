@@ -334,19 +334,16 @@ export const AddPackagesPC = () => {
     }
   };
 
+  // Обработчик добавления предмета
   const handleAddItem = () => {
     if (!itemName || !originCountry || !quantity || !weight || !price) {
       alert("Пожалуйста, заполните все поля!");
       return;
     }
 
-    let updatedItems: Item[] = [];
-
-    // Если редактируем существующий предмет
-
-    // Добавление нового элемента
+    // Создание нового предмета с уникальным ID
     const newItem: Item = {
-      id: counter, // Используем внутренний счетчик для ID
+      id: counter,
       item_name: itemName,
       origin_country: originCountry,
       quantity: quantity,
@@ -354,20 +351,10 @@ export const AddPackagesPC = () => {
       price: price,
     };
 
-    addItem(newItem as any); // Добавляем новый элемент в `items` из `useItemsManagement`
-    updatedItems = [...items, newItem]; // Обновляем локальный массив предметов
-
-    // Обновление счетчика для следующего элемента
-    setCounter((prevCounter) => {
-      const newCounter = prevCounter + 1;
-      setCurrent(newCounter); // Устанавливаем текущий элемент
-      return newCounter;
-    });
-
-    // Сохранение предметов в localStorage как packageId
-    saveItemsToPackage(updatedItems);
-
-    clearForm(); // Очищаем поля формы после добавления или редактирования
+    // Добавление нового предмета в состояние и localStorage
+    setItems((prevItems) => [...prevItems, newItem]);
+    setCounter(counter + 1); // Обновляем счетчик для следующего элемента
+    clearForm();
   };
 
   // Функция для сохранения предметов в packageId внутри localStorage
@@ -543,6 +530,7 @@ export const AddPackagesPC = () => {
         setWeight={setWeight}
         setPrice={setPrice}
         handleAddItem={handleAddItem}
+        handleItemChange={handleUpdateItem}
         handleSubmit={handleSubmit}
       />
     </>
