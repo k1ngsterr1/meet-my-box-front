@@ -286,13 +286,10 @@ export const AddPackagesPC = () => {
         price: price,
       };
 
-      // Удаляем старую версию и добавляем обновленную версию предмета
+      // Обновляем предметы, заменяя отредактированный элемент
       updatedItems = items.map((item) =>
         item.id === selectedItem.id ? updatedItem : item
-      ); // Обновляем локальный массив
-      addItem(updatedItem); // Добавляем обновленный элемент в `items` из `useItemsManagement`
-      setSelectedItem(null); // Сбрасываем состояние редактируемого элемента
-      setCurrent(updatedItem.id); // Устанавливаем текущий элемент
+      );
     } else {
       // Добавление нового элемента
       const newItem: Item = {
@@ -304,10 +301,38 @@ export const AddPackagesPC = () => {
         price: price,
       };
 
-      addItem(newItem); // Добавляем новый элемент в `items` из `useItemsManagement`
-      updatedItems = [...items, newItem]; // Обновляем локальный массив предметов
+      // Обновляем массив с новым элементом
+      updatedItems = [...items, newItem];
+    }
 
-      // Обновление счетчика для следующего элемента
+    // Проверяем, не превышает ли общий вес 15 кг после добавления или изменения предмета
+    const totalWeight = updatedItems.reduce(
+      (sum, item) => sum + parseInt(item.weight),
+      0
+    );
+
+    if (totalWeight > 15) {
+      alert(
+        `Общий вес всех предметов (${totalWeight} кг) не может превышать 15 кг!`
+      );
+      return; // Прекращаем выполнение, если превышен лимит
+    }
+
+    // Обновляем состояние items только если общий вес допустим
+    const newItem: Item = {
+      id: counter, // Используем внутренний счетчик для ID
+      item_name: itemName,
+      origin_country: originCountry,
+      quantity: quantity,
+      weight: weight,
+      price: price,
+    };
+    setItems(updatedItems);
+    addItem(newItem);
+    saveItemsToPackage(updatedItems);
+
+    // Если это был новый элемент, обновляем счетчик
+    if (!selectedItem) {
       setCounter((prevCounter) => {
         const newCounter = prevCounter + 1;
         setCurrent(newCounter); // Устанавливаем текущий элемент
@@ -315,13 +340,30 @@ export const AddPackagesPC = () => {
       });
     }
 
-    // Сохранение предметов в localStorage как packageId
-    saveItemsToPackage(updatedItems);
-
+    setSelectedItem(null); // Сбрасываем состояние редактируемого элемента
     clearForm(); // Очищаем поля формы после добавления или редактирования
   };
 
+  const checkTotalWeight = (newItemWeight: number) => {
+    const packageData = localStorage.getItem("packageId");
+    if (packageData) {
+      const parsedPackage = JSON.parse(packageData);
+      if (parsedPackage && parsedPackage.items) {
+        // Вычисляем общий вес предметов
+        const totalWeight = parsedPackage.items.reduce(
+          (sum: number, item: Item) => sum + item.weight,
+          0
+        );
+        // Добавляем вес нового предмета
+        const newTotalWeight = totalWeight + newItemWeight;
+        // Проверяем, меньше ли общий вес 15 кг
+        return newTotalWeight <= 15;
+      }
+    }
+    return true; // Если нет данных в localStorage, то проверка пройдена
+  };
   // Функция для сохранения предметов в packageId внутри localStorage
+
   const saveItemsToPackage = (updatedItems: Item[]) => {
     const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
     const updatedPackageData = {
