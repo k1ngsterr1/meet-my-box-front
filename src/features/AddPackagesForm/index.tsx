@@ -25,6 +25,7 @@ type AddPackagesFormProps = {
   setWeight: (value: string) => void;
   setPrice: (value: string) => void;
   handleAddItem: () => void;
+  handleItemChange: () => void;
   handleSubmit: (event: React.FormEvent) => void;
 };
 
@@ -129,6 +130,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
   setPrice,
   handleAddItem,
   handleSubmit,
+  handleChangeItem,
 }) => {
   const [totalSum, setTotalSum] = useState<number>(0); // Состояние для общей стоимости
   useEffect(() => {
@@ -148,7 +150,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     info: string,
     fullWidth: boolean = false,
-    tooltipWidth: string = "300px" // Updated tooltip width for more space
+    tooltipWidth: string = "300px"
   ) => (
     <Tooltip
       title={info}
@@ -244,6 +246,14 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
             onClick={handleAddItem}
           />
         </Box>
+        <div className="flex w-full items-center justify-center mt-4">
+          <Button
+            text="Сохранить изменения"
+            type="button"
+            buttonType="outline"
+            onClick={handleChangeItem}
+          />
+        </div>
       </form>
     </>
   );
