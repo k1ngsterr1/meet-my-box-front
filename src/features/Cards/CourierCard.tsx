@@ -52,6 +52,7 @@ export const CourierCard: React.FC<CourierCardProps> = ({ onCourierClick }) => {
           </span>
           <Tooltip id="my-tooltip3" style={{ fontSize: "18px" }} />
         </Typography>
+        <span className="text-xs">Курьер уже заказан по другому заказу №</span>
       </CardContent>
       <CardActions
         sx={{

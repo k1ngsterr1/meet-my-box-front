@@ -112,12 +112,12 @@ export const ApplicationPage = () => {
 
   const handleInsuranceClick = (value: boolean) => {
     setInsurance(value);
-    setSelectedTab(2);
+    setSelectedTab(3);
   };
 
   const handleCourierClick = (value: boolean) => {
     setCourier(value);
-    setSelectedTab(3);
+    setSelectedTab(4);
   };
 
   const handleNoteClick = (value: string) => {
