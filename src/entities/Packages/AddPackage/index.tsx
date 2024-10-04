@@ -1,9 +1,9 @@
 import { AddPackagesForm, AddPackagesFormPC } from "@features/AddPackagesForm";
+import { Box, Card, CardActions, CardContent, Typography } from "@mui/material";
 import { useAddPackage } from "@shared/lib/hooks/Packages/useAddPackage";
 import { useItemsManagement } from "@shared/lib/hooks/useItemsManagement";
 import Button from "@shared/ui/Button/ui/button";
 import React, { useEffect, useState } from "react";
-
 type Item = {
   id: number;
   item_name: string;
@@ -463,22 +463,44 @@ export const AddPackagesPC = () => {
     <>
       <div className="flex flex-wrap gap-4 justify-center mb-4">
         {items.map((item) => (
-          <div
+          <Box
             key={item.id}
-            className="bg-white border border-gray-300 rounded-lg shadow p-4 flex flex-col items-start gap-2 w-[200px]"
+            sx={{
+              width: 250,
+              borderRadius: 2,
+              boxShadow: 3,
+              mb: 3,
+              backgroundColor: "#fff",
+            }}
           >
-            <h4 className="font-bold">{item.item_name}</h4>
-            <p>Страна: {item.origin_country}</p>
-            <p>Количество: {item.quantity}</p>
-            <p>Вес: {item.weight} кг</p>
-            <p>Цена: {item.price} €</p>
-            <Button
-              text="Удалить"
-              buttonType="outline"
-              onClick={() => removeItem(item.id)}
-              className="text-red-500 hover:text-red-700 w-full"
-            />
-          </div>
+            <Card variant="outlined" sx={{ borderRadius: 2 }}>
+              <CardContent>
+                <Typography variant="h6" component="div" fontWeight="bold">
+                  {item.item_name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Страна: {item.origin_country}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Количество: {item.quantity}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Вес: {item.weight} кг
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Цена: {item.price} €
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button
+                  text="Удалить"
+                  buttonType="outline"
+                  onClick={() => removeItem(item.id)}
+                  className="text-red-500 hover:text-red-700 w-full"
+                />
+              </CardActions>
+            </Card>
+          </Box>
         ))}
       </div>
       <div className="flex items-center flex-col w-full">
