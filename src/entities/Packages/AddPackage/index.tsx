@@ -349,10 +349,30 @@ export const AddPackagesPC = () => {
       (sum, item) => sum + parseInt(item.weight),
       0
     );
+    const totalCost = updatedItems.reduce(
+      (sum, item) => sum + parseInt(item.price),
+      0
+    );
+    const totalQuantity = updatedItems.reduce(
+      (sum, item) => sum + parseInt(item.quantity),
+      0
+    );
 
     if (totalWeight > 15) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать 15 кг!`
+      );
+      return; // Прекращаем выполнение, если превышен лимит
+    }
+    if (totalCost > 1000) {
+      alert(
+        `Общая стоимость всех предметов (€${totalCost}) не может превышать €1000!`
+      );
+      return; // Прекращаем выполнение, если превышен лимит
+    }
+    if (totalQuantity > 15) {
+      alert(
+        `Общий количество всех предметов (${totalQuantity} шт) не может превышать 25 шт!`
       );
       return; // Прекращаем выполнение, если превышен лимит
     }
