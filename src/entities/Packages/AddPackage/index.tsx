@@ -371,7 +371,7 @@ export const AddPackagesPC = () => {
       );
       return; // Прекращаем выполнение, если превышен лимит
     }
-    if (totalQuantity > 15) {
+    if (totalQuantity > 25) {
       alert(
         `Общий количество всех предметов (${totalQuantity} шт) не может превышать 25 шт!`
       );
@@ -629,7 +629,7 @@ export const AddPackagesPC = () => {
         setQuantity={setQuantity}
         setWeight={setWeight}
         setPrice={setPrice}
-        handleAddItem={handleAddItem}
+        handleAddItem={handleUpdateItem}
         handleItemChange={handleUpdateItem}
         handleSubmit={handleSubmit}
       />
