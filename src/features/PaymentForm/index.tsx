@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import "tailwindcss/tailwind.css";
 import { useUpdatePackage } from "@shared/lib/hooks/Packages/useUpdatePackage";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import React, { useState } from "react";
+import "tailwindcss/tailwind.css";
 
 // Create a React component that handles payment confirmation
 export const PaymentForm = ({

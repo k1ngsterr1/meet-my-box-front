@@ -30,6 +30,9 @@ import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
 
 export const ApplicationPage = () => {
+  const [selectedAddressType, setSelectedAddressType] = useState<
+    "sender" | "receiver" | null
+  >(null);
   const [addresses, setAddresses] = useState<AddressProps[]>();
   const [currentAddress, setCurrentAddress] = useState<AddressProps[]>();
   const [address, setAddress] = useState<AddressProps>();
@@ -46,6 +49,17 @@ export const ApplicationPage = () => {
   const [price, setPrice] = useState<string>("");
   const [countryData, setCountryData] = useState<any>("");
   const [openDialog, setOpenDialog] = useState(false);
+  const toggle1 = () => setAgree1(!agree1);
+  const toggle2 = () => setAgree2(!agree2);
+  const handleDialogOpen = () => setOpenDialog(true);
+  const handleDialogClose = () => setOpenDialog(false);
+  const toggle3 = () => setAgree3(!agree3); // Обработчик для третьего сост
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
+  const [senderAddressId, setSenderAddressId] = useState<number | null>(null);
+  const [receiverAddressId, setReceiverAddressId] = useState<number | null>(
+    null
+  );
 
   useEffect(() => {
     const fetchAddressesAsync = async () => {
@@ -67,8 +81,10 @@ export const ApplicationPage = () => {
         setPackageCurrent(storedPackageId);
         try {
           const fetchedAddresses = await useGetAddresses();
+
           if (fetchedAddresses) {
             setAddresses(fetchedAddresses);
+            console.log("lol:", fetchedAddresses);
             setCurrentAddress(
               fetchedAddresses.filter((address) => address.type === "receiver")
             );
@@ -86,7 +102,9 @@ export const ApplicationPage = () => {
     fetchAddressesAsync();
   }, []);
 
-  const handleAddressClick = () => setSelectedTab(1);
+  console.log(addresses);
+
+  const handleAddressClick = () => setSelectedTab(2);
 
   const handleInsuranceClick = (value: boolean) => {
     setInsurance(value);
@@ -102,17 +120,17 @@ export const ApplicationPage = () => {
     setSelectedTab(4);
   };
 
-  const handleAddressChange = (addressId: number) => {
-    // Assuming `addresses` is your array of address objects
-    const selectedAddress = addresses?.find(
-      (address) => address.id === addressId
-    );
+  // const handleAddressChange = (addressId: number) => {
+  //   // Assuming `addresses` is your array of address objects
+  //   const selectedAddress = addresses?.find(
+  //     (address) => address.id === addressId
+  //   );
 
-    if (selectedAddress) {
-      setChosenAddress(addressId); // Set the chosen address ID
-      setAddress(selectedAddress); // Set the full address object
-    }
-  };
+  //   if (selectedAddress) {
+  //     setChosenAddress(addressId); // Set the chosen address ID
+  //     setAddress(selectedAddress); // Set the full address object
+  //   }
+  // };
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue);
@@ -152,23 +170,16 @@ export const ApplicationPage = () => {
     }
   };
 
-  const handleAddressType = (type: string) => {
-    const filteredAddresses = addresses?.filter(
-      (address) => address.type === type
-    );
-    setCurrentAddress(filteredAddresses);
-    if (filteredAddresses && filteredAddresses.length > 0) {
-      setChosenAddress(filteredAddresses[0].id);
-      setAddress(filteredAddresses[0]);
-    }
-  };
-
-  const toggle1 = () => setAgree1(!agree1);
-  const toggle2 = () => setAgree2(!agree2);
-  const handleDialogOpen = () => setOpenDialog(true);
-  const handleDialogClose = () => setOpenDialog(false);
-  const toggle3 = () => setAgree3(!agree3); // Обработчик для третьего сост
-  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+  // const handleAddressType = (type: string) => {
+  //   const filteredAddresses = addresses?.filter(
+  //     (address) => address.type === type
+  //   );
+  //   setCurrentAddress(filteredAddresses);
+  //   if (filteredAddresses && filteredAddresses.length > 0) {
+  //     setChosenAddress(filteredAddresses[0].id);
+  //     setAddress(filteredAddresses[0]);
+  //   }
+  // };
 
   const handleNavigation = () => {
     window.location.href = "/packages/add";
@@ -182,6 +193,25 @@ export const ApplicationPage = () => {
     }
     // Обновляем состояние после удаления
     setPackageCurrent({ ...packageCurrent, items: packageData.items });
+  };
+
+  // Обработчик выбора адреса из выпадающего списка
+  const handleAddressChange = (selectedId: number) => {
+    if (selectedAddressType === "sender" && selectedId !== receiverAddressId) {
+      setSenderAddressId(selectedId);
+    } else if (
+      selectedAddressType === "receiver" &&
+      selectedId !== senderAddressId
+    ) {
+      setReceiverAddressId(selectedId);
+    } else {
+      alert("Отправитель и получатель не могут быть одним и тем же адресом!");
+    }
+  };
+
+  // Устанавливаем тип выбранного адреса
+  const handleAddressType = (type: "sender" | "receiver") => {
+    setSelectedAddressType(type);
   };
 
   return (
@@ -201,7 +231,7 @@ export const ApplicationPage = () => {
             label="Рассчитать"
             onClick={() => (window.location.href = "/calculate")}
           />
-          <Tab label="Адреса" />
+          <Tab label="Адреса и содержимое" />
           <Tab label="Страховка" />
           <Tab label="Вызов курьера" />
           <Tab label="Примечание" />
@@ -228,35 +258,54 @@ export const ApplicationPage = () => {
             <Button
               text={"Получатель"}
               buttonType={
-                currentAddress && currentAddress[0]?.type === "receiver"
-                  ? "filled"
-                  : "outline"
+                selectedAddressType === "receiver" ? "filled" : "outline"
               }
               onClick={() => handleAddressType("receiver")}
             />
             <Button
               text={"Отправитель"}
               buttonType={
-                currentAddress && currentAddress[0]?.type === "sender"
-                  ? "filled"
-                  : "outline"
+                selectedAddressType === "sender" ? "filled" : "outline"
               }
               onClick={() => handleAddressType("sender")}
             />
           </div>
           <select
-            className="block w-[60%] px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-500 focus:border-indigo-500"
+            className="block w-[60%] px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-500 focus:border-indigo-500 mb-6"
             onChange={(e) => handleAddressChange(parseInt(e.target.value))}
-            value={chosenAddress || ""}
+            value={
+              selectedAddressType === "sender"
+                ? senderAddressId || ""
+                : receiverAddressId || ""
+            }
+            disabled={!selectedAddressType} // Делаем выпадающий список активным только при выборе типа адреса
           >
             <option value="" disabled>
               Выберите адрес
             </option>
-            {currentAddress?.map((address) => (
+            {addresses?.map((address) => (
               <option key={address.id} value={address.id}>
                 {`${address.city}, Здание ${address.housing}, Кв. ${address.apartment}, Дом ${address.building}`}
               </option>
             ))}
+            {/* <option value="" disabled>
+              {selectedAddressType
+                ? `Выберите адрес ${selectedAddressType === "sender" ? "отправителя" : "получателя"}`
+                : "Выберите тип адреса"}
+            </option>
+            {addresses!
+              .filter(
+                (address) =>
+                  address.id !==
+                  (selectedAddressType === "sender"
+                    ? receiverAddressId
+                    : senderAddressId)
+              )
+              .map((address) => (
+                <option key={address.id} value={address.id}>
+                  {`${address.city}, Здание ${address.housing}, Кв. ${address.apartment}, Дом ${address.building}`}
+                </option>
+              ))} */}
           </select>
           <Button
             text="Выбрать"

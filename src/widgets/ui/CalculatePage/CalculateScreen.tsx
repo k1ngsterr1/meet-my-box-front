@@ -72,12 +72,6 @@ export const CalculatePage = () => {
             )}
           </div>
         ))}
-        <Button
-          text="Добавить посылку"
-          buttonType="filled"
-          margin="mt-4 mb-8"
-          onClick={handleAddParcel}
-        />
       </section>
       <section className={styles.calculate_pc} id="calculate-pc">
         <div className="flex items-center gap-3">
@@ -114,12 +108,6 @@ export const CalculatePage = () => {
             )}
           </div>
         ))}
-        <Button
-          text="Добавить посылку"
-          buttonType="filled"
-          margin="mt-4 mb-12"
-          onClick={handleAddParcel}
-        />
       </section>
     </>
   );

@@ -1,4 +1,5 @@
 import ConsentCheckbox from "@features/AgreeCheck";
+import Modal from "@features/Popup";
 import { contactInputs } from "@shared/lib/content/Input";
 import { useMail } from "@shared/lib/hooks/useMail";
 import Button from "@shared/ui/Button/ui/button";
@@ -12,6 +13,7 @@ export const ContactForm = () => {
   const [question, setQuestion] = useState("");
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false); // Состояние для модального окна
 
   const handleCheckboxChange = () => {
     setChecked(!checked);
@@ -46,6 +48,15 @@ export const ContactForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.contact__group}>
+      {" "}
+      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+        <h2 className="text-2xl font-semibold mb-2">
+          Ваша заявка успешно отправлена!
+        </h2>
+        <p className="text-gray-600 mb-4">
+          Наши менеджеры свяжутся с вами в скором времени.
+        </p>
+      </Modal>{" "}
       <ContactInput
         placeholder="Ваше имя"
         margin="mt-4"
@@ -99,6 +110,7 @@ export const ContactFormPC = () => {
   const [question, setQuestion] = useState("");
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false); // Состояние для модального окна
 
   const handleCheckboxChange = () => {
     setChecked(!checked);
@@ -123,10 +135,9 @@ export const ContactFormPC = () => {
         to_name: "support@meetmybox.com",
       },
     };
-    console.log(data.service_id);
-    console.log(data);
 
     const result = await useMail(data);
+    setModalOpen(true);
 
     if (result === "Success") {
       setName("");
@@ -141,6 +152,14 @@ export const ContactFormPC = () => {
       onSubmit={handleSubmit}
       className={styles.contact_pc__group}
     >
+      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+        <h2 className="text-2xl font-semibold mb-2">
+          Ваша заявка успешно отправлена!
+        </h2>
+        <p className="text-gray-600 mb-4">
+          Наши менеджеры свяжутся с вами в скором времени.
+        </p>
+      </Modal>{" "}
       <div className="w-full gap-4 flex">
         <ContactInput
           placeholder={contactInputs[0].placeholder}
@@ -182,7 +201,6 @@ export const ContactFormPC = () => {
           <p className="text-red-500 mt-2 col-span-1 md:col-span-2">{error}</p>
         )}
       </div>
-
       <div className="flex w-full items-start">
         <Button
           text="Отправить"

@@ -70,12 +70,6 @@ export const CalculateScreen = () => {
             )}
           </div>
         ))}
-        <Button
-          text="Добавить посылку"
-          buttonType="filled"
-          margin="mt-4"
-          onClick={handleAddParcel}
-        />
       </section>
 
       <section className={styles.calculate_pc} id="calculate-pc">
@@ -103,12 +97,7 @@ export const CalculateScreen = () => {
             )}
           </div>
         ))}
-        <Button
-          text="Добавить посылку"
-          buttonType="filled"
-          margin="mt-4"
-          onClick={handleAddParcel}
-        />
+
         <InfoScreen />
       </section>
       <div className="w-[90%] lg:w-[86.6%]">

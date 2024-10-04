@@ -12,7 +12,7 @@ import { Loader } from "@widgets/ui/Loader/ui/loader";
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-        <link rel="icon" href="/public/favicon.png">
+    <link rel="icon" href="/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
@@ -20,16 +20,18 @@ import { Loader } from "@widgets/ui/Loader/ui/loader";
   </head>
   <body>
     <div class="container_single">
-      <Menu client:load/>
-      <Loader client:load/>
+      <Menu client:load />
+      <Loader client:load />
       <div class="w-full flex flex-col lg:flex-row">
         <div class="w-full flex flex-col items-center lg:hidden">
           <!-- Добавить мобильную версию SidePanel -->
         </div>
         <div class="hidden lg:block xl:w-[20%] lg:w-[30%]">
-           <SidePanel client:only/>
+          <SidePanel client:only />
         </div>
-        <div class="w-full lg:w-[70%] xl:w-[80%] flex flex-col items-center lg:flex lg:flex-col lg:items-center lg:justify-center">
+        <div
+          class="w-full lg:w-[70%] xl:w-[80%] flex flex-col items-center lg:flex lg:flex-col lg:items-center lg:justify-center"
+        >
           <slot />
         </div>
       </div>

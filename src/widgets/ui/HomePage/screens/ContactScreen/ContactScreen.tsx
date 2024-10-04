@@ -3,13 +3,13 @@ import {
   ContactForm,
   ContactFormPC,
 } from "@features/Form/Contact/contact-form";
+import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import { ContactLink } from "@shared/ui/Link/Contact/contact-link";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
-import parse from "html-react-parser";
-import styles from "./styles.module.scss";
-import { useEffect, useState } from "react";
-import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import { Loader } from "@widgets/ui/Loader/ui/loader";
+import parse from "html-react-parser";
+import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 
 export const ContactScreen = () => {
   const [contact, setContact] = useState<any>();

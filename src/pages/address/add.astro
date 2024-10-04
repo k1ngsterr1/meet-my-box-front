@@ -3,6 +3,9 @@ import Layout from "@widgets/layouts/ui/cabinet.astro";
 import { AddAddressPage } from "@widgets/ui/AddressPage/AddPage";
 ---
 
-<Layout>
+<Layout
+  title="Адреса"
+  description="Здесь вы можете добавлять адреса получателя или адреса отправителя"
+>
   <AddAddressPage client:only />
 </Layout>

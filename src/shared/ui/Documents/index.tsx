@@ -8,7 +8,7 @@ export const Documents: React.FC<Props> = ({ onClick }) => {
   return (
     <div className="mt-2 flex flex-col items-start gap-4 p-4 rounded-md shadow-md bg-gray-50 border border-gray-200">
       {/* Weight Information */}
-      <p className="text-gray-800 font-medium">Максимальный вес: 10 кг</p>
+      <p className="text-gray-800 font-medium">Максимальный вес: 15 кг</p>
 
       {/* Dimensions Information */}
       <p className="text-gray-800">

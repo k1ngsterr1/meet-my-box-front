@@ -44,10 +44,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  @apply bg-main;
+  @apply bg-blue-500;
 
   &:hover {
-    @apply bg-blue-500;
     transform: scale(1.2);
   }
 }
@@ -62,11 +61,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  @apply bg-main;
+  @apply bg-green-400;
 
   &:hover {
-    @apply bg-hover;
-    @apply bg-green-400;
     transform: scale(1.2);
   }
 }

@@ -1,6 +1,5 @@
 import type { AddressProps } from "@features/AddressesCard";
 import { axiosInstance } from "./useInterceptor";
-import type { ApplicationProps } from "@features/ApplicationCard";
 
 export async function useGetAddresses(): Promise<AddressProps[]> {
   try {

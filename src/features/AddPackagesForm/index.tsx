@@ -1,8 +1,8 @@
+import { Box, Tooltip } from "@mui/material";
 import Button from "@shared/ui/Button/ui/button";
 import { BorderInput } from "@shared/ui/Input/BorderInput/border-input";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import { Box, Tooltip } from "@mui/material";
 
 type Item = {
   item_name: string;
@@ -74,7 +74,7 @@ export const AddPackagesForm: React.FC<AddPackagesFormProps> = ({
           margin="mt-2"
         />
         <BorderInput
-          type="text"
+          type="number"
           placeholder="Кол-во, шт"
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
@@ -82,7 +82,7 @@ export const AddPackagesForm: React.FC<AddPackagesFormProps> = ({
           margin="mt-2"
         />
         <BorderInput
-          type="text"
+          type="number"
           placeholder="Вес (кг)"
           value={weight}
           onChange={(e) => setWeight(e.target.value)}
@@ -90,7 +90,7 @@ export const AddPackagesForm: React.FC<AddPackagesFormProps> = ({
           margin="mt-2"
         />
         <BorderInput
-          type="text"
+          type="number"
           placeholder="Стоимость (евро)"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
@@ -130,7 +130,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
   handleAddItem,
   handleSubmit,
 }) => {
-  // Populate form fields with item values if the item is provided
+  const [totalSum, setTotalSum] = useState<number>(0); // Состояние для общей стоимости
   useEffect(() => {
     if (item) {
       setItemName(item.item_name);
@@ -143,6 +143,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
 
   const renderInputWithTooltip = (
     placeholder: string,
+    type: string = "text", // Добавляем параметр для типа инпута, по умолчанию "text"
     value: string | number,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     info: string,
@@ -170,7 +171,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
         {" "}
         {/* Adjust width based on props */}
         <BorderInput
-          type="text"
+          type={type}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
@@ -186,14 +187,10 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
         className="add_package_pc__form mx-auto w-[90%] mt-8"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-2xl font-bold text-center mb-4">
-          Содержимое посылки
-        </h2>
-
-        {/* First Row with Item Name and Country */}
         <Box className="w-full flex gap-4 mb-4">
           {renderInputWithTooltip(
             "Наименование",
+            "text",
             itemName,
             (e) => setItemName(e.target.value),
             "Введите наименование товара. Пример: Электроника"
@@ -201,16 +198,17 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
 
           {renderInputWithTooltip(
             "Страна происхождения",
+            "text",
             originCountry,
             (e) => setOriginCountry(e.target.value),
             "Укажите страну происхождения. Пример: Италия"
           )}
         </Box>
-
         {/* Second Row with Quantity and Weight */}
         <Box className="w-full flex gap-4 mb-4">
           {renderInputWithTooltip(
             "Кол-во, шт",
+            "number",
             quantity,
             (e) => setQuantity(e.target.value),
             "Введите количество товара в штуках. Пример: 5"
@@ -218,6 +216,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
 
           {renderInputWithTooltip(
             "Вес (кг)",
+            "number",
             weight,
             (e) => setWeight(e.target.value),
             "Укажите вес товара в килограммах. Пример: 2.5"
@@ -227,6 +226,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
         {/* Full Width Row with Price */}
         {renderInputWithTooltip(
           "Стоимость (евро)",
+          "number",
           price,
           (e) => setPrice(e.target.value),
           "Введите стоимость товара в евро. Пример: 150",
@@ -235,10 +235,10 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
         )}
 
         {/* Buttons */}
-        <Box className="flex items-center justify-evenly mt-8">
+        <Box className="flex items-center justify-evenly mt-8 gap-2">
           <Button text="Сохранить" buttonType="filled" type="submit" />
           <Button
-            text="Добавить"
+            text="Добавить предмет"
             type="button"
             buttonType="outline"
             onClick={handleAddItem}

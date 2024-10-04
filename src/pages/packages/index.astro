@@ -1,9 +1,11 @@
 ---
 import Layout from "@widgets/layouts/ui/cabinet.astro";
-import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { PackagesPage } from "@widgets/ui/PackagePage";
 ---
 
-<Layout>
+<Layout
+  title="Ваши посылки"
+  description="Здесь вы можете смотреть ваши посылки"
+>
   <PackagesPage client:load />
 </Layout>
