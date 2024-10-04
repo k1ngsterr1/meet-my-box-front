@@ -25,6 +25,7 @@ export const AddPackages = () => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [defaultItem, setDefaultItem] = useState<Item | null>(null);
   const { addItem, removeItem } = useItemsManagement();
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   // Господи, не удаляйте эту функцию, она спасла жизнь многим детям в будующем
   useEffect(() => {
@@ -297,6 +298,14 @@ export const AddPackages = () => {
     window.location.href = "/application";
   };
 
+  const handleSelectItem = (id: number) => {
+    const item = items.find((item) => item.id === id);
+    if (item) {
+      setSelectedItem(item);
+      setCurrent(item.id);
+    }
+  };
+
   return (
     <>
       <div className="flex items-center flex-col w-full">
@@ -469,11 +478,23 @@ export const AddPackagesPC = () => {
       (sum, item) => sum + parseInt(item.weight),
       0
     );
+    const totalPrice = items.reduce(
+      (sum, item) => sum + parseInt(item.price),
+      0
+    );
+
     if (totalWeight > 15) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать 15 кг!`
       );
       return; // Прекращаем выполнение, если превышен лимит
+    }
+
+    if (totalPrice > 1000) {
+      alert(
+        `Общая стоимость всех предметов (${totalPrice} €) не может превышать 1000 €!`
+      );
+      return; // Прекращаем выполнение, если превышен лимит стоимости
     }
 
     // Обновляем состояние и сохраняем в localStorage
@@ -500,16 +521,27 @@ export const AddPackagesPC = () => {
 
     // Вес нового элемента
     const newItemWeight = parseInt(weight);
+    const newItemPrice = parseInt(price);
+
     // Суммируем вес всех элементов + новый элемент
     const totalWeight =
       items.reduce((sum, item) => sum + parseInt(item.weight), 0) +
       newItemWeight;
+    const totalPrice =
+      items.reduce((sum, item) => sum + parseInt(item.price), 0) + newItemPrice;
 
     if (totalWeight > 15) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать 15 кг!`
       );
       return; // Прекращаем выполнение, если превышен лимит
+    }
+
+    if (totalPrice > 1000) {
+      alert(
+        `Общая стоимость всех предметов (${totalPrice} €) не может превышать 1000 €!`
+      );
+      return; // Прекращаем выполнение, если превышен лимит стоимости
     }
 
     // Обновление `counter` для нового элемента
