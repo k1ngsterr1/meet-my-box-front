@@ -1,10 +1,11 @@
 import ConsentCheckbox from "@features/AgreeCheck";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { checkAuth } from "@shared/lib/hooks/useCheckAuth";
 import { useGetProfile } from "@shared/lib/hooks/useGetProfile";
 import { useUpdateProfile } from "@shared/lib/hooks/useUpdateProfile";
 import Button from "@shared/ui/Button/ui/button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import styles from "./styles.module.scss";
@@ -39,6 +40,11 @@ const postalCodePatterns: Record<string, RegExp> = {
 
 export const ProfilePage: React.FC = () => {
   const { result } = useGetProfile(); // Функция получения данных профиля
+
+  useEffect(() => {
+    const isAuthenticated = checkAuth();
+    if (!isAuthenticated) return;
+  }, []);
 
   const [profileData, setProfileData] = useState({
     lastName: result?.lastName ?? "",

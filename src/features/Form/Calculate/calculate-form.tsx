@@ -433,6 +433,10 @@ export const CalculateForm = () => {
           </button>
         </div>
       </form>
+      <div className="mt-6 text-xs italic">
+        Рассчитанные тарифы могут изменяться в связи с изменением условий
+        перевозки»
+      </div>
       <div className="mt-6">
         {error && <p className="text-red-500">{error}</p>}
         {shippingRates.length > 0 ? (
@@ -769,6 +773,10 @@ export const CalculateFormPC = () => {
           </button>
         </div>
       </form>
+      <div className="mt-6 text-xs italic text-gray-500">
+        Рассчитанные тарифы могут изменяться в связи с изменением условий
+        перевозки
+      </div>
       <div className="mt-6">
         {error && <p className="text-red-500">{error}</p>}
         {shippingRates.length > 0 ? (

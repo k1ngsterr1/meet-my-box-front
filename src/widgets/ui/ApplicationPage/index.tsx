@@ -1,9 +1,7 @@
 import type { AddressProps } from "@features/AddressesCard";
 import { AgreeCard } from "@features/Cards/AgreeCard";
-import { CostCard } from "@features/Cards/CostCard";
 import { CourierCard } from "@features/Cards/CourierCard";
 import { InsuranceCard } from "@features/Cards/InsuranceCard";
-import { NoteCard } from "@features/NoteCard";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Delete } from "@mui/icons-material";
@@ -24,6 +22,7 @@ import {
   useMediaQuery,
 } from "@mui/material"; // Импортируем компоненты MUI для табов
 import { useUpdatePackage } from "@shared/lib/hooks/Packages/useUpdatePackage";
+import { checkAuth } from "@shared/lib/hooks/useCheckAuth";
 import { useGetAddresses } from "@shared/lib/hooks/useGetAddress";
 import Button from "@shared/ui/Button/ui/button";
 import { useEffect, useState } from "react";
@@ -84,6 +83,11 @@ export const ApplicationPage = () => {
     };
     setSelectedTab(1);
     fetchAddressesAsync();
+  }, []);
+
+  useEffect(() => {
+    const isAuthenticated = checkAuth();
+    if (!isAuthenticated) return;
   }, []);
 
   const handleAddressClick = () => setSelectedTab(1);
@@ -204,8 +208,6 @@ export const ApplicationPage = () => {
           <Tab label="Адреса" />
           <Tab label="Страховка" />
           <Tab label="Вызов курьера" />
-          <Tab label="Примечание" />
-          <Tab label="Стоимость" />
           <Tab label="Согласие" />
         </Tabs>
       </div>
@@ -500,85 +502,6 @@ export const ApplicationPage = () => {
           )}
         </>
       )}
-      {selectedTab === 4 && (
-        <>
-          <NoteCard onNoteClick={handleNoteClick} setter={setNote} />
-          <Button
-            text={"Содержимое посылки"}
-            buttonType="outline"
-            margin="mt-4"
-            onClick={() => handleDialogOpen()}
-          />
-          {openDialog && (
-            <Dialog
-              open={openDialog}
-              onClose={handleDialogClose}
-              maxWidth="sm"
-              fullWidth
-            >
-              <DialogTitle>Детали содержимого</DialogTitle>
-              {packageCurrent.items === undefined ? (
-                <div className="ml-4">Содержимое вашей посылки пусто</div>
-              ) : (
-                <DialogContent>
-                  <Table>
-                    <TableBody>
-                      {packageCurrent.items.map((item: any, index: number) => (
-                        <TableRow
-                          key={index}
-                          sx={{ display: { xs: "block", sm: "table-row" } }}
-                        >
-                          <TableCell>
-                            <Typography
-                              variant="body2"
-                              sx={{
-                                fontWeight: "bold",
-                                wordWrap: "break-word",
-                              }}
-                            >
-                              {item.name}
-                            </Typography>
-                          </TableCell>
-                          <TableCell>Вес: {item.weight} кг</TableCell>
-                          <TableCell>Количество: {item.quantity}</TableCell>
-                          <TableCell>Страна: {item.country}</TableCell>
-                          <TableCell>Цена: €{item.cost}</TableCell>
-                          {/* Добавленная иконка удаления */}
-                          <TableCell align="right">
-                            <IconButton
-                              onClick={() => handleItemDelete(index)}
-                              sx={{ color: "red" }}
-                              aria-label="удалить"
-                            >
-                              <Delete />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </DialogContent>
-              )}
-              <DialogActions>
-                <MUIBTN
-                  onClick={handleNavigation}
-                  variant="contained"
-                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
-                >
-                  Вернуться к содержимому
-                </MUIBTN>
-                <MUIBTN
-                  onClick={handleDialogClose}
-                  variant="contained"
-                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
-                >
-                  Закрыть
-                </MUIBTN>
-              </DialogActions>
-            </Dialog>
-          )}
-        </>
-      )}
       {/* {showDocumentCard && (
         <DocumentUpload onDocumentClick={handleDocumentClick} />
       )} */}
@@ -589,7 +512,7 @@ export const ApplicationPage = () => {
         />
       )} */}
       {/* {showAgreeCard && ( */}
-      {selectedTab === 5 && (
+      {/* {selectedTab === 5 && (
         <CostCard
           onCostClick={handleCostClick}
           packageCurrent={packageCurrent}
@@ -599,7 +522,7 @@ export const ApplicationPage = () => {
           courier={courier}
           address={address}
         />
-      )}
+      )} */}
       {selectedTab === 6 && (
         <>
           <AgreeCard

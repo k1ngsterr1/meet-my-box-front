@@ -2,6 +2,7 @@ import { AddPackages, AddPackagesPC } from "@entities/Packages/AddPackage";
 import type { AddressProps } from "@features/AddressesCard";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { checkAuth } from "@shared/lib/hooks/useCheckAuth";
 import { useGetAddresses } from "@shared/lib/hooks/useGetAddress";
 import Button from "@shared/ui/Button/ui/button";
 import { useEffect, useState } from "react";
@@ -14,7 +15,10 @@ export const AddPackagesPage = () => {
     localStorage.getItem("packageQuantity") as any
   );
 
-  console.log(packageQuantityData);
+  useEffect(() => {
+    const isAuthenticated = checkAuth();
+    if (!isAuthenticated) return;
+  }, []);
 
   useEffect(() => {
     const fetchAddress = async () => {
@@ -61,9 +65,6 @@ export const AddPackagesPage = () => {
                     <FontAwesomeIcon icon={faCircleInfo} size="lg" />
                   </span>
                 </div>
-                <h2 className="text-xl text-center">
-                  Кол-во посылок {packageQuantityData}
-                </h2>
               </div>
               <Tooltip id="my-tooltip" />
             </div>
