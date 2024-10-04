@@ -448,7 +448,7 @@ export const AddPackagesPC = () => {
     setQuantity("");
     setWeight("");
     setPrice("");
-    // window.location.href = "/application";
+    window.location.href = "/application";
   };
 
   const handleSelectItem = (id: number) => {
