@@ -442,7 +442,7 @@ export const AddPackagesPC = () => {
       localStorage.setItem("packageId", JSON.stringify(current_package));
     }
 
-    setItems([]);
+    // setItems([]);
     setItemName("");
     setOriginCountry("");
     setQuantity("");

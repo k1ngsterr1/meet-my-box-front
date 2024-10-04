@@ -14,14 +14,29 @@ import { Tooltip } from "react-tooltip";
 
 interface InsuranceCardProps {
   onInsuranceClick: (value: boolean) => void;
+  packageCurrent: any;
+  price: string;
 }
 
 export const InsuranceCard: React.FC<InsuranceCardProps> = ({
   onInsuranceClick,
+  packageCurrent,
+  price,
 }) => {
   const handleClick = (value: boolean) => {
     onInsuranceClick(value);
   };
+
+  const totalCost = parseFloat(
+    packageCurrent.reduce((sum: number, item: any) => {
+      // Convert cost to number (if it's a string) and calculate 5%
+      const itemCost = parseFloat(item.cost);
+      const fivePercent = itemCost * 0.05; // Calculate 5% of the cost
+      return (sum + fivePercent).toFixed(2);
+    }, 0)
+  );
+
+  const priceNumber = parseFloat(price.replace("€", ""));
 
   return (
     <Card
@@ -71,6 +86,16 @@ export const InsuranceCard: React.FC<InsuranceCardProps> = ({
             более той, которая могла бы нарушать санкционное или иное применимое
             законодательство
           </span>
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            color: "#6A6A6A",
+            mb: 2,
+            fontSize: "16px",
+          }}
+        >
+          Цена со страховкой: €{priceNumber + totalCost}
         </Typography>
       </CardContent>
       <CardActions
