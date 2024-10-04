@@ -10,9 +10,9 @@ import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 
-import process_1 from "@assets/process_1.png";
-import process_2 from "@assets/process_2.png";
-import process_3 from "@assets/process_3.png";
+import process_1 from "@assets/istock_1.jpg";
+import process_2 from "@assets/istock_2.jpg";
+import process_3 from "@assets/istock_3.jpg";
 
 import styles from "./styles.module.scss";
 
