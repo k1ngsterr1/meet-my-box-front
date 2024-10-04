@@ -39,6 +39,11 @@ export const SidePanel = () => {
     setIsCollapsed(!isCollapsed);
   };
 
+  const handleLogOut = () => {
+    localStorage.removeItem("userData");
+    window.location.href = "/login";
+  };
+
   // Sidebar links
   const sidePanelLinks = [
     { name: "Главная", icon: <HomeIcon />, href: "/" },
@@ -159,7 +164,7 @@ export const SidePanel = () => {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onClick={() => (window.location.href = "/login")}
+            onClick={handleLogOut}
           >
             <ListItemIcon
               sx={{
