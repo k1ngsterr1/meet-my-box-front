@@ -6,6 +6,7 @@ import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Delete } from "@mui/icons-material";
 import {
+  Box,
   Dialog,
   DialogActions,
   DialogContent,
@@ -21,6 +22,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material"; // Импортируем компоненты MUI для табов
+import Item from "@pages/news/item.astro";
 import { useUpdatePackage } from "@shared/lib/hooks/Packages/useUpdatePackage";
 import { checkAuth } from "@shared/lib/hooks/useCheckAuth";
 import { useGetAddresses } from "@shared/lib/hooks/useGetAddress";
@@ -263,6 +265,10 @@ export const ApplicationPage = () => {
   const handleAddressType = (type: "sender" | "receiver") => {
     setSelectedAddressType(type);
   };
+
+  const [addressType, setAddressType] = useState<"receiver" | "sender">(
+    "sender"
+  );
 
   return (
     <div className="w-full min-h-[80vh] pb-8 pt-8 flex flex-col items-center justify-center">
@@ -695,6 +701,47 @@ export const ApplicationPage = () => {
               {countryData.to.country} ({countryData.from.code})
             </span>
           </h2>
+          <Box
+            sx={{
+              width: 400,
+              backgroundColor: "white",
+              padding: 4,
+              borderRadius: 2,
+              display: "flex",
+              flexDirection: "row",
+              gap: 2,
+            }}
+          >
+            {addresses?.map((item, index) => (
+              <div className="text-center">
+                <Typography variant="body1">
+                  <strong> {index === 0 ? "Отправитель" : "Получатель"}</strong>
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Имя:</strong> {item.firstName || "Не указано"}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Телефон:</strong> {item.phoneNumber || "Не указано"}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Улица:</strong> {item.street || "Не указано"}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Дом:</strong> {item.building || "Не указано"}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Квартира:</strong> {item.apartment || "Не указано"}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Город:</strong> {item.city || "Не указано"}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Почтовый код:</strong>{" "}
+                  {item.postal_code || "Не указано"}
+                </Typography>
+              </div>
+            ))}
+          </Box>
           <MUIBTN
             onClick={() => setSelectedTab(1)}
             variant="contained"
