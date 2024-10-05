@@ -82,7 +82,7 @@ export const RatesListPC: React.FC<Props> = ({ days, prices, dates, urls }) => {
                     selectedCardIndex === index ? null : index
                   );
                 }}
-                className="bg-main text-white font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-secondary transition transform hover:scale-105"
+                className="bg-main cursor-pointer hover:opacity-70 duration-300 ease-in-out text-white font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-secondary transition transform hover:scale-105"
               >
                 Details
               </span>

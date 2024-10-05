@@ -62,11 +62,11 @@ export const InsuranceCard: React.FC<InsuranceCardProps> = ({
             mb: 1,
           }}
         >
-          Страховка
+          Страхование
           <span
             data-tooltip-id="my-tooltip2"
             data-tooltip-place="bottom"
-            data-tooltip-content="Укажите нужна ли вам страховка посылки."
+            data-tooltip-content="Cоветуем застраховать свою посылку."
           >
             <FontAwesomeIcon icon={faInfoCircle} className="ml-2 text-main" />
           </span>
@@ -80,11 +80,10 @@ export const InsuranceCard: React.FC<InsuranceCardProps> = ({
             fontSize: "16px",
           }}
         >
-          Стоимость страхования 5% от заявленной стоимости. В случае ее потери
-          вы получите полную стоимость.
+          Стоимость страхования 5% от заявленной стоимости.
           <br />
           <br />
-          <span className="text-xs">
+          <span className="text-xs italic">
             *Посылка будет застрахована на стоимость заявленной ценности, но не
             более той, которая могла бы нарушать санкционное или иное применимое
             законодательство
@@ -98,7 +97,7 @@ export const InsuranceCard: React.FC<InsuranceCardProps> = ({
             fontSize: "16px",
           }}
         >
-          Цена со страховкой: €{priceNumber + totalCost}
+          Цена со страховкой: €{(priceNumber + totalCost).toFixed(2)}
         </Typography>
       </CardContent>
       <CardActions

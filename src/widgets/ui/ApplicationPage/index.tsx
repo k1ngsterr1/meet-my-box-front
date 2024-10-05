@@ -46,6 +46,7 @@ export const ApplicationPage = () => {
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
   const [agree3, setAgree3] = useState(false); // Состояние для третьего чекбокса
+  const [agree4, setAgree4] = useState(false);
   const [packageCurrent, setPackageCurrent] = useState<any>(null);
   const [price, setPrice] = useState<string>("");
   const [totalPrice, setTotalPrice] = useState<number>(0);
@@ -56,6 +57,9 @@ export const ApplicationPage = () => {
   const handleDialogOpen = () => setOpenDialog(true);
   const handleDialogClose = () => setOpenDialog(false);
   const toggle3 = () => setAgree3(!agree3); // Обработчик для третьего сост
+  const toggle4 = () => setAgree4(!agree3);
+  const toggle5 = () => setInsurance(!insurance); // Обработчик для третьего сост
+  const toggle6 = () => setCourier(!courier);
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   const [senderAddressId, setSenderAddressId] = useState<number | null>(null);
@@ -68,9 +72,11 @@ export const ApplicationPage = () => {
       const storedPackageId = JSON.parse(
         localStorage.getItem("packageId") || "{}"
       );
+
       const countryData = JSON.parse(
         localStorage.getItem("countryData") || "{}"
       );
+
       if (countryData) {
         setCountryData(countryData);
       }
@@ -150,12 +156,13 @@ export const ApplicationPage = () => {
 
   const handleInsuranceClick = (value: boolean) => {
     setInsurance(value);
-    setSelectedTab(3);
+    setSelectedTab((prev) => prev + 1);
   };
 
-  const handleCourierClick = (value: boolean) => {
+  const handleCourierClick = (value: boolean, note: string) => {
     setCourier(value);
-    setSelectedTab(4);
+    setSelectedTab((prev) => prev + 1);
+    setNote(note);
   };
 
   const handleNoteClick = (value: string) => {
@@ -205,8 +212,8 @@ export const ApplicationPage = () => {
       console.log(package_now);
 
       // Update package data in localStorage
-      localStorage.setItem("packageId", JSON.stringify(package_now));
-      localStorage.setItem("priceData", `€${totalPrice}`);
+      // localStorage.setItem("packageId", JSON.stringify(package_now));
+      // localStorage.setItem("priceData", `€${totalPrice}`);
 
       // Redirect to the payment page
       window.location.href = "/payment-methods";
@@ -274,10 +281,11 @@ export const ApplicationPage = () => {
             label="Рассчитать"
             onClick={() => (window.location.href = "/calculate")}
           />
-          <Tab label="Адреса и содержимое" />
+          <Tab label="Адреса" />
+          <Tab label="Содержимое" />
           <Tab label="Страховка" />
           <Tab label="Вызов курьера" />
-          <Tab label="Согласие" />
+          <Tab label="Итог" />
         </Tabs>
       </div>
 
@@ -348,16 +356,19 @@ export const ApplicationPage = () => {
                 </option>
               ))} */}
           </select>
-          <Button
-            text="Выбрать"
-            buttonType="filled"
-            onClick={handleAddressClick}
-          />
-          <Button
-            text={"Добавить адрес"}
-            buttonType="outline"
-            onClick={() => (window.location.href = "/address/add")}
-          />
+          <div className=" flex items-center gap-2">
+            <Button
+              //Изменил на далее так как выполняет только это функцию
+              text="Далее"
+              buttonType="filled"
+              onClick={() => setSelectedTab((prev) => prev + 1)}
+            />
+            <Button
+              text={"Добавить адрес"}
+              buttonType="outline"
+              onClick={() => (window.location.href = "/address/add")}
+            />
+          </div>
           <Button
             text={"Содержимое посылки"}
             buttonType="outline"
@@ -434,6 +445,61 @@ export const ApplicationPage = () => {
         </div>
       )}
       {selectedTab === 2 && (
+        <>
+          <div>
+            <DialogTitle>Детали содержимого</DialogTitle>
+            {packageCurrent.items === undefined ? (
+              <div className="ml-4">Содержимое вашей посылки пусто</div>
+            ) : (
+              <DialogContent>
+                <Table>
+                  <TableBody>
+                    {packageCurrent.items.map((item: any, index: number) => (
+                      <TableRow
+                        key={index}
+                        sx={{ display: { xs: "block", sm: "table-row" } }}
+                      >
+                        <TableCell>
+                          <Typography
+                            variant="body2"
+                            sx={{
+                              fontWeight: "bold",
+                              wordWrap: "break-word",
+                            }}
+                          >
+                            {item.name}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>Вес: {item.weight} кг</TableCell>
+                        <TableCell>Количество: {item.quantity}</TableCell>
+                        <TableCell>Страна: {item.country}</TableCell>
+                        <TableCell>Цена: €{item.cost}</TableCell>
+                        {/* Добавленная иконка удаления */}
+                        <TableCell align="right">
+                          <IconButton
+                            onClick={() => handleItemDelete(index)}
+                            sx={{ color: "red" }}
+                            aria-label="удалить"
+                          >
+                            <Delete />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </DialogContent>
+            )}
+            <Button
+              //Изменил на далее так как выполняет только это функцию
+              text="Далее"
+              buttonType="filled"
+              onClick={() => setSelectedTab((prev) => prev + 1)}
+            />
+          </div>
+        </>
+      )}
+      {selectedTab === 3 && (
         <>
           <InsuranceCard
             onInsuranceClick={handleInsuranceClick}
@@ -515,7 +581,7 @@ export const ApplicationPage = () => {
           )}
         </>
       )}
-      {selectedTab === 3 && (
+      {selectedTab === 4 && (
         <>
           <CourierCard onCourierClick={handleCourierClick} />
           <Button
@@ -615,34 +681,94 @@ export const ApplicationPage = () => {
           address={address}
         />
       )} */}
-      {selectedTab === 4 && (
+      {selectedTab === 5 && (
         <>
           <h1 className="text-3xl">Проверьте все ваши данные</h1>
-          <h2 className="text-2xl mt-4">
-            Посылка из <span className="text-main">{countryData.from}</span> в
-            {""} {""}
+          <h2 className="text-2xl my-4">
+            Посылка из{" "}
+            <span className="text-main">
+              {countryData.from.country} ({countryData.from.code})
+            </span>{" "}
+            в{""} {""}
             <span className="text-main">
               {""} {""}
-              {countryData.to}
+              {countryData.to.country} ({countryData.from.code})
             </span>
           </h2>
-          <h3 className="text-2xl mt-2">
-            Итого <span className="text-main">€{totalPrice}</span>
-          </h3>
-          {courier && (
-            <h3 className="text-sm mt-2 mb-2">
-              В цену входит курьер <span className="text-main">(+€3)</span>
-            </h3>
-          )}
+          <MUIBTN
+            onClick={() => setSelectedTab(1)}
+            variant="contained"
+            sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+          >
+            Вернуться к адресу
+          </MUIBTN>
+
+          <div>
+            <DialogTitle>Детали содержимого</DialogTitle>
+            {packageCurrent.items === undefined ? (
+              <div className="ml-4">Содержимое вашей посылки пусто</div>
+            ) : (
+              <DialogContent>
+                <Table>
+                  <TableBody>
+                    {packageCurrent.items.map((item: any, index: number) => (
+                      <TableRow
+                        key={index}
+                        sx={{ display: { xs: "block", sm: "table-row" } }}
+                      >
+                        <TableCell>
+                          <Typography
+                            variant="body2"
+                            sx={{
+                              fontWeight: "bold",
+                              wordWrap: "break-word",
+                            }}
+                          >
+                            {item.name}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>Вес: {item.weight} кг</TableCell>
+                        <TableCell>Количество: {item.quantity}</TableCell>
+                        <TableCell>Страна: {item.country}</TableCell>
+                        <TableCell>Цена: €{item.cost}</TableCell>
+                        {/* Добавленная иконка удаления */}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </DialogContent>
+            )}
+          </div>
+          <MUIBTN
+            onClick={() => setSelectedTab(2)}
+            variant="contained"
+            sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+          >
+            Вернуться к cодержимому
+          </MUIBTN>
+          <div className="my-2"></div>
           <AgreeCard
             onAgreeClick={handleAgreeClick}
             toggle1={toggle1}
             toggle2={toggle2}
             toggle3={toggle3}
+            toggle4={toggle4}
+            toggle5={toggle5}
+            toggle6={toggle6}
+            insurance={insurance}
+            courier={courier}
             senderID={senderAddressId ? senderAddressId : 0}
             receiverID={receiverAddressId ? receiverAddressId : 0}
             addresses={addresses}
           />
+          {courier && (
+            <h3 className="text-sm mt-2 mb-2">
+              В цену входит курьер <span className="text-main">(+€3)</span>
+            </h3>
+          )}
+          <h3 className="text-lg font-semibold mt-2 mb-2">
+            Итого: <span className="text-main">€{totalPrice}</span>
+          </h3>
           <Button
             text={"Содержимое посылки"}
             buttonType="outline"

@@ -155,7 +155,6 @@ export const CalculateForm = () => {
     e.preventDefault();
     setError(null); // Reset error state
     setIsLoading(true);
-    console.log();
 
     const isFromPostcodeValid = await validatePostcode(
       fromCountry,
@@ -185,6 +184,13 @@ export const CalculateForm = () => {
     if (weight < (length * width * height) / 5000) {
       weight = (length * width * height) / 5000;
     }
+    localStorage.setItem(
+      "countryData",
+      JSON.stringify({
+        from: { country: fromCountry, code: fromPostcode },
+        to: { country: toCountry, code: toPostcode },
+      })
+    );
 
     const roundWeight = (weight: number) => {
       const decimalPart = weight % 1; // Get the decimal part
@@ -242,6 +248,7 @@ export const CalculateForm = () => {
         response.dates = [getDateInfo(10), getDateInfo(14)];
         localStorage.setItem("rates", JSON.stringify(response));
         window.location.href = `/rates`;
+        console.log(response);
       } catch (err: any) {
         setIsLoading(false);
         setError(err.message);
@@ -426,10 +433,12 @@ export const CalculateForm = () => {
         </div>
         <div className="flex justify-end mt-4">
           <button
-            type="submit"
-            className="bg-main hover:bg-hover text-white font-semibold py-2 px-4 rounded-md shadow-md"
+            // type="submit"
+            onClick={() => console.log("lol")}
+            disabled={isLoading}
+            className="bg-main hover:bg-hover text-white font-semibold py-2 px-6 rounded-md shadow-md"
           >
-            Рассчитать
+            {isLoading ? "Загружаем..." : "Рассчитать"}
           </button>
         </div>
       </form>
@@ -515,13 +524,13 @@ export const CalculateFormPC = () => {
     if (weight < (length * width * height) / 5000) {
       weight = (length * width * height) / 5000;
     }
-
     localStorage.setItem(
       "countryData",
-      JSON.stringify({ from: fromCountry, to: toCountry })
+      JSON.stringify({
+        from: { country: fromCountry, code: fromPostcode },
+        to: { country: toCountry, code: toPostcode },
+      })
     );
-
-    console.log(roundWeight(weight));
 
     if (fromCountry === "Italy" || fromCountry === "Germany") {
       let response = {
@@ -767,6 +776,7 @@ export const CalculateFormPC = () => {
           <button
             // type="submit"
             onClick={() => console.log("lol")}
+            disabled={isLoading}
             className="bg-main hover:bg-hover text-white font-semibold py-2 px-6 rounded-md shadow-md"
           >
             {isLoading ? "Загружаем..." : "Рассчитать"}

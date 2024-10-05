@@ -55,7 +55,7 @@ export const AddressPC: React.FC<Items> = ({ items }) => {
   return (
     <Box sx={{ width: "90%", mt: 4 }}>
       {/* Grid Layout for Address Cards */}
-      <Grid container spacing={3}>
+      <div className=" flex flex-row gap-5">
         {items.slice(startIndex, endIndex).map((item, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
             <Card
@@ -129,7 +129,7 @@ export const AddressPC: React.FC<Items> = ({ items }) => {
             </Card>
           </Grid>
         ))}
-      </Grid>
+      </div>
 
       {/* Pagination Component */}
       <Box

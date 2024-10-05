@@ -17,9 +17,14 @@ interface AgreeCardProps {
   toggle1: () => void;
   toggle2: () => void;
   toggle3: () => void;
+  toggle4: () => void;
+  toggle5: () => void;
+  toggle6: () => void;
   addresses: any;
   senderID: number;
   receiverID: number;
+  insurance: boolean;
+  courier: boolean;
   // Новый пропс для третьего состояния
 }
 
@@ -28,9 +33,14 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
   toggle1,
   toggle2,
   toggle3,
+  toggle4,
+  toggle5,
+  toggle6,
   addresses,
   senderID,
   receiverID,
+  insurance,
+  courier,
 }) => {
   const handleClick = () => {
     onAgreeClick();
@@ -81,6 +91,34 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
             <FormControlLabel
               control={
                 <Checkbox
+                  onClick={toggle5}
+                  checked={insurance}
+                  sx={{
+                    color: "#220CF3",
+                    "&.Mui-checked": { color: "#1E0AD1" },
+                  }}
+                />
+              }
+              label={
+                <Typography variant="body1">Страхование включено</Typography>
+              }
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onClick={toggle6}
+                  checked={courier}
+                  sx={{
+                    color: "#220CF3",
+                    "&.Mui-checked": { color: "#1E0AD1" },
+                  }}
+                />
+              }
+              label={<Typography variant="body1">Курьер</Typography>}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
                   onClick={toggle1}
                   sx={{
                     color: "#220CF3",
@@ -90,15 +128,15 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
               }
               label={
                 <Typography variant="body1">
-                  Даю согласие на обработку{" "}
+                  Соглашаюсь{" "}
                   <Link
-                    href="https://example.com/personal_data.pdf"
+                    href="https://example.com/privacy_policy.pdf"
                     target="_blank"
                     underline="hover"
                     onClick={(e) => e.stopPropagation()}
                     sx={{ color: "#220CF3", cursor: "pointer" }}
                   >
-                    персональных данных
+                    с политикой конфиденциальности
                   </Link>
                 </Typography>
               }
@@ -115,26 +153,16 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
               }
               label={
                 <Typography variant="body1">
-                  Принимаю{" "}
+                  Соглашаюсь{" "}
                   <Link
-                    href="https://example.com/user_agreement.pdf"
+                    href="https://example.com/public_offer.pdf"
                     target="_blank"
                     underline="hover"
                     onClick={(e) => e.stopPropagation()}
                     sx={{ color: "#220CF3", cursor: "pointer" }}
                   >
-                    пользовательское соглашение
+                    с публичная офертой
                   </Link>{" "}
-                  и{" "}
-                  <Link
-                    href="https://example.com/privacy_policy.pdf"
-                    target="_blank"
-                    underline="hover"
-                    onClick={(e) => e.stopPropagation()}
-                    sx={{ color: "#220CF3", cursor: "pointer" }}
-                  >
-                    условия предоставления услуг
-                  </Link>
                 </Typography>
               }
             />
@@ -150,15 +178,40 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
               }
               label={
                 <Typography variant="body1">
-                  Ознакомлен с{" "}
+                  Даю согласие{" "}
                   <Link
-                    href="https://example.com/rules_of_transportation.pdf"
+                    href="https://example.com/personal_data.pdf"
                     target="_blank"
                     underline="hover"
                     onClick={(e) => e.stopPropagation()}
                     sx={{ color: "#220CF3", cursor: "pointer" }}
                   >
-                    правилами перевозки
+                    на обработку персональных данных
+                  </Link>
+                </Typography>
+              }
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onClick={toggle4}
+                  sx={{
+                    color: "#220CF3",
+                    "&.Mui-checked": { color: "#1E0AD1" },
+                  }}
+                />
+              }
+              label={
+                <Typography variant="body1">
+                  Ознакомлен{" "}
+                  <Link
+                    href="https://example.com/personal_data.pdf"
+                    target="_blank"
+                    underline="hover"
+                    onClick={(e) => e.stopPropagation()}
+                    sx={{ color: "#220CF3", cursor: "pointer" }}
+                  >
+                    с правилами перевозки
                   </Link>
                 </Typography>
               }

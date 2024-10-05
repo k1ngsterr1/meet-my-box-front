@@ -3,6 +3,7 @@ import Button from "@shared/ui/Button/ui/button";
 import { BorderInput } from "@shared/ui/Input/BorderInput/border-input";
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
+import { CalculateInput } from "@shared/ui/Input/Calculate/calculate-input";
 
 type Item = {
   item_name: string;
@@ -55,6 +56,20 @@ export const AddPackagesForm: React.FC<AddPackagesFormProps> = ({
     }
   }, [item, setItemName, setOriginCountry, setQuantity, setWeight, setPrice]);
 
+  const handleNumberInput = (setter: any, maxValue: number) => (e: any) => {
+    let value = e.target.value;
+
+    // If the input is empty, set it as an empty string
+    if (value === "") {
+      setter("");
+      return;
+    }
+    value = parseFloat(e.target.value);
+    if (isNaN(value)) value = 0;
+    if (value > maxValue) value = maxValue; // Limit the value to a maximum of 100
+    setter(value);
+  };
+
   return (
     <>
       <form className={styles.add_package__form} onSubmit={handleSubmit}>
@@ -78,7 +93,7 @@ export const AddPackagesForm: React.FC<AddPackagesFormProps> = ({
           type="number"
           placeholder="Кол-во, шт"
           value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
+          onChange={handleNumberInput(setQuantity, 20)}
           width="w-full"
           margin="mt-2"
         />
@@ -86,7 +101,7 @@ export const AddPackagesForm: React.FC<AddPackagesFormProps> = ({
           type="number"
           placeholder="Вес (кг)"
           value={weight}
-          onChange={(e) => setWeight(e.target.value)}
+          onChange={handleNumberInput(setWeight, 15)}
           width="w-full"
           margin="mt-2"
         />
@@ -94,11 +109,10 @@ export const AddPackagesForm: React.FC<AddPackagesFormProps> = ({
           type="number"
           placeholder="Стоимость (евро)"
           value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          onChange={handleNumberInput(setPrice, 1000)}
           width="w-full"
           margin="mt-2"
         />
-        <Button text="Далее" buttonType="filled" type="submit" margin="mt-8" />
         <Button
           text="Добавить"
           type="button"
@@ -106,6 +120,7 @@ export const AddPackagesForm: React.FC<AddPackagesFormProps> = ({
           onClick={handleAddItem}
           margin="mt-2"
         />
+        <Button text="Далее" buttonType="filled" type="submit" margin="mt-8" />
       </form>
     </>
   );
@@ -138,6 +153,20 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
     }
   }, [item, setItemName, setOriginCountry, setQuantity, setWeight, setPrice]);
 
+  const handleNumberInput = (setter: any, maxValue: number) => (e: any) => {
+    let value = e.target.value;
+
+    // If the input is empty, set it as an empty string
+    if (value === "") {
+      setter("");
+      return;
+    }
+    value = parseFloat(e.target.value);
+    if (isNaN(value)) value = 0;
+    if (value > maxValue) value = maxValue; // Limit the value to a maximum of 100
+    setter(value);
+  };
+
   const renderInputWithTooltip = (
     placeholder: string,
     type: string = "text", // Добавляем параметр для типа инпута, по умолчанию "text"
@@ -167,13 +196,25 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
       <div className={fullWidth ? "w-full" : "w-[50%]"}>
         {" "}
         {/* Adjust width based on props */}
-        <BorderInput
-          type={type}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          className="w-full border border-gray-400 p-2 rounded-md mt-2" // Ensure consistent styling
-        />
+        {type === "text" ? (
+          <BorderInput
+            type={type}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            className="w-full border border-gray-400 p-2 rounded-md mt-2" // Ensure consistent styling
+          />
+        ) : (
+          <CalculateInput
+            value={value}
+            placeholder={placeholder}
+            min={0}
+            type={type}
+            onChange={onChange}
+            className="w-full border border-gray-400 p-2 rounded-md mt-2"
+            required
+          />
+        )}
       </div>
     </Tooltip>
   );
@@ -207,7 +248,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
             "Кол-во, шт",
             "number",
             quantity,
-            (e) => setQuantity(e.target.value),
+            handleNumberInput(setQuantity, 20),
             "Введите количество товара в штуках. Пример: 5"
           )}
 
@@ -215,7 +256,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
             "Вес (кг)",
             "number",
             weight,
-            (e) => setWeight(e.target.value),
+            handleNumberInput(setWeight, 15),
             "Укажите вес товара в килограммах. Пример: 2.5"
           )}
         </Box>
@@ -225,7 +266,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
           "Стоимость (евро)",
           "number",
           price,
-          (e) => setPrice(e.target.value),
+          handleNumberInput(setPrice, 1000),
           "Введите стоимость товара в евро. Пример: 150",
           true, // Full width for price input
           "350px" // Increased tooltip width for better readability
@@ -233,21 +274,21 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
 
         {/* Buttons */}
         <Box className="flex items-center justify-evenly mt-8 gap-2">
-          <Button text="Далее" buttonType="filled" type="submit" />
           <Button
             text="Добавить предмет"
             type="button"
             buttonType="outline"
             onClick={handleAddItem}
           />
-        </Box>
-        <div className="flex w-full items-center justify-center mt-4">
           <Button
             text="Сохранить изменения"
             type="button"
             buttonType="outline"
             onClick={handleItemChange}
           />
+        </Box>
+        <div className="flex w-full items-center justify-center mt-8">
+          <Button text="Далее" buttonType="filled" type="submit" />
         </div>
       </form>
     </>

@@ -40,11 +40,13 @@ export const AddPackagesPage = () => {
                 className="text-main"
                 data-tooltip-id="my-tooltip"
                 data-tooltip-place="bottom"
-                data-tooltip-content="Заполните профиль сейчас, чтобы не делать это при доставке"
               >
                 <FontAwesomeIcon icon={faCircleInfo} size="lg" />
               </span>
-              <Tooltip id="my-tooltip" />
+              <Tooltip id="my-tooltip">
+                Внимательно заполните все поля, наименование, <br /> страна
+                происхождение, кол-во предметов, вес и стоимость
+              </Tooltip>
             </div>
             <AddPackages />
           </div>
@@ -59,13 +61,15 @@ export const AddPackagesPage = () => {
                     className="text-main"
                     data-tooltip-id="my-tooltip"
                     data-tooltip-place="bottom"
-                    data-tooltip-content="Внимательно заполните все поля, наименование, страна происхождение, кол-во предметов, вес и стоимость"
                   >
                     <FontAwesomeIcon icon={faCircleInfo} size="lg" />
                   </span>
                 </div>
               </div>
-              <Tooltip id="my-tooltip" />
+              <Tooltip id="my-tooltip">
+                Внимательно заполните все поля, наименование, <br /> страна
+                происхождение, кол-во предметов, вес и стоимость
+              </Tooltip>
             </div>
             <AddPackagesPC />
           </div>

@@ -9,16 +9,17 @@ import {
   FormControlLabel,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Tooltip } from "react-tooltip";
 
 interface CourierCardProps {
-  onCourierClick: (value: boolean) => void;
+  onCourierClick: (value: boolean, note: string) => void;
 }
 
 export const CourierCard: React.FC<CourierCardProps> = ({ onCourierClick }) => {
+  const [notation, setNotation] = useState("");
   const handleClick = (value: boolean) => {
-    onCourierClick(value);
+    onCourierClick(value, notation);
   };
 
   return (
@@ -52,7 +53,17 @@ export const CourierCard: React.FC<CourierCardProps> = ({ onCourierClick }) => {
           </span>
           <Tooltip id="my-tooltip3" style={{ fontSize: "18px" }} />
         </Typography>
-        <span className="text-xs">Курьер уже заказан по другому заказу №</span>
+        <input
+          type="text"
+          value={notation}
+          onChange={(e) => setNotation(e.target.value)}
+          placeholder={"Примечание"}
+          className="p-2 border border-gray-300 rounded-md mt-1 shadow-sm w-[50%]"
+          data-tooltip-id="tooltip-notation"
+          data-tooltip-place="bottom"
+          data-tooltip-content="Курьер уже заказан по другому заказу №"
+        />
+        <Tooltip id="tooltip-notation" style={{ fontSize: "18px" }} />
       </CardContent>
       <CardActions
         sx={{
@@ -64,7 +75,12 @@ export const CourierCard: React.FC<CourierCardProps> = ({ onCourierClick }) => {
         <Box>
           <FormControlLabel
             control={
-              <Checkbox color="primary" onClick={() => handleClick(true)} />
+              <Checkbox
+                color="primary"
+                onClick={() => {
+                  handleClick(true);
+                }}
+              />
             }
             label={
               <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>
@@ -76,7 +92,12 @@ export const CourierCard: React.FC<CourierCardProps> = ({ onCourierClick }) => {
         <Box>
           <FormControlLabel
             control={
-              <Checkbox color="error" onClick={() => handleClick(false)} />
+              <Checkbox
+                color="error"
+                onClick={() => {
+                  handleClick(false);
+                }}
+              />
             }
             label={
               <Typography sx={{ fontSize: "18px", fontWeight: "medium" }}>

@@ -1,5 +1,6 @@
 import { AddPackagesForm, AddPackagesFormPC } from "@features/AddPackagesForm";
 import { Box, Card, CardActions, CardContent, Typography } from "@mui/material";
+import { generateId } from "@shared/lib/helpers/utils";
 import { useAddPackage } from "@shared/lib/hooks/Packages/useAddPackage";
 import { useItemsManagement } from "@shared/lib/hooks/useItemsManagement";
 import Button from "@shared/ui/Button/ui/button";
@@ -20,7 +21,6 @@ export const AddPackages = () => {
   const [quantity, setQuantity] = useState("");
   const [weight, setWeight] = useState("");
   const [price, setPrice] = useState("");
-  const [counter, setCounter] = useState(1);
   const [current, setCurrent] = useState<any>(1);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [defaultItem, setDefaultItem] = useState<Item | null>(null);
@@ -45,7 +45,6 @@ export const AddPackages = () => {
             (max: number, item: Item) => Math.max(max, item.id),
             0
           );
-          setCounter(maxId + 1);
         }
       }
       setIsDataLoaded(true); // Устанавливаем флаг, что данные успешно загружены
@@ -144,28 +143,20 @@ export const AddPackages = () => {
       return; // Прекращаем выполнение, если превышен лимит
     }
 
-    // Обновление `counter` для нового элемента
-    setCounter((prevCounter) => {
-      const newId =
-        prevCounter === 1 ? 1 : prevCounter === 2 ? 2 : prevCounter + 1;
+    const newItem: Item = {
+      id: generateId(),
+      item_name: itemName,
+      origin_country: originCountry,
+      quantity: quantity,
+      weight: weight,
+      price: price,
+    };
 
-      const newItem: Item = {
-        id: newId, // Уникальный ID
-        item_name: itemName,
-        origin_country: originCountry,
-        quantity: quantity,
-        weight: weight,
-        price: price,
-      };
+    const updatedItems = [...items, newItem];
+    setItems(updatedItems);
+    syncLocalStorage(updatedItems);
 
-      // Обновляем массив элементов и сохраняем в localStorage
-      const updatedItems = [...items, newItem];
-      setItems(updatedItems);
-      syncLocalStorage(updatedItems);
-
-      clearForm(); // Очищаем форму после добавления
-      return newId; // Возвращаем новый `counter`
-    });
+    clearForm();
   };
   // Обработчик удаления предмета
   const handleRemoveItem = (id: number) => {
@@ -249,7 +240,6 @@ export const AddPackages = () => {
 
       setItems(updatedItems);
       setSelectedItem(null);
-      setCurrent(counter);
     } else {
       if (
         itemName !== "" &&
@@ -259,7 +249,7 @@ export const AddPackages = () => {
         price !== ""
       ) {
         const newItem: Item = {
-          id: counter,
+          id: generateId(),
           item_name: itemName,
           origin_country: originCountry,
           quantity: quantity,
@@ -362,9 +352,9 @@ export const AddPackages = () => {
             <option value="" disabled>
               Предметы
             </option>
-            {items.map((item) => (
+            {items.map((item, index) => (
               <option key={item.id} value={item.id}>
-                Предмет {item.id}
+                Предмет {index + 1}
               </option>
             ))}
           </select>
@@ -397,7 +387,6 @@ export const AddPackagesPC = () => {
   const [quantity, setQuantity] = useState("");
   const [weight, setWeight] = useState("");
   const [price, setPrice] = useState("");
-  const [counter, setCounter] = useState(1);
   const [current, setCurrent] = useState<any>(1);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [defaultItem, setDefaultItem] = useState<Item | null>(null);
@@ -422,7 +411,6 @@ export const AddPackagesPC = () => {
             (max: number, item: Item) => Math.max(max, item.id),
             0
           );
-          setCounter(maxId + 1);
         }
       }
       setIsDataLoaded(true); // Устанавливаем флаг, что данные успешно загружены
@@ -544,28 +532,21 @@ export const AddPackagesPC = () => {
       return; // Прекращаем выполнение, если превышен лимит стоимости
     }
 
-    // Обновление `counter` для нового элемента
-    setCounter((prevCounter) => {
-      const newId =
-        prevCounter === 1 ? 1 : prevCounter === 2 ? 2 : prevCounter + 1;
+    const newItem: Item = {
+      id: generateId(), // Уникальный ID
+      item_name: itemName,
+      origin_country: originCountry,
+      quantity: quantity,
+      weight: weight,
+      price: price,
+    };
 
-      const newItem: Item = {
-        id: newId, // Уникальный ID
-        item_name: itemName,
-        origin_country: originCountry,
-        quantity: quantity,
-        weight: weight,
-        price: price,
-      };
+    // Обновляем массив элементов и сохраняем в localStorage
+    const updatedItems = [...items, newItem];
+    setItems(updatedItems);
+    syncLocalStorage(updatedItems);
 
-      // Обновляем массив элементов и сохраняем в localStorage
-      const updatedItems = [...items, newItem];
-      setItems(updatedItems);
-      syncLocalStorage(updatedItems);
-
-      clearForm(); // Очищаем форму после добавления
-      return newId; // Возвращаем новый `counter`
-    });
+    clearForm(); // Очищаем форму после добавления
   };
   // Обработчик удаления предмета
   const handleRemoveItem = (id: number) => {
@@ -649,7 +630,6 @@ export const AddPackagesPC = () => {
 
       setItems(updatedItems);
       setSelectedItem(null);
-      setCurrent(counter);
     } else {
       if (
         itemName !== "" &&
@@ -659,7 +639,7 @@ export const AddPackagesPC = () => {
         price !== ""
       ) {
         const newItem: Item = {
-          id: counter,
+          id: generateId(),
           item_name: itemName,
           origin_country: originCountry,
           quantity: quantity,
@@ -700,12 +680,13 @@ export const AddPackagesPC = () => {
 
   const handleSelectItem = (id: number) => {
     const item = items.find((item) => item.id === id);
+    console.log(item);
     if (item) {
       setSelectedItem(item);
       setCurrent(item.id);
     }
   };
-
+  console.log(items);
   return (
     <>
       <div className="flex flex-wrap gap-4 justify-center mb-4">
@@ -755,6 +736,7 @@ export const AddPackagesPC = () => {
           <select
             value={current || ""}
             onChange={(e) => {
+              console.log(e.target.value);
               handleSelectItem(parseInt(e.target.value, 10));
             }}
             className="border px-2 py-1 rounded-md w-full"
@@ -762,9 +744,9 @@ export const AddPackagesPC = () => {
             <option value="" disabled>
               Предметы
             </option>
-            {items.map((item) => (
+            {items.map((item, index) => (
               <option key={item.id} value={item.id}>
-                Предмет {item.id}
+                Предмет {index + 1}
               </option>
             ))}
           </select>
