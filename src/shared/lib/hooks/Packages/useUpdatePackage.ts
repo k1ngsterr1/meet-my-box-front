@@ -9,6 +9,8 @@ interface IData {
   addressId?: number;
   items?: any[];
   payed?: boolean;
+  receiverAddress?: any;
+  senderAddress?: any;
 }
 
 export async function useUpdatePackage(
