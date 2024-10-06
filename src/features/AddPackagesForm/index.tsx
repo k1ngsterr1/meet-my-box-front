@@ -1,9 +1,9 @@
 import { Box, Tooltip } from "@mui/material";
 import Button from "@shared/ui/Button/ui/button";
 import { BorderInput } from "@shared/ui/Input/BorderInput/border-input";
+import { CalculateInput } from "@shared/ui/Input/Calculate/calculate-input";
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import { CalculateInput } from "@shared/ui/Input/Calculate/calculate-input";
 
 type Item = {
   item_name: string;
@@ -257,7 +257,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
             "number",
             weight,
             handleNumberInput(setWeight, 15),
-            "Укажите вес товара в килограммах. Пример: 2.5"
+            "Укажите вес товара в килограммах. Пример: 5кг"
           )}
         </Box>
 

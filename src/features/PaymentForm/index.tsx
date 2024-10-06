@@ -39,6 +39,11 @@ export const PaymentForm = ({
       },
     });
 
+    localStorage.removeItem("weight");
+    localStorage.removeItem("rates");
+    localStorage.removeItem("packageID");
+    localStorage.removeItem("packageId");
+
     if (result.error) {
       setErrorMessage(result.error.message || "Payment failed.");
       setPaymentStatus("");

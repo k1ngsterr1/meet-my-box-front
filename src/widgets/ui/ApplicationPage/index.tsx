@@ -22,7 +22,6 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material"; // Импортируем компоненты MUI для табов
-import Item from "@pages/news/item.astro";
 import { useUpdatePackage } from "@shared/lib/hooks/Packages/useUpdatePackage";
 import { checkAuth } from "@shared/lib/hooks/useCheckAuth";
 import { useGetAddresses } from "@shared/lib/hooks/useGetAddress";
@@ -30,11 +29,89 @@ import Button from "@shared/ui/Button/ui/button";
 import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
 
+import { Card, CardContent, Grid } from "@mui/material";
+
+const AddressCard = ({ title, address }) => (
+  <Card sx={{ minWidth: 350, mb: 2 }}>
+    <CardContent>
+      <Typography variant="h6" gutterBottom>
+        <strong>{title}</strong>
+      </Typography>
+      <Typography variant="body1">
+        <strong>Имя:</strong> {address.firstName || "Не указано"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Фамилия:</strong> {address.lastName || "Не указано"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Телефон:</strong> {address.phoneNumber || "Не указано"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Электронная почта:</strong> {address.email || "Не указано"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Страна:</strong> {address.country || "Не указано"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Регион:</strong> {address.region || "Не указано"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Город:</strong> {address.city || "Не указано"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Улица:</strong> {address.street || "Не указано"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Дом:</strong> {address.building || "Не указано"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Квартира:</strong> {address.apartment || "Не указано"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Почтовый индекс:</strong> {address.postal_code || "Не указано"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Компания:</strong> {address.company || "Не указано"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Дополнительная информация:</strong>{" "}
+        {address.additionalInfo || "Не указано"}
+      </Typography>
+    </CardContent>
+  </Card>
+);
+
+const AddressDisplay = ({ senderAddress, receiverAddress }) => (
+  <Grid
+    container
+    direction="row"
+    justifyContent="center"
+    alignItems="flex-start"
+    spacing={4}
+    sx={{ width: "100vw", maxWidth: "100%", margin: "auto" }}
+  >
+    {senderAddress && (
+      <Grid item>
+        <AddressCard title="Отправитель" address={senderAddress} />
+      </Grid>
+    )}
+    {receiverAddress && (
+      <Grid item>
+        <AddressCard title="Получатель" address={receiverAddress} />
+      </Grid>
+    )}
+  </Grid>
+);
+
+export default AddressDisplay;
+
 export const ApplicationPage = () => {
   const [selectedAddressType, setSelectedAddressType] = useState<
     "sender" | "receiver" | null
   >(null);
   const [addresses, setAddresses] = useState<AddressProps[]>();
+  const [senderAddress, setSenderAddress] = useState<AddressProps[]>();
+  const [receiverAddress, setReceiverAddress] = useState<AddressProps>();
   const [previousInsurance, setPreviousInsurance] = useState(false);
   const [previousCourier, setPreviousCourier] = useState(false);
   const [currentAddress, setCurrentAddress] = useState<AddressProps[]>();
@@ -74,7 +151,6 @@ export const ApplicationPage = () => {
       const storedPackageId = JSON.parse(
         localStorage.getItem("packageId") || "{}"
       );
-
       const countryData = JSON.parse(
         localStorage.getItem("countryData") || "{}"
       );
@@ -82,26 +158,36 @@ export const ApplicationPage = () => {
       if (countryData) {
         setCountryData(countryData);
       }
+
       const priceData = localStorage.getItem("packagePrice");
       if (priceData) {
         setPrice(priceData);
         setTotalPrice(parseFloat(priceData.replace("€", "")));
       }
+
       if (storedPackageId) {
         setId(storedPackageId.id);
         setPackageCurrent(storedPackageId);
+
         try {
           const fetchedAddresses = await useGetAddresses();
 
           if (fetchedAddresses) {
             setAddresses(fetchedAddresses);
             console.log("lol:", fetchedAddresses);
-            setCurrentAddress(
-              fetchedAddresses.filter((address) => address.type === "receiver")
+
+            // Фильтруем только два адреса — отправителя и получателя
+            const filteredAddresses = fetchedAddresses.filter(
+              (address) =>
+                address.id === senderAddressId ||
+                address.id === receiverAddressId
             );
-            if (fetchedAddresses.length > 0) {
-              setChosenAddress(fetchedAddresses[0].id);
-              setAddress(fetchedAddresses[0]);
+
+            setCurrentAddress(filteredAddresses);
+
+            if (filteredAddresses.length > 0) {
+              setChosenAddress(filteredAddresses[0].id);
+              setAddress(filteredAddresses[0]);
             }
           }
         } catch (error) {
@@ -109,9 +195,10 @@ export const ApplicationPage = () => {
         }
       }
     };
+
     setSelectedTab(1);
     fetchAddressesAsync();
-  }, []);
+  }, [senderAddressId, receiverAddressId]);
 
   useEffect(() => {
     const isAuthenticated = checkAuth();
@@ -249,13 +336,26 @@ export const ApplicationPage = () => {
 
   // Обработчик выбора адреса из выпадающего списка
   const handleAddressChange = (selectedId: number) => {
+    // Проверка существования выбранного адреса в списке
+    const selectedAddress = addresses.find(
+      (address) => address.id === selectedId
+    );
+
+    if (!selectedAddress) {
+      alert("Выбранный адрес не существует!");
+      return;
+    }
+
+    // Проверка, что адреса отправителя и получателя разные
     if (selectedAddressType === "sender" && selectedId !== receiverAddressId) {
       setSenderAddressId(selectedId);
+      setSenderAddress(selectedAddress);
     } else if (
       selectedAddressType === "receiver" &&
       selectedId !== senderAddressId
     ) {
       setReceiverAddressId(selectedId);
+      setReceiverAddress(selectedAddress);
     } else {
       alert("Отправитель и получатель не могут быть одним и тем же адресом!");
     }
@@ -307,7 +407,10 @@ export const ApplicationPage = () => {
             >
               <FontAwesomeIcon icon={faInfoCircle} className="text-main" />
             </span>
-            <Tooltip id="my-tooltip" />
+            <Tooltip
+              id="my-tooltip"
+              style={{ fontSize: "16px", fontWeight: 400 }}
+            />
           </span>
           <div className="w-full flex items-center justify-center gap-2">
             <Button
@@ -364,10 +467,9 @@ export const ApplicationPage = () => {
           </select>
           <div className=" flex items-center gap-2">
             <Button
-              //Изменил на далее так как выполняет только это функцию
-              text="Далее"
-              buttonType="filled"
-              onClick={() => setSelectedTab((prev) => prev + 1)}
+              text={"Содержимое посылки"}
+              buttonType="outline"
+              onClick={() => handleDialogOpen()}
             />
             <Button
               text={"Добавить адрес"}
@@ -376,10 +478,12 @@ export const ApplicationPage = () => {
             />
           </div>
           <Button
-            text={"Содержимое посылки"}
-            buttonType="outline"
-            onClick={() => handleDialogOpen()}
+            //Изменил на далее так как выполняет только это функцию
+            text="Далее"
+            buttonType="filled"
+            onClick={() => setSelectedTab((prev) => prev + 1)}
           />
+
           {openDialog && (
             <Dialog
               open={openDialog}
@@ -418,7 +522,11 @@ export const ApplicationPage = () => {
                           <TableCell align="right">
                             <IconButton
                               onClick={() => handleItemDelete(index)}
-                              sx={{ color: "red" }}
+                              sx={{
+                                color: "red",
+                                textTransform: "none",
+                                borderRadius: "999px",
+                              }}
                               aria-label="удалить"
                             >
                               <Delete />
@@ -434,14 +542,24 @@ export const ApplicationPage = () => {
                 <MUIBTN
                   onClick={handleNavigation}
                   variant="contained"
-                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                  sx={{
+                    backgroundColor: "#220CF3",
+                    color: "#fff",
+                    textTransform: "none",
+                    borderRadius: "999px",
+                  }}
                 >
                   Вернуться к содержимому
                 </MUIBTN>
                 <MUIBTN
                   onClick={handleDialogClose}
                   variant="contained"
-                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                  sx={{
+                    backgroundColor: "#220CF3",
+                    color: "#fff",
+                    textTransform: "none",
+                    borderRadius: "999px",
+                  }}
                 >
                   Закрыть
                 </MUIBTN>
@@ -452,7 +570,7 @@ export const ApplicationPage = () => {
       )}
       {selectedTab === 2 && (
         <>
-          <div>
+          <div className="flex flex-col items-center justify-center">
             <DialogTitle>Детали содержимого</DialogTitle>
             {packageCurrent.items === undefined ? (
               <div className="ml-4">Содержимое вашей посылки пусто</div>
@@ -484,7 +602,11 @@ export const ApplicationPage = () => {
                         <TableCell align="right">
                           <IconButton
                             onClick={() => handleItemDelete(index)}
-                            sx={{ color: "red" }}
+                            sx={{
+                              color: "red",
+                              textTransform: "none",
+                              borderRadius: "999px",
+                            }}
                             aria-label="удалить"
                           >
                             <Delete />
@@ -571,14 +693,24 @@ export const ApplicationPage = () => {
                 <MUIBTN
                   onClick={handleNavigation}
                   variant="contained"
-                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                  sx={{
+                    backgroundColor: "#220CF3",
+                    color: "#fff",
+                    textTransform: "none",
+                    borderRadius: "999px",
+                  }}
                 >
                   Вернуться к содержимому
                 </MUIBTN>
                 <MUIBTN
                   onClick={handleDialogClose}
                   variant="contained"
-                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                  sx={{
+                    backgroundColor: "#220CF3",
+                    color: "#fff",
+                    textTransform: "none",
+                    borderRadius: "999px",
+                  }}
                 >
                   Закрыть
                 </MUIBTN>
@@ -650,14 +782,24 @@ export const ApplicationPage = () => {
                 <MUIBTN
                   onClick={handleNavigation}
                   variant="contained"
-                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                  sx={{
+                    backgroundColor: "#220CF3",
+                    color: "#fff",
+                    textTransform: "none",
+                    borderRadius: "999px",
+                  }}
                 >
                   Вернуться к содержимому
                 </MUIBTN>
                 <MUIBTN
                   onClick={handleDialogClose}
                   variant="contained"
-                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                  sx={{
+                    backgroundColor: "#220CF3",
+                    color: "#fff",
+                    textTransform: "none",
+                    borderRadius: "999px",
+                  }}
                 >
                   Закрыть
                 </MUIBTN>
@@ -712,40 +854,20 @@ export const ApplicationPage = () => {
               gap: 2,
             }}
           >
-            {addresses?.map((item, index) => (
-              <div className="text-center">
-                <Typography variant="body1">
-                  <strong> {index === 0 ? "Отправитель" : "Получатель"}</strong>
-                </Typography>
-                <Typography variant="body1">
-                  <strong>Имя:</strong> {item.firstName || "Не указано"}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>Телефон:</strong> {item.phoneNumber || "Не указано"}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>Улица:</strong> {item.street || "Не указано"}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>Дом:</strong> {item.building || "Не указано"}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>Квартира:</strong> {item.apartment || "Не указано"}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>Город:</strong> {item.city || "Не указано"}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>Почтовый код:</strong>{" "}
-                  {item.postal_code || "Не указано"}
-                </Typography>
-              </div>
-            ))}
+            <AddressDisplay
+              senderAddress={senderAddress}
+              receiverAddress={receiverAddress}
+            />
           </Box>
           <MUIBTN
             onClick={() => setSelectedTab(1)}
             variant="contained"
-            sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+            sx={{
+              backgroundColor: "#220CF3",
+              color: "#fff",
+              textTransform: "none",
+              borderRadius: "999px",
+            }}
           >
             Вернуться к адресу
           </MUIBTN>
@@ -876,14 +998,24 @@ export const ApplicationPage = () => {
                 <MUIBTN
                   onClick={handleNavigation}
                   variant="contained"
-                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                  sx={{
+                    backgroundColor: "#220CF3",
+                    color: "#fff",
+                    textTransform: "none",
+                    borderRadius: "999px",
+                  }}
                 >
                   Вернуться к содержимому
                 </MUIBTN>
                 <MUIBTN
                   onClick={handleDialogClose}
                   variant="contained"
-                  sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+                  sx={{
+                    backgroundColor: "#220CF3",
+                    color: "#fff",
+                    textTransform: "none",
+                    borderRadius: "999px",
+                  }}
                 >
                   Закрыть
                 </MUIBTN>

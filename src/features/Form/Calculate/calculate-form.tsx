@@ -156,21 +156,23 @@ export const CalculateForm = () => {
     setError(null); // Reset error state
     setIsLoading(true);
 
+    localStorage.setItem("weight", weight.toString());
+
     const isFromPostcodeValid = await validatePostcode(
       fromCountry,
       fromPostcode
     );
-    const isToPostcodeValid = await validatePostcode(toCountry, toPostcode);
+    // const isToPostcodeValid = await validatePostcode(toCountry, toPostcode);
 
-    if (!isFromPostcodeValid) {
-      setError("Неверный почтовый индекс отправителя.");
-      return;
-    }
+    // if (!isFromPostcodeValid) {
+    //   setError("Неверный почтовый индекс отправителя.");
+    //   return;
+    // }
 
-    if (!isToPostcodeValid) {
-      setError("Неверный почтовый индекс получателя.");
-      return;
-    }
+    // if (!isToPostcodeValid) {
+    //   setError("Неверный почтовый индекс получателя.");
+    //   return;
+    // }
     const shipmentData = {
       weight: weight,
       length: length,
@@ -283,6 +285,7 @@ export const CalculateForm = () => {
       setter("");
       return;
     }
+    localStorage.setItem("weight", value);
     value = parseFloat(e.target.value);
     if (isNaN(value)) value = 0;
     if (value > 15) value = 15; // Limit the value to a maximum of 100
@@ -481,6 +484,10 @@ export const CalculateFormPC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  useEffect(() => {
+    localStorage.setItem("weight", weight.toString());
+  }, [weight]);
+
   // Handle form submission
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -494,10 +501,10 @@ export const CalculateFormPC = () => {
     );
     const isToPostcodeValid = await validatePostcode(toCountry, toPostcode);
 
-    if (!isFromPostcodeValid) {
-      setError("Неверный почтовый индекс отправителя.");
-      return;
-    }
+    // if (!isFromPostcodeValid) {
+    //   setError("Неверный почтовый индекс отправителя.");
+    //   return;
+    // }
     const roundWeight = (weight: number) => {
       const decimalPart = weight % 1; // Get the decimal part
       if (decimalPart > 0) {
@@ -507,10 +514,10 @@ export const CalculateFormPC = () => {
       }
     };
 
-    if (!isToPostcodeValid) {
-      setError("Неверный почтовый индекс получателя.");
-      return;
-    }
+    // if (!isToPostcodeValid) {
+    //   setError("Неверный почтовый индекс получателя.");
+    //   return;
+    // }
     const shipmentData = {
       weight: roundWeight(weight),
       length: length,
@@ -531,6 +538,8 @@ export const CalculateFormPC = () => {
         to: { country: toCountry, code: toPostcode },
       })
     );
+    console.log("weight:", weight);
+    localStorage.setItem("weight", weight.toString());
 
     if (fromCountry === "Italy" || fromCountry === "Germany") {
       let response = {
@@ -610,6 +619,7 @@ export const CalculateFormPC = () => {
       setter("");
       return;
     }
+    localStorage.setItem("weight", value);
     value = parseFloat(e.target.value);
     if (isNaN(value)) value = 0;
     if (value > 15) value = 15; // Limit the value to a maximum of 100

@@ -146,7 +146,10 @@ export const ProfilePage: React.FC = () => {
         >
           <FontAwesomeIcon icon={faCircleInfo} size="lg" />
         </span>
-        <Tooltip id="my-tooltip" />
+        <Tooltip
+          id="my-tooltip"
+          style={{ fontSize: "16px", fontWeight: 400 }}
+        />
       </div>
       <hr className="bg-main border-2 border-main rounded-full mb-6" />
       <form
@@ -245,7 +248,10 @@ export const ProfilePage: React.FC = () => {
               >
                 <FontAwesomeIcon icon={faCircleInfo} size="sm" />
               </span>
-              <Tooltip id={`${name}`} />
+              <Tooltip
+                id={`${name}`}
+                style={{ fontSize: "16px", fontWeight: 400 }}
+              />
             </div>
             <input
               type={type}

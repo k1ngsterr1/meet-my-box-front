@@ -51,7 +51,10 @@ export const NoteCard: React.FC<NoteCardProps> = ({ onNoteClick, setter }) => {
             >
               <FontAwesomeIcon icon={faInfoCircle} className="ml-2 text-main" />
             </span>
-            <Tooltip id="my-tooltip4" style={{ fontSize: "18px" }} />
+            <Tooltip
+              id="my-tooltip4"
+              style={{ fontSize: "16px", fontWeight: 400 }}
+            />
           </Typography>
         </div>
         <Typography

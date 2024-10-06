@@ -1,14 +1,18 @@
-import React from "react";
-import { Box, Typography, Card, CardContent } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBitcoinSign,
   faCreditCard,
   faEuroSign,
-  faBitcoinSign,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Box, Card, CardContent, Typography } from "@mui/material";
+import { useEffect } from "react";
 
 export const PaymentMethodsPage = () => {
   // Handle navigation for each payment type
+  useEffect(() => {
+    window.history.replaceState(null, "", "/");
+  }, []);
+
   const handleOnlinePayment = () => {
     window.location.href = "/payment";
   };

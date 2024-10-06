@@ -70,7 +70,10 @@ export const InsuranceCard: React.FC<InsuranceCardProps> = ({
           >
             <FontAwesomeIcon icon={faInfoCircle} className="ml-2 text-main" />
           </span>
-          <Tooltip id="my-tooltip2" style={{ fontSize: "18px" }} />
+          <Tooltip
+            id="my-tooltip2"
+            style={{ fontSize: "16px", fontWeight: 400 }}
+          />
         </Typography>
         <Typography
           variant="body2"

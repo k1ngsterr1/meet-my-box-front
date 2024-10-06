@@ -43,7 +43,10 @@ export const AddPackagesPage = () => {
               >
                 <FontAwesomeIcon icon={faCircleInfo} size="lg" />
               </span>
-              <Tooltip id="my-tooltip">
+              <Tooltip
+                id="my-tooltip"
+                style={{ fontSize: "16px", fontWeight: 400 }}
+              >
                 Внимательно заполните все поля, наименование, <br /> страна
                 происхождение, кол-во предметов, вес и стоимость
               </Tooltip>
@@ -66,7 +69,10 @@ export const AddPackagesPage = () => {
                   </span>
                 </div>
               </div>
-              <Tooltip id="my-tooltip">
+              <Tooltip
+                id="my-tooltip"
+                style={{ fontSize: "16px", fontWeight: 400 }}
+              >
                 Внимательно заполните все поля, наименование, <br /> страна
                 происхождение, кол-во предметов, вес и стоимость
               </Tooltip>

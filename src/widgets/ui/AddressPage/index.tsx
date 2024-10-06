@@ -45,7 +45,10 @@ export const AddressPage = () => {
               >
                 <FontAwesomeIcon icon={faInfoCircle} className="text-main" />
               </span>
-              <Tooltip id="my-tooltip" />
+              <Tooltip
+                id="my-tooltip"
+                style={{ fontSize: "16px", fontWeight: 400 }}
+              />
             </div>
             <AddressPC items={address} />
           </>

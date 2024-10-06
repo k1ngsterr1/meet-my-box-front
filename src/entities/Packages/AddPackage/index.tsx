@@ -100,9 +100,13 @@ export const AddPackages = () => {
       (sum, item) => sum + parseInt(item.weight),
       0
     );
-    if (totalWeight > 15) {
+
+    if (
+      totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
+      15
+    ) {
       alert(
-        `Общий вес всех предметов (${totalWeight} кг) не может превышать 15 кг!`
+        `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
       );
       return; // Прекращаем выполнение, если превышен лимит
     }
@@ -136,9 +140,12 @@ export const AddPackages = () => {
       items.reduce((sum, item) => sum + parseInt(item.weight), 0) +
       newItemWeight;
 
-    if (totalWeight > 15) {
+    if (
+      totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
+      15
+    ) {
       alert(
-        `Общий вес всех предметов (${totalWeight} кг) не может превышать 15 кг!`
+        `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
       );
       return; // Прекращаем выполнение, если превышен лимит
     }
@@ -277,6 +284,22 @@ export const AddPackages = () => {
     });
     if (current_package) {
       localStorage.setItem("packageId", JSON.stringify(current_package));
+    }
+
+    const newItemWeight = parseInt(weight);
+    // Суммируем вес всех элементов + новый элемент
+    const totalWeight =
+      items.reduce((sum, item) => sum + parseInt(item.weight), 0) +
+      newItemWeight;
+
+    if (
+      totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
+      15
+    ) {
+      alert(
+        `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
+      );
+      return; // Прекращаем выполнение, если превышен лимит
     }
 
     // setItems([]);
@@ -471,9 +494,12 @@ export const AddPackagesPC = () => {
       0
     );
 
-    if (totalWeight > 15) {
+    if (
+      totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
+      15
+    ) {
       alert(
-        `Общий вес всех предметов (${totalWeight} кг) не может превышать 15 кг!`
+        `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
       );
       return; // Прекращаем выполнение, если превышен лимит
     }
@@ -518,9 +544,9 @@ export const AddPackagesPC = () => {
     const totalPrice =
       items.reduce((sum, item) => sum + parseInt(item.price), 0) + newItemPrice;
 
-    if (totalWeight > 15) {
+    if (totalWeight > parseFloat(localStorage.getItem("weight") || "0") || 15) {
       alert(
-        `Общий вес всех предметов (${totalWeight} кг) не может превышать 15 кг!`
+        `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
       );
       return; // Прекращаем выполнение, если превышен лимит
     }
@@ -628,6 +654,22 @@ export const AddPackagesPC = () => {
           : item
       );
 
+      const newItemWeight = parseInt(weight);
+      // Суммируем вес всех элементов + новый элемент
+      const totalWeight =
+        items.reduce((sum, item) => sum + parseInt(item.weight), 0) +
+        newItemWeight;
+
+      if (
+        totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
+        15
+      ) {
+        alert(
+          `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
+        );
+        return; // Прекращаем выполнение, если превышен лимит
+      }
+
       setItems(updatedItems);
       setSelectedItem(null);
     } else {
@@ -638,6 +680,21 @@ export const AddPackagesPC = () => {
         weight !== "" &&
         price !== ""
       ) {
+        const newItemWeight = parseInt(weight);
+        // Суммируем вес всех элементов + новый элемент
+        const totalWeight =
+          items.reduce((sum, item) => sum + parseInt(item.weight), 0) +
+          newItemWeight;
+
+        if (
+          totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
+          15
+        ) {
+          alert(
+            `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
+          );
+          return; // Прекращаем выполнение, если превышен лимит
+        }
         const newItem: Item = {
           id: generateId(),
           item_name: itemName,

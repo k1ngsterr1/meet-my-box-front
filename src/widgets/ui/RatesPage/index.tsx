@@ -50,7 +50,10 @@ export const RatesPage = () => {
             <FontAwesomeIcon icon={faInfoCircle} className="text-main" />
           </span>{" "}
         </span>
-        <Tooltip id="my-tooltip" />
+        <Tooltip
+          id="my-tooltip"
+          style={{ fontSize: "16px", fontWeight: 400 }}
+        />
         <button
           className="text-main text-lg flex items-center gap-2 mb-4 cursor-pointer hover:underline"
           onClick={() => (window.location.href = "/")}

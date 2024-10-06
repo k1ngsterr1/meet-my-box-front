@@ -29,6 +29,13 @@ export const MainScreen = () => {
 
     fetchBlock();
   }, []);
+
+  useEffect(() => {
+    localStorage.removeItem("packageId");
+    localStorage.removeItem("weight");
+    localStorage.removeItem("rates");
+  }, []);
+
   if (isLoading) {
     return <Loader />;
   }

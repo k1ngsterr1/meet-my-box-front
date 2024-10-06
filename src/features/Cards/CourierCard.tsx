@@ -46,12 +46,15 @@ export const CourierCard: React.FC<CourierCardProps> = ({ onCourierClick }) => {
           Нужен ли курьер, чтобы забрать посылку?
           <span
             data-tooltip-id="my-tooltip3"
-            data-tooltip-place="bottom"
-            data-tooltip-content="Укажите нужен ли курьер чтобы забрать посылки."
+            data-tooltip-place="top"
+            data-tooltip-content="Нужен ли курьер для забора? Возможно, уже заказан к другому заказу."
           >
             <FontAwesomeIcon icon={faInfoCircle} className="ml-2 text-main" />
           </span>
-          <Tooltip id="my-tooltip3" style={{ fontSize: "18px" }} />
+          <Tooltip
+            id="my-tooltip3"
+            style={{ fontSize: "16px", fontWeight: 400 }}
+          />
         </Typography>
         <input
           type="text"

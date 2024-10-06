@@ -58,7 +58,7 @@ export const CalculatePage = () => {
           onClick={handleToggleForm}
         />
         <Button
-          text="Документы"
+          text="ёокументы"
           buttonType={!isForm ? "filled" : "outline"}
           margin="mt-4"
           onClick={handleToggleForm}
@@ -83,7 +83,10 @@ export const CalculatePage = () => {
           >
             <FontAwesomeIcon icon={faInfoCircle} className="text-main" />
           </span>
-          <Tooltip id="my-tooltip" />
+          <Tooltip
+            id="my-tooltip"
+            style={{ fontSize: "16px", fontWeight: 400 }}
+          />
         </div>
         <div className="w-full flex items-center justify-center gap-4 mt-25">
           <Button

@@ -73,7 +73,6 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
 
   return (
     <>
-      {/* Основная карточка */}
       <Card
         sx={{
           width: "100%",
@@ -226,6 +225,8 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
             sx={{
               textTransform: "none",
               color: "#220CF3",
+              textTransform: "none",
+              borderRadius: "999px",
               borderColor: "#220CF3",
               "&:hover": { borderColor: "#1E0AD1" },
             }}
@@ -238,8 +239,9 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
             onClick={handleClick}
             sx={{
               backgroundColor: "#220CF3",
+              color: "#fff",
               textTransform: "none",
-              "&:hover": { backgroundColor: "#1E0AD1" },
+              borderRadius: "999px",
             }}
           >
             Перейти к оплате
