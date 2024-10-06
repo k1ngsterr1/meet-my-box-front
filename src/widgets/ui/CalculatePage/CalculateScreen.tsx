@@ -58,7 +58,7 @@ export const CalculatePage = () => {
           onClick={handleToggleForm}
         />
         <Button
-          text="ёокументы"
+          text="Документы"
           buttonType={!isForm ? "filled" : "outline"}
           margin="mt-4"
           onClick={handleToggleForm}

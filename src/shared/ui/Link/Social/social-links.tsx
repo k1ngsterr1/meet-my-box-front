@@ -7,6 +7,7 @@ export const SocialMediaLinks = () => {
     <div className={styles.social_tab}>
       {socialLinks.map((item, index) => (
         <a
+          key={index}
           href={item.to}
           target="_blank"
           rel="noopener noreferrer"

@@ -126,7 +126,9 @@ export const ApplicationPage = () => {
   const [agree2, setAgree2] = useState(false);
   const [agree3, setAgree3] = useState(false); // Состояние для третьего чекбокса
   const [agree4, setAgree4] = useState(false);
-  const [packageCurrent, setPackageCurrent] = useState<any>(null);
+  const [packageCurrent, setPackageCurrent] = useState<{ items: any[] } | null>(
+    null
+  );
   const [price, setPrice] = useState<string>("");
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [countryData, setCountryData] = useState<any>("");
@@ -163,6 +165,8 @@ export const ApplicationPage = () => {
       if (priceData) {
         setPrice(priceData);
         setTotalPrice(parseFloat(priceData.replace("€", "")));
+      } else {
+        window.location.href = "/rates";
       }
 
       if (storedPackageId) {
@@ -241,7 +245,6 @@ export const ApplicationPage = () => {
       return parseFloat(newTotalPrice.toFixed(2)); // Форматируем итоговую стоимость с 2 знаками после запятой
     });
   }, [insurance, courier, packageCurrent]);
-  const handleAddressClick = () => setSelectedTab(2);
 
   const handleInsuranceClick = (value: boolean) => {
     setInsurance(value);
@@ -252,10 +255,6 @@ export const ApplicationPage = () => {
     setCourier(value);
     setSelectedTab((prev) => prev + 1);
     setNote(note);
-  };
-
-  const handleNoteClick = (value: string) => {
-    setSelectedTab(4);
   };
 
   // const handleAddressChange = (addressId: number) => {
@@ -273,8 +272,6 @@ export const ApplicationPage = () => {
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue);
   };
-
-  const handleCostClick = () => setSelectedTab(5);
 
   const handleAgreeClick = async () => {
     if (!agree1 || !agree2) {
@@ -368,9 +365,22 @@ export const ApplicationPage = () => {
     setSelectedAddressType(type);
   };
 
-  const [addressType, setAddressType] = useState<"receiver" | "sender">(
-    "sender"
-  );
+  const returnTotalCost = () => {
+    if (packageCurrent) {
+      const totalCost = parseFloat(
+        packageCurrent.items
+          .reduce((sum: number, item: any) => {
+            // Convert cost to number (if it's a string) and calculate 5%
+            const itemCost = parseFloat(item.cost);
+            const fivePercent = itemCost * 0.05; // Calculate 5% of the cost
+            return sum + fivePercent;
+          }, 0)
+          .toFixed(2)
+      );
+      return totalCost;
+    }
+    return 0;
+  };
 
   return (
     <div className="w-full min-h-[80vh] pb-8 pt-8 flex flex-col items-center justify-center">
@@ -913,7 +923,12 @@ export const ApplicationPage = () => {
           <MUIBTN
             onClick={() => setSelectedTab(2)}
             variant="contained"
-            sx={{ backgroundColor: "#220CF3", color: "#fff" }}
+            sx={{
+              backgroundColor: "#220CF3",
+              color: "#fff",
+              textTransform: "none",
+              borderRadius: "999px",
+            }}
           >
             Вернуться к cодержимому
           </MUIBTN>
@@ -928,102 +943,21 @@ export const ApplicationPage = () => {
             toggle6={toggle6}
             insurance={insurance}
             courier={courier}
-            senderID={senderAddressId ? senderAddressId : 0}
-            receiverID={receiverAddressId ? receiverAddressId : 0}
-            addresses={addresses}
           />
           {courier && (
             <h3 className="text-sm mt-2 mb-2">
               В цену входит курьер <span className="text-main">(+€3)</span>
             </h3>
           )}
+          {insurance && (
+            <h3 className="text-sm mt-2 mb-2">
+              В цену входит страховка{" "}
+              <span className="text-main">(+€{returnTotalCost()})</span>
+            </h3>
+          )}
           <h3 className="text-lg font-semibold mt-2 mb-2">
             Итого: <span className="text-main">€{totalPrice}</span>
           </h3>
-          <Button
-            text={"Содержимое посылки"}
-            buttonType="outline"
-            margin="mt-4"
-            onClick={() => handleDialogOpen()}
-          />
-          {openDialog && (
-            <Dialog
-              open={openDialog}
-              onClose={handleDialogClose}
-              maxWidth="sm"
-              fullWidth
-            >
-              <DialogTitle>Детали содержимого</DialogTitle>
-              {packageCurrent.items === undefined ? (
-                <div className="ml-4">Содержимое вашей посылки пусто</div>
-              ) : (
-                <DialogContent>
-                  <Table>
-                    <TableBody>
-                      {packageCurrent.items.map((item: any, index: number) => (
-                        <TableRow
-                          key={index}
-                          sx={{ display: { xs: "block", sm: "table-row" } }}
-                        >
-                          <TableCell>
-                            <Typography
-                              variant="body2"
-                              sx={{
-                                fontWeight: "bold",
-                                wordWrap: "break-word",
-                              }}
-                            >
-                              {item.name}
-                            </Typography>
-                          </TableCell>
-                          <TableCell>Вес: {item.weight} кг</TableCell>
-                          <TableCell>Количество: {item.quantity}</TableCell>
-                          <TableCell>Страна: {item.country}</TableCell>
-                          <TableCell>Цена: €{item.cost}</TableCell>
-                          {/* Добавленная иконка удаления */}
-                          <TableCell align="right">
-                            <IconButton
-                              onClick={() => handleItemDelete(index)}
-                              sx={{ color: "red" }}
-                              aria-label="удалить"
-                            >
-                              <Delete />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </DialogContent>
-              )}
-              <DialogActions>
-                <MUIBTN
-                  onClick={handleNavigation}
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "#220CF3",
-                    color: "#fff",
-                    textTransform: "none",
-                    borderRadius: "999px",
-                  }}
-                >
-                  Вернуться к содержимому
-                </MUIBTN>
-                <MUIBTN
-                  onClick={handleDialogClose}
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "#220CF3",
-                    color: "#fff",
-                    textTransform: "none",
-                    borderRadius: "999px",
-                  }}
-                >
-                  Закрыть
-                </MUIBTN>
-              </DialogActions>
-            </Dialog>
-          )}
         </>
       )}
     </div>

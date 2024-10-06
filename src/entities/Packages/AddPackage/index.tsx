@@ -102,8 +102,7 @@ export const AddPackages = () => {
     );
 
     if (
-      totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
-      15
+      totalWeight > (parseFloat(localStorage.getItem("weight") || "any") || 15)
     ) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
@@ -141,8 +140,7 @@ export const AddPackages = () => {
       newItemWeight;
 
     if (
-      totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
-      15
+      totalWeight > (parseFloat(localStorage.getItem("weight") || "any") || 15)
     ) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
@@ -293,8 +291,7 @@ export const AddPackages = () => {
       newItemWeight;
 
     if (
-      totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
-      15
+      totalWeight > (parseFloat(localStorage.getItem("weight") || "any") || 15)
     ) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
@@ -495,8 +492,7 @@ export const AddPackagesPC = () => {
     );
 
     if (
-      totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
-      15
+      totalWeight > (parseFloat(localStorage.getItem("weight") || "any") || 15)
     ) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
@@ -544,7 +540,9 @@ export const AddPackagesPC = () => {
     const totalPrice =
       items.reduce((sum, item) => sum + parseInt(item.price), 0) + newItemPrice;
 
-    if (totalWeight > parseFloat(localStorage.getItem("weight") || "0") || 15) {
+    if (
+      totalWeight > (parseFloat(localStorage.getItem("weight") || "0") || 15)
+    ) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
       );
@@ -661,8 +659,8 @@ export const AddPackagesPC = () => {
         newItemWeight;
 
       if (
-        totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
-        15
+        totalWeight >
+        (parseFloat(localStorage.getItem("weight") || "any") || 15)
       ) {
         alert(
           `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
