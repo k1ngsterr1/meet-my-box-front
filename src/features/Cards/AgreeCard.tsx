@@ -311,7 +311,7 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
           </Typography>
           <Typography variant="body1">
             <strong>Почтовый код:</strong>{" "}
-            {currentAddress.postal_code || "Не указано"}
+            {currentAddress.postalCode || "Не указано"}
           </Typography>
 
           <Button variant="contained" onClick={handleClose}>

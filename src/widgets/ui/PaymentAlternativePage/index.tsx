@@ -1,10 +1,19 @@
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from "react";
+import { Box, Typography, Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Typography } from "@mui/material";
-import Button from "@shared/ui/Button/ui/button";
-import React from "react";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 export const PaymentAlternativePage: React.FC = () => {
+  // State to store the package ID
+  const [packageId, setPackageId] = useState<string | null>(null);
+
+  // Retrieve package ID from AsyncStorage when component mounts
+  useEffect(() => {
+    const packageData = localStorage.getItem("packageId");
+    const parsedPackageId = packageData ? JSON.parse(packageData).id : null;
+    setPackageId(parsedPackageId);
+  }, []);
+
   return (
     <Box
       sx={{
@@ -38,11 +47,22 @@ export const PaymentAlternativePage: React.FC = () => {
       >
         В скором времени с вами свяжутся наши менеджеры.
       </Typography>
+
+      {/* Display Package ID */}
+      {packageId && (
+        <Typography variant="h6" sx={{ textAlign: "center", color: "#4caf50" }}>
+          Ваш уникальный номер посылки: {packageId}
+        </Typography>
+      )}
+
+      {/* Back Button */}
       <Button
-        buttonType="filled"
-        text="Назад"
+        variant="contained"
+        sx={{ marginTop: 4 }}
         onClick={() => (window.location.href = "/")}
-      />
+      >
+        Назад
+      </Button>
     </Box>
   );
 };

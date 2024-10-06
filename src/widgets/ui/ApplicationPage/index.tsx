@@ -68,7 +68,7 @@ const AddressCard = ({ title, address }) => (
         <strong>Квартира:</strong> {address.apartment || "Не указано"}
       </Typography>
       <Typography variant="body1">
-        <strong>Почтовый индекс:</strong> {address.postal_code || "Не указано"}
+        <strong>Почтовый индекс:</strong> {address.postalCode || "Не указано"}
       </Typography>
       <Typography variant="body1">
         <strong>Компания:</strong> {address.company || "Не указано"}
@@ -293,6 +293,8 @@ export const ApplicationPage = () => {
         id: parseInt(id !== undefined ? id : "", 10),
         insurance: !insurance ? "Не нужна" : "Нужна",
         courier: !courier ? "Не нужен" : "Нужен",
+        receiverAddress: receiverAddress,
+        senderAddress: senderAddress,
         items: items,
         note: note,
         addressId: chosenAddress,
@@ -840,7 +842,7 @@ export const ApplicationPage = () => {
             в{""} {""}
             <span className="text-main">
               {""} {""}
-              {countryData.to.country} ({countryData.from.code})
+              {countryData.to.country} ({countryData.to.code})
             </span>
           </h2>
           <Box
