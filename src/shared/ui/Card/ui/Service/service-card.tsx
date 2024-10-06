@@ -18,9 +18,9 @@ export const ServiceGroup: React.FC<Items> = ({ items }: any) => {
       <Fade className="w-full flex justify-center items-center">
         <ServiceCard title={""} description={items.card_2} />
       </Fade>
-      <Fade className="w-full flex justify-center items-center">
+      {/* <Fade className="w-full flex justify-center items-center">
         <ServiceCard title={""} description={items.card_3} />
-      </Fade>
+      </Fade> */}
     </div>
   );
 };
@@ -34,9 +34,9 @@ export const ServiceGroupPC: React.FC<Items> = ({ items }: any) => {
       <Fade className="flex justify-center items-center">
         <ServiceCardPC title={""} description={items.card_2} />
       </Fade>
-      <Fade className="flex justify-center items-center">
+      {/* <Fade className="flex justify-center items-center">
         <ServiceCardPC title={""} description={items.card_3} />
-      </Fade>
+      </Fade> */}
     </div>
   );
 };

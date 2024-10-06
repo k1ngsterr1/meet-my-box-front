@@ -27,6 +27,12 @@ export const InsuranceCard: React.FC<InsuranceCardProps> = ({
     onInsuranceClick(value);
   };
 
+  if (packageCurrent === undefined) {
+    return (
+      <div className="mb-8 text-2xl">Пожалуйста, заполните предыдущие шаги</div>
+    );
+  }
+
   const totalCost = parseFloat(
     packageCurrent
       .reduce((sum: number, item: any) => {
@@ -37,7 +43,6 @@ export const InsuranceCard: React.FC<InsuranceCardProps> = ({
       }, 0)
       .toFixed(2)
   );
-  console.log(totalCost);
 
   const priceNumber = parseFloat(price.replace("€", ""));
 

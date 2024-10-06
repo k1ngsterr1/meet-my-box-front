@@ -94,6 +94,8 @@ export const PackagesPC: React.FC<PackagesProps> = ({ items }) => {
   const [selectedCardIndex, setSelectedCardIndex] = useState<number | null>(
     null
   );
+
+  console.log("items:", items);
   return (
     <div className={styles.packages_pc__list} style={{ gap: "3rem" }}>
       {items.map((item, index) => (
