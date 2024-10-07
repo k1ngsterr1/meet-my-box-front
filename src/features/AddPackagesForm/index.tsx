@@ -231,7 +231,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
             "text",
             itemName,
             (e) => setItemName(e.target.value),
-            "Введите наименование товара. Пример: Электроника"
+            "Введите наименование товара. Пример: Платье"
           )}
 
           {renderInputWithTooltip(
@@ -257,7 +257,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
             "number",
             weight,
             handleNumberInput(setWeight, 15),
-            "Укажите вес товара в килограммах. Пример: 5кг"
+            "Укажите вес товара в килограммах. Пример: 500г"
           )}
         </Box>
 

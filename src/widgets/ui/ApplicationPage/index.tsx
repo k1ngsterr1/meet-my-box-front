@@ -448,7 +448,7 @@ export const ApplicationPage = () => {
                 ? senderAddressId || ""
                 : receiverAddressId || ""
             }
-            disabled={!selectedAddressType} // Делаем выпадающий список активным только при выборе типа адреса
+            disabled={!selectedAddressType}
           >
             <option value="" disabled>
               Выберите адрес
@@ -458,26 +458,9 @@ export const ApplicationPage = () => {
                 {`${address.city}, Здание ${address.housing}, Кв. ${address.apartment}, Дом ${address.building}`}
               </option>
             ))}
-            {/* <option value="" disabled>
-              {selectedAddressType
-                ? `Выберите адрес ${selectedAddressType === "sender" ? "отправителя" : "получателя"}`
-                : "Выберите тип адреса"}
-            </option>
-            {addresses!
-              .filter(
-                (address) =>
-                  address.id !==
-                  (selectedAddressType === "sender"
-                    ? receiverAddressId
-                    : senderAddressId)
-              )
-              .map((address) => (
-                <option key={address.id} value={address.id}>
-                  {`${address.city}, Здание ${address.housing}, Кв. ${address.apartment}, Дом ${address.building}`}
-                </option>
-              ))} */}
           </select>
-          <div className=" flex items-center gap-2">
+
+          <div className="flex items-center gap-2">
             <Button
               text={"Содержимое посылки"}
               buttonType="outline"
@@ -490,10 +473,18 @@ export const ApplicationPage = () => {
             />
           </div>
           <Button
-            //Изменил на далее так как выполняет только это функцию
             text="Далее"
             buttonType="filled"
-            onClick={() => setSelectedTab((prev) => prev + 1)}
+            onClick={() => {
+              if (receiverAddressId && senderAddressId) {
+                setSelectedTab((prev) => prev + 1);
+              } else {
+                alert(
+                  "Пожалуйста, выберите оба адреса: и отправителя, и получателя."
+                );
+              }
+            }}
+            // disabled={!receiverAddressId || !senderAddressId}
           />
 
           {openDialog && (
@@ -580,6 +571,7 @@ export const ApplicationPage = () => {
           )}
         </div>
       )}
+
       {selectedTab === 2 && (
         <>
           <div className="flex flex-col items-center justify-center">

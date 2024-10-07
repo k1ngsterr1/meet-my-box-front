@@ -2,16 +2,17 @@ import type { DateArray, TimeArray } from "@entities/RatesList";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "@shared/ui/Button/ui/button";
-import { InfoScreen } from "@widgets/ui/HomePage/InfoScreen/InfoScreen";
 import type React from "react";
 import { useState } from "react";
 import styles from "./styles.module.scss";
+
 interface Props {
   day: TimeArray;
   price: string;
   date: DateArray;
   url: string;
 }
+
 const translateTime = {
   DAYS: "Дней",
   HOURS: "Часов",
@@ -26,7 +27,11 @@ export const RatesCard: React.FC<Props> = ({ day, price, date, url }) => {
   const [showInfo, setShowInfo] = useState(false);
 
   const handleButtonClick = () => {
-    // Store the price in localStorage
+    if (day.estimateNumber == "10") {
+      localStorage.setItem("rateType", "Стандарт"); // Сохранение типа тарифа в localStorage
+    } else {
+      localStorage.setItem("rateType", "Экспресс"); // Сохранение типа тарифа в localStorage
+    }
     localStorage.setItem("packagePrice", price);
     setTimeout(() => {
       window.location.assign("/packages/add");
@@ -64,6 +69,13 @@ export const RatesCardPC: React.FC<Props> = ({ day, price, date, url }) => {
   const [showInfo, setShowInfo] = useState(false);
   const handleButtonClick = () => {
     // Store the price in localStorage
+
+    if (day.estimateNumber == "10") {
+      localStorage.setItem("rateType", "Стандарт"); // Сохранение типа тарифа в localStorage
+    } else {
+      localStorage.setItem("rateType", "Экспресс"); // Сохранение типа тарифа в localStorage
+    }
+
     localStorage.setItem("packagePrice", price);
     setTimeout(() => {
       window.location.assign("/packages/add");

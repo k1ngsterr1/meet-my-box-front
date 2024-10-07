@@ -69,6 +69,7 @@ export const RatesListPC: React.FC<Props> = ({ days, prices, dates, urls }) => {
         index <= 1 ? (
           <div className="w-full relative" key={index}>
             <RatesCardPC
+              rateType=""
               day={item}
               price={prices[index]}
               date={dates[index]}
