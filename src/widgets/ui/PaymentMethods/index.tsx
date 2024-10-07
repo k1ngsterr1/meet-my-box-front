@@ -6,6 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import { useUpdatePackage } from "@shared/lib/hooks/Packages/useUpdatePackage";
+import { useSendEmail } from "@shared/lib/hooks/useSendEmail";
 import { useEffect } from "react";
 
 export const PaymentMethodsPage = () => {
@@ -33,6 +34,7 @@ export const PaymentMethodsPage = () => {
       paymentMethod: method,
       price: price,
     });
+    await useSendEmail({ packageId: packageData.id });
     window.location.href = "/payment-alternative";
   };
 
