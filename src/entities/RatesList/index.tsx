@@ -28,7 +28,7 @@ export const RatesList: React.FC<Props> = ({ days, prices, dates, urls }) => {
         dates[index] !== undefined &&
         urls[index] !== undefined &&
         index <= 1 ? (
-          <div className="w-full relative">
+          <div className="w-full relative" key={index}>
             <RatesCard
               day={item}
               price={prices[index]}
@@ -67,8 +67,9 @@ export const RatesListPC: React.FC<Props> = ({ days, prices, dates, urls }) => {
         dates[index] !== undefined &&
         urls[index] !== undefined &&
         index <= 1 ? (
-          <div className="w-full relative">
+          <div className="w-full relative" key={index}>
             <RatesCardPC
+              rateType=""
               day={item}
               price={prices[index]}
               date={dates[index]}

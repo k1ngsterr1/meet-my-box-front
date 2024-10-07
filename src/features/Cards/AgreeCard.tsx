@@ -20,9 +20,6 @@ interface AgreeCardProps {
   toggle4: () => void;
   toggle5: () => void;
   toggle6: () => void;
-  addresses: any;
-  senderID: number;
-  receiverID: number;
   insurance: boolean;
   courier: boolean;
   // Новый пропс для третьего состояния
@@ -36,39 +33,11 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
   toggle4,
   toggle5,
   toggle6,
-  addresses,
-  senderID,
-  receiverID,
   insurance,
   courier,
 }) => {
   const handleClick = () => {
     onAgreeClick();
-  };
-  const [isAddressModalOpen, setAddressModalOpen] = useState(false);
-  const [addressType, setAddressType] = useState<"receiver" | "sender">(
-    "sender"
-  );
-  const [currentAddress, setCurrentAddress] = useState(
-    addresses.find((address: any) => address.id === senderID) || {}
-  );
-  const handleAddressClick = () => {
-    console.log(currentAddress);
-    setAddressModalOpen(true);
-  };
-  const handleAddressTypeChange = (value: "receiver" | "sender") => {
-    setAddressType(value);
-    setCurrentAddress(
-      addresses.find(
-        (address: any) =>
-          address.id === (value === "sender" ? senderID : receiverID)
-      ) || {}
-    );
-  };
-
-  // Обработчик закрытия модального окна
-  const handleClose = () => {
-    setAddressModalOpen(false);
   };
 
   return (
@@ -218,21 +187,6 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
           </Box>
         </CardContent>
         <CardActions sx={{ justifyContent: "center", mt: 2, gap: 2 }}>
-          {/* Кнопка для открытия модального окна с адресами */}
-          <Button
-            variant="outlined"
-            onClick={handleAddressClick}
-            sx={{
-              textTransform: "none",
-              color: "#220CF3",
-              textTransform: "none",
-              borderRadius: "999px",
-              borderColor: "#220CF3",
-              "&:hover": { borderColor: "#1E0AD1" },
-            }}
-          >
-            Адрес
-          </Button>
           {/* Кнопка "Закончить" */}
           <Button
             variant="contained"
@@ -248,77 +202,6 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
           </Button>
         </CardActions>
       </Card>
-
-      {/* Модальное окно для редактирования адреса */}
-      <Modal
-        open={isAddressModalOpen}
-        onClose={handleClose}
-        aria-labelledby="address-modal"
-        aria-describedby="address-modal-description"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 400,
-            backgroundColor: "white",
-            padding: 4,
-            borderRadius: 2,
-            boxShadow: 24,
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-          }}
-        >
-          {/* Переключение между "Отправитель" и "Получатель" */}
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Button
-              variant={addressType === "sender" ? "contained" : "outlined"}
-              onClick={() => handleAddressTypeChange("sender")}
-            >
-              Получатель
-            </Button>
-            <Button
-              variant={addressType === "receiver" ? "contained" : "outlined"}
-              onClick={() => handleAddressTypeChange("receiver")}
-            >
-              Отправитель
-            </Button>
-          </Box>
-
-          {/* Отображение информации об адресе */}
-          <Typography variant="body1">
-            <strong>Имя:</strong> {currentAddress.firstName || "Не указано"}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Телефон:</strong>{" "}
-            {currentAddress.phoneNumber || "Не указано"}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Улица:</strong> {currentAddress.street || "Не указано"}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Дом:</strong> {currentAddress.building || "Не указано"}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Квартира:</strong>{" "}
-            {currentAddress.apartment || "Не указано"}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Город:</strong> {currentAddress.city || "Не указано"}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Почтовый код:</strong>{" "}
-            {currentAddress.postalCode || "Не указано"}
-          </Typography>
-
-          <Button variant="contained" onClick={handleClose}>
-            Закрыть
-          </Button>
-        </Box>
-      </Modal>
     </>
   );
 };

@@ -15,10 +15,12 @@ export const PaymentMethodsPage = () => {
 
   const handleOnlinePayment = () => {
     window.location.href = "/payment";
+    localStorage.setItem("paymentMethod", "Оплата онлайн картой");
   };
 
-  const handleAlternativePayment = () => {
+  const handleAlternativePayment = (method: string) => {
     window.location.href = "/payment-alternative";
+    localStorage.setItem("paymentMethod", method);
   };
 
   return (
@@ -83,7 +85,7 @@ export const PaymentMethodsPage = () => {
             boxShadow: 10,
           },
         }}
-        onClick={handleAlternativePayment}
+        onClick={() => handleAlternativePayment("Банковским переводом в евро")}
       >
         <FontAwesomeIcon
           icon={faEuroSign}
@@ -114,7 +116,7 @@ export const PaymentMethodsPage = () => {
             boxShadow: 10,
           },
         }}
-        onClick={handleAlternativePayment}
+        onClick={() => handleAlternativePayment("Рублями или криптовалютой")}
       >
         <FontAwesomeIcon
           icon={faBitcoinSign}

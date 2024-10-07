@@ -5,8 +5,14 @@ export interface ICardInfo {
 export const cardInfo: ICardInfo[] = [
   {
     title: "",
-    description:
-      "С актуальными тарифами на доставку посылок из Европы в Россию и страны СНГ вы можете ознакомиться здесь или воспользоваться онлайн - калькулятором.",
+    description: `С актуальными тарифами на доставку посылок из Европы в Россию и страны СНГ вы можете ознакомиться ${(
+      <a
+        href="https://meetmybox.com/service/"
+        className="text-main text-underline"
+      >
+        здесь
+      </a>
+    )} или воспользоваться онлайн - калькулятором.`,
   },
   {
     title: "",

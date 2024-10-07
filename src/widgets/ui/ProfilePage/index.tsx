@@ -42,6 +42,10 @@ export const ProfilePage: React.FC = () => {
   const { result } = useGetProfile(); // Функция получения данных профиля
 
   useEffect(() => {
+    checkAuth();
+  });
+
+  useEffect(() => {
     const isAuthenticated = checkAuth();
     if (!isAuthenticated) return;
   }, []);

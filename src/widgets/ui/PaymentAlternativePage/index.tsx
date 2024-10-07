@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Box, Typography, Button } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Box, Button, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 
 export const PaymentAlternativePage: React.FC = () => {
   // State to store the package ID

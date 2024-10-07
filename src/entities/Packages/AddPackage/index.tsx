@@ -102,8 +102,7 @@ export const AddPackages = () => {
     );
 
     if (
-      totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
-      15
+      totalWeight > (parseFloat(localStorage.getItem("weight") || "any") || 15)
     ) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
@@ -141,8 +140,7 @@ export const AddPackages = () => {
       newItemWeight;
 
     if (
-      totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
-      15
+      totalWeight > (parseFloat(localStorage.getItem("weight") || "any") || 15)
     ) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
@@ -293,8 +291,7 @@ export const AddPackages = () => {
       newItemWeight;
 
     if (
-      totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
-      15
+      totalWeight > (parseFloat(localStorage.getItem("weight") || "any") || 15)
     ) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
@@ -495,8 +492,7 @@ export const AddPackagesPC = () => {
     );
 
     if (
-      totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
-      15
+      totalWeight > (parseFloat(localStorage.getItem("weight") || "any") || 15)
     ) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
@@ -544,7 +540,9 @@ export const AddPackagesPC = () => {
     const totalPrice =
       items.reduce((sum, item) => sum + parseInt(item.price), 0) + newItemPrice;
 
-    if (totalWeight > parseFloat(localStorage.getItem("weight") || "0") || 15) {
+    if (
+      totalWeight > (parseFloat(localStorage.getItem("weight") || "0") || 15)
+    ) {
       alert(
         `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
       );
@@ -660,15 +658,15 @@ export const AddPackagesPC = () => {
         items.reduce((sum, item) => sum + parseInt(item.weight), 0) +
         newItemWeight;
 
-      if (
-        totalWeight > parseFloat(localStorage.getItem("weight") || "any") ||
-        15
-      ) {
-        alert(
-          `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
-        );
-        return; // Прекращаем выполнение, если превышен лимит
-      }
+      // if (
+      //   totalWeight >
+      //   (parseFloat(localStorage.getItem("weight") || "any") || 15)
+      // ) {
+      //   alert(
+      //     `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
+      //   );
+      //   return; // Прекращаем выполнение, если превышен лимит
+      // }
 
       setItems(updatedItems);
       setSelectedItem(null);
@@ -686,16 +684,16 @@ export const AddPackagesPC = () => {
           items.reduce((sum, item) => sum + parseInt(item.weight), 0) +
           newItemWeight;
 
-        if (
-          totalWeight >
-          (parseFloat(localStorage.getItem("weight") || "any") || 15)
-        ) {
-          console.log("Works");
-          alert(
-            `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
-          );
-          return; // Прекращаем выполнение, если превышен лимит
-        }
+        // if (
+        //   totalWeight >
+        //   (parseFloat(localStorage.getItem("weight") || "any") || 15)
+        // ) {
+        //   console.log("Works");
+        //   alert(
+        //     `Общий вес всех предметов (${totalWeight} кг) не может превышать веса который вы ввели в посылке или быть более 15 кг!`
+        //   );
+        //   return; // Прекращаем выполнение, если превышен лимит
+        // }
         const newItem: Item = {
           id: generateId(),
           item_name: itemName,
@@ -748,46 +746,55 @@ export const AddPackagesPC = () => {
   return (
     <>
       <div className="flex flex-wrap gap-4 justify-center mb-4">
-        {items.map((item) => (
-          <Box
-            key={item.id}
-            sx={{
-              width: 250,
-              borderRadius: 2,
-              boxShadow: 3,
-              mb: 3,
-              backgroundColor: "#fff",
-            }}
-          >
-            <Card variant="outlined" sx={{ borderRadius: 2 }}>
-              <CardContent>
-                <Typography variant="h6" component="div" fontWeight="bold">
-                  {item.item_name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Страна: {item.origin_country}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Количество: {item.quantity}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Вес: {item.weight} кг
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Цена: {item.price} €
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button
-                  text="Удалить"
-                  buttonType="outline"
-                  onClick={() => handleRemoveItem(item.id)}
-                  className="text-red-500 hover:text-red-700 w-full"
-                />
-              </CardActions>
-            </Card>
-          </Box>
-        ))}
+        {items.map((item) => {
+          // Получение данных из localStorage
+          const storedPackage = JSON.parse(localStorage.getItem("packageId"));
+          const storedItem =
+            storedPackage?.items?.find((stored) => stored.id === item.id) || {};
+
+          console.log("storedPackage:", storedPackage, storedItem);
+
+          return (
+            <Box
+              key={item.id}
+              sx={{
+                width: 250,
+                borderRadius: 2,
+                boxShadow: 3,
+                mb: 3,
+                backgroundColor: "#fff",
+              }}
+            >
+              <Card variant="outlined" sx={{ borderRadius: 2 }}>
+                <CardContent>
+                  <Typography variant="h6" component="div" fontWeight="bold">
+                    {item.item_name || storedItem.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Страна: {item.origin_country || storedItem.country}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Количество: {item.quantity || storedItem.quantity}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Вес: {item.weight || storedItem.weight} кг
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Цена: {item.price || storedItem.cost} €
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    text="Удалить"
+                    buttonType="outline"
+                    onClick={() => handleRemoveItem(item.id)}
+                    className="text-red-500 hover:text-red-700 w-full"
+                  />
+                </CardActions>
+              </Card>
+            </Box>
+          );
+        })}
       </div>
       <div className="flex items-center flex-col w-full">
         <div className="flex items-center justify-center mt-4 w-[60%]">
