@@ -47,13 +47,7 @@ const AddressCard = ({ title, address }) => (
         <strong>Телефон:</strong> {address.phoneNumber || "Не указано"}
       </Typography>
       <Typography variant="body1">
-        <strong>Электронная почта:</strong> {address.email || "Не указано"}
-      </Typography>
-      <Typography variant="body1">
         <strong>Страна:</strong> {address.country || "Не указано"}
-      </Typography>
-      <Typography variant="body1">
-        <strong>Регион:</strong> {address.region || "Не указано"}
       </Typography>
       <Typography variant="body1">
         <strong>Город:</strong> {address.city || "Не указано"}
@@ -69,13 +63,6 @@ const AddressCard = ({ title, address }) => (
       </Typography>
       <Typography variant="body1">
         <strong>Почтовый индекс:</strong> {address.postalCode || "Не указано"}
-      </Typography>
-      <Typography variant="body1">
-        <strong>Компания:</strong> {address.company || "Не указано"}
-      </Typography>
-      <Typography variant="body1">
-        <strong>Дополнительная информация:</strong>{" "}
-        {address.additionalInfo || "Не указано"}
       </Typography>
     </CardContent>
   </Card>
@@ -424,7 +411,7 @@ export const ApplicationPage = () => {
           />
           <Tab label="Адреса" />
           <Tab label="Содержимое" />
-          <Tab label="Страховка" />
+          <Tab label="Страхование" />
           <Tab label="Вызов курьера" />
           <Tab label="Итог" />
         </Tabs>
