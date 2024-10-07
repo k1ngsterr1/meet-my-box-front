@@ -68,11 +68,11 @@ export const AddPackages = () => {
         const firstItem = loadedItems[0];
         setCurrent(firstItem.id);
         setSelectedItem(firstItem);
-        setItemName(firstItem.item_name);
-        setOriginCountry(firstItem.origin_country);
+        setItemName(firstItem.name);
+        setOriginCountry(firstItem.country);
         setQuantity(firstItem.quantity);
         setWeight(firstItem.weight);
-        setPrice(firstItem.price);
+        setPrice(firstItem.cost);
       }
     }
   }, []);
