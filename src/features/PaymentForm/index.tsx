@@ -1,4 +1,5 @@
 import { useUpdatePackage } from "@shared/lib/hooks/Packages/useUpdatePackage";
+import { useSendEmail } from "@shared/lib/hooks/useSendEmail";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
@@ -64,6 +65,7 @@ export const PaymentForm = ({
           id: packageId, // Use the parsed package ID here
           payed: true,
         });
+        await useSendEmail({ packageId: packageId });
         localStorage.removeItem("packageId"); // Clear the package ID from localStorage after successful payment
       }
       window.location.href = "/packages";

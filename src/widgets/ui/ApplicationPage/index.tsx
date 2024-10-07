@@ -229,7 +229,27 @@ export const ApplicationPage = () => {
         // Переход с true на false — убираем стоимость страховки
         newTotalPrice -= totalCost;
       }
+      console.log(newTotalPrice);
+      setPreviousInsurance(insurance);
+      setPreviousCourier(courier);
 
+      return parseFloat(newTotalPrice.toFixed(2)); // Форматируем итоговую стоимость с 2 знаками после запятой
+    });
+  }, [insurance, packageCurrent]);
+
+  useEffect(() => {
+    if (!packageCurrent || !packageCurrent.items) {
+      return; // Возвращаемся, если данные еще не загружены
+    }
+    // Рассчитываем 5% от стоимости всех элементов
+    const totalCost = packageCurrent.items.reduce((sum: number, item: any) => {
+      const itemCost = parseFloat(item.cost);
+      return sum + itemCost * 0.05;
+    }, 0);
+
+    // Используем предыдущее значение для корректного пересчета
+    setTotalPrice((prevPrice) => {
+      let newTotalPrice = prevPrice;
       // Добавляем или убираем стоимость страховки
       if (previousCourier === false && courier === true) {
         // Переход с false на true — добавляем стоимость курьера
@@ -244,7 +264,7 @@ export const ApplicationPage = () => {
 
       return parseFloat(newTotalPrice.toFixed(2)); // Форматируем итоговую стоимость с 2 знаками после запятой
     });
-  }, [insurance, courier, packageCurrent]);
+  }, [courier, packageCurrent]);
 
   const handleInsuranceClick = (value: boolean) => {
     setInsurance(value);
@@ -280,7 +300,9 @@ export const ApplicationPage = () => {
     } else {
       // Обновление и отправка данных пакета
       const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
-      console.log("data:", packageData);
+      const rateType = (localStorage.getItem("rateType") || "{}") as
+        | "Express"
+        | "Standard";
 
       // В данном случае packageData уже распарсен и items можно получить напрямую
       const items = packageData.items || []; // Проверка на наличие items в объекте
@@ -294,14 +316,15 @@ export const ApplicationPage = () => {
         senderAddress: senderAddress,
         items: items,
         note: note,
+        type: rateType,
         addressId: chosenAddress,
       });
 
       console.log(package_now);
 
       // Update package data in localStorage
-      // localStorage.setItem("packageId", JSON.stringify(package_now));
-      // localStorage.setItem("priceData", `€${totalPrice}`);
+      localStorage.setItem("packageId", JSON.stringify(package_now));
+      localStorage.setItem("priceData", `€${totalPrice}`);
 
       // Redirect to the payment page
       window.location.href = "/payment-methods";

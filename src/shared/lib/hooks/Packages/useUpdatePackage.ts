@@ -11,6 +11,9 @@ interface IData {
   payed?: boolean;
   receiverAddress?: any;
   senderAddress?: any;
+  price?: string;
+  type?: "Express" | "Standard";
+  paymentMethod?: string;
 }
 
 export async function useUpdatePackage(
