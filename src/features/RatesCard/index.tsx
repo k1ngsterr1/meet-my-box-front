@@ -28,9 +28,9 @@ export const RatesCard: React.FC<Props> = ({ day, price, date, url }) => {
 
   const handleButtonClick = () => {
     if (day.estimateNumber == "10") {
-      localStorage.setItem("rateType", "Стандарт"); // Сохранение типа тарифа в localStorage
+      localStorage.setItem("rateType", "Express"); // Сохранение типа тарифа в localStorage
     } else {
-      localStorage.setItem("rateType", "Экспресс"); // Сохранение типа тарифа в localStorage
+      localStorage.setItem("rateType", "Standard"); // Сохранение типа тарифа в localStorage
     }
     localStorage.setItem("packagePrice", price);
     setTimeout(() => {
@@ -71,9 +71,9 @@ export const RatesCardPC: React.FC<Props> = ({ day, price, date, url }) => {
     // Store the price in localStorage
 
     if (day.estimateNumber == "10") {
-      localStorage.setItem("rateType", "Стандарт"); // Сохранение типа тарифа в localStorage
+      localStorage.setItem("rateType", "Express"); // Сохранение типа тарифа в localStorage
     } else {
-      localStorage.setItem("rateType", "Экспресс"); // Сохранение типа тарифа в localStorage
+      localStorage.setItem("rateType", "Standard"); // Сохранение типа тарифа в localStorage
     }
 
     localStorage.setItem("packagePrice", price);

@@ -5,6 +5,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Card, CardContent, Typography } from "@mui/material";
+import { useUpdatePackage } from "@shared/lib/hooks/Packages/useUpdatePackage";
 import { useEffect } from "react";
 
 export const PaymentMethodsPage = () => {
@@ -13,14 +14,26 @@ export const PaymentMethodsPage = () => {
     window.history.replaceState(null, "", "/");
   }, []);
 
-  const handleOnlinePayment = () => {
+  const handleOnlinePayment = async () => {
+    const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
+    const price = localStorage.getItem("priceData") || "";
+    await useUpdatePackage({
+      id: packageData.id,
+      paymentMethod: "Оплата онлайн картой",
+      price: price,
+    });
     window.location.href = "/payment";
-    localStorage.setItem("paymentMethod", "Оплата онлайн картой");
   };
 
-  const handleAlternativePayment = (method: string) => {
+  const handleAlternativePayment = async (method: string) => {
+    const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
+    const price = localStorage.getItem("priceData") || "";
+    await useUpdatePackage({
+      id: packageData.id,
+      paymentMethod: method,
+      price: price,
+    });
     window.location.href = "/payment-alternative";
-    localStorage.setItem("paymentMethod", method);
   };
 
   return (
