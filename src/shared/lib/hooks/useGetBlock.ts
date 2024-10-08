@@ -1,7 +1,7 @@
 import axios from "axios";
-// export const baseUrl = "https://strapi-meet-my-box-production.up.railway.app";
+export const baseUrl = "https://strapi-meet-my-box-production.up.railway.app";
 
-export const baseUrl = "http://localhost:1337";
+// export const baseUrl = "http://localhost:1337";
 export async function useGetBlock(
   url: string,
   isProcess?: boolean,
@@ -32,7 +32,7 @@ export async function useGetBlock(
       params: params,
       headers: {
         Authorization:
-          "Bearer 10e2709a91ac445c1b971a25fae69894b61b077d1531752a6591baae5741ebe7344a575b5de1779a7911b960203d17079f644f4e99b940df25187d0b6366bb48fa6c9abe5b7c3b275c7f12dc5c2a88869fdb31848c1ee586fd490d656c28e4b9625bcc549a7d37df9a40415d1bcf3be5b351f7a019c35e487daf5e1e2637daca",
+          "Bearer c9dcf6ab5450d75f770ef50c5351c906c0ac431ca1b5ed445916e85d767031e49b2a11019f46bca8e58b8c80a9e5c37dc2611536b81fa4a2e054ef9cd4a28a8e62839619cc079035a425d50ea789f9afce040d50503c81190dca0b3861cd5aedfa6281faad0ceef882be5123c2786fa818c453bbb1bc7fdc7168015b3469b430",
       },
     });
 
