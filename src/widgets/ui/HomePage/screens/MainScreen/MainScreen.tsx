@@ -78,7 +78,7 @@ export const MainScreen = () => {
             </div>
             <img
               src={baseUrl + main.img.data.attributes.url}
-              alt=""
+              alt="Main Image"
               className={styles.main_screen__img}
             />
           </main>
@@ -118,6 +118,7 @@ export const MainScreen = () => {
               <div className="w-full flex">
                 <Fade className="w-full flex justify-end">
                   <img
+                    alt="Main Image"
                     src={baseUrl + main.img.data.attributes.url}
                     className={styles.main_screen_pc__img}
                   />
