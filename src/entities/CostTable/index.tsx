@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // Компонент для таблицы со стандартной и экспресс доставкой
-const PricingTable = () => {
+const PricingTable = ({ cost1, cost2 }: any) => {
   const [tableState, setTableState] = useState<"Стандарт" | "Экспресс">(
     "Стандарт"
   );
@@ -75,17 +75,9 @@ const PricingTable = () => {
 
       {/* Подсказки для сроков доставки */}
       {tableState === "Стандарт" ? (
-        <div className="text-xs text-gray-600 mb-3">
-          *Срок доставки от 8 дней, средний срок доставки - 14 дней. Точные
-          сроки зависят от адреса отправителя, получателя и графика работы
-          логистических партнеров.
-        </div>
+        <div className="text-xs text-gray-600 mb-3">{cost1.info}</div>
       ) : (
-        <div className="text-xs text-gray-600 mb-3">
-          *Сроки доставки от 3 дней, средний срок доставки - 10 дней. Точные
-          сроки зависят от адреса отправителя, получателя и графика работы
-          логистических партнеров.
-        </div>
+        <div className="text-xs text-gray-600 mb-3">{cost2.info}</div>
       )}
 
       {/* Таблица с данными */}
@@ -95,20 +87,31 @@ const PricingTable = () => {
             <tr
               className={`  ${tableState === "Стандарт" ? "bg-blue-600" : "bg-yellow-500"} text-white`}
             >
-              <th className="py-2 px-2 border">Вес (кг)</th>
-              <th className="py-2 px-2 border">Стоимость (EUR)</th>
+              <th className="py-2 px-2 border">
+                {tableState === "Стандарт"
+                  ? cost1.table_heading.heading1
+                  : cost2.table_heading.heading1}
+              </th>
+              <th className="py-2 px-2 border">
+                {tableState === "Стандарт"
+                  ? cost1.table_heading.heading2
+                  : cost2.table_heading.heading2}
+              </th>
             </tr>
           </thead>
           <tbody>
-            {(tableState === "Стандарт"
-              ? pricingData.standard
-              : pricingData.express
-            ).map((item, index) => (
-              <tr key={index} className="hover:bg-gray-100">
-                <td className="py-1 px-2 border text-center">{item.weight}</td>
-                <td className="py-1 px-2 border text-center">{item.price}</td>
-              </tr>
-            ))}
+            {(tableState === "Стандарт" ? cost1.values : cost2.values).map(
+              (item: any, index: number) => (
+                <tr key={index} className="hover:bg-gray-100">
+                  <td className="py-1 px-2 border text-center">
+                    {item.value1}
+                  </td>
+                  <td className="py-1 px-2 border text-center">
+                    {item.value2}
+                  </td>
+                </tr>
+              )
+            )}
           </tbody>
         </table>
       </div>
