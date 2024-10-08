@@ -6,47 +6,119 @@ import {
 } from "@shared/ui/Link/Footer/footer-links";
 import { SocialMediaLinks } from "@shared/ui/Link/Social/social-links";
 import styles from "./styles.module.scss";
+import { useEffect, useState } from "react";
+import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
+import { Loader } from "@widgets/ui/Loader/ui/loader";
 
-export const Footer = () => {
+export const Footer: React.FC = () => {
+  const [footer, setFooter] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlock = async () => {
+      try {
+        setIsLoading(true);
+        const block = await useGetBlock("/api/footers/1");
+        console.log("MYMYMY", block);
+        setFooter(block);
+      } catch (error) {
+        console.error("Error fetching footer data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBlock();
+  }, []);
+
+  // Return loader if data is still being fetched
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  // Return the complete footer structure once data is fetched
   return (
     <>
-      <footer className={styles.footer} id="footer">
-        <a href="#main-mob" className="w-full flex items-center justify-center">
-          <img
-            onClick={() => (window.location.href = "/")}
-            src={logo.src}
-            alt="footer_logo"
-            className={styles.footer__logo}
-          />
-        </a>
-        <FooterLinks />
-        <Button text="Вверх" buttonType="filled" />
-        <SocialMediaLinks />
-      </footer>
-      <footer className={styles.footer_pc} id="footer">
-        <div className={styles.footer_pc__nav}>
-          <img
-            src={logo.src}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            alt="footer_logo"
-            className={`${styles.footer_pc__logo} cursor-pointer`}
-          />
-          <FooterLinksPC />
-          <Button
-            text="Вверх"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            buttonType="filled"
-            margin="hover:text-white"
-          />
-        </div>
-        <SocialMediaLinks />
-        <span className="text-white flex flex-col items-center mb-4 text-sm">
-          © Meetmybox.com 2024.{" "}
-          <span className="text-sm mt-2">
-            Все права защищены. All rights reserved.
+      <>
+        <footer className={styles.footer} id="footer">
+          <a
+            href="#main-mob"
+            className="w-full flex items-center justify-center"
+          >
+            <img
+              onClick={() => (window.location.href = "/")}
+              src={logo.src}
+              alt="footer_logo"
+              className={styles.footer__logo}
+            />
+          </a>
+          {/* Conditional rendering to handle undefined or missing links */}
+          {footer?.links ? <FooterLinks footerLinks={footer.links} /> : null}
+          <Button text="Вверх" buttonType="filled" />
+          <SocialMediaLinks />
+        </footer>
+        <footer className={styles.footer_pc} id="footer">
+          <div className={styles.footer_pc__nav}>
+            <img
+              src={logo.src}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              alt="footer_logo"
+              className={`${styles.footer_pc__logo} cursor-pointer`}
+            />
+            {/* Conditional rendering for desktop links */}
+            {footer?.links ? (
+              <FooterLinksPC footerLinks={footer.links} />
+            ) : null}
+            <Button
+              text="Вверх"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              buttonType="filled"
+              margin="hover:text-white"
+            />
+          </div>
+          <SocialMediaLinks />
+          <span className="text-white flex flex-col items-center mb-4 text-sm">
+            © Meetmybox.com 2024.{" "}
+            <span className="text-sm mt-2">
+              Все права защищены. All rights reserved.
+            </span>
           </span>
-        </span>
-      </footer>
+        </footer>
+      </>
     </>
   );
 };
+
+// export const Footer = () => {
+//   const [footer, setFooter] = useState<any>();
+//   const [isLoading, setIsLoading] = useState(true);
+
+//   useEffect(() => {
+//     const fetchBlock = async () => {
+//       try {
+//         setIsLoading(true);
+//         const block = await useGetBlock("/api/footers/1");
+//         console.log("MYMYMYBLOCK", block);
+//         setFooter(block);
+//       } catch (error) {
+//         console.error("Error fetching packages:", error);
+//       } finally {
+//         setIsLoading(false);
+//       }
+//     };
+
+//     fetchBlock();
+//   }, []);
+
+//   return (
+//     <div>
+//       {isLoading ? (
+//         <p>Loading...</p>
+//       ) : (
+//         <footer>
+//           {footer ? <div>{footer.content}</div> : "No footer content"}
+//         </footer>
+//       )}
+//     </div>
+//   );
+// };
