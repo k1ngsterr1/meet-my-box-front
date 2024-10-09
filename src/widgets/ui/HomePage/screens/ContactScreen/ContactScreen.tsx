@@ -58,6 +58,8 @@ export const ContactScreen = () => {
               src={contact_img.src}
               alt="form_img"
               className="mt-4 w-full mb-8"
+              width={512}
+              height={256}
             />
           </section>
           <section className={styles.contact_pc} id="contacts-pc">
@@ -80,6 +82,8 @@ export const ContactScreen = () => {
               src={contact_img.src}
               alt="form_img"
               className={`${styles.contact_pc__img}`}
+              width={512}
+              height={256}
             />
           </section>
         </>
