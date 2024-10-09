@@ -15,7 +15,14 @@ export const TrackBlock = ({ title, text, img }: any) => {
         <p className={styles.track__block__description}>{text}</p>
         <Button text="Отследить" buttonType="filled" margin="mt-10" />
       </div>
-      <img src={baseUrl + img} alt="" className={styles.track__block__img} />
+      <img
+        src={baseUrl + img}
+        alt=""
+        className={styles.track__block__img}
+        width={1080}
+        height={1080}
+        style={{ width: "1080px", height: "1080px" }}
+      />
     </div>
   );
 };
@@ -23,7 +30,13 @@ export const TrackBlock = ({ title, text, img }: any) => {
 export const TrackBlockPC = ({ title, text, img }: any) => {
   return (
     <div className={styles.track_pc__block}>
-      <img src={baseUrl + img} alt="" className={styles.track_pc__block__img} />
+      <img
+        src={baseUrl + img}
+        alt=""
+        className={styles.track_pc__block__img}
+        width={1080}
+        height={1080}
+      />
       <div className={styles.track_pc__container}>
         <Fade>
           <span className={styles.track_pc__block__title}>{parse(title)}</span>
