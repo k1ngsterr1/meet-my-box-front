@@ -86,7 +86,7 @@ export const CookiePopup = () => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 shadow-lg flex justify-between items-center z-50">
-      <p className="text-sm text-white">{text[language].message} </p>
+      <p className="text-xs sm:text-sm text-white">{text[language].message} </p>
 
       <div className="flex items-center">
         {/* Language Switcher */}

@@ -18,8 +18,9 @@ export const TrackBlock = ({ title, text, img }: any) => {
         src={baseUrl + img}
         alt=""
         className={styles.track__block__img}
-        width={400}
-        height={400}
+        width={1080}
+        height={1080}
+        style={{ width: "1080px", height: "1080px" }}
       />
     </div>
   );
@@ -30,10 +31,10 @@ export const TrackBlockPC = ({ title, text, img }: any) => {
     <div className={styles.track_pc__block}>
       <img
         src={baseUrl + img}
-        alt="Track"
+        alt=""
         className={styles.track_pc__block__img}
-        width={400}
-        height={400}
+        width={1080}
+        height={1080}
       />
       <div className={styles.track_pc__container}>
         <Fade>

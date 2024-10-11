@@ -5,12 +5,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { A11y, Navigation, Scrollbar } from "swiper/modules";
+import { A11y, Navigation, Scrollbar, Virtual } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import styles from "./styles.module.scss";
 
 // Import Swiper styles
-import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -28,7 +27,7 @@ export const FeedbackSwiper = ({ items }: any) => {
         <FontAwesomeIcon icon={faArrowRight} className={styles.next__icon} />
       </div>
       <Swiper
-        modules={[Navigation, Scrollbar, A11y]}
+        modules={[Navigation, Scrollbar, A11y, Virtual]}
         spaceBetween={10}
         slidesPerView={1}
         loop={true}
@@ -36,11 +35,24 @@ export const FeedbackSwiper = ({ items }: any) => {
           prevEl: `.${styles.prev}`,
           nextEl: `.${styles.next}`,
         }}
+        virtual={{ enabled: true }}
         pagination={{ clickable: true }}
         centeredSlides={true}
+        onSlideChange={(swiper) => {
+          document.querySelectorAll(".swiper-slide").forEach((slide, index) => {
+            if (slide instanceof HTMLElement) {
+              // Check if the element is an instance of HTMLElement
+              if (index === swiper.activeIndex) {
+                slide.style.display = "block";
+              } else {
+                slide.style.display = "none";
+              }
+            }
+          });
+        }}
       >
         {items.map((item: any, index: number) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} virtualIndex={index}>
             <FeedbackItem name={item.name} stars={5} text={item.text} />
           </SwiperSlide>
         ))}
@@ -58,7 +70,7 @@ export const FeedbackSwiperPC = ({ items }: any) => {
         <FontAwesomeIcon icon={faArrowRight} className={styles.next__icon} />
       </div>
       <Swiper
-        modules={[Navigation, Scrollbar, A11y]}
+        modules={[Navigation, Scrollbar, A11y, Virtual]}
         spaceBetween={10}
         slidesPerView={4}
         loop={true}
@@ -67,6 +79,7 @@ export const FeedbackSwiperPC = ({ items }: any) => {
           nextEl: `.${styles.next_pc}`,
         }}
         pagination={{ clickable: true }}
+        virtual={{ enabled: true }}
         breakpoints={{
           2560: {
             slidesPerView: 4,
@@ -75,7 +88,7 @@ export const FeedbackSwiperPC = ({ items }: any) => {
         }}
       >
         {items.map((item: any, index: number) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} virtualIndex={index}>
             <FeedbackItemPC name={item.name} stars={5} text={item.text} />
           </SwiperSlide>
         ))}

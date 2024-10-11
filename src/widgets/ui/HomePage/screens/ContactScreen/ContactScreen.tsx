@@ -60,6 +60,8 @@ export const ContactScreen = () => {
               // width={400}
               // height={400}
               className="mt-4 w-full mb-8"
+              width={512}
+              height={256}
             />
           </section>
           <section className={styles.contact_pc} id="contacts-pc">
@@ -86,6 +88,8 @@ export const ContactScreen = () => {
               // width={400}
               // height={400}
               className={`${styles.contact_pc__img}`}
+              width={512}
+              height={256}
             />
           </section>
         </>
