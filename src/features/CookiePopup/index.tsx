@@ -30,6 +30,7 @@ export const CookiePopup = () => {
           <a
             href={cookie_file}
             target="_blank"
+            aria-label="Cookie Policy"
             rel="noopener noreferrer"
             className="cursor-pointer text-main text-underline"
           >
@@ -39,6 +40,7 @@ export const CookiePopup = () => {
           <a
             href={privacy_file}
             target="_blank"
+            aria-label="Privacy Policy"
             rel="noopener noreferrer"
             className="cursor-pointer text-main text-underline"
           >
@@ -60,6 +62,7 @@ export const CookiePopup = () => {
             href={cookie_file}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Cookies"
             className="cursor-pointer underline ml-1 text-main"
           >
             cookies
@@ -69,6 +72,7 @@ export const CookiePopup = () => {
             href={privacy_file}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Политика конфиденциальности"
             className="cursor-pointer ml-1 text-main underline"
           >
             Политики конфиденциальности

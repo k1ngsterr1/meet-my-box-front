@@ -27,7 +27,9 @@ export const RequestPopup = () => {
               >
                 ×
               </button>
-              <h2 className="text-lg font-semibold mb-4">Отправить посылку</h2>
+              <span className="text-lg font-semibold mb-4">
+                Отправить посылку
+              </span>
               <Paragraph>
                 Здесь собраны разделы, которые помогут вам отправить посылку
               </Paragraph>

@@ -10,6 +10,7 @@ import styles from "./styles.module.scss";
 export const ProcessScreen = () => {
   const [process, setProcess] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const fetchBlock = async () => {
       try {

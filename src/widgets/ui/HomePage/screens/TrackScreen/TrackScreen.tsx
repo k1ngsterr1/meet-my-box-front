@@ -34,16 +34,20 @@ export const TrackScreen = () => {
               title={track.card_text}
               text={track.card_paragraph}
               img={track.image.data.attributes.url}
+              width={400}
+              height={400}
             />
           </section>
           <section className={styles.track_pc} id="track-pc">
             <Fade>
-              <h4 className={styles.track_pc__heading}>{track.heading}</h4>
+              <h2 className={styles.track_pc__heading}>{track.heading}</h2>
             </Fade>
             <TrackBlockPC
               title={track.card_text}
               text={track.card_paragraph}
               img={track.image.data.attributes.url}
+              width={400}
+              height={400}
             />
           </section>
         </>

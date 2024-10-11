@@ -55,6 +55,8 @@ export const RatesCard: React.FC<Props> = ({ day, price, date, url }) => {
       <div className={styles.rates__list__card__right}>
         <img
           src={url}
+          width={400}
+          height={400}
           alt="logo_delivery"
           className={styles.rates__list__card__img}
         />

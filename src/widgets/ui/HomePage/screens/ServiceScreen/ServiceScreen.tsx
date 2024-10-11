@@ -78,16 +78,22 @@ export const ServiceScreen = () => {
               <img
                 src={process_3.src}
                 alt="Услуга 1"
+                width={400}
+                height={400}
                 className="w-[90%] h-[300px]"
               />
               <img
                 src={process_2.src}
                 alt="Услуга 2"
+                width={400}
+                height={400}
                 className="w-[90%] h-[300px]"
               />
               <img
                 src={process_1.src}
                 alt="Услуга 3"
+                width={400}
+                height={400}
                 className="w-[90%] h-[300px]"
               />
             </div>

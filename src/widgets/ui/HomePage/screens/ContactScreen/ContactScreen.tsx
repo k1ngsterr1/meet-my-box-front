@@ -39,7 +39,7 @@ export const ContactScreen = () => {
       {contact ? (
         <>
           <section className={styles.contact} id="contacts-mob">
-            <h2 className={styles.contact__heading}>{contact.heading}</h2>
+            <span className={styles.contact__heading}>{contact.heading}</span>
             <Paragraph margin="mt-4" width="w-3/4" isCentered={true}>
               {parse(contact.paragraph)}
             </Paragraph>
@@ -57,12 +57,16 @@ export const ContactScreen = () => {
             <img
               src={contact_img.src}
               alt="form_img"
+              // width={400}
+              // height={400}
               className="mt-4 w-full mb-8"
             />
           </section>
           <section className={styles.contact_pc} id="contacts-pc">
             <div className={styles.contact_pc__left}>
-              <h2 className={styles.contact_pc__heading}>{contact.heading}</h2>
+              <span className={styles.contact_pc__heading}>
+                {contact.heading}
+              </span>
               <Paragraph width="w-3/4">{parse(contact.paragraph)}</Paragraph>
               <ContactFormPC />
               <ContactLink
@@ -79,6 +83,8 @@ export const ContactScreen = () => {
             <img
               src={contact_img.src}
               alt="form_img"
+              // width={400}
+              // height={400}
               className={`${styles.contact_pc__img}`}
             />
           </section>

@@ -48,7 +48,7 @@ export const CalculateScreen = () => {
   return (
     <>
       <section className={styles.calculate} id="calculate-mob">
-        <h2 className={styles.calculate__heading}>{calculate.heading}</h2>
+        <span className={styles.calculate__heading}>{calculate.heading}</span>
         <Button
           text="Посылка"
           buttonType={isForm ? "filled" : "outline"}

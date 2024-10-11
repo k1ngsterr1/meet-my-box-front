@@ -10,6 +10,7 @@ export const SocialMediaLinks = () => {
           key={index}
           href={item.to}
           target="_blank"
+          aria-label="Social Media"
           rel="noopener noreferrer"
           className={styles.social_tab__link}
         >

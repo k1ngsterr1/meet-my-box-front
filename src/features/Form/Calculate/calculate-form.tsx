@@ -183,9 +183,9 @@ export const CalculateForm = () => {
       fromCountry: fromCountry,
       toCountry: toCountry,
     };
-    if (weight < (length * width * height) / 5000) {
-      weight = (length * width * height) / 5000;
-    }
+    // if (weight < (length * width * height) / 5000) {
+    //   weight = (length * width * height) / 5000;
+    // }
     localStorage.setItem(
       "countryData",
       JSON.stringify({
@@ -528,9 +528,9 @@ export const CalculateFormPC = () => {
       fromCountry: fromCountry,
       toCountry: toCountry,
     };
-    if (weight < (length * width * height) / 5000) {
-      weight = (length * width * height) / 5000;
-    }
+    // if (weight < (length * width * height) / 5000) {
+    //   weight = (length * width * height) / 5000;
+    // }
     localStorage.setItem(
       "countryData",
       JSON.stringify({

@@ -50,7 +50,9 @@ export const MainScreen = () => {
               className={styles.main_screen__logo}
             />
             <Fade>
-              <h1 className={styles.main_screen__heading}>{main.heading}</h1>
+              <span className={styles.main_screen__heading}>
+                {main.heading}
+              </span>
             </Fade>
             <Fade delay={0.2}>
               <Paragraph isCentered margin="mt-4">
@@ -119,6 +121,8 @@ export const MainScreen = () => {
                 <Fade className="w-full flex justify-end">
                   <img
                     alt="Main Image"
+                    width={400}
+                    height={400}
                     src={baseUrl + main.img.data.attributes.url}
                     className={styles.main_screen_pc__img}
                   />

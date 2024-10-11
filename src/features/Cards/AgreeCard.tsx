@@ -7,10 +7,9 @@ import {
   Checkbox,
   FormControlLabel,
   Link,
-  Modal,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 
 interface AgreeCardProps {
   onAgreeClick: () => void;
@@ -98,8 +97,9 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
                 <Typography variant="body1">
                   Соглашаюсь{" "}
                   <Link
-                    href="https://example.com/privacy_policy.pdf"
+                    href="Политика конфиденциальности"
                     target="_blank"
+                    aria-label="Политика конфиденциальности"
                     underline="hover"
                     onClick={(e) => e.stopPropagation()}
                     sx={{ color: "#220CF3", cursor: "pointer" }}
@@ -125,6 +125,7 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
                   <Link
                     href="https://example.com/public_offer.pdf"
                     target="_blank"
+                    aria-label="Публичная оферта"
                     underline="hover"
                     onClick={(e) => e.stopPropagation()}
                     sx={{ color: "#220CF3", cursor: "pointer" }}
@@ -150,6 +151,7 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
                   <Link
                     href="https://example.com/personal_data.pdf"
                     target="_blank"
+                    aria-label="Персональные данные"
                     underline="hover"
                     onClick={(e) => e.stopPropagation()}
                     sx={{ color: "#220CF3", cursor: "pointer" }}
@@ -176,6 +178,7 @@ export const AgreeCard: React.FC<AgreeCardProps> = ({
                     href="https://example.com/personal_data.pdf"
                     target="_blank"
                     underline="hover"
+                    aria-label="Правила перевозки"
                     onClick={(e) => e.stopPropagation()}
                     sx={{ color: "#220CF3", cursor: "pointer" }}
                   >

@@ -1,14 +1,14 @@
 import bg_face from "@assets/bg_face.svg";
 import ServicePricingTable from "@entities/AdditionalServiceTable";
 import PricingTable from "@entities/CostTable";
+import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import Button from "@shared/ui/Button/ui/button";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
 import { useEffect, useState } from "react";
 import { AboutScreen } from "../HomePage/screens/AboutScreen/AboutScreen";
 import { ContactScreen } from "../HomePage/screens/ContactScreen/ContactScreen";
-import styles from "./styles.module.scss";
 import { Loader } from "../Loader/ui/loader";
-import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
+import styles from "./styles.module.scss";
 
 export const CostPage = () => {
   const [tableState, setTableState] = useState<string>("Стандарт");
@@ -44,7 +44,13 @@ export const CostPage = () => {
   return (
     <>
       <div className={styles.cost}>
-        <img src={bg_face.src} alt="" className={styles.cost__img} />
+        <img
+          src={bg_face.src}
+          alt="BLOB"
+          width={400}
+          height={400}
+          className={styles.cost__img}
+        />
         <h2 className={styles.cost__heading}>{cost.heading}</h2>
         <Paragraph isCentered margin="mt-4" width="w-[30%]">
           {cost.paragraph}

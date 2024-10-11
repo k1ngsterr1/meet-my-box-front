@@ -27,7 +27,13 @@ export const AddressPage = () => {
           <AddressPC items={address} />
         ) : (
           <>
-            <img src={no_address.src} alt="" className={styles.address__img} />
+            <img
+              src={no_address.src}
+              alt="Address"
+              className={styles.address__img}
+              width={400}
+              height={400}
+            />
             <h2 className={styles.address__heading}>У вас пока нет адресов</h2>
           </>
         )}

@@ -19,6 +19,7 @@ export const ProcessList: React.FC<IProcessList> = ({
     <div className={styles.process__list}>
       {content.map((item, index) => (
         <ImageCard
+        
           key={index}
           img={item.image.data.attributes.url}
           description={item.text}

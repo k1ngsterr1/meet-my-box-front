@@ -40,6 +40,8 @@
     }
     &__img {
       width: 60%;
+      // position: absolute;
+      right: 0;
       @include respond-to("5xl") {
         width: 60%;
       }

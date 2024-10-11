@@ -26,13 +26,20 @@ export const HelpPopup = () => {
               >
                 ×
               </button>
-              <h2 className="text-lg font-semibold mb-4">Помощь с покупкой</h2>
+              <span className="text-lg font-semibold mb-4">
+                Помощь с покупкой
+              </span>
               <Paragraph>
                 Здесь собраны разделы, которые помогут вам разобраться со
                 стоимостью
               </Paragraph>
               <div className="flex flex-col gap-2 mt-2">
-                <a className="text-main" href="#faq" onClick={closePopup}>
+                <a
+                  className="text-main"
+                  href="#faq"
+                  aria-label="FAQ"
+                  onClick={closePopup}
+                >
                   FAQ
                 </a>
                 <a

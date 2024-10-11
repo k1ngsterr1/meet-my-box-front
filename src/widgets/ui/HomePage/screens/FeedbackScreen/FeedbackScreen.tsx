@@ -37,15 +37,17 @@ export const FeedbackScreen = () => {
         <>
           <section className={styles.feedback} id="feedback-mob">
             <Fade>
-              <h2 className={styles.feedback__heading}>{feedback.heading}</h2>
+              <span className={styles.feedback__heading}>
+                {feedback.heading}
+              </span>
             </Fade>
             <FeedbackSwiper items={feedback.feedback} />
           </section>
           <section className={styles.feedback_pc} id="feedback-pc">
             <Fade>
-              <h2 className={styles.feedback_pc__heading}>
+              <span className={styles.feedback_pc__heading}>
                 {feedback.heading}
-              </h2>
+              </span>
             </Fade>
             <FeedbackSwiperPC items={feedback.feedback} />
           </section>

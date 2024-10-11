@@ -23,14 +23,22 @@ export const AddAddressPage = () => {
       {user ? (
         <>
           <div className={styles.add_address}>
-            <img src={bg_face.src} alt="" className={styles.add_address__img} />
+            <img
+              src={bg_face.src}
+              alt=""
+              className={styles.add_address__img}
+              width={400}
+              height={400}
+            />
             <h2 className={styles.add_address__heading}>Заполните адрес</h2>
             <AddAddressForm user={user} />
           </div>
           <div className={styles.add_address_pc}>
             <img
               src={bg_face.src}
-              alt=""
+              alt="BG_FACE"
+              width={400}
+              height={400}
               className={styles.add_address_pc__img}
             />
             <h2 className={styles.add_address_pc__heading}>Заполните адрес</h2>
@@ -40,14 +48,22 @@ export const AddAddressPage = () => {
       ) : (
         <>
           <div className={styles.add_address}>
-            <img src={bg_face.src} alt="" className={styles.add_address__img} />
+            <img
+              src={bg_face.src}
+              alt=""
+              className={styles.add_address__img}
+              width={400}
+              height={400}
+            />
             <h2 className={styles.add_address__heading}>Заполните адрес</h2>
             <AddAddressForm />
           </div>
           <div className={styles.add_address_pc}>
             <img
               src={bg_face.src}
-              alt=""
+              alt="BG_FACE"
+              width={400}
+              height={400}
               className={styles.add_address_pc__img}
             />
             <h2 className={styles.add_address_pc__heading}>Заполните адрес</h2>

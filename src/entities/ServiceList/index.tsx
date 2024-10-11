@@ -1,7 +1,6 @@
 import { serviceList } from "@shared/lib/content/Process";
-import { ImageCard } from "@shared/ui/Card/ui/Image/image-card";
-import styles from "./styles.module.scss";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
+import styles from "./styles.module.scss";
 
 export const ServiceList = () => {
   return (
@@ -9,6 +8,8 @@ export const ServiceList = () => {
       {serviceList.map((item, index) => (
         <div className={styles.item}>
           <img
+            width={400}
+            height={400}
             src={item.img.src}
             alt="image card"
             className={styles.item__img}

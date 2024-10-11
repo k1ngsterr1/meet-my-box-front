@@ -9,6 +9,7 @@ export const ContactsButton = () => {
         <a
           href="http://t.me/meetmbox"
           target="_blank"
+          aria-label="Telegram - Meet My box"
           rel="noopener noreferrer"
           className={styles.icon}
         >
@@ -17,6 +18,7 @@ export const ContactsButton = () => {
         <a
           href="https://wa.me/393931577805"
           target="_blank"
+          aria-label="WhatsApp - Meet My box"
           rel="noopener noreferrer"
           className={styles.icon_wa}
         >

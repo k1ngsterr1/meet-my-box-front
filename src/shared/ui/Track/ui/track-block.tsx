@@ -1,9 +1,8 @@
-import tracking from "@assets/racoon.webp";
+import { baseUrl } from "@shared/lib/hooks/useGetBlock";
 import Button from "@shared/ui/Button/ui/button";
+import parse from "html-react-parser";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
-import { baseUrl } from "@shared/lib/hooks/useGetBlock";
-import parse from "html-react-parser";
 
 export const TrackBlock = ({ title, text, img }: any) => {
   return (
@@ -15,7 +14,13 @@ export const TrackBlock = ({ title, text, img }: any) => {
         <p className={styles.track__block__description}>{text}</p>
         <Button text="Отследить" buttonType="filled" margin="mt-10" />
       </div>
-      <img src={baseUrl + img} alt="" className={styles.track__block__img} />
+      <img
+        src={baseUrl + img}
+        alt=""
+        className={styles.track__block__img}
+        width={400}
+        height={400}
+      />
     </div>
   );
 };
@@ -23,7 +28,13 @@ export const TrackBlock = ({ title, text, img }: any) => {
 export const TrackBlockPC = ({ title, text, img }: any) => {
   return (
     <div className={styles.track_pc__block}>
-      <img src={baseUrl + img} alt="" className={styles.track_pc__block__img} />
+      <img
+        src={baseUrl + img}
+        alt="Track"
+        className={styles.track_pc__block__img}
+        width={400}
+        height={400}
+      />
       <div className={styles.track_pc__container}>
         <Fade>
           <span className={styles.track_pc__block__title}>{parse(title)}</span>

@@ -1,14 +1,14 @@
 import logo from "@assets/logo_white.svg";
+import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import Button from "@shared/ui/Button/ui/Footer/button";
 import {
   FooterLinks,
   FooterLinksPC,
 } from "@shared/ui/Link/Footer/footer-links";
 import { SocialMediaLinks } from "@shared/ui/Link/Social/social-links";
-import styles from "./styles.module.scss";
-import { useEffect, useState } from "react";
-import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import { Loader } from "@widgets/ui/Loader/ui/loader";
+import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 
 export const Footer: React.FC = () => {
   const [footer, setFooter] = useState<any>(null);
@@ -46,6 +46,8 @@ export const Footer: React.FC = () => {
             className="w-full flex items-center justify-center"
           >
             <img
+              width={400}
+              height={400}
               onClick={() => (window.location.href = "/")}
               src={logo.src}
               alt="footer_logo"

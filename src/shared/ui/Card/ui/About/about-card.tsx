@@ -1,10 +1,9 @@
 import card_img from "@assets/about_card.png";
-import { aboutCard, type IAboutCard } from "@shared/lib/content/About";
-import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
+import { type IAboutCard } from "@shared/lib/content/About";
+import parse from "html-react-parser";
 import type React from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
-import parse from "html-react-parser";
 export const AboutGroup = ({ items }: any) => {
   return (
     <div className={styles.about__card}>
@@ -35,6 +34,8 @@ export const AboutItemPC: React.FC<IAboutCard> = ({ title, description }) => {
   return (
     <div className={styles.about_pc__card__item}>
       <img
+        width={24}
+        height={24}
         src={card_img.src}
         alt="Card img"
         className={styles.about_pc__card__img}
@@ -49,6 +50,8 @@ export const AboutItem: React.FC<IAboutCard> = ({ title, description }) => {
   return (
     <div className={styles.about__card__item}>
       <img
+        width={24}
+        height={24}
         src={card_img.src}
         alt="Card img"
         className={styles.about__card__img}

@@ -5,9 +5,9 @@ import styles from "./styles.module.scss";
 
 import logo from "@assets/logo_mob.svg";
 import { useStore } from "@nanostores/react";
+import { sidePanelLinks } from "@shared/lib/content/SidePanel";
 import { isSideMenuOpen } from "@stores/menuState";
 import { Slide } from "react-awesome-reveal";
-import { sidePanelLinks } from "@shared/lib/content/SidePanel";
 
 export const Menu = () => {
   const menuOpen = useStore(isSideMenuOpen);
@@ -29,7 +29,12 @@ export const Menu = () => {
               className={styles.menu__close}
               onClick={toggleMenu}
             />
-            <img src={logo.src} className="w-[160px] mt-32" />
+            <img
+              width={400}
+              height={400}
+              src={logo.src}
+              className="w-[160px] mt-32"
+            />
             <nav className="flex flex-col items-center gap-4 mt-8">
               {sidePanelLinks.map((item, index) => (
                 <a className="text-dark text-xl" href={item.to}>

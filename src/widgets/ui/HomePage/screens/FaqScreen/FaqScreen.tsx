@@ -22,7 +22,7 @@ export const FAQScreen = () => {
       {items ? (
         <>
           <section className={styles.faq} id="faq">
-            <h2 className={styles.faq__heading}>FAQ</h2>
+            <span className={styles.faq__heading}>FAQ</span>
             <FAQList items={items.questions} />
             <div className="w-full flex items-center justify-center">
               <button className="text-black text-sm mt-8">
@@ -31,6 +31,30 @@ export const FAQScreen = () => {
                   здесь
                 </a>
               </button>
+            </div>
+            <div className="flex flex-col">
+              {" "}
+              <h2 className="opacity-[0] absolute">
+                посылка из европы в россию
+              </h2>
+              <h3 className="opacity-[0] absolute">
+                как отправить посылку из европы в россию
+              </h3>
+              <h3 className="opacity-[0] absolute">
+                посылки из европы в россию сейчас
+              </h3>
+              <h2 className="opacity-[0] absolute">
+                посылки из европы в россию 2024 (или сразу 2025 уже делать)
+              </h2>
+              <h3 className="opacity-[0] absolute">
+                отправка посылок в европу из россии
+              </h3>
+              <h3 className="opacity-[0] absolute">
+                доставить посылку из европы в россию
+              </h3>
+              <h2 className="opacity-[0] absolute">
+                посылки в европу из россии почтой
+              </h2>
             </div>
           </section>
         </>

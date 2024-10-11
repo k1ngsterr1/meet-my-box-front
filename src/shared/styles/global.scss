@@ -12,6 +12,10 @@
   scroll-behavior: smooth;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 /* Change text selection color */
 ::selection {
   background-color: #220cf3;
