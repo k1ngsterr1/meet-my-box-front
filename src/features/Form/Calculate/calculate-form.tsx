@@ -8,7 +8,6 @@ import {
 import { useGetRates } from "@shared/lib/hooks/useGetRates";
 import { validatePostcode } from "@shared/lib/hooks/usePostCodeValidate";
 import { CalculateInput } from "@shared/ui/Input/Calculate/calculate-input";
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 const countriesFrom = [
@@ -56,86 +55,6 @@ export interface ShippingRate {
   currency: string;
   [key: string]: any; // Add other fields as needed
 }
-
-const useShippingRates = ({
-  weight,
-  width,
-  height,
-  length,
-  fromCountry,
-  toCountry,
-  fromPostcode,
-  toPostcode,
-}: ShippingRatesParams): ShippingRate[] => {
-  const [shippingRates, setShippingRates] = useState<ShippingRate[]>([]);
-
-  useEffect(() => {
-    const fetchRates = async () => {
-      if (
-        weight > 0 &&
-        width > 0 &&
-        height > 0 &&
-        length > 0 &&
-        fromPostcode &&
-        toPostcode
-      ) {
-        try {
-          const response = await axios.post(
-            "https://api.goshippo.com/shipments/",
-            {
-              address_from: {
-                country: fromCountry,
-                zip: fromPostcode,
-              },
-              address_to: {
-                country: toCountry,
-                zip: toPostcode,
-              },
-              parcels: [
-                {
-                  length: length.toString(),
-                  width: width.toString(),
-                  height: height.toString(),
-                  distance_unit: "см",
-                  weight: weight.toString(),
-                  mass_unit: "kg",
-                },
-              ],
-              async: false,
-            },
-            {
-              headers: {
-                Authorization:
-                  "ShippoToken shippo_live_ee85e3da2e43029c6ce3e09509b90309c0887c08",
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          console.log(response.data);
-          setShippingRates(response.data.rates || []);
-        } catch (error) {
-          console.error("Error fetching rates from Shippo:", error);
-          setShippingRates([]);
-        }
-      } else {
-        setShippingRates([]);
-      }
-    };
-
-    fetchRates();
-  }, [
-    weight,
-    width,
-    height,
-    length,
-    fromCountry,
-    toCountry,
-    fromPostcode,
-    toPostcode,
-  ]);
-
-  return shippingRates;
-};
 
 export const CalculateForm = () => {
   let [weight, setWeight] = useState(0);
@@ -224,6 +143,10 @@ export const CalculateForm = () => {
         setError(
           "Вес, который вы указали (объемный или фактический) превышает 15 кг. Наш совет: разбейте посылку на две коробки поменьше или напишите нам для решения вопроса."
         );
+        return;
+      }
+      if (length + height + width > 150) {
+        setError("Габариты посылки не могут привышать более 150см.");
         return;
       }
       localStorage.setItem("rates", JSON.stringify(response));
@@ -561,6 +484,11 @@ export const CalculateFormPC = () => {
         setError(
           "Вес, который вы указали (объемный или фактический) превышает 15 кг. Наш совет: разбейте посылку на две коробки поменьше или напишите нам для решения вопроса."
         );
+        return;
+      }
+      console.log(length + height + width);
+      if (length + height + width > 150) {
+        setError("Габариты посылки не могут привышать более 150см.");
         return;
       }
       localStorage.setItem("rates", JSON.stringify(response));

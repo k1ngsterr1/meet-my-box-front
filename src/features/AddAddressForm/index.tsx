@@ -1,13 +1,17 @@
 import { useAddAddress } from "@shared/lib/hooks/useAddAddress";
 // import Button from "@shared/ui/Button/ui/button";
+import { CheckCircleOutline, ErrorOutline } from "@mui/icons-material";
 import {
-  Alert,
   Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   FormControl,
   InputLabel,
   MenuItem,
+  Button as MuiButton,
   Select,
-  Snackbar,
   TextField,
   ToggleButton,
   ToggleButtonGroup,
@@ -106,12 +110,14 @@ export const AddAddressForm: React.FC<{ user?: any }> = ({ user }) => {
 
       <TextField
         label="Имя"
+        required
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
         fullWidth
       />
       <TextField
         label="Фамилия"
+        required
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
         fullWidth
@@ -119,29 +125,34 @@ export const AddAddressForm: React.FC<{ user?: any }> = ({ user }) => {
       <TextField
         label="Имя на латинице"
         value={firstNameLatin}
+        required
         onChange={(e) => setFirstNameLatin(e.target.value)}
         fullWidth
       />
       <TextField
         label="Фамилия на латинице"
         value={lastNameLatin}
+        required
         onChange={(e) => setLastNameLatin(e.target.value)}
         fullWidth
       />
       <TextField
         label="Номер телефона"
+        required
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
         fullWidth
       />
       <TextField
         label="Улица"
+        required
         value={street}
         onChange={(e) => setStreet(e.target.value)}
         fullWidth
       />
       <TextField
         label="Дом"
+        required
         value={house}
         onChange={(e) => setHouse(e.target.value)}
         fullWidth
@@ -149,11 +160,13 @@ export const AddAddressForm: React.FC<{ user?: any }> = ({ user }) => {
       <TextField
         label="Корпус"
         value={building}
+        required
         onChange={(e) => setBuilding(e.target.value)}
         fullWidth
       />
       <TextField
         label="Квартира"
+        required
         value={apartment}
         onChange={(e) => setApartment(e.target.value)}
         fullWidth
@@ -161,24 +174,28 @@ export const AddAddressForm: React.FC<{ user?: any }> = ({ user }) => {
       <TextField
         label="Город"
         value={city}
+        required
         onChange={(e) => setCity(e.target.value)}
         fullWidth
       />
       <TextField
         label="Страна"
         value={country}
+        required
         onChange={(e) => setCountry(e.target.value)}
         fullWidth
       />
       <TextField
         label="Индекс"
         value={postalCode}
+        required
         onChange={(e) => setPostalCode(e.target.value)}
         fullWidth
       />
       <TextField
         label="Имя на домофоне"
         value={intercomName}
+        required
         onChange={(e) => setIntercomName(e.target.value)}
         fullWidth
       />
@@ -203,6 +220,19 @@ const countries = [
   { value: "TM", label: "Туркменистан" },
   { value: "AZ", label: "Азербайджан" },
   { value: "GE", label: "Грузия" },
+];
+
+const countriesFrom = [
+  { value: "IT", label: "Италия", countryCode: "IT" },
+  { value: "FR", label: "Франция", countryCode: "FR" },
+  { value: "DE", label: "Германия", countryCode: "DE" },
+  { value: "ES", label: "Испания", countryCode: "ES" },
+  { value: "NL", label: "Нидерланды", countryCode: "NL" },
+  { value: "AT", label: "Австрия", countryCode: "AT" },
+  { value: "PL", label: "Польша", countryCode: "PL" },
+  { value: "CH", label: "Швейцария", countryCode: "CH" },
+  { value: "GB", label: "Великобритания", countryCode: "GB" },
+  { value: "CY", label: "Кипр", countryCode: "CY" },
 ];
 
 export const AddAddressFormPC: React.FC<{ user?: any }> = ({ user }) => {
@@ -293,6 +323,7 @@ export const AddAddressFormPC: React.FC<{ user?: any }> = ({ user }) => {
         value={value}
         onChange={onChange}
         fullWidth
+        required
         sx={{
           backgroundColor: "white",
           "& .MuiInputBase-root": {
@@ -434,13 +465,16 @@ export const AddAddressFormPC: React.FC<{ user?: any }> = ({ user }) => {
           fullWidth
           sx={{ backgroundColor: "white" }}
         >
-          {countries.map((countryItem, index) => (
-            <MenuItem key={index} value={countryItem.value}>
-              {countryItem.label}
-            </MenuItem>
-          ))}
+          {(isReceiver ? countries : countriesFrom).map(
+            (countryItem, index) => (
+              <MenuItem key={index} value={countryItem.value}>
+                {countryItem.label}
+              </MenuItem>
+            )
+          )}
         </Select>
       </FormControl>
+
       <div className="flex items-center flex-col justify-center">
         <Button text="Сохранить" type="submit" buttonType="filled" />
         <Button
@@ -450,24 +484,70 @@ export const AddAddressFormPC: React.FC<{ user?: any }> = ({ user }) => {
           onClick={() => (window.location.href = "/application")}
         />
       </div>
-      <Snackbar
-        open={successMessage}
-        autoHideDuration={6000}
-        onClose={() => setSuccessMessage(false)}
+      <Dialog
+        open={successMessage || errorMessage}
+        onClose={() => {
+          setSuccessMessage(false);
+          setErrorMessage(false);
+        }}
+        maxWidth="sm"
+        fullWidth
+        sx={{
+          ".MuiDialog-paper": {
+            borderRadius: "20px",
+            padding: "20px",
+          },
+        }}
       >
-        <Alert onClose={() => setSuccessMessage(false)} severity="success">
-          Адрес успешно добавлен!
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={errorMessage}
-        autoHideDuration={6000}
-        onClose={() => setErrorMessage(false)}
-      >
-        <Alert onClose={() => setErrorMessage(false)} severity="error">
-          Ошибка при добавлении адреса. Попробуйте еще раз!
-        </Alert>
-      </Snackbar>
+        <DialogTitle sx={{ textAlign: "center", padding: "10px 0" }}>
+          {successMessage ? (
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <CheckCircleOutline
+                color="success"
+                sx={{ fontSize: 50, marginRight: 1 }}
+              />
+              <Typography variant="h6" color="success.main">
+                Успех
+              </Typography>
+            </Box>
+          ) : (
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <ErrorOutline
+                color="error"
+                sx={{ fontSize: 50, marginRight: 1 }}
+              />
+              <Typography variant="h6" color="error.main">
+                Ошибка
+              </Typography>
+            </Box>
+          )}
+        </DialogTitle>
+        <DialogContent sx={{ textAlign: "center" }}>
+          <Typography variant="body1" sx={{ mb: 2 }}>
+            {successMessage
+              ? "Адрес успешно добавлен!"
+              : "Ошибка при добавлении адреса. Попробуйте еще раз!"}
+          </Typography>
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: "center", paddingBottom: "20px" }}>
+          <MuiButton
+            variant="contained"
+            color={successMessage ? "success" : "error"}
+            onClick={() => {
+              setSuccessMessage(false);
+              setErrorMessage(false);
+            }}
+            sx={{
+              borderRadius: "50px",
+              padding: "10px 20px",
+              fontSize: "16px",
+              textTransform: "none",
+            }}
+          >
+            Закрыть
+          </MuiButton>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
