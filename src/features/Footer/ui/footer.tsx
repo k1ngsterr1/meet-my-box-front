@@ -50,6 +50,7 @@ export const Footer: React.FC = () => {
               height={400}
               onClick={() => (window.location.href = "/")}
               src={logo.src}
+              loading="lazy"
               alt="footer_logo"
               className={styles.footer__logo}
             />
@@ -62,6 +63,7 @@ export const Footer: React.FC = () => {
         <footer className={styles.footer_pc} id="footer">
           <div className={styles.footer_pc__nav}>
             <img
+              loading="lazy"
               src={logo.src}
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               alt="footer_logo"

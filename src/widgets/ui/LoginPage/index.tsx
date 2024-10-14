@@ -2,6 +2,7 @@ import bg_face from "@assets/bg_face.svg";
 import { LoginForm } from "@features/LoginForm";
 import { RedirectLink } from "@shared/ui/Link/RedirectLink/redirect-link";
 import styles from "./styles.module.scss";
+
 export const LoginPage = () => {
   return (
     <>

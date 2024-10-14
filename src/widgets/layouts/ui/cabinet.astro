@@ -4,7 +4,8 @@ const { title, description } = Astro.props;
 import "@shared/styles/global.scss";
 
 import { Footer } from "@features/Footer/ui/footer";
-import { Menu } from "@shared/ui/Menu/SideMenu";
+import { ProfileHeader } from "@features/ProfileHeader";
+import { ProfileMenu } from "@shared/ui/ProfileMenu/ui/index";
 import { SidePanel } from "@shared/ui/SidePanel";
 import { Loader } from "@widgets/ui/Loader/ui/loader";
 ---
@@ -20,7 +21,8 @@ import { Loader } from "@widgets/ui/Loader/ui/loader";
   </head>
   <body>
     <div class="container_single">
-      <Menu client:load />
+      <ProfileMenu client:load />
+      <ProfileHeader client:load />
       <Loader client:load />
       <div class="w-full flex flex-col lg:flex-row">
         <div class="w-full flex flex-col items-center lg:hidden">

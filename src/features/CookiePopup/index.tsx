@@ -63,7 +63,7 @@ export const CookiePopup = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Cookies"
-            className="cursor-pointer underline ml-1 text-main"
+            className="cursor-pointer underline ml-1 text-blue-200"
           >
             cookies
           </a>{" "}
@@ -73,7 +73,7 @@ export const CookiePopup = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Политика конфиденциальности"
-            className="cursor-pointer ml-1 text-main underline"
+            className="cursor-pointer underline ml-1 text-blue-200"
           >
             Политики конфиденциальности
           </a>

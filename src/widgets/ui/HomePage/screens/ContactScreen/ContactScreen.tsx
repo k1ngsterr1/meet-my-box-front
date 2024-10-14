@@ -59,6 +59,7 @@ export const ContactScreen = () => {
               alt="form_img"
               // width={400}
               // height={400}
+              loading="lazy"
               className="mt-4 w-full mb-8"
               width={512}
               height={256}
@@ -85,6 +86,7 @@ export const ContactScreen = () => {
             <img
               src={contact_img.src}
               alt="form_img"
+              loading="lazy"
               // width={400}
               // height={400}
               className={`${styles.contact_pc__img}`}

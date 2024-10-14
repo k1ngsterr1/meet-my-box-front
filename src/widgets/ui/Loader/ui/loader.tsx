@@ -14,6 +14,7 @@ export const Loader = () => {
       <img
         src={logo.src}
         alt="Logo"
+        loading="lazy"
         width={1024}
         height={512}
         // className="w-[1024px] h-[512px] object-contain" // CSS classes for additional styling

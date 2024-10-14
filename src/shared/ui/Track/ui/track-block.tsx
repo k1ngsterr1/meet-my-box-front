@@ -14,14 +14,7 @@ export const TrackBlock = ({ title, text, img }: any) => {
         <p className={styles.track__block__description}>{text}</p>
         <Button text="Отследить" buttonType="filled" margin="mt-10" />
       </div>
-      <img
-        src={baseUrl + img}
-        alt=""
-        className={styles.track__block__img}
-        width={1080}
-        height={1080}
-        style={{ width: "1080px", height: "1080px" }}
-      />
+      <img src={baseUrl + img} alt="" className={styles.track__block__img} />
     </div>
   );
 };

@@ -40,6 +40,7 @@ const postalCodePatterns: Record<string, RegExp> = {
 
 export const ProfilePage: React.FC = () => {
   const { result } = useGetProfile(); // Функция получения данных профиля
+  const [popup, setPopup] = useState<boolean>(false);
 
   useEffect(() => {
     checkAuth();
@@ -129,8 +130,10 @@ export const ProfilePage: React.FC = () => {
       const result = await useUpdateProfile(profileData);
 
       if (result === "Profile updated successfully") {
+        setPopup(true);
         setSuccessMessage("Профиль успешно обновлён");
       } else {
+        setPopup(false);
         setError(result);
       }
     } catch (error) {
@@ -140,6 +143,24 @@ export const ProfilePage: React.FC = () => {
 
   return (
     <main className={`${styles.profile_page} p-6  mt-8 mb-8 rounded-lg`}>
+      {popup && (
+        <>
+          <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full text-center">
+              <h2 className="text-3xl font-bold text-green-600 mb-4">
+                Ваш адрес обновлен!
+              </h2>
+              <button
+                onClick={() => setPopup(false)}
+                className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-300"
+              >
+                Закрыть
+              </button>
+            </div>
+          </div>
+          );
+        </>
+      )}
       <div className="flex items-center justify-between ">
         <h1 className="font-bold text-xl mb-4">Профиль клиента</h1>
         <span

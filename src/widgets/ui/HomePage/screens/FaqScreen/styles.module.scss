@@ -3,6 +3,10 @@
 .faq {
   @apply mt-14;
   width: 86.6%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   @apply mb-14;
   &__heading {
     @apply font-bold;

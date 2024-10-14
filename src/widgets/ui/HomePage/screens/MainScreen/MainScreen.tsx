@@ -47,6 +47,7 @@ export const MainScreen = () => {
             <img
               src={bg_logo.src}
               alt="bg_logo"
+              loading="lazy"
               className={styles.main_screen__logo}
             />
             <Fade>

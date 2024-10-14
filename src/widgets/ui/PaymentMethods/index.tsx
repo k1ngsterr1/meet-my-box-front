@@ -23,6 +23,7 @@ export const PaymentMethodsPage = () => {
       paymentMethod: "Оплата онлайн картой",
       price: price,
     });
+    await useSendEmail({ packageId: packageData.id });
     window.location.href = "/payment";
   };
 
