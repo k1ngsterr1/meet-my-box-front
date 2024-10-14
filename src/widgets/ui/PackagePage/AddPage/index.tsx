@@ -83,7 +83,7 @@ export const AddPackagesPage = () => {
       ) : (
         <>
           <div className={styles.package}>
-            <h2 className={styles.package__heading}>Добавьте адресса</h2>
+            <h2 className={styles.package__heading}>Добавьте адреса</h2>
             <Button
               text="Добавить"
               margin="mt-4"
@@ -94,7 +94,7 @@ export const AddPackagesPage = () => {
             />
           </div>
           <div className={styles.package_pc}>
-            <h2 className={styles.package_pc__heading}>Добавьте адресса</h2>
+            <h2 className={styles.package_pc__heading}>Добавьте адреса</h2>
             <Button
               text="Добавить"
               margin="mt-4"
