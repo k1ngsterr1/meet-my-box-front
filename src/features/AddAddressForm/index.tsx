@@ -1,5 +1,6 @@
 import { useAddAddress } from "@shared/lib/hooks/useAddAddress";
 // import Button from "@shared/ui/Button/ui/button";
+import PostcodeDropdown from "@entities/Postcodes";
 import { CheckCircleOutline, ErrorOutline } from "@mui/icons-material";
 import {
   Box,
@@ -191,6 +192,12 @@ export const AddAddressForm: React.FC<{ user?: any }> = ({ user }) => {
         required
         onChange={(e) => setPostalCode(e.target.value)}
         fullWidth
+      />
+      <PostcodeDropdown
+        value={postalCode}
+        onChange={setPostalCode}
+        placeholder="Введите индекс"
+        country={country}
       />
       <TextField
         label="Имя на домофоне"
@@ -447,14 +454,7 @@ export const AddAddressFormPC: React.FC<{ user?: any }> = ({ user }) => {
           (e) => setCity(e.target.value),
           "Введите название города. Пример: Алматы."
         )}
-        {renderTextFieldWithTooltip(
-          "Индекс",
-          postalCode,
-          (e) => setPostalCode(e.target.value),
-          "Введите ваш почтовый индекс. Пример: 050000."
-        )}
       </Box>
-
       {/* Country Dropdown */}
       <FormControl fullWidth>
         <InputLabel>Страна</InputLabel>
@@ -474,7 +474,12 @@ export const AddAddressFormPC: React.FC<{ user?: any }> = ({ user }) => {
           )}
         </Select>
       </FormControl>
-
+      <PostcodeDropdown
+        value={postalCode}
+        onChange={setPostalCode}
+        placeholder="Введите индекс"
+        country={country}
+      />
       <div className="flex items-center flex-col justify-center">
         <Button text="Сохранить" type="submit" buttonType="filled" />
         <Button

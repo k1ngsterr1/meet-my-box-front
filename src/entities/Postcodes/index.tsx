@@ -67,7 +67,11 @@ const PostcodeDropdown: React.FC<PostcodeDropdownProps> = ({
         suggestions = await fetchFromGeoapify(postcode, countryCode);
       }
 
-      setSuggestions(suggestions);
+      const filteredSuggestions = suggestions.filter(
+        (suggestion) => suggestion.postalCode !== undefined
+      );
+
+      setSuggestions(filteredSuggestions);
     } catch (error) {
       console.error("Error fetching postcodes:", error);
       setSuggestions([]);
