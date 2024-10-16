@@ -3,7 +3,6 @@ import {
   FeedbackSwiperPC,
 } from "@features/Feedback/feedback-swiper";
 import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
-import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
@@ -27,9 +26,7 @@ export const FeedbackScreen = () => {
     fetchBlock();
   }, []);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  if (isLoading) return null;
 
   return (
     <>

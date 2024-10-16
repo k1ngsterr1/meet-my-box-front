@@ -6,7 +6,6 @@ import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import { FAQList } from "@shared/ui/Accordion/faq-accordion";
 import Button from "@shared/ui/Button/ui/button";
 import { Documents } from "@shared/ui/Documents";
-import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { useEffect, useState } from "react";
 import { InfoScreen } from "../../InfoScreen/InfoScreen";
 import styles from "./styles.module.scss";
@@ -16,11 +15,13 @@ export const CalculateScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isForm, setIsForm] = useState(true);
   const [parcels, setParcels] = useState([1]); // State to handle multiple parcels
+
   useEffect(() => {
     const fetchBlock = async () => {
       try {
         setIsLoading(true);
         const block = await useGetBlock("/api/calculate-blocks/1");
+        console.log("calc block:", block);
         setCalculate(block);
       } catch (error) {
         console.error("Error fetching packages:", error);
@@ -41,9 +42,7 @@ export const CalculateScreen = () => {
     setParcels((prevParcels) => [...prevParcels, prevParcels.length + 1]);
   };
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  if (isLoading) return <>a</>;
 
   return (
     <>

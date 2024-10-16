@@ -1,6 +1,5 @@
 import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import { TrackBlock, TrackBlockPC } from "@shared/ui/Track/ui/track-block";
-import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
@@ -22,9 +21,9 @@ export const TrackScreen = () => {
 
     fetchBlock();
   }, []);
-  if (isLoading) {
-    return <Loader />;
-  }
+
+  if (isLoading) return null;
+
   return (
     <>
       {track ? (

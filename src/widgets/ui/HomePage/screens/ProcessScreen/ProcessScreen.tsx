@@ -2,7 +2,6 @@ import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import { FAQList } from "@shared/ui/Accordion/faq-accordion";
 import Button from "@shared/ui/Button/ui/button";
 import { ProcessList, ProcessListPC } from "@shared/ui/Process/process-list";
-import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
@@ -28,9 +27,7 @@ export const ProcessScreen = () => {
   }, []);
   const [choosenState, setChoosenState] = useState<string>("Отправить посылку");
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  if (isLoading) return null;
 
   return (
     <>

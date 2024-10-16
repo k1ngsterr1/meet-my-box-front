@@ -93,8 +93,10 @@ export const AddressesSelectors: React.FC = () => {
         </option>
         {currentAddress?.map((address) => (
           <option key={address.id} value={address.id} className="w-full">
-            {address.city +
-              ", Здание " +
+            {address.postal_code +
+              "," +
+              address.city +
+              address.street +
               address.housing +
               ", Кв. " +
               address.apartment +

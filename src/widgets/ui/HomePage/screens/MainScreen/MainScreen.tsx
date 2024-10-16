@@ -6,7 +6,6 @@ import { baseUrl, useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import Button from "@shared/ui/Button/ui/button";
 import { IconButton } from "@shared/ui/IconButton/ui/icon-button";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
-import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
@@ -36,9 +35,8 @@ export const MainScreen = () => {
     localStorage.removeItem("rates");
   }, []);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  if (isLoading) return null;
+
   return (
     <>
       {main ? (

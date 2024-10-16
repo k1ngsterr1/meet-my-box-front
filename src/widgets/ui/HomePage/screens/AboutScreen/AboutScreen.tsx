@@ -1,6 +1,5 @@
 import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import { AboutGroup, AboutGroupPC } from "@shared/ui/Card/ui/About/about-card";
-import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import styles from "./styles.module.scss";
@@ -24,9 +23,7 @@ export const AboutScreen = () => {
     fetchBlock();
   }, []);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  if (isLoading) return null;
 
   return (
     <>

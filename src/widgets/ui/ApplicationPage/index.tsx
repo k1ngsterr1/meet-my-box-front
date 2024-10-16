@@ -481,7 +481,7 @@ export const ApplicationPage = () => {
             </option>
             {addresses?.map((address) => (
               <option key={address.id} value={address.id}>
-                {`${address.city}, Здание ${address.housing}, Кв. ${address.apartment}, Дом ${address.building}`}
+                {`${address.postalCode},  ${address.city}, Улица ${address.street} ${address.housing}, Кв. ${address.apartment}, Дом ${address.building}`}
               </option>
             ))}
           </select>

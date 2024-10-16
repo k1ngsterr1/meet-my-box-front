@@ -6,7 +6,6 @@ import {
 import { useGetBlock } from "@shared/lib/hooks/useGetBlock";
 import { ContactLink } from "@shared/ui/Link/Contact/contact-link";
 import { Paragraph } from "@shared/ui/Paragraph/ui/paragraph";
-import { Loader } from "@widgets/ui/Loader/ui/loader";
 import parse from "html-react-parser";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
@@ -29,10 +28,6 @@ export const ContactScreen = () => {
 
     fetchBlock();
   }, []);
-
-  if (isLoading) {
-    return <Loader />;
-  }
 
   return (
     <>
