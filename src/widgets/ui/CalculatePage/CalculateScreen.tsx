@@ -9,7 +9,6 @@ import Button from "@shared/ui/Button/ui/button";
 import { Documents } from "@shared/ui/Documents";
 import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
-import { Loader } from "../Loader/ui/loader";
 import styles from "./styles.module.scss";
 
 export const CalculatePage = () => {
@@ -43,7 +42,7 @@ export const CalculatePage = () => {
     setParcels((prevParcels) => [...prevParcels, prevParcels.length + 1]);
   };
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <></>;
 
   return (
     <>

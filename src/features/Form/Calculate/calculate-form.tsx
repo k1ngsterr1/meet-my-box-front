@@ -150,6 +150,15 @@ export const CalculateForm = () => {
         return;
       }
       localStorage.setItem("rates", JSON.stringify(response));
+      localStorage.setItem(
+        "dimensionsData",
+        JSON.stringify({
+          width: width,
+          height: height,
+          length: length,
+          width: width,
+        })
+      );
       window.location.href = `/rates`;
     } else {
       try {
@@ -172,6 +181,10 @@ export const CalculateForm = () => {
         ];
         response.dates = [getDateInfo(10), getDateInfo(14)];
         localStorage.setItem("rates", JSON.stringify(response));
+        localStorage.setItem(
+          "dimensionsData",
+          JSON.stringify({ width: width, height: height, length: length })
+        );
         window.location.href = `/rates`;
         console.log(response);
       } catch (err: any) {
@@ -492,6 +505,10 @@ export const CalculateFormPC = () => {
         return;
       }
       localStorage.setItem("rates", JSON.stringify(response));
+      localStorage.setItem(
+        "dimensionsData",
+        JSON.stringify({ width: width, height: height, length: length })
+      );
       window.location.href = `/rates`;
     } else {
       try {
@@ -513,6 +530,10 @@ export const CalculateFormPC = () => {
         ];
         response.dates = [getDateInfo(10), getDateInfo(14)];
         localStorage.setItem("rates", JSON.stringify(response));
+        localStorage.setItem(
+          "dimensionsData",
+          JSON.stringify({ width: width, height: height, length: length })
+        );
         window.location.href = `/rates`;
       } catch (err: any) {
         setIsLoading(false);

@@ -6,7 +6,6 @@ import {
   FooterLinksPC,
 } from "@shared/ui/Link/Footer/footer-links";
 import { SocialMediaLinks } from "@shared/ui/Link/Social/social-links";
-import { Loader } from "@widgets/ui/Loader/ui/loader";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 
@@ -33,7 +32,7 @@ export const Footer: React.FC = () => {
 
   // Return loader if data is still being fetched
   if (isLoading) {
-    return <Loader />;
+    return null;
   }
 
   // Return the complete footer structure once data is fetched

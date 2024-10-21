@@ -287,6 +287,9 @@ export const ApplicationPage = () => {
     } else {
       // Обновление и отправка данных пакета
       const packageData = JSON.parse(localStorage.getItem("packageId") || "{}");
+      const dimensionsData = JSON.parse(
+        localStorage.getItem("dimensionsData") || "{}"
+      );
       const rateType = (localStorage.getItem("rateType") || "{}") as
         | "Express"
         | "Standard";
@@ -305,7 +308,13 @@ export const ApplicationPage = () => {
         note: note,
         type: rateType,
         addressId: chosenAddress,
+        width: dimensionsData.width,
+        height: dimensionsData.height,
+        length: dimensionsData.length,
+        weight: dimensionsData.weight,
       });
+
+      localStorage.removeItem("dimensionsData");
 
       console.log(package_now);
 

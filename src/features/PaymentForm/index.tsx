@@ -4,7 +4,6 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 
-// Create a React component that handles payment confirmation
 export const PaymentForm = ({
   clientSecret,
   amount,
@@ -16,16 +15,36 @@ export const PaymentForm = ({
   const elements = useElements();
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [promoCode, setPromoCode] = useState<string>(""); // Track promo code input
+  const [discount, setDiscount] = useState<number>(0); // Track discount
+
+  // Handle promo code validation
+  const handleApplyPromoCode = async () => {
+    try {
+      const response = await fetch("/api/apply-promo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ promoCode }),
+      });
+      const data = await response.json();
+
+      if (data.valid) {
+        setDiscount(data.discountAmount);
+        setErrorMessage(null);
+      } else {
+        setErrorMessage("Invalid promo code.");
+      }
+    } catch (error) {
+      setErrorMessage("Failed to apply promo code.");
+    }
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!stripe || !elements) {
-      return;
-    }
+    if (!stripe || !elements) return;
 
     const cardElement = elements.getElement(CardElement);
-
     if (!cardElement) {
       setErrorMessage("Card information is missing.");
       return;
@@ -34,39 +53,23 @@ export const PaymentForm = ({
     const result = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: cardElement,
-        billing_details: {
-          name: "Test User",
-        },
+        billing_details: { name: "Test User" },
       },
     });
 
-    localStorage.removeItem("weight");
-    localStorage.removeItem("rates");
-    localStorage.removeItem("packageID");
-    localStorage.removeItem("packageId");
-
     if (result.error) {
       setErrorMessage(result.error.message || "Payment failed.");
-      setPaymentStatus("");
-    } else if (
-      result.paymentIntent &&
-      result.paymentIntent.status === "succeeded"
-    ) {
-      setPaymentStatus("Payment successful! Thank you for your purchase.");
-      setErrorMessage("");
+      setPaymentStatus(null);
+    } else if (result.paymentIntent?.status === "succeeded") {
+      setPaymentStatus("Payment successful! Thank you.");
+      const packageId = JSON.parse(
+        localStorage.getItem("packageId") || "{}"
+      ).id;
 
-      const packageData = localStorage.getItem("packageId");
-      const packageId = packageData ? JSON.parse(packageData).id : null;
-
-      // Make sure `packageId` is valid before using it
       if (packageId) {
-        console.log(packageId);
-        await useUpdatePackage({
-          id: packageId, // Use the parsed package ID here
-          payed: true,
-        });
-        await useSendEmail({ packageId: packageId });
-        localStorage.removeItem("packageId"); // Clear the package ID from localStorage after successful payment
+        await useUpdatePackage({ id: packageId, payed: true });
+        await useSendEmail({ packageId });
+        localStorage.removeItem("packageId");
       }
       window.location.href = "/packages";
     }
@@ -81,28 +84,38 @@ export const PaymentForm = ({
         </p>
         <div className="flex justify-center items-center mb-6">
           <span className="text-2xl font-semibold text-gray-700">
-            € {amount.toFixed(2)}
+            € {(amount - discount).toFixed(2)}
           </span>
         </div>
-        {/* Add autocomplete="off" to the form */}
+
         <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
           <div className="p-3 border border-gray-300 rounded-lg shadow-sm">
             <CardElement
               options={{
                 hidePostalCode: true,
-                style: {
-                  base: {
-                    fontSize: "16px",
-                    color: "#32325d",
-                    "::placeholder": {
-                      color: "#a0aec0",
-                    },
-                  },
-                },
+                style: { base: { fontSize: "16px", color: "#32325d" } },
               }}
               className="p-1 text-base"
             />
           </div>
+
+          <div className="flex space-x-2">
+            <input
+              type="text"
+              placeholder="Promo code"
+              value={promoCode}
+              onChange={(e) => setPromoCode(e.target.value)}
+              className="flex-1 p-2 border border-gray-300 rounded-md"
+            />
+            <button
+              type="button"
+              onClick={handleApplyPromoCode}
+              className="px-4 py-2 bg-blue-500 text-white rounded-md"
+            >
+              Apply
+            </button>
+          </div>
+
           <button
             type="submit"
             disabled={!stripe}
@@ -111,6 +124,7 @@ export const PaymentForm = ({
             Pay Now
           </button>
         </form>
+
         {paymentStatus && (
           <p className="text-green-600 text-center mt-4">{paymentStatus}</p>
         )}
@@ -121,3 +135,5 @@ export const PaymentForm = ({
     </div>
   );
 };
+
+export default PaymentForm;
