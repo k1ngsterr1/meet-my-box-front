@@ -33,8 +33,7 @@ export const FAQScreen = () => {
                 </a>
               </button>
             </div>
-            <div className="flex flex-col">
-              {" "}
+            <div className="flex flex-col opacity-0">
               <h2 className="className">посылка из европы в россию</h2>
               <p className="className">
                 На сегодняшний день отправка посылок из европейских стран в

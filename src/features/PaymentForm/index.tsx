@@ -15,7 +15,7 @@ export const PaymentForm = ({
   const elements = useElements();
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [promoCode, setPromoCode] = useState<string>(""); // Track promo code input
+  const [couponCode, setCouponCode] = useState<string>(""); // Track promo code input
   const [discount, setDiscount] = useState<number>(0); // Track discount
 
   // Handle promo code validation
@@ -24,7 +24,7 @@ export const PaymentForm = ({
       const response = await fetch("/api/apply-promo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ promoCode }),
+        body: JSON.stringify({ couponCode }),
       });
       const data = await response.json();
 
@@ -103,8 +103,9 @@ export const PaymentForm = ({
             <input
               type="text"
               placeholder="Promo code"
-              value={promoCode}
-              onChange={(e) => setPromoCode(e.target.value)}
+              value={couponCode}
+              name="couponCode"
+              onChange={(e) => setCouponCode(e.target.value)}
               className="flex-1 p-2 border border-gray-300 rounded-md"
             />
             <button

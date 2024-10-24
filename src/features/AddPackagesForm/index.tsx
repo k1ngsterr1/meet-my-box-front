@@ -257,7 +257,7 @@ export const AddPackagesFormPC: React.FC<AddPackagesFormProps> = ({
             "number",
             weight,
             handleNumberInput(setWeight, 15),
-            "Укажите вес товара в килограммах. Пример: 500г"
+            "Укажите вес товара в килограммах. Пример: 1кг"
           )}
         </Box>
 
